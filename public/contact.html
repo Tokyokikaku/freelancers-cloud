@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>お問い合わせ｜外注ドットコム</title>
+  <meta name="description" content="外注ドットコムへのご相談・お問い合わせフォームです。要件が固まっていなくても、専属PMが丁寧にヒアリングします。ご相談は無料です。" />
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta property="og:site_name" content="外注ドットコム" />
+  <meta property="og:title" content="お問い合わせ｜外注ドットコム" />
+  <meta property="og:description" content="外注ドットコムへのご相談・お問い合わせフォームです。ご相談は無料です。" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="stylesheet" href="./styles.css" />
+  <script src="./main.js" defer></script>
+  <script src="./contact.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/" aria-label="外注ドットコム トップ">
+        <span>外注</span><i>ドット</i><span>コム</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-controls="global-nav" aria-expanded="false" aria-label="メニューを開く">
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+      </button>
+      <nav class="global-nav" id="global-nav" aria-label="メインナビゲーション">
+        <a href="/#services">サービス</a>
+        <a href="/#reasons">選ばれる理由</a>
+        <a href="/#flow">ご利用の流れ</a>
+        <a href="/#faq">よくあるご質問</a>
+        <a href="/contact" aria-current="page">お問い合わせ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="contact-hero section-tint">
+      <div class="container">
+        <p class="section-kicker">CONTACT</p>
+        <h1>まずは<wbr>お気軽に<wbr>ご相談ください</h1>
+        <p class="contact-lead">
+          フォームに沿ってご入力ください。<wbr>依頼内容が固まっていなくても、<wbr>専属PMがヒアリングしながら一緒に整理します。
+        </p>
+      </div>
+    </section>
+
+    <section class="contact-body">
+      <div class="container contact-grid">
+        <div class="contact-card">
+          <form id="contact-form" class="contact-form" action="/api/contact" method="post" novalidate>
+            <div class="form-row">
+              <label for="company">会社名・団体名 <em class="req">必須</em></label>
+              <input id="company" name="company" type="text" autocomplete="organization" maxlength="100" required />
+            </div>
+
+            <div class="form-row">
+              <label for="name">お名前 <em class="req">必須</em></label>
+              <input id="name" name="name" type="text" autocomplete="name" maxlength="100" required />
+            </div>
+
+            <div class="form-row">
+              <label for="email">メールアドレス <em class="req">必須</em></label>
+              <input id="email" name="email" type="email" autocomplete="email" inputmode="email" maxlength="200" required />
+            </div>
+
+            <div class="form-row">
+              <label for="tel">電話番号 <em class="opt">任意</em></label>
+              <input id="tel" name="tel" type="tel" autocomplete="tel" inputmode="tel" maxlength="30" />
+            </div>
+
+            <div class="form-row">
+              <label for="category">ご相談内容 <em class="req">必須</em></label>
+              <select id="category" name="category" required>
+                <option value="">選択してください</option>
+                <option>Web制作</option>
+                <option>システム開発</option>
+                <option>SNS運用</option>
+                <option>広告運用</option>
+                <option>コンサルティング</option>
+                <option>その他・まだ決まっていない</option>
+              </select>
+            </div>
+
+            <div class="form-split">
+              <div class="form-row">
+                <label for="budget">ご予算 <em class="opt">任意</em></label>
+                <select id="budget" name="budget">
+                  <option value="">選択してください</option>
+                  <option>未定・相談したい</option>
+                  <option>10万円未満</option>
+                  <option>10万円〜30万円</option>
+                  <option>30万円〜100万円</option>
+                  <option>100万円以上</option>
+                </select>
+              </div>
+              <div class="form-row">
+                <label for="timing">ご希望の時期 <em class="opt">任意</em></label>
+                <select id="timing" name="timing">
+                  <option value="">選択してください</option>
+                  <option>未定・相談したい</option>
+                  <option>できるだけ早く</option>
+                  <option>1か月以内</option>
+                  <option>3か月以内</option>
+                  <option>半年以内</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <label for="message">ご相談内容の詳細 <em class="req">必須</em></label>
+              <textarea id="message" name="message" rows="7" maxlength="3000" required
+                placeholder="現在の課題やご要望をご記入ください（まだ整理できていなくても大丈夫です）"></textarea>
+            </div>
+
+            <!-- スパム対策用（人には見えない入力欄。入力されていたら送信を無視します） -->
+            <div class="hp-field" aria-hidden="true">
+              <label for="website">ウェブサイト</label>
+              <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
+            </div>
+
+            <p class="form-note">ご入力いただいた内容は、ご相談への対応のみに使用します。</p>
+
+            <div class="form-status" id="form-status" role="status" aria-live="polite" hidden></div>
+
+            <button class="btn btn-primary btn-large form-submit" type="submit">
+              <span class="submit-label">送信する</span> <span aria-hidden="true">→</span>
+            </button>
+          </form>
+
+          <div class="form-done" id="form-done" tabindex="-1" hidden>
+            <div class="done-icon" aria-hidden="true">✓</div>
+            <h2>送信が完了しました</h2>
+            <p>お問い合わせありがとうございます。<wbr>内容を確認のうえ、<wbr>担当者よりご連絡いたします。</p>
+            <a class="btn btn-primary btn-small" href="/">トップページへ戻る</a>
+          </div>
+        </div>
+
+        <aside class="contact-aside" aria-label="ご相談について">
+          <div class="aside-card">
+            <h2>ご相談について</h2>
+            <ul class="check-list">
+              <li>ご相談は無料です</li>
+              <li>要件が固まっていなくてもOK</li>
+              <li>小規模な案件でも相談可能</li>
+              <li>ご予算に合わせて最適な人材・プランをご提案</li>
+            </ul>
+          </div>
+          <div class="aside-card">
+            <h2>メールでのご相談</h2>
+            <p>フォームを使わず、メールで直接ご連絡いただくこともできます。</p>
+            <a class="aside-mail" href="mailto:info@tyokikaku.co.jp">info@tyokikaku.co.jp</a>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">© 外注ドットコム</div>
+  </footer>
+</body>
+</html>

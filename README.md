@@ -8,9 +8,13 @@
 .
 ├── public/                  # 公開されるファイル一式（Vercelの出力ディレクトリ）
 │   ├── index.html
+│   ├── contact.html         # お問い合わせページ（/contact）
 │   ├── styles.css
 │   ├── main.js              # スマホ・タブレット用メニューの開閉のみ
+│   ├── contact.js           # お問い合わせフォームの送信処理
 │   └── assets/              # 画像
+├── api/
+│   └── contact.js           # フォーム受付（Vercel Function。メール送信）
 ├── vercel.json              # Vercel設定（出力先・キャッシュ・セキュリティヘッダー）
 └── README.md
 ```
@@ -61,6 +65,18 @@ Vercel CLI を使う場合は `npx vercel dev` でも確認できます。
 
 見出しなどの改行は `<wbr>`（ここで改行してよい位置）で制御しています。文言を変更する場合は、改行させたい区切りに `<wbr>` を入れてください。`<br>` は常に改行、`<br class="desktop-only">` は1行に収まる幅があるとき（1181px以上、641〜980px）のみ改行します。
 
-## お問い合わせ先
+## お問い合わせページ
 
-ページ下部の「まずは相談する」ボタンは `mailto:info@tyokikaku.co.jp` を開きます（ヘッダーなどの他の相談ボタンはこのボタンの位置へスクロールします）。宛先を変更する場合は `public/index.html` の `mailto:` を書き換えてください。
+LP 内の「まずは相談する」ボタンはすべて `/contact`（`public/contact.html`）へ移動します。フォームの送信先は `api/contact.js`（Vercel Function）で、[Resend](https://resend.com) 経由で `info@tyokikaku.co.jp` 宛にメールを送ります（返信先はお客様のメールアドレス）。
+
+### 公開前に必要な設定
+
+Vercel のプロジェクト設定（Settings → Environment Variables）に以下を登録し、再デプロイしてください。未設定の間は、フォーム送信時に「送信できませんでした。… info@tyokikaku.co.jp まで直接ご連絡ください」と表示されます。
+
+| 変数 | 必須 | 内容 |
+| --- | --- | --- |
+| `RESEND_API_KEY` | 必須 | Resend の API キー |
+| `CONTACT_FROM` | 必須 | 送信元。Resend で認証済みのドメインのアドレス（例: `外注ドットコム <noreply@example.com>`） |
+| `CONTACT_TO` | 任意 | 通知の宛先（未設定なら `info@tyokikaku.co.jp`） |
+
+スパム対策として、人には見えない入力欄（ハニーポット）に入力があった送信は無視します。入力項目や選択肢は `public/contact.html` と `api/contact.js` の `FIELDS` で変更できます。
