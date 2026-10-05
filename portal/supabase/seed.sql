@@ -661,6 +661,36 @@ values ('apodol-hpg', 'アポドル', 'H.P.G. 服部プロセスグループ', '
   on conflict (slug) do nothing;
 insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'apodol-hpg' and c.slug = 'sales-outsourcing' on conflict do nothing;
 
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, pricing_model, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('takecoco-instagram', 'TakeCoco（テイクココ）', 'セスグモ株式会社 / TAKECOCO Inc.', 'Instagram運用を月額3万円の固定費とフォロワー1人あたり80円〜150円の成果報酬で依頼できる運用代行。', 'TakeCocoは、Instagramアカウント運用を成果報酬を組み合わせた料金で依頼できる運用代行サービスです。公式サイトには、トライアルプラン（成果報酬1フォロワー増加あたり150円〜、月額固定3万円、契約期間3か月）とスタンダードプラン（1フォロワー増加あたり80円〜、月額固定3万円、契約期間6か月）の2種類が掲載されています。
+
+成果の指標は主にフォロワー増加数ですが、公式サイトには、フォロワー数に限らず自社HPへの誘導や商品販売などに合わせてカスタマイズできると記載されています。また予算条件の設定が可能と案内されています。月額固定費が標準で発生するため、完全成果報酬ではなく固定費併用型です。
+
+初期費用の有無および税表記は公式サイトに記載がないため要問い合わせ。対応媒体はInstagramのほかTwitter等と記載されています。', null, 'https://take-coco.com/', 'unknown', null, 'paid', '30,000円（税表記は公式に記載なし）', 'トライアル150円〜/フォロワー増加、スタンダード80円〜/フォロワー増加', '月額3万円の固定費と最低契約期間（3か月/6か月）が必須。単価は「150円〜」「80円〜」と下限表記。フォロワー数は事業成果（売上・問い合わせ）と直結しない指標のため、獲得フォロワーの質に注意。初期費用・税表記は公式に記載なし。', 'フォロワー増加数（1人あたり単価）。自社HP誘導や商品販売などへのカスタマイズも可能と記載', 'other', 'hybrid', false, false, 'Instagram運用を予算内で外部委託したい企業', array['フォロワー増加1人あたり80円〜の成果報酬', 'トライアル(3か月)とスタンダード(6か月)の2プラン', '成果指標はHP誘導・商品販売などにカスタマイズ可能', '予算条件の設定が可能']::text[], 'unpartnered', false, true, true, 'verified', 'https://take-coco.com/', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'takecoco-instagram' and c.slug = 'instagram-ops' on conflict do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, false from services s, categories c where s.slug = 'takecoco-instagram' and c.slug = 'x-ops' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, pricing_model, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('movie-penguin-tiktok', 'Movie Penguin TikTok運用代行', '株式会社Movie Penguin', '1再生2.5円の再生数連動報酬に月額撮影費5万円〜を組み合わせたTikTok運用代行。', '株式会社Movie PenguinのTikTok運用代行は、公式サイトで「1再生2.5円」の成果報酬を提示しています。1本あたりの支払いには4万円の上限が設けられていると記載されています。
+
+固定費として月額の撮影費5万円〜が別途かかる体系で、例として30万再生なら75万円（税別）に撮影費を加算、100万再生では上限適用で96万円（税別）に撮影費を加算と示されています。最低契約期間は初回3か月、更新時は半年単位です。
+
+TikTok・Instagram・YouTubeの3媒体への同時投稿が標準で、撮影、編集、投稿、ハッシュタグ選定、定例会での報告・相談が含まれます。無料相談・資料請求は毎月3社限定で受け付けているとされています。初期費用の有無および最低保証の詳細は、公式サイトに記載がないため要問い合わせです。ページの最終更新日も確認できませんでした。', null, 'https://rikito-movie-marketing.com/tiktok/', 'unknown', null, 'paid', '撮影費 月額5万円〜', '1再生2.5円（1本あたりの支払い上限4万円）', '最低契約期間は初回3か月（更新時は半年単位）。月額撮影費5万円〜は再生数に関係なく発生。成果指標は再生数であり、売上や問い合わせなど事業成果とは直結しない点に注意。ページの最終更新日は確認できず、現行提供は掲載ページの存在のみで確認。 公式サイトの現行ページで提供状況を確認できなかったため、最新の条件は公式サイトでご確認ください。', '投稿動画の再生数', 'other', 'hybrid', false, true, null, array['再生数連動の成果報酬（1再生2.5円）', '撮影・編集・投稿まで込み', '定例会での報告・相談', 'TikTok・Instagram・YouTubeに同時投稿']::text[], 'unpartnered', false, true, true, 'verified', 'https://rikito-movie-marketing.com/tiktok/', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'movie-penguin-tiktok' and c.slug = 'tiktok-ops' on conflict do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, false from services s, categories c where s.slug = 'movie-penguin-tiktok' and c.slug = 'instagram-ops' on conflict do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, false from services s, categories c where s.slug = 'movie-penguin-tiktok' and c.slug = 'youtube-ops' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, pricing_model, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('revive-line-success-plan', 'Revive 完全成果報酬プラン(LINE運用)', 'Canvas Inc.', 'LINE公式アカウントの戦略設計から運用・改善までを、初期費用0円・月額0円のCV数×成果単価で提供する成果報酬プラン。', 'ReviveはLINE公式アカウントを活用した新規顧客獲得の戦略設計から実行・改善までを支援するサービスで、公式の料金ページに「完全成果報酬プラン」が掲載されています。
+
+公式の料金ページでは、初期費用0円(アカウント開設、シナリオ設計、リッチメニュー制作などを含む)・月額利用料0円(顧客分析、効果測定、レポートなどを含む)と明記され、料金は「CV数×成果単価」で発生する体系とされています。成果単価の具体的な金額、およびCV(コンバージョン)の具体的な定義は公式サイトに記載がないため要問い合わせです。
+
+注意点として、同ページには最低契約期間が12ヶ月と記載されています。また、対象となるサイトやLPのモバイル月間PVの目安(5万〜10万PV程度。商材や成果単価によっては5万PV以下での実施も相談可能)が示されています。別途、アカウントや運用状況に応じて見積もる「運用代行プラン」も用意されています。', null, 'https://revive-chat.io/', 'free', '0円(公式料金ページに記載)', 'free', '0円(公式料金ページに記載)', 'CV数×成果単価(単価は公式に記載なし、要問い合わせ)', '最低契約期間は12ヶ月。対象サイト/LPのモバイル月間PVが5万〜10万程度が目安(商材や単価により5万以下も相談可)。成果単価とCVの定義は公式に記載がないため要問い合わせ。', 'LINE経由のCV(コンバージョン)発生。具体的な定義は公式サイトに記載がないため要問い合わせ', 'lead', 'success_only', true, false, 'LINEで新規顧客獲得を行いたい事業者(サイト/LPのモバイル月間PV5万〜10万程度が目安)', array['LINE公式アカウントの戦略設計から実行・改善まで一気通貫', '初期費用0円・月額0円で成果報酬のみ', '運用代行プラン(見積もり制)も選択可', '累計300社以上の運用支援実績を公式に掲載']::text[], 'unpartnered', false, true, true, 'verified', 'https://revive-chat.io/price', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'revive-line-success-plan' and c.slug = 'line-ops' on conflict do nothing;
+
 insert into articles (slug, title, excerpt, body, category_id, published, published_at) values ('what-is-performance-based-pricing', '成果報酬型サービスとは？固定費型との違いと選び方', '成果報酬型と固定費型の違い、メリット・注意点、比較時に確認したいポイントをまとめました。', '## 成果報酬型とは
 
 成果報酬型とは、あらかじめ決めた「成果」が発生した場合にだけ費用を支払う料金体系です。営業代行ならアポイント獲得や商談実施、採用なら採用決定、広告なら購入や申込といったものが成果にあたります。
