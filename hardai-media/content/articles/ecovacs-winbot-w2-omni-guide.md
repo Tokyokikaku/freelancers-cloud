@@ -3,7 +3,7 @@ title: ECOVACS WINBOT W2 OMNIの価格と特徴｜「AIで窓枠を自動認識�
 description: ECOVACSの窓拭きロボット「WINBOT W2 OMNI」について、価格、AIによる障害物・枠の認識、WIN-SLAM 4.0、110分稼働、5,500Paの吸着力、消耗品の価格を公式ストアで確認。2026年10月時点。
 date: 2026-10-05
 updated: 2026-10-05
-category: 窓・プールのロボット
+category: ロボット掃除機
 image: /images/winbot-w2omni-1.webp
 imageCredit: ECOVACS|https://www.ecovacs.com/jp/shop/winbot-window-cleaning-robot/winbot-w2-omni
 cta: [ECOVACS WINBOT W2 OMNI|ECOVACS公式で見る|https://www.ecovacs.com/jp/shop/winbot-window-cleaning-robot/winbot-w2-omni|99,800円（税込）|ステーションとロボットのセット。パッドや洗浄剤などの消耗品も、同じ公式ストアで販売されています|shops||/images/winbot-w2omni-1.webp|AIで障害物や枠を認識するとうたう、コンセントいらずで使える多機能ステーション付きの窓拭きロボット|大容量バッテリーで連続110分稼働、約55平方メートルの窓を一度で掃除／5,500Paの吸着力と、床面をつかむ800Nのステーション／AIで障害物や枠を自動認識し、フレームレス窓などにも適応するとメーカーが説明|高い場所や手の届かない窓の掃除を任せたい人、電源の取れない場所の窓も掃除したい人]

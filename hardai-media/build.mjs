@@ -263,7 +263,7 @@ articles.forEach(prep);
 /* ---------- カテゴリ詳細ページ兼・比較記事 ---------- */
 const CIRC = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨', '⑩'];
 const circ = n => CIRC[n - 1] || `${n}.`;
-const HUB_INCLUDE = /(どんな|特徴|できること|仕様|費用|価格|種類|プラン|違い|モデル|機能|仕組み|比較|スペック|中身|セット|買う前|使う前)/;
+const HUB_INCLUDE = /(どんな|特徴|できること|仕様|費用|価格|種類|プラン|違い|モデル|機能|仕組み|比較|スペック|中身|セット|買う前|使う前|AIに関する)/;
 const HUB_EXCLUDE = /^(出典|どんな人に向いて|どんな人向け|買える|販売状況|あわせて|どれを選ぶ|動画)/;
 const embedArticle = a => {
   const all = a.hub === 'all';
@@ -363,7 +363,7 @@ ${others.length ? `<section class="related"><div class="wrap"><div class="sectio
   }));
 }
 
-const CAT_ORDER = ['AIペット', 'コミュニケーションロボット', 'ロボット掃除機', 'AIガジェット', '知育ロボット', 'スポーツロボット', '人型ロボット', '四足ロボット', '購入ガイド'];
+const CAT_ORDER = ['AIペット', 'コミュニケーションロボット', 'ロボット掃除機', 'ロボット芝刈り機', 'AI家電', 'AIガジェット', '知育ロボット', 'スポーツロボット', '人型ロボット', '四足ロボット', '購入ガイド'];
 const catSlug = c => 'c' + (CAT_ORDER.indexOf(c) >= 0 ? CAT_ORDER.indexOf(c) : 99);
 const catGroups = [...new Set([...CAT_ORDER, ...articles.map(a => a.category)])].map(c => [c, articles.filter(a => a.category === c)]).filter(([, l]) => l.length);
 

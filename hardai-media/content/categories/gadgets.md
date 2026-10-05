@@ -4,7 +4,7 @@ description: AIボイスレコーダー、翻訳機・翻訳イヤホン、見�
 name: AIガジェット
 summary: AI録音、翻訳、見守り、アート。日常を便利にするAI搭載ガジェットをジャンル別に比較
 products: [switchbot-ai-art-canvas-guide]
-priceRange: 7,980円〜
+priceRange: 3,180円〜
 icon: gadget
 order: 4
 updated: 2026-10-05

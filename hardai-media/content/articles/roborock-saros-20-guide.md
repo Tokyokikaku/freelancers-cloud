@@ -97,7 +97,7 @@ Roborock公式のアクセサリー一覧には、Saros 20に対応する消耗�
 - **騒音**：ストアの仕様欄は「稼働中騒音：日常会話レベル」とだけ書いており、dB値は**未確認**です。
 - **実際の使い勝手**：当サイトでは使用していないため、掃除の仕上がり、動作音、アプリの使いやすさなどは評価していません。
 
-水拭きまで全自動で、価格をおさえたい場合は、[Roborock Qrevo L](/articles/roborock-qrevo-l-guide/)、同じ薄型・全自動ドックの系統では[Roborock Saros 10R](/articles/roborock-saros-10r-guide/)も候補になります。他社の水拭き対応モデルは、[Eufyロボット掃除機の選び方](/articles/eufy-robot-vacuum-guide/)や[SwitchBot S20](/articles/switchbot-s20-guide/)も参考にしてください。
+同じ薄型・全自動ドックの系統では、[Roborock Saros 10R](/articles/roborock-saros-10r-guide/)も候補になります。他社の水拭き対応モデルは、[Eufyロボット掃除機の選び方](/articles/eufy-robot-vacuum-guide/)や[SwitchBot S20](/articles/switchbot-s20-guide/)も参考にしてください。
 
 ## 出典
 

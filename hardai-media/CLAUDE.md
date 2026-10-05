@@ -72,3 +72,4 @@
 - 公式ページでAI・学習・成長などの機能が確認できない製品は掲載しない（例：猫舌ふーふー、甘噛みハムハム、fufuly、Qoobo、toio）。該当記事は `content/archive/` に退避してあり、ビルド対象外。URLは `vercel.json` でカテゴリページへリダイレクト。
 - 新しい製品を足すときは、記事内に「AIに関する公式の説明」を必ず書く。確認できない場合は掲載を見送る。
 - 大カテゴリ配下のジャンルは、frontmatter の `parent: <大カテゴリのslug>` で作る。1ジャンルに2製品以上そろってから分ける。
+- ロボット掃除機はブランド別（`vacuum-<brand>`）、AIガジェットは用途別のジャンルに分けている。「AI」の語が公式ページにない製品（例：ECOVACS WINBOT mini 2、Roborock Qrevo L）も `content/archive/` に退避した。

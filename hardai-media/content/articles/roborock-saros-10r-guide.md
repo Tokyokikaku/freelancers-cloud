@@ -92,7 +92,7 @@ Roborock公式のアクセサリー一覧に、Saros 10Rに対応する消耗品
 - **認識の限界**：回避の対象は幅2cm・高さ2cm以上の物体で、100%の回避は保証されていません。
 - **実際の使い勝手**：当サイトでは使用していないため、掃除の仕上がりや動作音、アプリの使いやすさは評価していません。
 
-上位の後継にあたる機種を探す場合は、[Roborock Saros 20](/articles/roborock-saros-20-guide/)を、価格をおさえたい場合は[Roborock Qrevo L](/articles/roborock-qrevo-l-guide/)も候補になります。他社の水拭き対応モデルは、[Eufyロボット掃除機の選び方](/articles/eufy-robot-vacuum-guide/)も参考にしてください。
+同じSarosシリーズで、汚れ検知AIクリーニングを備えるモデルを探す場合は[Roborock Saros 20](/articles/roborock-saros-20-guide/)も候補になります。他社の水拭き対応モデルは、[Eufyロボット掃除機の選び方](/articles/eufy-robot-vacuum-guide/)も参考にしてください。
 
 ## 出典
 
