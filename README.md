@@ -1,3 +1,6 @@
+> **新サイト「成果報酬ナビ」（成果報酬サービス比較ポータル）は [`portal/`](./portal) にあります。** Next.js + Supabase 構成です。セットアップ・デプロイ手順は [`portal/README.md`](./portal/README.md) を参照してください（Vercel の Root Directory を `portal` に設定）。
+> 以下は従来の静的LP（外注ドットコム）の説明です。
+
 # 外注ドットコム LP
 
 静的HTML/CSSで作ったランディングページです。ビルド不要で、Vercel にそのままデプロイできます。

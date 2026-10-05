@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "BIZ UDPGothic", "Yu Gothic UI", Meiryo, "Noto Sans JP", system-ui, sans-serif;
+  --color-ink: #0f172a;
+  --color-body: #334155;
+  --color-muted: #64748b;
+  --color-line: #e2e8f0;
+  --color-surface: #f8fafc;
+  --color-brand-50: #eff6ff;
+  --color-brand-100: #dbeafe;
+  --color-brand-500: #2563eb;
+  --color-brand-600: #1d4ed8;
+  --color-brand-700: #1e40af;
+  --color-brand-900: #172554;
+  --color-good-50: #ecfdf5;
+  --color-good-100: #d1fae5;
+  --color-good-700: #047857;
+  --color-warn-50: #fffbeb;
+  --color-warn-700: #b45309;
+}
+
+@layer base {
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    @apply bg-white font-sans text-body antialiased;
+    line-height: 1.8;
+    word-break: auto-phrase; /* 対応ブラウザでは日本語を文節単位で折り返す */
+    overflow-wrap: anywhere;
+  }
+  h1, h2, h3, h4 { @apply text-ink font-bold; line-height: 1.4; text-wrap: balance; }
+  a { text-underline-offset: 3px; }
+  :focus-visible { outline: 3px solid var(--color-brand-500); outline-offset: 2px; border-radius: 4px; }
+  dialog::backdrop { background: rgb(15 23 42 / 0.55); }
+}
+
+@utility container-page { @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8; }
+@utility section { @apply py-12 sm:py-16; }
+@utility h-section { @apply text-2xl sm:text-3xl; }
+@utility card { @apply rounded-2xl border border-line bg-white shadow-[0_1px_2px_rgb(15_23_42/0.04)]; }
+@utility btn { @apply inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-bold transition-colors; }
+@utility btn-primary { @apply btn bg-brand-600 text-white hover:bg-brand-700; }
+@utility btn-secondary { @apply btn border border-brand-600 bg-white text-brand-700 hover:bg-brand-50; }
+@utility btn-ghost { @apply btn border border-line bg-white text-ink hover:bg-surface; }
+@utility input { @apply w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-base text-ink placeholder:text-slate-400 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30 focus:outline-none; }
+@utility label { @apply mb-1.5 block text-sm font-bold text-ink; }
+@utility tag { @apply inline-flex items-center rounded-md px-2 py-0.5 text-xs leading-6 font-bold; }
+@utility prose-ja {
+  @apply text-base leading-8 text-body;
+  & h2 { @apply mt-10 mb-4 border-l-4 border-brand-600 pl-3 text-xl sm:text-2xl; }
+  & h3 { @apply mt-8 mb-3 text-lg; }
+  & p { @apply my-4; }
+  & ul { @apply my-4 list-disc pl-6; }
+  & ol { @apply my-4 list-decimal pl-6; }
+  & li { @apply my-1.5; }
+  & a { @apply text-brand-700 underline; }
+  & table { @apply my-6 block w-full border-collapse overflow-x-auto text-sm; }
+  & th, & td { @apply border border-line px-3 py-2 text-left align-top; }
+  & th { @apply bg-surface text-ink; }
+}
