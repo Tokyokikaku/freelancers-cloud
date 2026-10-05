@@ -21,14 +21,13 @@ Google スプレッドシートの記事 (Markdown) を、Wix Blog API で自動
 
 ## セットアップ
 
-1. **Wix の API キーを発行する**: Wix アカウント設定 → API キー。権限は「Manage Blog」と「Manage Ricos Document」だけにし、対象サイトを限定します
-2. **サイトIDと投稿者の member ID を調べる**: 投稿者は `memberId` が必須です。ブログの投稿者にするメンバーの ID を使います
-3. スプレッドシートの 拡張機能 → Apps Script を開き、`Code.gs` の中身を貼り付けて保存
-4. プロジェクトの設定 → スクリプト プロパティに次を追加
-   - `WIX_API_KEY` / `WIX_SITE_ID` / `WIX_MEMBER_ID`
-   - `PUBLISH` = `true` で即公開 (未設定なら Wix の下書き止まり)
-5. まず `postApprovedArticles` を手動実行して権限を承認し、1件だけ `承認済み` にして動作を確認
-6. 問題なければ `installTrigger` を1回実行 (以後1時間ごとに自動実行)
+1. **Wix の API キーを発行する**: Wix アカウント設定 → API キー。対象サイトを限定し、権限は「Manage Blog」「Manage Ricos Document」と、手順4の間だけ「Read Members」を付けます
+2. **サイトIDを調べる**: 管理画面 (ダッシュボード) を開いたときの URL に含まれる UUID です
+3. スプレッドシートの 拡張機能 → Apps Script を開き、`Code.gs` の中身を貼り付けて保存し、プロジェクトの設定 → スクリプト プロパティに `WIX_API_KEY` と `WIX_SITE_ID` を追加
+4. **投稿者の member ID を調べる**: `listMembers` を実行すると、ログに `ID | メールアドレス | ニックネーム | 公開設定` が出ます。投稿者にするメンバーの ID を控え、スクリプト プロパティ `WIX_MEMBER_ID` に入れます。終わったら API キーから「Read Members」権限を外します
+5. 必要なら `PUBLISH` = `true` を追加 (即公開。未設定なら Wix の下書き止まり)
+6. まず `postApprovedArticles` を手動実行して権限を承認し、1件だけ `承認済み` にして動作を確認
+7. 問題なければ `installTrigger` を1回実行 (以後1時間ごとに自動実行)
 
 API キーはシートやリポジトリに書かず、必ずスクリプト プロパティに入れてください。
 

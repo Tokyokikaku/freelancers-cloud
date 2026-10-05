@@ -85,6 +85,19 @@ function installTrigger() {
 }
 
 /**
+ * 投稿者に使える member ID を調べるための補助関数 (セットアップ時に1回だけ手動実行)。
+ * 結果は 表示 → ログ に出る。API キーに「Read Members」権限が一時的に必要。
+ */
+function listMembers() {
+  const props = loadProps_({ needMember: false });
+  const res = wixFetch_(props, '/members/v1/members?paging.limit=50', 'get');
+  (res.members || []).forEach((m) => {
+    const nickname = m.profile && m.profile.nickname;
+    Logger.log([m.id, m.loginEmail || '', nickname || '', m.privacyStatus || ''].join('  |  '));
+  });
+}
+
+/**
  * AI が書いた Markdown を Wix 投稿用に整える。
  *  - 先頭の「# タイトル」は Wix 側のタイトルと重複するので削る
  *  - 「> 📷 画像候補：…」「> 📊【図解候補】…」の引用ブロックは制作メモなので削る (他社画像の無断転載も防ぐ)
@@ -164,7 +177,7 @@ function wixFetch_(props, path, method, payload) {
   return text ? JSON.parse(text) : {};
 }
 
-function loadProps_() {
+function loadProps_(opts) {
   const p = PropertiesService.getScriptProperties();
   const props = {
     apiKey: p.getProperty('WIX_API_KEY'),
@@ -172,7 +185,8 @@ function loadProps_() {
     memberId: p.getProperty('WIX_MEMBER_ID'),
     publish: p.getProperty('PUBLISH') === 'true', // 既定は下書き止まり
   };
-  ['apiKey', 'siteId', 'memberId'].forEach((k) => {
+  const required = opts && opts.needMember === false ? ['apiKey', 'siteId'] : ['apiKey', 'siteId', 'memberId'];
+  required.forEach((k) => {
     if (!props[k]) throw new Error('スクリプトプロパティが未設定です: ' + k);
   });
   return props;
