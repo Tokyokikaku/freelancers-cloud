@@ -440,3 +440,28 @@ a:hover{text-decoration-thickness:2px}
 #hub-table td small{color:var(--mute);font-size:.76rem}
 
 #hub-table .offer-badge{display:inline-block;margin:6px 0 0;padding:2px 8px;border-radius:6px;white-space:nowrap;line-height:1.5}
+
+/* カテゴリ（大分類）：ジャンル一覧と商品グリッド */
+.landing{max-width:1200px;margin:0 auto;padding-bottom:24px}
+.landing>section{margin-top:40px}
+.landing .cat-grid{margin-top:16px}
+.pg-group{margin-top:32px}
+.pg-group-top{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;border-bottom:2px solid var(--line);padding-bottom:8px}
+.landing .pg-group-h{margin:0;font-size:1.25rem}
+.pg-group-link{font-weight:800;font-size:.9rem;color:var(--hot);text-decoration:none}
+.pg-group-link .arr{margin-left:4px}
+.pg-group-sum{margin:8px 0 16px;color:var(--ink-2);font-size:.92rem}
+.pg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
+.pg-card{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);overflow:hidden;transition:box-shadow .15s,transform .15s}
+.pg-card:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
+.pg-img{display:block;aspect-ratio:4/3;background:#fff;overflow:hidden}
+.pg-img img{width:100%;height:100%;object-fit:contain;display:block}
+.pg-body{display:flex;flex-direction:column;gap:6px;padding:12px 14px 14px;flex:1}
+.landing .pg-name{margin:0;font-size:1rem;line-height:1.4}
+.pg-name a{color:var(--ink);text-decoration:none}
+.pg-name a:hover{color:var(--hot)}
+.pg-tag{margin:0;font-size:.84rem;color:var(--ink-2);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.pg-price{margin:auto 0 0;font-size:.82rem;font-weight:700;color:var(--ink-2);font-feature-settings:"tnum"}
+.pg-btns{margin-top:6px}
+.pg-badge{margin:0;align-self:flex-start}
+.prose.landing{max-width:none;width:100%}.prose.landing>p{max-width:760px}

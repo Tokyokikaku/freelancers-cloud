@@ -282,11 +282,15 @@ const embedArticle = a => {
 };
 const hubs = fs.existsSync('content/categories') ? fs.readdirSync('content/categories').filter(f => f.endsWith('.md')).map(f => {
   const { data, body } = parseFrontmatter(fs.readFileSync(path.join('content/categories', f), 'utf8'));
-  for (const k of ['title', 'description', 'name', 'summary', 'products']) if (!data[k]) throw new Error(`categories/${f}: "${k}" がありません`);
+  for (const k of ['title', 'description', 'name', 'summary']) if (!data[k]) throw new Error(`categories/${f}: "${k}" がありません`);
   const slug = f.replace(/\.md$/, '');
-  const items = data.products.map(sl => { const a = articles.find(x => x.slug === sl); if (!a) throw new Error(`categories/${f}: 記事 ${sl} がありません`); return a; });
+  const items = (data.products || []).map(sl => { const a = articles.find(x => x.slug === sl); if (!a) throw new Error(`categories/${f}: 記事 ${sl} がありません`); return a; });
   return { ...data, slug, body, items, order: Number(data.order || 99) };
 }).sort((a, b) => a.order - b.order) : [];
+for (const h of hubs) h.children = hubs.filter(c => c.parent === h.slug);
+for (const h of hubs) { h.parentHub = hubs.find(p => p.slug === h.parent); h.allItems = [...h.items, ...h.children.flatMap(c => c.items)].filter((a, i, arr) => arr.indexOf(a) === i); }
+const topHubs = hubs.filter(h => !h.parent);
+const subOf = a => hubs.find(h => h.parent && h.items.includes(a));
 const hubUrl = h => `/category/${h.slug}/`;
 const HUB_ICONS = {
   vacuum: '<svg viewBox="0 0 120 120" role="img" aria-label="ロボット掃除機のイラスト"><ellipse cx="60" cy="106" rx="34" ry="5" fill="#0d6e66" opacity=".15"/><circle cx="60" cy="62" r="42" fill="#fffefb" stroke="#0d6e66" stroke-width="4"/><circle cx="60" cy="62" r="16" fill="#0d6e66"/><circle cx="60" cy="62" r="6" fill="#fffefb"/><circle cx="92" cy="40" r="5" fill="#e8431f"/><path d="M30 86q8 8 22 8" fill="none" stroke="#0d6e66" stroke-width="4" stroke-linecap="round" opacity=".5"/></svg>',
@@ -295,10 +299,10 @@ const HUB_ICONS = {
   edu: '<svg viewBox="0 0 120 120" role="img" aria-label="知育・スポーツロボットのイラスト"><rect x="14" y="52" width="48" height="48" rx="8" fill="#fffefb" stroke="#0d6e66" stroke-width="4"/><circle cx="30" cy="68" r="4" fill="#0d6e66"/><circle cx="46" cy="68" r="4" fill="#0d6e66"/><path d="M26 84h24" stroke="#0d6e66" stroke-width="4" stroke-linecap="round"/><circle cx="90" cy="44" r="26" fill="#fffefb" stroke="#e8431f" stroke-width="4"/><path d="M68 44q22 12 44 0M90 18q-12 26 0 52" fill="none" stroke="#e8431f" stroke-width="3"/></svg>'
 };
 const hubIcon = h => HUB_ICONS[h.icon] || ICONS[h.icon] || ICONS.default;
-const catCard = h => `<a class="cat-card" href="${hubUrl(h)}"><span class="cat-icon">${hubIcon(h)}</span><span class="cat-name">${esc(h.name)}</span><span class="cat-sum">${esc(h.summary)}</span><span class="cat-meta">${h.items.reduce((n, a) => n + Math.max(1, a._offers.length), 0)}製品${h.priceRange ? `　${esc(h.priceRange)}` : ''}</span><span class="cat-go">比較ページを見る<i class="arr" aria-hidden="true"></i></span></a>`;
+const catCard = h => `<a class="cat-card" href="${hubUrl(h)}"><span class="cat-icon">${hubIcon(h)}</span><span class="cat-name">${esc(h.name)}</span><span class="cat-sum">${esc(h.summary)}</span><span class="cat-meta">${h.allItems.reduce((n, a) => n + Math.max(1, a._offers.length), 0)}製品${h.priceRange ? `　${esc(h.priceRange)}` : ''}</span><span class="cat-go">${h.children.length ? `${h.children.length}つのジャンルから選ぶ` : '比較ページを見る'}<i class="arr" aria-hidden="true"></i></span></a>`;
 
 
-HUB_LINKS = hubs.map(h => `<a href="${hubUrl(h)}">${esc(h.name)}</a>`).join('');
+HUB_LINKS = topHubs.map(h => `<a href="${hubUrl(h)}">${esc(h.name)}</a>`).join('');
 
 for (const a of articles) {
   const url = `/articles/${a.slug}/`;
@@ -363,7 +367,34 @@ const CAT_ORDER = ['AIペット', 'コミュニケーションロボット', '�
 const catSlug = c => 'c' + (CAT_ORDER.indexOf(c) >= 0 ? CAT_ORDER.indexOf(c) : 99);
 const catGroups = [...new Set([...CAT_ORDER, ...articles.map(a => a.category)])].map(c => [c, articles.filter(a => a.category === c)]).filter(([, l]) => l.length);
 
-for (const h of hubs) {
+const gridCard = (o, a) => {
+  const sub = subOf(a); const href = sub ? `${hubUrl(sub)}#p-${a.slug}` : `/articles/${a.slug}/`; const img = o.img || a.image;
+  return `<article class="pg-card"><a class="pg-img" href="${href}" tabindex="-1" aria-hidden="true">${img ? `<img src="${esc(img)}" alt="" loading="lazy">` : ''}</a><div class="pg-body">${o.badge ? `<span class="offer-badge pg-badge">${esc(o.badge)}</span>` : ''}<h3 class="pg-name"><a href="${href}">${esc(o.name)}</a></h3><p class="pg-tag">${esc(o.tagline)}</p><p class="pg-price">${esc(o.price)}</p><div class="pg-btns">${ctaBtn(o, ' btn-sm btn-block')}</div></div></article>`;
+};
+const gridOf = items => `<div class="pg-grid">${items.flatMap(a => a._offers.map(o => gridCard(o, a))).join('')}</div>`;
+for (const h of hubs.filter(x => x.children.length)) {
+  const url = hubUrl(h);
+  const [leadMd, restMd = ''] = h.body.split('@@subs');
+  const [, afterMd = ''] = restMd.split('@@grid');
+  const own = h.items.length ? `<section class="pg-group" id="g-own"><h3 class="pg-group-h">その他の製品</h3>${gridOf(h.items)}</section>` : '';
+  const groups = h.children.map(c => `<section class="pg-group" id="g-${c.slug}"><div class="pg-group-top"><h3 class="pg-group-h">${esc(c.name)}</h3><a class="pg-group-link" href="${hubUrl(c)}">${esc(c.name)}を比較する<i class="arr" aria-hidden="true"></i></a></div><p class="pg-group-sum">${esc(c.summary)}</p>${gridOf(c.items)}</section>`).join('');
+  const total = h.allItems.reduce((n, a) => n + Math.max(1, a._offers.length), 0);
+  const others = topHubs.filter(x => x.slug !== h.slug);
+  write(`category/${h.slug}/index.html`, layout({
+    title: `${h.title} | ${NAME}`, desc: h.description, url, type: 'website', nav: 'category', ogImage: h.image || OG,
+    ld: [{ '@context': 'https://schema.org', '@type': 'CollectionPage', name: h.title, description: h.description, url: `${BASE}${url}`, inLanguage: 'ja' }],
+    body: `<div class="wrap"><header class="article-head">
+<ol class="crumbs"><li><a href="/">ホーム</a></li><li><a href="/#categories">商品カテゴリ</a></li><li aria-current="page">${esc(h.name)}</li></ol>
+<span class="tag">${esc(h.name)}</span><h1>${esc(h.title)}</h1><p class="desc">${esc(h.description)}</p>
+<div class="meta"><span>製品 ${total}点</span><span>最終確認 ${fmtDate(h.updated || '2026-10-05')}</span></div>${PR}</header>
+<div class="prose landing">${md(leadMd.replace(/^\s+/, ''))}
+<section id="subs"><h2>ジャンルから比較する</h2><div class="cat-grid">${h.children.map(catCard).join('')}</div></section>
+<section id="grid"><h2>${esc(h.name)}の製品一覧</h2>${groups}${own}</section>
+${md(afterMd)}</div></div>
+<section class="related"><div class="wrap"><div class="section-head"><div><p class="kicker">Categories</p><h2>ほかの商品カテゴリ</h2></div></div><div class="cat-grid">${others.map(catCard).join('')}</div></div></section>`
+  }));
+}
+for (const h of hubs.filter(x => !x.children.length)) {
   const url = hubUrl(h);
   const offerRows = [];
   const secs = [];
@@ -397,14 +428,16 @@ for (const h of hubs) {
   const aside = allOffers.length <= 4 ? asideCta(allOffers, h.image) : '';
   const sticky = stickyCta(allOffers, '#hub-table');
   const lead = leadHtml.replace(/<blockquote>/, '<blockquote class="hub-note">');
-  const others = hubs.filter(x => x.slug !== h.slug);
+  const sibs = h.parentHub ? h.parentHub.children.filter(x => x.slug !== h.slug) : [];
+  const others = topHubs.filter(x => x.slug !== h.slug && x.slug !== h.parent);
+  const crumbs = `<li><a href="/">ホーム</a></li><li><a href="/#categories">商品カテゴリ</a></li>${h.parentHub ? `<li><a href="${hubUrl(h.parentHub)}">${esc(h.parentHub.name)}</a></li>` : ''}<li aria-current="page">${esc(h.name)}</li>`;
   write(`category/${h.slug}/index.html`, layout({
     title: `${h.title} | ${NAME}`, desc: h.description, url, type: 'article', nav: 'category', ogImage: h.image || OG,
     ld: [{ '@context': 'https://schema.org', '@type': 'CollectionPage', name: h.title, description: h.description, url: `${BASE}${url}`, inLanguage: 'ja' },
       { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
         { '@type': 'ListItem', position: 1, name: NAME, item: `${BASE}/` }, { '@type': 'ListItem', position: 2, name: h.name, item: `${BASE}${url}` }] }],
     body: `<div class="wrap"><header class="article-head">
-<ol class="crumbs"><li><a href="/">ホーム</a></li><li><a href="/#categories">商品カテゴリ</a></li><li aria-current="page">${esc(h.name)}</li></ol>
+<ol class="crumbs">${crumbs}</ol>
 <span class="tag">${esc(h.name)}</span><h1>${esc(h.title)}</h1><p class="desc">${esc(h.description)}</p>
 <div class="meta"><span>製品 ${allOffers.length}点を比較</span><span>最終確認 ${fmtDate(h.updated || '2026-10-05')}</span></div>
 ${PR}</header>
@@ -414,6 +447,7 @@ ${secs.map(x => x.html).join('\n')}
 ${tailChunks.join('\n')}</article>
 <aside class="toc" aria-label="目次">${aside}${tocHtml}</aside></div></div>
 ${sticky}
+${sibs.length ? `<section class="related"><div class="wrap"><div class="section-head"><div><p class="kicker">${esc(h.parentHub.name)}</p><h2>同じカテゴリのほかのジャンル</h2></div></div><div class="cat-grid">${sibs.map(catCard).join('')}</div></div></section>` : ''}
 <section class="related"><div class="wrap"><div class="section-head"><div><p class="kicker">Categories</p><h2>ほかの商品カテゴリ</h2></div></div><div class="cat-grid">${others.map(catCard).join('')}</div></div></section>`
   }));
 }
@@ -426,9 +460,8 @@ write('index.html', layout({
 <p class="eyebrow">AI Pet ・ Robot ・ Gadget</p>
 <h1>家庭で使える<wbr>AIロボット・<wbr>AIガジェットを、<wbr><em>出典つき</em>で<wbr>比較する</h1>
 <p class="lead">AIペット、コミュニケーションロボット、ロボット掃除機、AIガジェット。製品の価格と仕様を、公式情報で確認して整理します。</p>
-<ul class="chips"><li>公式情報だけで整理</li><li>価格には確認日つき</li><li>実機レビューではありません</li></ul>
 </div><div class="hero-art">${HERO_ART}</div></div>
-<div class="hero-cats" id="categories"><p class="hero-cats-k">STEP 1　商品カテゴリから探す</p><div class="cat-grid">${hubs.map(catCard).join('')}</div></div>
+<div class="hero-cats" id="categories"><p class="hero-cats-k">STEP 1　商品カテゴリから探す</p><div class="cat-grid">${topHubs.map(catCard).join('')}</div></div>
 </div></section>
 <section class="section pick" id="pick"><div class="wrap">
 <div class="section-head"><div><p class="kicker">STEP 2</p><h2>目的から選ぶ</h2></div><p>カテゴリが決まっていなくても、やりたいことから探せます</p></div>
@@ -449,7 +482,7 @@ write('index.html', layout({
 <div class="cards">${articles.slice(0, 6).map(a => card(a)).join('')}</div></div></section>
 <section class="section" id="articles"><div class="wrap">
 <div class="section-head"><div><p class="kicker">All Articles</p><h2>すべての記事</h2></div><p>全${articles.length}本</p></div>
-${catGroups.map(([c, list]) => { const hh = hubs.find(h => h.items.some(a => a.category === c)); return `<div class="cat-group" id="cat-${catSlug(c)}"><h3 class="cat-title">${esc(c)}${hh ? `<a class="cat-title-link" href="${hubUrl(hh)}">比較ページへ →</a>` : ''}</h3><div class="cards">${list.map(a => card(a)).join('')}</div></div>`; }).join('')}
+${catGroups.map(([c, list]) => { const hh = topHubs.find(h => h.allItems.some(a => a.category === c)); return `<div class="cat-group" id="cat-${catSlug(c)}"><h3 class="cat-title">${esc(c)}${hh ? `<a class="cat-title-link" href="${hubUrl(hh)}">比較ページへ →</a>` : ''}</h3><div class="cards">${list.map(a => card(a)).join('')}</div></div>`; }).join('')}
 </div></section>
 <section class="section pledge"><div class="wrap">
 <div class="section-head"><div><p class="kicker">Our Rules</p><h2>このメディアの4つの約束</h2></div><p><a href="/about/">編集方針の全文を見る</a></p></div>
