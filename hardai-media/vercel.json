@@ -43,6 +43,86 @@
       "source": "/articles/ai-pet-robot-comparison/",
       "destination": "/category/pets/",
       "permanent": true
+    },
+    {
+      "source": "/articles/qoobo-guide",
+      "destination": "/category/pets/",
+      "permanent": true
+    },
+    {
+      "source": "/articles/qoobo-guide/",
+      "destination": "/category/pets/",
+      "permanent": true
+    },
+    {
+      "source": "/articles/toio-guide",
+      "destination": "/category/sports/",
+      "permanent": true
+    },
+    {
+      "source": "/articles/toio-guide/",
+      "destination": "/category/sports/",
+      "permanent": true
+    },
+    {
+      "source": "/articles/nekojita-fufu-guide",
+      "destination": "/category/communication/",
+      "permanent": true
+    },
+    {
+      "source": "/articles/nekojita-fufu-guide/",
+      "destination": "/category/communication/",
+      "permanent": true
+    },
+    {
+      "source": "/articles/hamham-guide",
+      "destination": "/category/communication/",
+      "permanent": true
+    },
+    {
+      "source": "/articles/hamham-guide/",
+      "destination": "/category/communication/",
+      "permanent": true
+    },
+    {
+      "source": "/articles/fufuly-guide",
+      "destination": "/category/communication/",
+      "permanent": true
+    },
+    {
+      "source": "/articles/fufuly-guide/",
+      "destination": "/category/communication/",
+      "permanent": true
+    },
+    {
+      "source": "/category/communication-healing",
+      "destination": "/category/communication/",
+      "permanent": true
+    },
+    {
+      "source": "/category/communication-healing/",
+      "destination": "/category/communication/",
+      "permanent": true
+    },
+    {
+      "source": "/category/communication-talk",
+      "destination": "/category/communication/",
+      "permanent": true
+    },
+    {
+      "source": "/category/communication-talk/",
+      "destination": "/category/communication/",
+      "permanent": true
+    },
+    {
+      "source": "/category/education",
+      "destination": "/category/sports/",
+      "permanent": true
+    },
+    {
+      "source": "/category/education/",
+      "destination": "/category/sports/",
+      "permanent": true
     }
   ]
 }
