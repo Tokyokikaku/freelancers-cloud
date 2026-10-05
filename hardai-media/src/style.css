@@ -389,3 +389,12 @@ a:hover{text-decoration-thickness:2px}
 .side-cta .side-cta-name{margin:0}
 .side-cta .btn-cta{padding:13px 10px;font-size:.84rem;gap:8px}
 .side-cta .btn-cta span{white-space:nowrap}
+
+.cat-nav{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 28px}
+.cat-nav a{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border:2px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);font-weight:800;font-size:.86rem;text-decoration:none;transition:border-color .15s,background .15s}
+.cat-nav a:hover{border-color:var(--accent);background:var(--accent-soft)}
+.cat-nav a span{display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 6px;border-radius:999px;background:var(--accent);color:var(--accent-ink);font-size:.72rem}
+.cat-group{margin-top:44px;scroll-margin-top:84px}
+.cat-group:first-of-type{margin-top:8px}
+.cat-title{margin:0 0 16px;font-size:1.25rem;font-weight:800;padding-left:14px;border-left:6px solid var(--accent);line-height:1.4}
+.cat-group .cards{grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}

@@ -312,6 +312,9 @@ ${others.length ? `<section class="related"><div class="wrap"><div class="sectio
   }));
 }
 
+const CAT_ORDER = ['AIペット', 'コミュニケーションロボット', '知育ロボット', '人型ロボット', '四足ロボット', '購入ガイド'];
+const catSlug = c => 'c' + (CAT_ORDER.indexOf(c) >= 0 ? CAT_ORDER.indexOf(c) : 99);
+const catGroups = [...new Set([...CAT_ORDER, ...articles.map(a => a.category)])].map(c => [c, articles.filter(a => a.category === c)]).filter(([, l]) => l.length);
 write('index.html', layout({
   title: `${NAME} | ${cfg.tagline}`, desc: `${cfg.tagline}。AIペット・家庭用ロボット・AIガジェットを、公式情報と出典つきで整理します。`, url: '/', nav: 'articles',
   ld: [{ '@context': 'https://schema.org', '@type': 'WebSite', name: NAME, url: `${BASE}/`, inLanguage: 'ja', description: cfg.tagline }],
@@ -331,11 +334,15 @@ write('index.html', layout({
 <a class="pick-card" href="/articles/lovot-guide/"><span class="pick-q">長く一緒に暮らしたい</span><span class="pick-a">LOVOT 3.0は10月26日に値上げ予定。現行価格は10月25日まで</span><span class="pick-go">LOVOTの費用を見る<i class="arr" aria-hidden="true"></i></span></a>
 <a class="pick-card" href="/articles/1x-neo-home-humanoid/"><span class="pick-q">家事を任せたい</span><span class="pick-a">1X NEOは月額499ドルまたは20,000ドル。米国で先行提供</span><span class="pick-go">NEOの条件を見る<i class="arr" aria-hidden="true"></i></span></a>
 <a class="pick-card" href="/articles/humanoid-robot-price-and-how-to-buy/"><span class="pick-q">開発・学習用に触りたい</span><span class="pick-a">Unitree R1は4,900ドルから、Go2は1,600ドルから</span><span class="pick-go">R1の条件を見る<i class="arr" aria-hidden="true"></i></span></a>
+<a class="pick-card" href="/articles/robohon-guide/"><span class="pick-q">話し相手になるロボットがほしい</span><span class="pick-a">ロボホン、NICOBO、BOCCO emoなど、会話や家族のやりとりを支える小型ロボット</span><span class="pick-go">コミュニケーションロボットを見る<i class="arr" aria-hidden="true"></i></span></a>
+<a class="pick-card" href="/articles/toio-guide/"><span class="pick-q">子どもと遊びながら学びたい</span><span class="pick-a">toioは、カードを置くだけでプログラミングできる手のひらサイズのロボットトイ</span><span class="pick-go">toioを見る<i class="arr" aria-hidden="true"></i></span></a>
 <a class="pick-card" href="/articles/try-before-buying-ai-robot/"><span class="pick-q">買う前に試したい</span><span class="pick-a">LOVOTはレンタルと体験施設（MUSEUM）で試せる</span><span class="pick-go">試し方を見る<i class="arr" aria-hidden="true"></i></span></a>
 </div></div></section>
 <section class="section" id="articles"><div class="wrap">
 <div class="section-head"><div><p class="kicker">Articles</p><h2>記事一覧</h2></div><p>全${articles.length}本 ／ 価格は月1回、公式ページで再確認します</p></div>
-<div class="cards">${articles.map((a, i) => card(a, i === 0)).join('')}</div></div></section>
+<nav class="cat-nav" aria-label="カテゴリ">${catGroups.map(([c, list]) => `<a href="#cat-${catSlug(c)}">${esc(c)}<span>${list.length}</span></a>`).join('')}</nav>
+${catGroups.map(([c, list]) => `<div class="cat-group" id="cat-${catSlug(c)}"><h3 class="cat-title">${esc(c)}</h3><div class="cards">${list.map(a => card(a)).join('')}</div></div>`).join('')}
+</div></section>
 <section class="section pledge"><div class="wrap">
 <div class="section-head"><div><p class="kicker">Our Rules</p><h2>このメディアの4つの約束</h2></div><p><a href="/about/">編集方針の全文を見る</a></p></div>
 <div class="pledge-grid">
