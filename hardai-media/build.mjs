@@ -312,7 +312,7 @@ ${others.length ? `<section class="related"><div class="wrap"><div class="sectio
   }));
 }
 
-const CAT_ORDER = ['AIペット', 'コミュニケーションロボット', '知育ロボット', '人型ロボット', '四足ロボット', '購入ガイド'];
+const CAT_ORDER = ['AIペット', 'コミュニケーションロボット', 'ロボット掃除機', 'AIガジェット', '知育ロボット', 'スポーツロボット', '人型ロボット', '四足ロボット', '購入ガイド'];
 const catSlug = c => 'c' + (CAT_ORDER.indexOf(c) >= 0 ? CAT_ORDER.indexOf(c) : 99);
 const catGroups = [...new Set([...CAT_ORDER, ...articles.map(a => a.category)])].map(c => [c, articles.filter(a => a.category === c)]).filter(([, l]) => l.length);
 write('index.html', layout({
@@ -336,6 +336,8 @@ write('index.html', layout({
 <a class="pick-card" href="/articles/humanoid-robot-price-and-how-to-buy/"><span class="pick-q">開発・学習用に触りたい</span><span class="pick-a">Unitree R1は4,900ドルから、Go2は1,600ドルから</span><span class="pick-go">R1の条件を見る<i class="arr" aria-hidden="true"></i></span></a>
 <a class="pick-card" href="/articles/robohon-guide/"><span class="pick-q">話し相手になるロボットがほしい</span><span class="pick-a">ロボホン、NICOBO、BOCCO emoなど、会話や家族のやりとりを支える小型ロボット</span><span class="pick-go">コミュニケーションロボットを見る<i class="arr" aria-hidden="true"></i></span></a>
 <a class="pick-card" href="/articles/toio-guide/"><span class="pick-q">子どもと遊びながら学びたい</span><span class="pick-a">toioは、カードを置くだけでプログラミングできる手のひらサイズのロボットトイ</span><span class="pick-go">toioを見る<i class="arr" aria-hidden="true"></i></span></a>
+<a class="pick-card" href="/articles/switchbot-k11-pro-guide/"><span class="pick-q">掃除をロボットに任せたい</span><span class="pick-a">小型のK11+ Pro、水拭きまで全自動のS20など、ロボット掃除機の価格と特徴を整理</span><span class="pick-go">ロボット掃除機を見る<i class="arr" aria-hidden="true"></i></span></a>
+<a class="pick-card" href="/articles/switchbot-ai-mindclip-guide/"><span class="pick-q">会議や思いつきをAIにメモさせたい</span><span class="pick-a">約16.8gのAIマインドクリップは、録音から文字起こし・要約・ToDo抽出まで自動</span><span class="pick-go">AIガジェットを見る<i class="arr" aria-hidden="true"></i></span></a>
 <a class="pick-card" href="/articles/try-before-buying-ai-robot/"><span class="pick-q">買う前に試したい</span><span class="pick-a">LOVOTはレンタルと体験施設（MUSEUM）で試せる</span><span class="pick-go">試し方を見る<i class="arr" aria-hidden="true"></i></span></a>
 </div></div></section>
 <section class="section" id="articles"><div class="wrap">
