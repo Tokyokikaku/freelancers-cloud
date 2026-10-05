@@ -12,9 +12,8 @@ out.push("-- 料金・成果報酬条件は公式サイトで確認できたも�
 out.push("begin;\n");
 
 // 親カテゴリ → 子カテゴリの順に投入
-const roots = seed.categories.filter((c) => !c.parent);
-const children = seed.categories.filter((c) => c.parent);
-for (const c of [...roots, ...children]) {
+const depthOf = (c) => (c.parent ? 1 + depthOf(seed.categories.find((x) => x.slug === c.parent)) : 0);
+for (const c of [...seed.categories].sort((a, b) => depthOf(a) - depthOf(b))) {
   const parent = c.parent ? `(select id from categories where slug = ${q(c.parent)})` : "null";
   out.push(
     `insert into categories (slug, name, icon, description, sort_order, parent_id, published) values (${q(c.slug)}, ${q(c.name)}, ${q(c.icon)}, ${q(c.description)}, ${c.sort_order}, ${parent}, true)\n` +

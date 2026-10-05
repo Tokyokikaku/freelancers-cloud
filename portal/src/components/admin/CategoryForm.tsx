@@ -2,6 +2,7 @@
 import { useActionState } from "react";
 import { saveCategory, type FormState } from "@/app/actions/admin";
 import type { Category } from "@/lib/types";
+import { flattenTree } from "@/lib/categories";
 import { Check, Field, FormMessage } from "./FormUI";
 
 const ICONS = ["sales", "marketing", "recruitment", "funding", "consulting", "production", "other"];
@@ -19,7 +20,7 @@ export function CategoryForm({ category, categories }: { category?: Category; ca
         <Field label="親カテゴリ" name="parent_id" error={e.parent_id}>
           <select id="parent_id" name="parent_id" defaultValue={c?.parent_id ?? ""} className="input">
             <option value="">（なし：大カテゴリ）</option>
-            {categories.filter((x) => x.id !== c?.id).map((x) => <option key={x.id} value={x.id}>{x.name}</option>)}
+            {flattenTree(categories).filter(({ category: x }) => x.id !== c?.id).map(({ category: x, depth }) => <option key={x.id} value={x.id}>{`${"　".repeat(depth)}${x.name}`}</option>)}
           </select>
         </Field>
         <Field label="アイコン" name="icon">

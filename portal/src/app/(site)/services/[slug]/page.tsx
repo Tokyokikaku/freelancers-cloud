@@ -14,6 +14,7 @@ import { OfficialSiteLink, PageEvent } from "@/components/Trackers";
 import { getArticles, getCategories, getServiceBySlug, getServices } from "@/lib/data";
 import { infoUpdatedAt, initialFeeLabel, monthlyFeeLabel, successConditionLabel, successFeeLabel } from "@/lib/format";
 import { documentCtaLabel, leadDisclaimer, partnerBadge } from "@/lib/partner";
+import { ancestors } from "@/lib/categories";
 import { buildMetadata, truncate } from "@/lib/seo";
 import { absoluteUrl } from "@/lib/site";
 import { OUTCOME_LABELS } from "@/lib/types";
@@ -91,7 +92,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
       <Breadcrumbs
         items={[
           { name: "サービス一覧", href: "/services" },
-          ...(primary ? [{ name: primary.name, href: `/category/${primary.slug}` }] : []),
+          ...(primary ? [...ancestors(categories, primary.id).map((a) => ({ name: a.name, href: `/category/${a.slug}` })), { name: primary.name, href: `/category/${primary.slug}` }] : []),
           { name: service.name },
         ]}
       />

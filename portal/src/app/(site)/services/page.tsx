@@ -9,6 +9,7 @@ import { getCategories, getServices } from "@/lib/data";
 import { getPopularServices } from "@/lib/popular";
 import { RANKING_NOTE } from "@/lib/ranking";
 import { applyFilters, normalize, parseIntent, searchEngine } from "@/lib/search";
+import { flattenTree } from "@/lib/categories";
 import { buildMetadata } from "@/lib/seo";
 import { OUTCOME_LABELS, type OutcomeType } from "@/lib/types";
 
@@ -73,7 +74,6 @@ export default async function ServicesPage({ searchParams }: { searchParams: Pro
 
   const intent = q ? parseIntent(q) : null;
   const outcomes = (Object.keys(OUTCOME_LABELS) as OutcomeType[]).filter((o) => all.some((s) => s.outcome_type === o));
-  const topCategories = categories.filter((c) => !c.parent_id);
   const activeCount = [filters.category, filters.outcome, filters.zeroInitial, filters.zeroMonthly, filters.fullSuccess, filters.freeConsultation].filter(Boolean).length;
 
   const buildHref = (over: Record<string, string | undefined>) => {
@@ -113,11 +113,8 @@ export default async function ServicesPage({ searchParams }: { searchParams: Pro
                 <label htmlFor="f-category" className="label">カテゴリ</label>
                 <select id="f-category" name="category" defaultValue={filters.category ?? ""} className="input">
                   <option value="">すべて</option>
-                  {topCategories.map((c) => (
-                    <optgroup key={c.id} label={c.name}>
-                      <option value={c.slug}>{c.name}（すべて）</option>
-                      {categories.filter((x) => x.parent_id === c.id).map((ch) => <option key={ch.id} value={ch.slug}>{ch.name}</option>)}
-                    </optgroup>
+                  {flattenTree(categories).map(({ category: c, depth }) => (
+                    <option key={c.id} value={c.slug}>{`${"　".repeat(depth)}${depth ? "└ " : ""}${c.name}`}</option>
                   ))}
                 </select>
               </div>

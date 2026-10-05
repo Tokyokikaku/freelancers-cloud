@@ -2,6 +2,7 @@
 import { useActionState } from "react";
 import { saveService, type FormState } from "@/app/actions/admin";
 import { OUTCOME_LABELS, PARTNER_STATUS_LABELS, type Category, type Service } from "@/lib/types";
+import { flattenTree } from "@/lib/categories";
 import { Check, Field, FormMessage, Section } from "./FormUI";
 
 const FEE_OPTIONS = [["unknown", "不明（要問い合わせ）"], ["free", "0円（無料）"], ["paid", "有料"]] as const;
@@ -10,7 +11,6 @@ export function ServiceForm({ service, categories, contact }: { service?: Servic
   const [state, action, pending] = useActionState<FormState, FormData>(saveService, {});
   const e = state.errors ?? {};
   const s = service;
-  const tops = categories.filter((c) => !c.parent_id);
   const primary = s?.category_ids[0];
 
   return (
@@ -32,25 +32,18 @@ export function ServiceForm({ service, categories, contact }: { service?: Servic
       </Section>
 
       <Section title="カテゴリ">
-        <div className="grid gap-x-6 gap-y-3 sm:grid-cols-2">
-          {tops.map((t) => (
-            <div key={t.id}>
-              <p className="text-sm font-bold text-ink">{t.name}</p>
-              <div className="mt-1 space-y-1">
-                {[t, ...categories.filter((c) => c.parent_id === t.id)].map((c) => (
-                  <label key={c.id} className="flex items-center gap-2 text-sm">
-                    <input type="checkbox" name="category_ids" value={c.id} defaultChecked={s?.category_ids.includes(c.id)} className="size-4 accent-brand-600" />
-                    {c.id === t.id ? `${c.name}（大カテゴリ）` : c.name}
-                  </label>
-                ))}
-              </div>
-            </div>
+        <div className="grid gap-x-6 gap-y-1 sm:grid-cols-2">
+          {flattenTree(categories).map(({ category: c, depth }) => (
+            <label key={c.id} className={`flex items-center gap-2 text-sm ${depth === 0 ? "mt-2 font-bold text-ink" : ""}`} style={{ paddingLeft: `${depth * 1.25}rem` }}>
+              <input type="checkbox" name="category_ids" value={c.id} defaultChecked={s?.category_ids.includes(c.id)} className="size-4 accent-brand-600" />
+              {c.name}
+            </label>
           ))}
         </div>
         <Field label="主カテゴリ" name="primary_category_id" hint="パンくずリストなどに使うカテゴリ（上でチェックしたもの）">
           <select id="primary_category_id" name="primary_category_id" defaultValue={primary ?? ""} className="input">
             <option value="">（先頭のチェック項目）</option>
-            {categories.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
+            {flattenTree(categories).map(({ category: c, depth }) => <option key={c.id} value={c.id}>{`${"　".repeat(depth)}${c.name}`}</option>)}
           </select>
         </Field>
       </Section>

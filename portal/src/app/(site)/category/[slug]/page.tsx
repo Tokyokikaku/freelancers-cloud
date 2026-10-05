@@ -8,6 +8,7 @@ import { PageEvent } from "@/components/Trackers";
 import { getArticles, getCategories, getServices, servicesInCategory } from "@/lib/data";
 import { getPopularServices } from "@/lib/popular";
 import { RANKING_NOTE } from "@/lib/ranking";
+import { ancestors } from "@/lib/categories";
 import { buildMetadata } from "@/lib/seo";
 import { absoluteUrl } from "@/lib/site";
 
@@ -57,13 +58,13 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
     <>
       <PageEvent name="category_page_view" params={{ category_id: cat.id, category_name: cat.name }} />
       <PageHeader
-        crumbs={[...(parent ? [{ name: parent.name, href: `/category/${parent.slug}` }] : []), { name: cat.name }]}
+        crumbs={[...ancestors(categories, cat.id).map((a) => ({ name: a.name, href: `/category/${a.slug}` })), { name: cat.name }]}
         title={`成果報酬型の${cat.name}サービス一覧`}
         lead={cat.description || defaultIntro(cat.name)}
       >
-        {(children.length > 0 || siblings.length > 0) && (
+        {siblings.length > 0 && (
           <ul className="mt-5 flex flex-wrap gap-2">
-            {[...children, ...siblings].map((c) => (
+            {siblings.map((c) => (
               <li key={c.id}><Link href={`/category/${c.slug}`} className="tag border border-line bg-white px-3 py-1 text-sm text-ink hover:border-brand-500">{c.name}</Link></li>
             ))}
           </ul>
@@ -71,7 +72,30 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
       </PageHeader>
 
     <div className="container-page py-8 sm:py-10">
-      <section className="mt-10" aria-labelledby="list">
+      {children.length > 0 && (
+        <section aria-labelledby="sub" className="mb-8">
+          <h2 id="sub" className="mb-3 border-l-[5px] border-brand-600 pl-3 text-lg">{cat.name}のカテゴリ</h2>
+          <ul className="grid gap-px overflow-hidden rounded-md border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
+            {children.map((ch) => {
+              const grand = categories.filter((g) => g.parent_id === ch.id);
+              return (
+                <li key={ch.id} className="bg-white p-3">
+                  <Link href={`/category/${ch.slug}`} className="flex items-center justify-between font-bold text-brand-700 hover:underline">
+                    {ch.name}<span className="text-xs font-normal text-muted">{servicesInCategory(allServices, categories, ch.id).length}件</span>
+                  </Link>
+                  {grand.length > 0 && (
+                    <ul className="mt-1.5 flex flex-wrap gap-x-3 gap-y-1 text-xs">
+                      {grand.map((g) => <li key={g.id}><Link href={`/category/${g.slug}`} className="text-body hover:text-brand-700 hover:underline">{g.name}（{servicesInCategory(allServices, categories, g.id).length}）</Link></li>)}
+                    </ul>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
+
+      <section className="mt-2" aria-labelledby="list">
         <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
           <div>
             <h2 id="list" className="text-xl sm:text-2xl">{cat.name}の成果報酬サービス（{ranked.length}件）</h2>

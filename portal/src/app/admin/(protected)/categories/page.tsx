@@ -2,17 +2,14 @@ import Link from "next/link";
 import { ConfirmButton } from "@/components/admin/ConfirmButton";
 import { deleteCategory } from "@/app/actions/admin";
 import { adminCategories } from "@/lib/admin-data";
+import { flattenTree } from "@/lib/categories";
 
 export const dynamic = "force-dynamic";
 
 export default async function AdminCategoriesPage({ searchParams }: { searchParams: Promise<{ saved?: string; deleted?: string }> }) {
   const sp = await searchParams;
   const categories = await adminCategories();
-  const roots = categories.filter((c) => !c.parent_id);
-  const ordered = roots.flatMap((r) => [{ c: r, depth: 0 }, ...categories.filter((c) => c.parent_id === r.id).map((c) => ({ c, depth: 1 }))]);
-  // 3階層目以降（孫カテゴリ）も表示から漏れないよう追加
-  const shown = new Set(ordered.map((o) => o.c.id));
-  categories.filter((c) => !shown.has(c.id)).forEach((c) => ordered.push({ c, depth: 2 }));
+  const ordered = flattenTree(categories).map(({ category: c, depth }) => ({ c, depth }));
   return (
     <div className="max-w-4xl space-y-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
