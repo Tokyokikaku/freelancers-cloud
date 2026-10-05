@@ -2,6 +2,10 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  async redirects() {
+    // 統合したカテゴリの旧URL
+    return [{ source: "/category/tele-appointment", destination: "/category/sales-outsourcing", permanent: true }];
+  },
   async headers() {
     return [
       {

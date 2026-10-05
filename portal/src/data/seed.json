@@ -7,23 +7,15 @@
       "icon": "sales",
       "sort_order": 10,
       "parent": null,
-      "description": "営業代行には固定月額型と成果報酬型があります。成果報酬型では、アポイント獲得や商談実施など、あらかじめ決めた成果が発生した場合のみ料金が発生します。テレアポ・訪問営業・問い合わせフォーム営業など、初期費用を抑えて新規開拓を始められるサービスを比較できます。"
-    },
-    {
-      "slug": "tele-appointment",
-      "name": "テレアポ代行",
-      "icon": "sales",
-      "sort_order": 11,
-      "parent": "sales",
-      "description": "テレアポ代行の成果報酬型では、アポイント1件ごとに費用が発生します。1件あたりの単価、キャンセル時の返金、別途の管理費の有無を確認して比較しましょう。"
+      "description": "営業代行には固定月額型と成果報酬型があります。成果報酬型では、アポイント獲得や商談実施など、あらかじめ決めた成果が発生した場合のみ料金が発生します。テレアポ・商談獲得・訪問営業・問い合わせフォーム営業など、初期費用を抑えて新規開拓を始められるサービスを比較できます。"
     },
     {
       "slug": "sales-outsourcing",
-      "name": "営業代行（商談獲得）",
+      "name": "テレアポ・商談獲得代行",
       "icon": "sales",
       "sort_order": 12,
       "parent": "sales",
-      "description": "営業代行の成果報酬型では、商談やアポイントなど決めた成果が発生したときに費用が発生します。単価と成果の定義、固定費の有無を確認して比較しましょう。"
+      "description": "テレアポ（電話営業）などでアポイントを獲得し、商談につなげる営業代行です。成果報酬型では、アポイント1件・商談1件ごとに費用が発生するのが一般的で、成果の定義（アポの確定か、商談の実施か）と、キャンセル時の返金、別途の管理費を確認して比較しましょう。"
     },
     {
       "slug": "field-sales",
@@ -317,7 +309,7 @@
       ],
       "source_url": "https://www.kanzenseika.jp/service/appointer.html",
       "categories": [
-        "tele-appointment"
+        "sales-outsourcing"
       ]
     },
     {
@@ -352,7 +344,6 @@
       "source_url": "https://orgallo.co.jp/sales/",
       "categories": [
         "sales-outsourcing",
-        "tele-appointment",
         "referral-sales"
       ]
     },
@@ -633,7 +624,7 @@
       ],
       "source_url": "https://www.value-press.com/pressrelease/279636",
       "categories": [
-        "tele-appointment"
+        "sales-outsourcing"
       ]
     },
     {
@@ -668,7 +659,7 @@
       ],
       "source_url": "https://tanomate.net/",
       "categories": [
-        "tele-appointment"
+        "sales-outsourcing"
       ]
     },
     {
@@ -2805,7 +2796,6 @@
       "target_companies": "BtoB企業",
       "source_url": "https://dgloss.co.jp/tele-appointment/",
       "categories": [
-        "tele-appointment",
         "sales-outsourcing"
       ],
       "logo_url": null,
@@ -3232,7 +3222,6 @@
       ],
       "source_url": "https://teleapo-center.co.jp/getlead/",
       "categories": [
-        "tele-appointment",
         "sales-outsourcing"
       ],
       "logo_url": null,
@@ -3268,7 +3257,7 @@
       ],
       "source_url": "https://shift-inc.net/call01/",
       "categories": [
-        "tele-appointment"
+        "sales-outsourcing"
       ],
       "logo_url": null,
       "partner_status": "unpartnered",
@@ -3375,7 +3364,6 @@
       ],
       "source_url": "https://apodol.jp/",
       "categories": [
-        "tele-appointment",
         "sales-outsourcing"
       ],
       "logo_url": null,

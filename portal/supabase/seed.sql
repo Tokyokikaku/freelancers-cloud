@@ -2,7 +2,7 @@
 -- 料金・成果報酬条件は公式サイトで確認できたものだけを記載しています。公開前に編集部で再確認してください。
 begin;
 
-insert into categories (slug, name, icon, description, sort_order, parent_id, published) values ('sales', '営業', 'sales', '営業代行には固定月額型と成果報酬型があります。成果報酬型では、アポイント獲得や商談実施など、あらかじめ決めた成果が発生した場合のみ料金が発生します。テレアポ・訪問営業・問い合わせフォーム営業など、初期費用を抑えて新規開拓を始められるサービスを比較できます。', 10, null, true)
+insert into categories (slug, name, icon, description, sort_order, parent_id, published) values ('sales', '営業', 'sales', '営業代行には固定月額型と成果報酬型があります。成果報酬型では、アポイント獲得や商談実施など、あらかじめ決めた成果が発生した場合のみ料金が発生します。テレアポ・商談獲得・訪問営業・問い合わせフォーム営業など、初期費用を抑えて新規開拓を始められるサービスを比較できます。', 10, null, true)
   on conflict (slug) do update set name = excluded.name, icon = excluded.icon, description = excluded.description, sort_order = excluded.sort_order, parent_id = excluded.parent_id;
 insert into categories (slug, name, icon, description, sort_order, parent_id, published) values ('marketing', 'マーケティング', 'marketing', '成果報酬型の広告運用・SEOなど、成果（コンバージョン・獲得件数・検索順位など）に応じて費用が発生するマーケティング支援を比較できます。広告費の負担方法や成果の定義はサービスごとに異なるため、条件を確認して選びましょう。', 20, null, true)
   on conflict (slug) do update set name = excluded.name, icon = excluded.icon, description = excluded.description, sort_order = excluded.sort_order, parent_id = excluded.parent_id;
@@ -16,9 +16,7 @@ insert into categories (slug, name, icon, description, sort_order, parent_id, pu
   on conflict (slug) do update set name = excluded.name, icon = excluded.icon, description = excluded.description, sort_order = excluded.sort_order, parent_id = excluded.parent_id;
 insert into categories (slug, name, icon, description, sort_order, parent_id, published) values ('other', 'その他', 'other', '上記以外の、成果報酬で利用できるサービスを掲載します。', 90, null, true)
   on conflict (slug) do update set name = excluded.name, icon = excluded.icon, description = excluded.description, sort_order = excluded.sort_order, parent_id = excluded.parent_id;
-insert into categories (slug, name, icon, description, sort_order, parent_id, published) values ('tele-appointment', 'テレアポ代行', 'sales', 'テレアポ代行の成果報酬型では、アポイント1件ごとに費用が発生します。1件あたりの単価、キャンセル時の返金、別途の管理費の有無を確認して比較しましょう。', 11, (select id from categories where slug = 'sales'), true)
-  on conflict (slug) do update set name = excluded.name, icon = excluded.icon, description = excluded.description, sort_order = excluded.sort_order, parent_id = excluded.parent_id;
-insert into categories (slug, name, icon, description, sort_order, parent_id, published) values ('sales-outsourcing', '営業代行（商談獲得）', 'sales', '営業代行の成果報酬型では、商談やアポイントなど決めた成果が発生したときに費用が発生します。単価と成果の定義、固定費の有無を確認して比較しましょう。', 12, (select id from categories where slug = 'sales'), true)
+insert into categories (slug, name, icon, description, sort_order, parent_id, published) values ('sales-outsourcing', 'テレアポ・商談獲得代行', 'sales', 'テレアポ（電話営業）などでアポイントを獲得し、商談につなげる営業代行です。成果報酬型では、アポイント1件・商談1件ごとに費用が発生するのが一般的で、成果の定義（アポの確定か、商談の実施か）と、キャンセル時の返金、別途の管理費を確認して比較しましょう。', 12, (select id from categories where slug = 'sales'), true)
   on conflict (slug) do update set name = excluded.name, icon = excluded.icon, description = excluded.description, sort_order = excluded.sort_order, parent_id = excluded.parent_id;
 insert into categories (slug, name, icon, description, sort_order, parent_id, published) values ('field-sales', '訪問営業代行', 'sales', '訪問営業代行の成果報酬型では、訪問（商談）1件ごとに費用が発生するプランがあります。1件あたりの単価に加え、別途の管理費、予算規模による固定費、利用条件（営業実績や商材の種類）を確認して比較しましょう。', 13, (select id from categories where slug = 'sales'), true)
   on conflict (slug) do update set name = excluded.name, icon = excluded.icon, description = excluded.description, sort_order = excluded.sort_order, parent_id = excluded.parent_id;
@@ -81,7 +79,7 @@ values ('kanzenseika-appointer', '完全成果アポインター（テレアポ�
 
 受注成果報酬のプランには、法人設立後3年以上・外部パートナー利用の営業実績1年以上などの条件があると案内されています。詳細は公式サイトでご確認ください。', null, 'https://www.kanzenseika.jp/service/appointer.html', 'paid', '予算30万円以上は無料／30万円未満は100,000円（公式サイト記載）', 'paid', '予算30万円以上は無料／30万円未満は月100,000円（公式サイト記載）', 'アポイント1件につき15,000円〜（別途プロジェクト管理費10%）', null, 'アポイントの獲得', 'appointment', false, false, '法人（受注成果報酬プランは設立3年以上・外部パートナー利用の営業実績1年以上が条件）', array['アポイント1件につき15,000円〜の成果報酬', '予算30万円以上なら初期費用・月額費用が無料（公式サイト記載）', '訪問営業代行「完全成果クローザー」も提供']::text[], 'unpartnered', false, true, true, 'verified', 'https://www.kanzenseika.jp/service/appointer.html', '2026-10-05')
   on conflict (slug) do nothing;
-insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'kanzenseika-appointer' and c.slug = 'tele-appointment' on conflict do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'kanzenseika-appointer' and c.slug = 'sales-outsourcing' on conflict do nothing;
 
 insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
 values ('orgallo-sales', 'オルガロ 完全成果報酬型の営業代行', '株式会社オルガロ', '電話営業と紹介営業を組み合わせる営業支援。初期費用0円・月額固定費0円の完全成果報酬型です。', 'オルガロは、株式会社オルガロが提供する営業代行・営業支援サービスです。公式サイトでは、電話営業（テレマーケティング）と紹介営業（リファラル）の2つの手法を扱い、商材とターゲットに応じて組み合わせること、成果地点から決める営業支援であることが案内されています。
@@ -91,7 +89,6 @@ values ('orgallo-sales', 'オルガロ 完全成果報酬型の営業代行', '�
 成果地点と手法の無料シミュレーションが用意されており、相談に費用はかからないと案内されています。', null, 'https://orgallo.co.jp/', 'free', '0円（公式サイト記載）', 'free', '固定費0円（公式サイト記載）', null, '成果報酬の金額は公式サイトに記載がないため、お問い合わせください。', 'アポイント獲得／売上（手法により異なる）', 'appointment', true, true, '公式サイトに記載なし（商材・ターゲットに応じて設計）', array['初期費用0円・月額固定費0円（公式サイト記載）', '電話営業と紹介営業を、商材に応じて組み合わせ', '成果地点と手法の無料シミュレーションあり']::text[], 'unpartnered', false, true, true, 'verified', 'https://orgallo.co.jp/sales/', '2026-10-05')
   on conflict (slug) do nothing;
 insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'orgallo-sales' and c.slug = 'sales-outsourcing' on conflict do nothing;
-insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, false from services s, categories c where s.slug = 'orgallo-sales' and c.slug = 'tele-appointment' on conflict do nothing;
 insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, false from services s, categories c where s.slug = 'orgallo-sales' and c.slug = 'referral-sales' on conflict do nothing;
 
 insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
@@ -164,7 +161,7 @@ values ('apokuru', 'アポクル（成果報酬テレアポ代行）', '株式�
 
 本ページの一部の情報は、2021年9月のプレスリリースに基づきます。最新の条件は公式サイトでご確認ください。', null, 'https://salescrew.jp/apokuru', 'free', '0円（公式サイト記載）', 'free', '0円（公式サイト記載）', null, 'アポイント1件あたりの単価は公式サイトに記載がないため、お問い合わせください。キャンセルアポは返金対象と案内されています。', 'アポイントの獲得（キャンセルアポは返金対象）', 'appointment', true, false, null, array['初期費用0円・月額費用0円（公式サイト記載）', 'アポが取れた時だけ獲得課金', 'ネットで発注でき、最短翌日から稼働（プレスリリース記載）', 'キャンセルアポは返金対象']::text[], 'unpartnered', false, true, true, 'verified', 'https://www.value-press.com/pressrelease/279636', '2026-10-05')
   on conflict (slug) do nothing;
-insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'apokuru' and c.slug = 'tele-appointment' on conflict do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'apokuru' and c.slug = 'sales-outsourcing' on conflict do nothing;
 
 insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
 values ('tanomate', 'タノメイト（完全成果報酬型テレアポ代行）', 'Brainew Co. Ltd.', '初期・固定費ゼロのBtoBテレアポ代行。成果報酬は1件10,000円〜100,000円で、アポが取れなければ0円です。', 'タノメイトは、Brainew Co. Ltd.が提供する、初期費用・固定費ゼロで確度の高いBtoBアポイントを獲得する成果報酬型のテレアポ代行サービスです。公式サイトでは、アポが取れなければ費用は0円であること、最短5日で稼働できること、月間10〜150件の柔軟な件数に対応できることが案内されています。
@@ -173,7 +170,7 @@ values ('tanomate', 'タノメイト（完全成果報酬型テレアポ代行�
 
 単価の幅が大きいため、自社の商材・ターゲットでの見積もりを公式サイトで確認してください。', null, 'https://tanomate.net/', 'free', '0円（公式サイト記載）', 'free', '固定費0円（公式サイト記載）', '1件あたり10,000円〜100,000円', 'リード獲得時点で課金が発生し、商談につながらなかった場合はキャンセル対応と案内されています。', 'リードの獲得（アポイント）', 'appointment', true, false, 'BtoB営業を行う企業', array['初期費用0円・固定費0円（公式サイト記載）', '成果報酬は1件10,000円〜100,000円', '最短5日で稼働、月間10〜150件に対応', '1,000コールのお試しが可能']::text[], 'unpartnered', false, true, true, 'verified', 'https://tanomate.net/', '2026-10-05')
   on conflict (slug) do nothing;
-insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'tanomate' and c.slug = 'tele-appointment' on conflict do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'tanomate' and c.slug = 'sales-outsourcing' on conflict do nothing;
 
 insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
 values ('wildcard-ads', 'ワイルドカード（完全成果報酬型広告）', 'Nextrust Co.Ltd.', 'リスティング・SNS広告などを成果報酬で運用。完全成果報酬型は月額0円〜、広告費は成果数に応じた後払いです。', 'ワイルドカードは、Nextrust Co.Ltd.が提供する、成果にこだわる完全成果報酬型の広告運用サービスです。リスティング広告、Facebook広告、Instagram広告、ディスプレイ広告、アドネットワーク、X（Twitter）広告、インフルエンサー広告、TikTok広告、YouTube広告など、多様な媒体に対応すると案内されています。
@@ -740,8 +737,7 @@ values ('dgloss-appopro', 'ディグロス 成果報酬型テレアポ代行・�
 
 レポートはオプションで、1回30,000円または60,000円の費用が別途記載されています。相談は電話またはお問い合わせフォームから可能です。業種別の単価の内訳は公式サイトに記載がないため要問い合わせです。', null, 'https://dgloss.co.jp/tele-appointment/', 'free', '0円（初期費用なし）', 'free', '固定費なし', '新規アプローチ1件10,000円〜35,000円', 'オプションのレポートは1回30,000円または60,000円が別途かかる記載があるため、完全成果報酬型には分類していません。', 'アポイント獲得時点で課金', 'appointment', false, true, 'BtoB企業', array['初期費用・固定費用なしの成果報酬型', 'アポイント単価10,000円〜35,000円（新規アプローチ）', '訪問できなかった場合はキャンセル対応（相殺・返金）', '1か月単位の契約（初回は2か月以上）']::text[], 'unpartnered', false, true, true, 'verified', 'https://dgloss.co.jp/tele-appointment/', '2026-10-05')
   on conflict (slug) do nothing;
-insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'dgloss-appopro' and c.slug = 'tele-appointment' on conflict do nothing;
-insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, false from services s, categories c where s.slug = 'dgloss-appopro' and c.slug = 'sales-outsourcing' on conflict do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'dgloss-appopro' and c.slug = 'sales-outsourcing' on conflict do nothing;
 
 insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
 values ('eigyo-hack-apo100', 'アポ100', '株式会社営業ハック', '初期費用・稼働費・固定費・デポジットが無料で、成果報酬のみの完全成果報酬型テレアポ代行。', '株式会社営業ハックの「アポ100」は、成果報酬型のテレアポ代行サービスです。2024年10月16日のプレスリリースでは、初期費用・稼働費・運営固定費・デポジットが無料で、料金はアポイント獲得の成果報酬のみ、アポが0件であれば費用は0円とされています。
@@ -856,8 +852,7 @@ BtoB・BtoCの両方に対応し、人材紹介、コンサルティング、Saa
 
 Slackを活用した進捗共有に対応し、月間アポイント数100件/社の実績を掲げています。成果報酬の具体的な単価は公式サイトに記載がないため要問い合わせです。無料オンライン相談の予約ができます。', null, 'https://teleapo-center.co.jp/getlead/', 'free', '0円', 'free', '0円', null, '成果報酬の単価は公式サイトに記載がないため要問い合わせ。', '商談が実施されたタイミングで費用が発生', 'meeting', true, true, 'BtoB・BtoC問わず幅広い業種', array['商談実施時に費用が発生', '最低契約期間・縛りなし', 'トークスクリプト・リスト不要で依頼可能', 'Slackを活用した進捗共有']::text[], 'unpartnered', false, true, true, 'verified', 'https://teleapo-center.co.jp/getlead/', '2026-10-05')
   on conflict (slug) do nothing;
-insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'getlead-teleapo' and c.slug = 'tele-appointment' on conflict do nothing;
-insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, false from services s, categories c where s.slug = 'getlead-teleapo' and c.slug = 'sales-outsourcing' on conflict do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'getlead-teleapo' and c.slug = 'sales-outsourcing' on conflict do nothing;
 
 insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
 values ('shift-teleapo-seika', '成果報酬型テレアポ代行サービス', 'SHIFT inc.', '初期費用・月額固定費0円で、アポイント1件あたり法人10,000円〜の成果報酬型テレアポ代行。キャンセル時は返金対応があります。', 'SHIFT inc.の成果報酬型テレアポ代行サービスは、公式サイトで月額固定費も初期費用も全て0円と案内されています。料金はアポイント1件あたり法人10,000円〜、個人20,000円〜と記載されています。
@@ -866,7 +861,7 @@ values ('shift-teleapo-seika', '成果報酬型テレアポ代行サービス', 
 
 アポイントの最低契約数は10件と記載されています。無料相談の明記は確認できず、詳細は公式サイトからの問い合わせが必要です。', null, 'https://shift-inc.net/call01/', 'free', '0円', 'free', '0円（月額固定費なし）', 'アポイント1件あたり 法人10,000円〜、個人20,000円〜', 'アポイント最低契約数は10件。週報・日報、リスト作成、トークスクリプト作成はオプション。', 'アポイント取得日に課金。キャンセル等が発生した場合は返金対応', 'appointment', true, false, '法人・個人向けのアポイント獲得', array['アポイント1件あたり法人10,000円〜の成果報酬', 'キャンセル時は返金対応', '週報・日報はオプションで対応', 'リスト・トークスクリプト作成はオプション']::text[], 'unpartnered', false, true, true, 'verified', 'https://shift-inc.net/call01/', '2026-10-05')
   on conflict (slug) do nothing;
-insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'shift-teleapo-seika' and c.slug = 'tele-appointment' on conflict do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'shift-teleapo-seika' and c.slug = 'sales-outsourcing' on conflict do nothing;
 
 insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
 values ('salesneeds-referral', '完全成果報酬型リファーラルマーケティング', '株式会社セールスニーズ', '初期費用・月額費用ゼロの人脈紹介型マーケティング。成約・成果報酬ベースで、広告費をかけずに見込み客へ接点を持てます。', '株式会社セールスニーズの「成果報酬型リファーラル（人脈紹介）マーケティング」は、公式サイトで初期費用ゼロ円・月額費用ゼロ円と案内されています。成約・成果報酬ベースで対応するとされています。
@@ -895,8 +890,7 @@ values ('apodol-hpg', 'アポドル', 'H.P.G. 服部プロセスグループ', '
 
 料金は案件内容に応じて商談時に個別提示されるため、公式サイトに記載がなく要問い合わせです。お問い合わせフォームから相談・資料請求ができます。', null, 'https://apodol.jp/', 'free', '0円', 'free', '0円', null, '成果報酬の単価は商談時に個別提示のため、公式サイトに記載がなく要問い合わせ。', 'アポイント獲得件数に応じて請求。上限に満たない場合は獲得数分のみ', 'appointment', true, true, 'テレアポで新規顧客開拓をしたい企業', array['初期費用0円・固定費0円', 'リスト作成・スクリプト作成・架電に対応', '展示会名刺・休眠顧客リストへの架電が可能', '1か月から契約可能、長期縛りなし']::text[], 'unpartnered', false, true, true, 'verified', 'https://apodol.jp/', '2026-10-05')
   on conflict (slug) do nothing;
-insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'apodol-hpg' and c.slug = 'tele-appointment' on conflict do nothing;
-insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, false from services s, categories c where s.slug = 'apodol-hpg' and c.slug = 'sales-outsourcing' on conflict do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'apodol-hpg' and c.slug = 'sales-outsourcing' on conflict do nothing;
 
 insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
 values ('saleshub-referral', 'Saleshub', 'Saleshub inc.', 'サポーターからの紹介で商談を獲得する顧客紹介マッチング。アポ設定と成約に応じた報酬の仕組みです。', 'Saleshubは、企業と営業のサポーターをつなぐ顧客紹介型の営業マッチングサービスです。公式サイトによると、50,000人以上のサポーター（2025年2月時点）と100,000件以上の紹介提案実績（2024年11月時点）を掲げています。
