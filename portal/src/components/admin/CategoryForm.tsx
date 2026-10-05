@@ -4,7 +4,7 @@ import { saveCategory, type FormState } from "@/app/actions/admin";
 import type { Category } from "@/lib/types";
 import { Check, Field, FormMessage } from "./FormUI";
 
-const ICONS = ["sales", "marketing", "recruitment", "funding", "other"];
+const ICONS = ["sales", "marketing", "recruitment", "funding", "consulting", "production", "other"];
 
 export function CategoryForm({ category, categories }: { category?: Category; categories: Category[] }) {
   const [state, action, pending] = useActionState<FormState, FormData>(saveCategory, {});
