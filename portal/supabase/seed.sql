@@ -380,6 +380,534 @@ values ('kyworks', 'KYWorks 開発費0円のレベニューシェア型共同開
 insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'kyworks' and c.slug = 'app-development' on conflict do nothing;
 insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, false from services s, categories c where s.slug = 'kyworks' and c.slug = 'system-development' on conflict do nothing;
 
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('fair-trade-listing', 'Fair trade Listing 2.0', '株式会社harunohi', '初期費用・月額固定費なしの完全成果報酬型リスティング広告運用代行。成果報酬は「目標CPA×20%×成果件数」で、成果発生時のみ費用が発生します。', 'Fair trade Listing 2.0は、株式会社harunohiが提供するリスティング広告の運用代行サービスです。プレスリリースでは、初期費用0円・月額固定費なしで、成果（購入など）が発生した場合にのみ成果報酬が発生する完全成果報酬型と説明されています。従来の広告費20%手数料体系とは異なる料金モデルとされています。
+
+成果報酬は「目標CPA×20%×成果件数」で算出され、成果の定義は顧客と協議して決定します。月間の広告予算は50万円以上が条件で、広告費そのものは顧客負担とされています。契約期間は最低3ヶ月です。
+
+無料相談が可能と記載されています。プレスリリースは2017年8月のものであり、最新の料金条件は公式サイトでの確認や問い合わせをおすすめします。', null, 'http://www.harunohi.jp/', 'free', '0円', 'free', '0円（固定費なし）', '（目標CPA×20%）×成果件数', '2017年8月のプレスリリースに基づく情報。広告費は顧客負担。現在の条件は要問い合わせ。', '成果（購入など）が発生した場合のみ。成果の定義は顧客と協議。月間広告予算50万円以上・契約期間最低3ヶ月が条件', 'other', true, true, '月間広告予算50万円以上でリスティング広告を運用したい企業', array['初期費用・月額固定費なしの完全成果報酬型', '成果報酬は目標CPAの20%×成果件数で算出', '成果の定義は顧客と協議して決定', '契約期間は最低3ヶ月']::text[], 'unpartnered', false, true, true, 'verified', 'https://www.atpress.ne.jp/news/135595', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'fair-trade-listing' and c.slug = 'listing-ads' on conflict do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, false from services s, categories c where s.slug = 'fair-trade-listing' and c.slug = 'web-ads' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('unicorn-fixed-cpa-listing', '成果報酬型リスティング広告運用代行（CPA固定型）', '株式会社UNICORN', '成果（CV）数×固定CPAで費用が決まる成果報酬型のリスティング広告運用代行。Google・Yahoo!・Bingなど主要媒体に対応します。', 'UNICORNの成果報酬型リスティング広告運用代行は、コンバージョンに応じて費用が発生するCPA固定型のサービスです。公式サイトの解説記事では、費用は「成果数（CV）×固定CPA」で計算され、成果が出なければ費用も発生しない構造と説明されています。Google、Yahoo!、Bingなど主要媒体に対応しています。
+
+同記事には、アカウント診断から目標CPA設計までのサポートが案内されており、リスティング広告について無料で相談できるリンクがあります。事前にCVの定義を明確にして運用する形です。
+
+具体的な固定CPAの金額、初期費用、月額費用、広告費の負担者は公式サイトに記載がないため要問い合わせです。', null, 'https://unicorn.inc/', 'unknown', null, 'unknown', null, '成果数（CV）×固定CPA（金額は公式サイトに記載なし）', '固定CPAの金額、初期費用、月額費用、広告費の負担者は公式サイトに記載がないため要問い合わせ。', '合意したCV（コンバージョン）が発生した場合', 'other', false, true, null, array['成果数×固定CPAの課金モデル', '成果が出なければ費用も発生しない構造と記載', 'Google・Yahoo!・Bingなど主要媒体に対応', 'アカウント診断から目標CPA設計までサポート']::text[], 'unpartnered', false, true, true, 'verified', 'https://unicorn.inc/news/platform/5472/', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'unicorn-fixed-cpa-listing' and c.slug = 'listing-ads' on conflict do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, false from services s, categories c where s.slug = 'unicorn-fixed-cpa-listing' and c.slug = 'web-ads' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('union-line-ads', 'LINE広告運用代行（完全成功報酬型プランあり）', '株式会社Union', '初期費用0円のLINE広告運用代行。成果報酬型で、完全成功報酬型プランも用意（商材・条件により対応不可の場合あり）。', '株式会社Unionが2023年6月に発表した、LINE広告の運用代行サービスです。プレスリリースでは初期費用0円で、成果報酬型の広告を提供しており、お客様の期待する効果に基づいて報酬を設定できると説明されています。
+
+また、完全成功報酬型プランも用意されていますが、商材・条件によってはサービスの対象外となる場合があるとされています。具体的な報酬額や料率、月額費用についてはプレスリリースに記載がないため要問い合わせです。
+
+「先ずはお気軽にご相談ください」との案内があります。公式のサービスページ（LINE広告LP）から問い合わせができます。', null, 'https://union-company.jp/lp_line/', 'free', '0円', 'unknown', null, null, '2023年6月のプレスリリースに基づく情報。報酬額・月額費用は記載がなく要問い合わせ。', 'お客様の期待する効果に基づいて設定（具体的な成果指標は要問い合わせ）', 'other', false, false, null, array['初期費用0円のLINE広告運用代行', '成果報酬型の広告を提供', '完全成功報酬型プランもあり（商材・条件により対象外の場合あり）', '報酬は期待する効果に基づいて設定']::text[], 'unpartnered', false, true, true, 'verified', 'https://prtimes.jp/main/html/rd/p/000000011.000060959.html', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'union-line-ads' and c.slug = 'sns-ads' on conflict do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, false from services s, categories c where s.slug = 'union-line-ads' and c.slug = 'web-ads' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('lxgic-tiktok-shop', 'TikTok Shop運用代行（完全成果報酬プラン）', '株式会社Lxgic', 'TikTok Shopの運用代行で、完全成果報酬プランは固定運用費0円/月、成果報酬は売上の20%から。広告フォーマットの運用設計にも対応します。', '株式会社Lxgicが2025年7月に発表したTikTok Shop運用代行サービスです。プレスリリースによると、完全成果報酬プランは固定運用費0円/月で、成果報酬は売上の20%からとされています。ほかに、アカウント構築プラン（28万円/回〜、税抜）やフルサポートプラン（26万円/月〜、税抜）も用意されています。
+
+広告運用では、戦略に応じてDynamic Showcase Ads、Product GMV Max、LIVE GMV Max、Spark Adsなどのフォーマットでの運用設計に対応すると記載されています。初期費用の有無、広告費の負担者、無料相談の有無はプレスリリースに記載がないため要問い合わせです。
+
+サービスの中心はTikTok Shop運用であり、広告運用単体の依頼可否は要確認です。', null, 'https://expaus.jp/tiktok-shop/', 'unknown', null, 'free', '0円（完全成果報酬プランの固定運用費）', '売上の20%〜（完全成果報酬プラン）', '2025年7月のプレスリリースに基づく情報。初期費用・広告費の負担者は記載がなく要問い合わせ。', 'TikTok Shopでの売上発生時', 'sale', false, false, 'TikTok Shopで販売したい企業・ブランド', array['完全成果報酬プランは固定運用費0円/月', '成果報酬は売上の20%から', 'Spark Ads、GMV Maxなど多彩な広告フォーマットの運用設計に対応', 'アカウント構築・フルサポートの有料プランも用意']::text[], 'unpartnered', false, true, true, 'verified', 'https://prtimes.jp/main/html/rd/p/000000012.000015918.html', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'lxgic-tiktok-shop' and c.slug = 'sns-ads' on conflict do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, false from services s, categories c where s.slug = 'lxgic-tiktok-shop' and c.slug = 'web-ads' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('deco-direct-dsp', 'DECO Direct DSP', '株式会社凸', 'アプリ向けの成果報酬型DSP広告運用サービス。CPI・ROAS保証で、目標値を達成した場合にのみ成果報酬が発生します。', 'DECO Direct DSP（DDD）は、株式会社凸が2024年12月に提供を開始した、アプリプロモーションに特化した成果報酬型のDSP広告運用サービスです。プレスリリースでは、CPI（顧客獲得単価）とROAS（広告費用対効果）を保証すると説明されています。
+
+成果報酬は、広告出稿前に設定した目標値を達成した場合にのみ発生するとされ、広告主が低リスクでプロモーションを実施できる点が特長として挙げられています。対象はアプリ内商品購入、アプリ内課金、会員登録獲得などです。
+
+初期費用、月額費用、具体的な報酬額、広告費の負担者、無料相談の有無はプレスリリースに記載がないため、要問い合わせです。', null, 'https://d-e-c-o.jp/', 'unknown', null, 'unknown', null, null, '2024年12月のプレスリリースに基づく情報。料金の詳細は要問い合わせ。', '広告出稿前に設定した目標値（CPI・ROAS）を達成した場合にのみ成果報酬が発生', 'other', false, false, 'アプリプロモーションを行う広告主', array['アプリプロモーション特化のDSP広告運用', 'CPI・ROASを保証', '目標値達成時にのみ成果報酬が発生', '広告出稿前に目標値を設定']::text[], 'unpartnered', false, true, true, 'verified', 'https://prtimes.jp/main/html/rd/p/000000075.000102608.html', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'deco-direct-dsp' and c.slug = 'web-ads' on conflict do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, false from services s, categories c where s.slug = 'deco-direct-dsp' and c.slug = 'sns-ads' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('layers-cost-down', '完全成功報酬型コストダウン', '株式会社レイヤーズ・コンサルティング', 'コストダウンが実現した時だけプロフィットシェアで報酬が発生する、成果報酬型のコスト削減サービス。', 'レイヤーズ・コンサルティングの「完全成功報酬型コストダウン」は、価格の適正化と量の適正化の両面からコスト削減を進めるサービスです。
+
+公式サイトには、事前に別途コンサル費用などはかからず、コストダウンが実現した際にだけプロフィットシェアで報酬を受け取る旨が記載されています。ベンチマーク、コスト見積、専門家による分析、リバースオークションなどの手法を用い、業界動向や価格の客観データをもとに既存取引先との相対交渉を行うとしています。
+
+売上規模や業種によっては、成果報酬型のサービスを提供できない場合があると明記されています。具体的な料率・金額、月額費用の有無、無料相談の有無は公式サイトに記載がないため要問い合わせです。', null, 'https://www.layers.co.jp/consulting-service/costreduction/', 'free', '事前に別途コンサル費用などはかからない（公式記載）', 'unknown', null, null, '料率は公式ページに記載がなく、問い合わせが必要。売上規模・業種により提供できない場合あり。', 'コストダウンが実現した際にプロフィットシェア', 'other', false, false, '売上規模・業種により対応可否あり', array['価格の適正化と量の適正化の両面から削減', 'ベンチマーク・コスト見積・専門家分析・リバースオークションを活用', '業界動向や客観データに基づく相対交渉', '社内での継続的なPDCAサイクル構築にも貢献']::text[], 'unpartnered', false, true, true, 'verified', 'https://www.layers.co.jp/consulting-service/costreduction/', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'layers-cost-down' and c.slug = 'business-consulting' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('sailon-cost-reduction', 'コスト削減コンサルティング（セイルオン）', '株式会社セイルオン', '初期費用なしの成果報酬型コスト削減コンサル。平均21%削減、1,000社以上の支援実績を掲げる。', 'セイルオンのコスト削減コンサルティングは、成果報酬型で初期費用なしで始められるコスト削減支援です。
+
+公式サイトでは、報酬は削減額を上回らない水準と説明されています。成功の要素として「現状の見える化」「入札条件の明確化」「現場との連携」を挙げ、平均21%のコスト削減、1,000社以上の支援実績、最短3ヶ月での削減を掲げています。
+
+コスト削減についても無料相談を受け付けています。具体的な料率や月額費用の有無は公式サイトに記載がないため要問い合わせです。', null, 'https://sailon-jp.net/costdown/', 'free', '初期費用は一切いただいておりません（公式記載）', 'unknown', null, '年間の削減額を上回らない水準の成果報酬（料率の記載なし）', '具体的な料率・月額費用は公式ページに記載がなく要問い合わせ。', 'コスト削減の実現', 'other', false, true, null, array['初期費用なしの成果報酬型', '平均21%のコスト削減実績を掲載', '1,000社以上の支援実績', '最短3ヶ月でのコスト削減を掲げる']::text[], 'unpartnered', false, true, true, 'verified', 'https://sailon-jp.net/costdown/', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'sailon-cost-reduction' and c.slug = 'business-consulting' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('bansow-cost-cut', '経費削減サービス（バンソウ）', '株式会社バンソウ', '全業種対応の成果報酬制の経費削減サービス。報酬は初年度削減額の10ヶ月分、または削減額の30%（3年契約）。', 'バンソウの経費削減サービスは、全業種対応・成果報酬制で1,200社以上の支援実績を掲げる経費削減支援です。
+
+公式サイトには報酬プランとして、プランAが初年度の年間削減額の10ヶ月分、プランBが削減額の30%（3年契約）と記載されています。削減できない場合は費用0円とも説明され、ご相談・お見積りは無料です。
+
+製造業から公務・自治体まで全業種に対応し、売上1億円未満から500億円以上まで企業規模を問わないとしています。初期費用・月額費用の有無は公式サイトの該当ページに明記がないため要問い合わせです。', null, 'https://bansow.co.jp/cost', 'unknown', null, 'unknown', null, 'プランA：初年度の年間削減額の10ヶ月分／プランB：削減額の30%（3年契約）', '初期費用・月額費用は公式ページに明記がなく要問い合わせ。', '経費削減の実現（削減できない場合は費用0円）', 'other', false, true, '全業種・売上1億円未満〜500億円以上', array['報酬は2つのプランから選択', 'ご相談・お見積り無料', '1,200社以上の支援実績', '全業種・幅広い企業規模に対応']::text[], 'unpartnered', false, true, true, 'verified', 'https://bansow.co.jp/cost', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'bansow-cost-cut' and c.slug = 'business-consulting' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('pure-growth-costcut', '成功報酬型コスト削減コンサルティング（ピュアグロース）', 'ピュアグロース株式会社', '住宅関連事業者の購買コストを、購買部出身のプロが交渉代行して削減する成功報酬型サービス。報酬は1年間のみ。', 'ピュアグロースの成功報酬型コスト削減コンサルティングは、1棟あたりのコストダウン金額に一定の料率を乗じ、1年間の完工棟数分を報酬とする仕組みです。
+
+公式サイトでは、成果報酬は1年間のみで、削減できなかった場合は成功報酬はいただかないと記載されています。エリア別の市場価格に基づく指値交渉、購買部出身のプロによるメーカーとの交渉代行、コスト削減診断レポートや業務フロー見直しを提供するとしています。
+
+全国140社・20,000棟以上の支援実績を掲載しています。料率の詳細、初期費用・月額費用、無料相談の有無は公式サイトに記載がないため要問い合わせです。', null, 'https://pure-growth.co.jp/costcut/', 'unknown', null, 'unknown', null, '1棟あたりのコストダウン金額に一定の料率を乗じ、1年間の完工棟数分', '料率は公式ページに記載がなく要問い合わせ。', 'コストダウンの実現（削減できない場合は成功報酬なし）', 'other', false, false, '建設・住宅関連の事業者', array['成果報酬は1年間のみ', 'エリア別市場価格に基づく指値交渉', '購買部出身のプロが交渉を代行', '全国140社・20,000棟以上の支援実績']::text[], 'unpartnered', false, true, true, 'verified', 'https://pure-growth.co.jp/costcut/', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'pure-growth-costcut' and c.slug = 'business-consulting' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('enishi-costdown-consulting', '完全成功報酬型コスト削減コンサルティング（エニシジャパン）', '株式会社エニシジャパン', '一般管理費の最適化に特化した成功報酬モデルのコスト削減支援。平均20%超の削減実績を掲載。', 'エニシジャパンの完全成功報酬型コスト削減コンサルティングサービスは、一般管理費の最適化に特化した支援サービスです。
+
+公式サイトでは、通信、OA機器、不動産、エネルギー、車両関連など多岐にわたる費目を対象に、「見える化」「プランニング」「実行」を一気通貫で支援するとしています。成功報酬モデル（効果を実測し、実績に応じた報酬が基本）によりリスクフリーの取組とし、平均20%超のコスト削減を実現したと記載されています。見える化の段階では無料診断を行います。
+
+具体的な報酬の料率・金額、初期費用・月額費用の有無は公式サイトに明記がないため要問い合わせです。', null, 'https://enishijapan.jp/business/costdown/consulting/', 'unknown', null, 'unknown', null, null, '報酬の料率・金額は公式ページに記載がなく要問い合わせ。', 'コスト削減の実現（効果を実測し、実績に応じた報酬）', 'other', false, false, null, array['一般管理費の最適化に特化', '通信・OA機器・不動産・エネルギーなど多様な費目に対応', '見える化の段階で無料診断', '見える化から実行まで一気通貫']::text[], 'unpartnered', false, true, true, 'verified', 'https://enishijapan.jp/business/costdown/consulting/', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'enishi-costdown-consulting' and c.slug = 'business-consulting' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('asc-tco-reduction', '成功報酬型TCO（ITコスト）削減コンサルティング', '青山システムコンサルティング株式会社', 'TCO削減金額の50%を報酬とするITコスト削減コンサル。予備調査で実現性が高いと認められた場合に提供。', '青山システムコンサルティングの成功（成果）報酬型TCO（ITコスト）削減コンサルティングは、ITコストの削減を支援するサービスです。
+
+公式発表では、TCO削減金額（コスト削減金額）の50%をコンサルティング報酬として申し受けるとされています。予備調査によりTCO削減の実現性が高いと認められた場合が対象です。
+
+なお本情報は2008年9月の発表に基づくため、現在の条件は公式サイトに記載がなく要問い合わせです。初期費用・月額費用も記載がありません。', null, 'https://www.asckk.co.jp/archives/859', 'unknown', null, 'unknown', null, 'TCO削減金額の50%', '2008年9月のプレスリリースに基づく情報。現在の条件は要確認。', '予備調査でTCO削減の実現性が高いと認められた場合', 'other', false, false, null, array['TCO削減金額の50%が報酬', '予備調査で実現性を確認', '成功（成果）報酬型で提供']::text[], 'unpartnered', false, true, true, 'verified', 'https://www.asckk.co.jp/archives/859', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'asc-tco-reduction' and c.slug = 'business-consulting' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('mcb-seika-consulting', '完全成果報酬型コンサルティング（MCB）', '株式会社MCB', '売上増・粗利増・人件費や経費の削減など、契約時に決めた基準からの増減に応じて報酬が決まる、医療・介護施設向けコンサル。', 'MCBの完全成果報酬型コンサルティングは、売上増・粗利益増・人件費削減・経費削減などの具体的な成果に応じて報酬を設定するサービスです。
+
+公式サイトでは、成果は契約時に双方で取り決める基準からの増加分・削減分で測定するとしています。医薬品・消耗品の仕入単価調査やレセプト算定漏れ・請求漏れの確認などを含む無料診断（2〜3ヶ月程度）を行う流れで、医療・介護向けのコンサルティングです。実施サポートは別途契約となります。
+
+「無料で始められます」とされ、初回訪問費用も無料ですが、遠方の場合のみ実費がかかる場合があります。成功報酬の料率・金額や月額費用は公式サイトに記載がないため要問い合わせです。', null, 'https://mcb-oita.com/consulting01/', 'unknown', null, 'unknown', null, null, '料率は公式ページに記載がなく要問い合わせ。実施サポートは別途契約。遠方の場合は実費の可能性あり。', '契約時に決定する基準からの売上・粗利の増加分、または人件費・経費の削減分', 'other', false, false, '医療・介護施設', array['売上増・粗利増・コスト削減など成果に連動', '契約時に決めた基準からの増減で成果を測定', '診断は無料（2〜3ヶ月程度）', '初回訪問費用は無料']::text[], 'unpartnered', false, true, true, 'verified', 'https://mcb-oita.com/consulting01/', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'mcb-seika-consulting' and c.slug = 'business-consulting' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('akt-success-consulting', '完全成功報酬型コンサルティング（AKTコンサルティング）', 'AKTコンサルティング合同会社', '着手金なしで、コスト削減・売上向上などの成果指標と報酬を事前に合意して進める成功報酬型コンサル。事前相談は無料。', 'AKTコンサルティングの完全成功報酬型コンサルティングは、着手金を受け取らず、成果と報酬の基準を初回面談時に決める方式のサービスです。
+
+公式サイトでは、コスト削減・売上向上・成果物評価など課題に応じた成果指標に対応するとしています。M&Aのみの場合は成約価格の1.3%（最低報酬なし）、専門家サポート手数料は150万円〜と記載されています。事前相談は無料です。
+
+遠距離の場合など、実費精算が発生することがあります。月額費用は公式サイトに記載がないため要問い合わせです。', null, 'https://www.aktconsulting.net/team-3', 'free', '着手金なし', 'unknown', null, '案件により異なる（M&Aのみは成約価格の1.3%、最低報酬なし）', '報酬は案件ごとに決定。専門家サポート手数料150万円〜、遠距離の場合は実費精算あり。月額費用は要問い合わせ。', '事前に合意した成果指標（コスト削減・売上向上など）の達成', 'other', false, true, null, array['着手金なし', '成果の定義と報酬を初回面談時に決定', 'コスト削減・売上向上など複数の成果指標に対応', '事前相談は無料']::text[], 'unpartnered', false, true, true, 'verified', 'https://www.aktconsulting.net/team-3', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'akt-success-consulting' and c.slug = 'business-consulting' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('youfirst-performance-marketing', 'YOUFIRST 成果報酬型マーケティング', 'YOUFIRST', '成果が出るまで請求ゼロ・月額固定費なしの完全成果報酬型マーケティング。imp成果型・CV成果型に対応し、8チャネルを横断運用。', 'YOUFIRSTの成果報酬型マーケティングは、「成果が出るまで請求ゼロ。月額固定費なし」とする完全成果報酬モデルのマーケティング支援です。
+
+公式ページでは、運用月額費用0円、課金モデルはimp成果型とCV成果型の両対応と記載されています。インフルエンサー、メディア、メルマガ、テレマ、SMS、Web広告、ライブコマース、アフィリエイトの8系統のチャネルを横断して運用するとしています。
+
+予算50万円〜で開始できると記載されています。成果単価など具体的な報酬額、無料相談の有無は公式ページに記載がないため要問い合わせです。', null, 'https://biz.you-first.co.jp/performance-marketing-pricing', 'free', '初期費用ゼロ（公式記載）', 'free', '月額固定費なし・運用月額費用0円', null, '予算50万円〜で開始可能。成果単価は公式ページに記載がなく要問い合わせ。', 'imp（表示・再生）成果型またはCV（コンバージョン）成果型の成果発生', 'other', true, false, null, array['成果が出るまで請求ゼロ・月額固定費なし', 'imp成果型とCV成果型に対応', '8系統のチャネルを横断運用', '予算50万円〜で開始可能']::text[], 'unpartnered', false, true, true, 'verified', 'https://biz.you-first.co.jp/performance-marketing-pricing', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'youfirst-performance-marketing' and c.slug = 'marketing-consulting' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('kigyouka-bank-monozukuri', '新事業ものづくり補助金の申請代行サポート', '起業家バンク', '新事業・ものづくり補助金の申請を代行支援。着手金0円・成功報酬7%などの3プランを用意。', '起業家バンクの「新事業ものづくり補助金の申請代行サポート」は、新事業・ものづくり補助金の申請を支援するサービスです。
+
+公式サイトには3つのプランが掲載されています。「着手金0」プランは着手金0円・成功報酬7%、「業界最安水準」プランは着手金70,000円（税込77,000円）・成功報酬は交付申請予定額の5%、「完全伴走」プランは着手金0円・成功報酬9%です。
+
+LINEでの無料相談を受け付けています。月額費用については公式サイトに記載がないため要問い合わせです。', null, 'https://www.kigyouka-bank.com/plan/jigyo_saikoutiku/', 'paid', 'プランにより0円または70,000円（税込77,000円）', 'unknown', null, 'プランにより7%・5%（交付申請予定額）・9%', '着手金0円のプランと有料のプランがあるため initial_fee_type は paid としています。', '補助金に採択された場合', 'other', false, true, 'ものづくり補助金の活用を検討する中小企業', array['着手金0円のプランあり（成功報酬7%または9%）', '着手金あり・成功報酬5%のプランも選択可能', '「完全伴走」プランを用意', 'LINEで無料相談を受付']::text[], 'unpartnered', false, true, true, 'verified', 'https://www.kigyouka-bank.com/plan/jigyo_saikoutiku/', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'kigyouka-bank-monozukuri' and c.slug = 'subsidy' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('hanro-kaitaku-madoguchi', '販路開拓の窓口', '株式会社ディアクティブ', '小規模事業者持続化補助金の申請を、着手金0円・交付決定額の15%の成功報酬で支援するサービス。', '「販路開拓の窓口」は株式会社ディアクティブが行政書士しのはら事務所と連携して提供する、小規模事業者持続化補助金の申請支援サービスです。
+
+公式サイトでは、着手金0円、成功報酬は補助金交付決定額の15%で、不採択の場合は申請サポート費用がかからないと記載されています。支払いは採択時50%、事業完了後50%の分割に対応しています。販路開拓の実施費用は個別見積もり（実費）とされています。
+
+申請前のヒアリング・相談段階では費用は発生しません。月額費用については公式サイトに記載がないため要問い合わせです。', null, 'https://dactive.jp/hojyokin', 'free', '0円', 'unknown', null, '補助金交付決定額の15%', '販路開拓の実施費用は個別見積もり（実費）です。', '補助金に採択された場合のみ発生', 'other', false, true, '小規模事業者', array['着手金0円', '成功報酬は交付決定額の15%で不採択時は申請サポート費用なし', '行政書士と連携した申請支援', '支払いは採択時50%・事業完了後50%の分割に対応']::text[], 'unpartnered', false, true, true, 'verified', 'https://dactive.jp/hojyokin', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'hanro-kaitaku-madoguchi' and c.slug = 'subsidy' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('takeuchi-partners-joseikin', '助成金申請サポート', '竹内パートナーズ社労士事務所', '着手金なしの成功報酬型で、助成金申請を全国オンラインで支援する社労士事務所。', '竹内パートナーズ社労士事務所は東京都江戸川区に所在する社会保険労務士事務所で、着手金なしの成功報酬型で助成金申請の代行を行っています。
+
+公式サイトの解説記事によると、初回60分の無料相談を実施し、全国オンラインで対応しています。
+
+成功報酬の具体的な料率や月額費用については該当ページに記載がないため、要問い合わせです。', null, 'https://www.takeuchipartners.com/', 'free', '着手金なし', 'unknown', null, null, '成功報酬の料率は公式ページに記載がありません。', '助成金の受給が確定した場合', 'other', false, true, '助成金の活用を検討する中小企業', array['着手金なしの成功報酬型', '初回60分の無料相談', '全国オンライン対応']::text[], 'unpartnered', false, true, true, 'verified', 'https://www.takeuchipartners.com/blog/subsidy-no-upfront-fee-sharoushi', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'takeuchi-partners-joseikin' and c.slug = 'grant' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('samurai-jigyo-saikouchiku', '事業再構築補助金サポート', 'さむらい行政書士法人', '事業再構築補助金の申請を着手金10万円・成功報酬10%で支援。募集期間内の再申請は無料。', 'さむらい行政書士法人（株式会社Gunshi／よしの行政書士オフィス）が提供する、事業再構築補助金の申請サポートです。
+
+公式サイトの料金表では、着手金10万円（税別）、成功報酬は採択金額の10%（税別）と記載されています。「募集期間内再申請無料」とされ、不採択の場合の再申請以降は成功報酬のみの対応となります。顧問契約は不要で、実績報告書類作成は15万円です。
+
+相談は無料と明記されています。月額費用の記載はありません。', null, 'https://samurai-law.com/hojokin/price/price02/', 'paid', '10万円（税別）', 'unknown', null, '採択金額の10%（税別）', '事業再構築補助金は後継制度へ移行している可能性があり、最新の対応可否は要問い合わせです。', '補助金に採択された場合', 'other', false, true, '補助金の活用を検討する中小企業', array['着手金10万円・成功報酬は採択金額の10%', '募集期間内の再申請は無料', '顧問契約不要', '相談無料']::text[], 'unpartnered', false, true, true, 'verified', 'https://samurai-law.com/hojokin/price/price02/', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'samurai-jigyo-saikouchiku' and c.slug = 'subsidy' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('horie-consul-it-hojokin', 'デジタル化・AI導入補助金サポート', '堀江コンサルティングオフィス株式会社', 'デジタル化・AI導入補助金の申請を着手金なし・成功報酬150,000円（税別）〜で支援。', '堀江コンサルティングオフィス株式会社は、IT導入補助金（デジタル化・AI導入補助金）の申請サポートを提供しています。
+
+公式サイトでは、着手金なしの完全成功報酬制で、交付申請・実績報告サポートは150,000円（税別）〜、ITツール登録サポートは100,000円（税別）/件〜、不採択・登録できない場合は無料と記載されています。
+
+交付申請・実績報告は2017〜2025年の累計1,990件、採択率は全体平均82.3%と掲載されています。相談は無料です。月額費用の記載はないため要問い合わせです。', null, 'https://support.horieconsul.com/service/ithojokin/', 'free', '着手金なし', 'unknown', null, '交付申請・実績報告サポート 150,000円（税別）〜、ITツール登録サポート 100,000円（税別）/件〜', null, '採択された場合（不採択の場合は無料）', 'other', false, true, '補助事業者（中小企業）およびIT導入支援事業者', array['着手金なしの完全成功報酬制', '不採択の場合は無料', '交付申請・実績報告は累計1,990件の実績', '相談無料']::text[], 'unpartnered', false, true, true, 'verified', 'https://support.horieconsul.com/service/ithojokin/', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'horie-consul-it-hojokin' and c.slug = 'subsidy' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('g1-gyoseishoshi-it-hojokin', 'デジタル化・AI導入補助金サポート（G1）', 'G1行政書士法人', 'IT導入補助金の交付申請を成功報酬15万円（税抜・固定）で支援。初回60分の相談は無料。', 'G1行政書士法人は、IT導入補助金のサポートを提供しています。
+
+公式サイトの記載では、IT導入支援事業者登録・ITツール登録サポートは各2万円（税抜）、交付申請サポートは成功報酬15万円（税抜・一律固定）です。月額費用については公式サイトに記載がないため要問い合わせです。
+
+累計申請数4,977件、累計採択数3,668件（採択率73.7%）を掲載しています。初回相談（60分）は無料で、電話相談は全国対応と記載されています。', null, 'https://g1info.jp/itvendorsupport/', 'paid', '登録サポート各2万円（税抜）', 'unknown', null, '交付申請サポート 15万円（税抜・一律固定）', '登録サポートには各2万円（税抜）の費用がかかります。', '交付申請サポートの成功報酬', 'other', false, true, 'IT導入支援事業者・ITツール提供事業者', array['交付申請の成功報酬は15万円の固定額', '累計申請数4,977件・採択率73.7%', '初回60分の無料相談', '電話相談は全国対応']::text[], 'unpartnered', false, true, true, 'verified', 'https://g1info.jp/itvendorsupport/', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'g1-gyoseishoshi-it-hojokin' and c.slug = 'subsidy' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('rivewell-it-vendor-support', 'IT導入支援事業者登録申請サポート', '株式会社リブウェル', 'ITベンダー向けに、IT導入補助金の登録申請を着手金無料・成功報酬30万円（税別）で支援。', '株式会社リブウェルは、IT導入補助金を活用してIT製品を販売したいITベンダー向けに、IT導入支援事業者・ITツールの登録申請サポート（2026）を提供しています。
+
+公式サイトでは、着手金は無料、成功報酬は登録完了時に30万円（税別）、2件目以降のツールは1件ごとに10万円（税別）と記載されています。「採択されなかった場合、一切費用は発生いたしません」とされていますが、自己都合で申請しなかった場合は費用が発生します。
+
+オプションの導入サポートは月額15万円〜（税別）で、15億円以上の補助金・助成金申請をサポートした実績が掲載されています。', null, 'https://www.rivewell.jp/ithojo/sj/', 'free', '無料', 'unknown', null, '30万円（税別）、2件目以降のツールは1件ごとに10万円（税別）', 'オプションの導入サポートは月額15万円〜（税別）です。', 'IT導入支援事業者・ITツールの登録完了時', 'other', false, false, 'IT導入補助金でIT製品を販売するITベンダー', array['着手金無料の成功報酬型', '不採択の場合は費用なし', '15億円以上の申請サポート実績', 'オプションで導入サポートあり']::text[], 'unpartnered', false, true, true, 'verified', 'https://www.rivewell.jp/ithojo/sj/', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'rivewell-it-vendor-support' and c.slug = 'subsidy' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('tokyo-kst-it-hojokin', 'IT導入補助金申請支援', '株式会社東京経営サポーター', 'IT導入補助金の申請支援。着手金50,000円と交付決定成功報酬130,000円。初回相談は無料。', '株式会社東京経営サポーターは、IT導入補助金の申請支援を行っています。
+
+公式サイトでは、料金は着手金50,000円、交付決定成功報酬130,000円、合計180,000円と記載されています。提携店経由の依頼では成功報酬が割引価格になる旨も記載があります。
+
+2,800件超の採択実績を掲載しています。初回相談は無料です。なお代行申請は認められていないため、申請画面への入力は申請者が行い、コンサルタントがZoomでサポートする形式です。月額費用の記載はありません。', null, 'https://www.tokyo-kst.jp/service13.html', 'paid', '50,000円', 'unknown', null, '交付決定成功報酬130,000円', null, '補助金の交付決定時', 'other', false, true, 'IT導入補助金の活用を検討する中小企業', array['着手金50,000円＋交付決定成功報酬130,000円', '2,800件超の採択実績', 'Zoomでのサポート', '初回相談無料']::text[], 'unpartnered', false, true, true, 'verified', 'https://www.tokyo-kst.jp/service13.html', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'tokyo-kst-it-hojokin' and c.slug = 'subsidy' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('support-gyoseishoshi-digital-hojokin', 'デジタル化・AI導入補助金申請サービス', 'サポート行政書士法人', 'IT導入補助金の交付申請を着手金無料・採択後払いの成功報酬制で支援。初回面談は無料。', 'サポート行政書士法人は、IT導入補助金の申請サービスを提供しています。
+
+公式サイトでは、着手金無料・成功報酬制で、報酬は採択後に支払う形と記載されています。料金は交付申請（通常プラン）165,000円〜、インボイス枠110,000円〜、ライトプラン33,000円〜（補助額30万円以下のみ対応）、オプションとして実績報告55,000円、効果報告33,000円です。
+
+2024年度の採択率は通常枠85.3%、インボイス対応90.8%と掲載されています。初回面談は無料です。月額費用の記載はないため要問い合わせです。', null, 'https://www.shigyo.co.jp/search_post/business-subsidy/it/', 'free', '無料', 'unknown', null, '交付申請（通常プラン）165,000円〜、インボイス枠110,000円〜', '実績報告55,000円、効果報告33,000円などの費用が別途記載されています。', '採択後に支払い', 'other', false, true, 'IT導入補助金を活用する事業者', array['着手金無料・報酬は採択後払い', '2024年度採択率は通常枠85.3%', '補助額30万円以下向けのライトプランあり', '初回面談は無料']::text[], 'unpartnered', false, true, true, 'verified', 'https://www.shigyo.co.jp/search_post/business-subsidy/it/', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'support-gyoseishoshi-digital-hojokin' and c.slug = 'subsidy' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('takano-sharoushi-joseikin', '助成金申請代行', 'タカノ社労士事務所', '着手金・顧問料無料で、助成金入金額の20%を支給決定通知到着時に支払う助成金申請代行。', 'タカノ社労士事務所は、助成金の申請代行を行う社会保険労務士事務所です。
+
+公式サイトの料金案内では、着手金は一切無料、月額の顧問料も一切無料で、報酬は助成金入金額の20%を支給決定通知の到着時に支払う方式と記載されています。万一受給できなかった場合も、準備段階の手間賃などは請求されません。助成金に関する相談はいつでも何度でも無料とされています。
+
+就業規則変更（30,000円）や社会保険の新規適用手続きなどは別途料金です。ビジトラアワード「社労士サービス部門」を受賞したと記載されています。', null, 'https://www.takano-sharoushi.jp/13933542451599', 'free', '一切無料', 'free', '月額顧問料も一切無料', '助成金入金額の20%', '就業規則の変更や保険手続きが必要な場合は別途料金です。', '助成金の支給決定通知の到着時', 'other', true, true, '助成金の活用を検討する事業者', array['着手金・月額顧問料が無料', '報酬は助成金入金額の20%', '受給できない場合も準備費用の請求なし', '助成金の相談は何度でも無料']::text[], 'unpartnered', false, true, true, 'verified', 'https://www.takano-sharoushi.jp/13933542451599', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'takano-sharoushi-joseikin' and c.slug = 'grant' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('scc-collaboration-dev', 'コラボレーション事業開発サービス', '株式会社エスシーシー', 'システム開発費用をゼロ円とし、料金はレベニューシェアで支払う、新規事業向けの共同開発サービス。', '株式会社エスシーシー（SCC）が提供する、レベニューシェア型契約を前提としたコラボレーション事業開発サービスです。2023年7月4日のプレスリリースによれば、新規事業の初期投資として重くなりがちなシステム開発費用がゼロ円で、料金体系はレベニューシェアでの支払いとなり、分配比率は事業内容に応じて協議するとされています。
+
+システムの保守・運用の継続サポートや、サービス設計・業務設計などのコンサルティングにも対応します。事業アイデアはあるものの資金調達が難しい企業を想定したサービスで、複数企業間のコラボレーション機能も特徴です。
+
+具体的な分配比率、月額費用、無料相談の有無はプレスリリースに記載がないため、要問い合わせです。', null, 'https://www.scc-kk.co.jp/', 'free', 'システム開発費用ゼロ円（プレスリリース記載）', 'unknown', null, 'レベニューシェア（分配比率は事業内容に応じて協議）', '2023年7月のプレスリリースに基づく情報。月額費用の有無は記載がないため要問い合わせ。', '事業から生じる収益を分配', 'contract', false, false, '資金調達が難しい新規事業の立ち上げ企業', array['システム開発費用ゼロ円', '料金はレベニューシェアで支払い', '保守・運用を継続サポート', 'サービス設計・業務設計のコンサルティングに対応']::text[], 'unpartnered', false, true, true, 'verified', 'https://prtimes.jp/main/html/rd/p/000000027.000040510.html', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'scc-collaboration-dev' and c.slug = 'system-development' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('selva-revenueshare-dev', 'レベニューシェア型サイト・アプリ開発', '株式会社セルバ', '開発・運営費の一部をセルバが負担し、売上の一定割合を分配するレベニューシェア型のサイト・アプリ開発。', '株式会社セルバが提供する、レベニューシェア型のサイト・アプリ開発サービスです。公式サイトによれば、開発・運営費の一部をセルバ側が負担し、売上の一定割合を分配する方式を採用しています。
+
+対象は開発費用300万円以上のシステム案件です。介護人材求人サイトや専門家マッチングサイトなど、30件以上の共同開発事例が紹介されています。企画段階から相談でき、継続的な営業メールは原則として行われないと記載されています。
+
+具体的な分配率、初期費用・月額費用の金額は公式サイトに記載がないため要問い合わせです。相談に費用がかかるかどうかも記載がないため、あわせて要問い合わせです。', null, 'https://www.selva-i.co.jp/revenueshare/', 'unknown', null, 'unknown', null, '売上の一定割合を分配（具体的な料率の記載なし）', '開発費用300万円以上のシステム案件が対象。初期費用・月額の金額は公式サイトに記載がないため要問い合わせ。', '開発したサイト・アプリの売上を分配', 'contract', false, false, '新規Webサービス・システムを立ち上げたい企業（開発費300万円以上の案件）', array['開発・運営費の一部をセルバが負担', '売上の一定割合を分配する共同事業型', '開発費300万円以上のシステム案件が対象', '介護人材求人・専門家マッチングなど30件以上の共同開発事例']::text[], 'unpartnered', false, true, true, 'verified', 'https://www.selva-i.co.jp/revenueshare/468/', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'selva-revenueshare-dev' and c.slug = 'system-development' on conflict do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, false from services s, categories c where s.slug = 'selva-revenueshare-dev' and c.slug = 'app-development' on conflict do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, false from services s, categories c where s.slug = 'selva-revenueshare-dev' and c.slug = 'site-production' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('soelu-seika-homepage', '成果報酬型ホームページ制作・Web集客', '株式会社Soelu', '毎月のコンサル費用不要で、Web経由の成約金額の8〜20%が報酬となる成果報酬型ホームページ制作・集客サービス。', '株式会社Soeluが提供する成果報酬型のホームページ制作・Web集客サービスです。公式ページによれば、毎月のコンサルティング費用は一切かからず、成約や契約につながった金額に対して8〜20%（消費税別）が報酬となり、料率は事業内容により異なります。
+
+Web上のお問い合わせ（メール、電話、FAXなど）で成約した案件が対象で、お問い合わせのみが成果対象となる場合もあります。契約期間は最低1年間、その後は6か月ごとの更新で、契約開始6か月経っても成果が現れない場合は、要望により費用なしで解約できると記載されています。
+
+ホームページ制作から依頼する場合、初期費用をいただかない対応も相談可能とされていますが、具体的な初期費用は公式ページに記載がないため要問い合わせです。無料相談の案内があります。', null, 'https://simple-alpha.com/', 'unknown', '制作から依頼する場合は初期費用なしも相談可能（具体額の記載なし）', 'free', '毎月のコンサルティング費用は一切かからない', '成約・契約に繋がった金額の8〜20%＋消費税（事業内容により異なる）', '最低契約期間1年、以後6か月ごとの更新。6か月経過後に成果がない場合は費用なしで解約可。', 'Web上のお問い合わせ（メール・電話・FAX等）で成約した案件', 'contract', false, true, 'Web経由の問い合わせから成約を増やしたい事業者（全国対応）', array['成約金額の8〜20%の成果報酬', '毎月のコンサルティング費用は不要', '6か月経過後に成果がなければ費用なしで解約可', '内部最適化・コンテンツ追加・外部施策を実施']::text[], 'unpartnered', false, true, true, 'verified', 'https://simple-alpha.com/news/2450.html', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'soelu-seika-homepage' and c.slug = 'site-production' on conflict do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, false from services s, categories c where s.slug = 'soelu-seika-homepage' and c.slug = 'lp-production' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('sunseer-revenue-share', 'レベニューシェア事業', '株式会社サンシーア', 'WEB新規事業の初期開発から保守までを担い、売上を折半でシェアするレベニューシェア型のWEBシステム開発。', '株式会社サンシーアが提供するレベニューシェア事業です。公式サイトによれば、収益性の高いWEB新規事業のプランや企画リソース、売れるコンテンツリソースを利用して、WEB事業の売上を折半でシェアする仕組みです。
+
+WEBシステムの初期開発からシステムの保守メンテナンスまで対応し、Eコマースサイト、予約系サイトなどを提供可能としています。過去実績として食料品ECサイトの構築・運営、カーシェアリング、サロン系ポータルサイトなどが挙げられています。
+
+初期費用・月額費用の有無や金額、具体的な契約条件は公式サイトに記載がないため要問い合わせです。無料相談の明記もありません。', null, 'https://sunseer.co.jp/', 'unknown', null, 'unknown', null, 'WEB事業の売上を折半でシェア', '初期費用・月額費用は公式サイトに記載がないため要問い合わせ。', 'WEB事業から生じる売上', 'contract', false, false, 'WEB新規事業を共同で立ち上げたい企業', array['WEB事業の売上を折半でシェア', '初期開発から保守メンテナンスまで対応', 'Eコマース・予約系サイトなどを提供可能', '食料品EC・カーシェア・サロン系ポータルの実績']::text[], 'unpartnered', false, true, true, 'verified', 'https://sunseer.co.jp/development/revenue_share/', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'sunseer-revenue-share' and c.slug = 'system-development' on conflict do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, false from services s, categories c where s.slug = 'sunseer-revenue-share' and c.slug = 'site-production' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('shop-assist-ec', 'ショップアシスト', '株式会社エスアイアソシエイツ', '自社開発カート『EverCart』でECサイト構築から運用までを支援する、月額費用が成果報酬型のサービス。', '株式会社エスアイアソシエイツが提供する、ECサイトの構築・運用サービスです。公式サイトによれば、自社開発のカートシステム「EverCart」を使用し、コンサルタント、Web制作、開発、プロモーションの各チームが連携して支援します。
+
+運用面では、サイト構築・更新、商品登録、受注対応、メールマーケティング、SEO対策、戦略立案・分析などに対応します。料金は「初期費用は必要最低限、月額費用は成果報酬型」と記載されていますが、具体的な金額や料率は公式サイトに記載がないため要問い合わせです。無料オンライン相談を受け付けています。', null, 'https://shop-assist.siaj.co.jp/', 'unknown', '必要最低限（具体額の記載なし）', 'unknown', '成果報酬型（具体額の記載なし）', null, '金額・料率は公式サイトに記載がないため要問い合わせ。', 'EC運用の成果に応じた月額費用（具体条件は記載なし）', 'sale', false, true, 'ネットショップ・ECサイトを立ち上げ、運用したい事業者', array['自社開発カート『EverCart』を使用', '戦略立案から運用まで一貫サポート', '商品登録・受注対応・SEO対策などの運用に対応', '無料オンライン相談に対応']::text[], 'unpartnered', false, true, true, 'verified', 'https://shop-assist.siaj.co.jp/', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'shop-assist-ec' and c.slug = 'site-production' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('mybestjob', 'マイベストジョブ', '株式会社ファーストブランド', '初期費用・月額費用が無料の成功報酬型求人サイト。アルバイト・パートは1名5万円、正社員・契約社員は1名10万円（税別）。', 'マイベストジョブは、株式会社ファーストブランドが運営する成功報酬型の求人掲載サービスです。公式サイトでは、初期費用・月額費用・システム利用料ともに無料と案内されています。
+
+料金は採用課金型が基本で、アルバイト・パートは1名採用につき50,000円、正社員・契約社員は1名採用につき100,000円（税別）です。費用が発生するのは、求職者の初日の勤務が完了した時点とされています。業務委託や特定職種は採用課金の対象外で、別途応募課金プランが用意されていると記載があります。
+
+公式サイトにはFAQページへの案内があります。無料相談の明記は確認できなかったため、相談の可否や詳細な条件は公式サイトに記載がないため要問い合わせです。', null, 'https://mybestjob.jp/kyujinkoukoku/', 'free', '無料', 'free', '無料', 'アルバイト・パート1名採用につき50,000円、正社員・契約社員1名採用につき100,000円（税別）', '業務委託や特定職種は採用課金の対象外で、応募課金プランが別途あり。', '求職者の初日の勤務が完了した時点で課金（採用課金型）', 'hire', true, false, 'アルバイト・パート・正社員等を採用したい企業', array['初期費用・月額費用・システム利用料が無料', 'アルバイト・パートは1名5万円、正社員・契約社員は1名10万円（税別）', '初日の勤務完了時点で料金が発生', '業務委託・特定職種向けに応募課金プランあり']::text[], 'unpartnered', false, true, true, 'verified', 'https://mybestjob.jp/kyujinkoukoku/', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'mybestjob' and c.slug = 'job-ads' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('recruit-direct-scout', 'リクルートダイレクトスカウト', '株式会社Indeed Recruit Partners', '初期費用無料で、入社時のみ入社者の理論年収15％の採用決定手数料が発生するダイレクトリクルーティングサービス。', 'リクルートダイレクトスカウトは、株式会社Indeed Recruit Partnersが運営する中途採用向けのダイレクトリクルーティングサービスです。公式サイトでは、初期費用は無料と案内されています。
+
+採用が決まった場合の採用決定手数料は、入社時のみ、入社者の理論年収の15％と記載されています。月額やデータベース使用料については、確認したページに明確な記載がなかったため、要問い合わせです。
+
+公式サイトにはお問い合わせボタンがあり、サービス利用開始の流れや利用料金について相談できます。ただし「無料相談」という表現は確認できていません。', null, 'https://directscout.recruit.co.jp/biz/', 'free', '初期費用無料', 'unknown', null, '入社者の理論年収×15％', '月額・データベース使用料は公式サイトに記載がないため要問い合わせ。', '入社時のみ採用決定手数料が発生', 'hire', false, false, '中途採用でダイレクトリクルーティングを行いたい企業', array['初期費用無料', '採用決定手数料は入社者の理論年収の15％', '入社時のみ手数料が発生', '料金やサービスの流れを問い合わせ可能']::text[], 'unpartnered', false, true, true, 'verified', 'https://directscout.recruit.co.jp/biz/', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'recruit-direct-scout' and c.slug = 'recruitment-agency' on conflict do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, false from services s, categories c where s.slug = 'recruit-direct-scout' and c.slug = 'job-ads' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('rise-for-business', 'RISE for Business', '株式会社ウイルテック', '外国人エンジニア採用に特化した完全成功報酬型マッチング。初期費用0円・月額0円で、成功報酬は1名40万円または60万円。', 'RISE for Businessは、株式会社ウイルテックが運営する外国人エンジニア採用に特化したマッチングサービスです。公式ページでは、初期費用0円、月額費用0円で、内定承諾まで一切費用はかからないと案内されています。
+
+100万人超の独自コミュニティの求職者に対し、応募・スカウト・面接・内定までの支援を行うと記載があります。成功報酬はSプランが1名40万円、Mプランが1名60万円と掲載されています。税区分や各プランの詳細な違いは、確認したページでは明記がなく、要問い合わせです。
+
+18年の海外人財事業と1,300人超の外国人の日本受け入れの経験があると紹介されています。無料相談の明記は確認できなかったため、詳細は公式サイトに記載がないため要問い合わせです。', null, 'https://www.risefor-business.com/landing/top', 'free', '0円', 'free', '0円', 'Sプラン40万円/名、Mプラン60万円/名', '税区分およびSプラン・Mプランの違いは公式ページに記載がないため要問い合わせ。', '内定承諾まで費用は発生しない（完全成功報酬型）', 'hire', true, false, '外国人エンジニアを採用したい企業', array['外国人エンジニア採用に特化', '初期費用0円・月額費用0円', 'Sプラン40万円/名、Mプラン60万円/名', '応募・スカウト・面接・内定までを支援']::text[], 'unpartnered', false, true, true, 'verified', 'https://www.risefor-business.com/landing/top', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'rise-for-business' and c.slug = 'recruitment-agency' on conflict do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, false from services s, categories c where s.slug = 'rise-for-business' and c.slug = 'recruitment-outsourcing' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('shufu-job', 'しゅふJOB', '株式会社ビースタイル メディア', '主婦・主夫層向け求人サイト。応募課金は多くの職種で1応募7,500円、採用課金プランは月額10,000円に成果課金。', 'しゅふJOBは、株式会社ビースタイル メディアが運営する主婦・主夫層向けの求人掲載サービスです。公式の料金案内には、応募課金・掲載課金・採用課金の3つのプランが掲載されています。
+
+応募課金プランは応募1件ごとの課金で、多くの職種で1応募につき7,500円と記載され、応募が集まるまで掲載費用は発生しないとされています。採用課金プランは月額利用料10,000円（アカウント毎）に加え、採用成功時の費用が別途かかり、金額は職種等により異なると記載されています。
+
+求人作成代行は初回2求人まで無料、3求人目以降は3,000円です。電話での問い合わせ窓口も案内されていますが、初期費用の有無は確認できなかったため要問い合わせです。', null, 'https://part.shufu-job.jp/business/', 'unknown', null, 'paid', '採用課金プランは月額10,000円（アカウント毎）。応募課金プランは応募が集まるまで掲載費用なし', '応募課金プラン：多くの職種で1応募につき7,500円。採用課金プラン：採用成功時の費用は別途（金額は職種等により異なる）', '職種により料金が異なる。求人作成代行は初回2求人まで無料、3求人目以降3,000円。', '応募課金プランは応募1件ごとに課金', 'lead', false, false, '主婦・主夫層を採用したい企業', array['応募課金・掲載課金・採用課金の3プラン', '応募課金は多くの職種で1応募7,500円', '応募が集まるまで掲載費用は発生しない（応募課金）', '求人作成代行は初回2求人まで無料']::text[], 'unpartnered', false, true, true, 'verified', 'https://part.shufu-job.jp/business/', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'shufu-job' and c.slug = 'job-ads' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('echoes-engineer-rpo', 'エコーズ 中途エンジニア向け採用代行', '株式会社エコーズ', '初期費用ゼロ・月額ゼロで、採用決定時のみ費用が発生する中途エンジニア向け採用代行サービス。', '株式会社エコーズが提供する、中途エンジニア採用向けの採用代行サービスです。2025年7月9日のプレスリリースによると、初期費用・月額費用はともにゼロで、費用が発生するのは採用決定時のみ（完全成果報酬型）とされています。
+
+スカウト文面の作成・送信、面接調整など手が足りない部分を代行し、最終的に自社で採用できる体制づくりも支援する伴走型のサポートと説明されています。採用専任者がいない企業を想定したサービスです。
+
+リリースには無料ヒアリングから課題整理まですべて無料で実施していると記載があります。成果報酬の具体的な金額はリリースに記載がないため、要問い合わせです。', null, 'https://prtimes.jp/main/html/rd/p/000000007.000132137.html', 'free', 'ゼロ', 'free', 'ゼロ', null, '2025年7月のプレスリリースに基づく情報。成功報酬の金額は記載がないため要問い合わせ。', '採用決定時のみ費用が発生', 'hire', true, true, '採用専任者がいない企業（中途エンジニア採用）', array['初期費用・月額費用ゼロ', 'スカウト文面作成・送信、面接調整を代行', '自社で採れる体制づくりも支援', '無料ヒアリングから課題整理まで無料']::text[], 'unpartnered', false, true, true, 'verified', 'https://prtimes.jp/main/html/rd/p/000000007.000132137.html', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'echoes-engineer-rpo' and c.slug = 'recruitment-outsourcing' on conflict do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, false from services s, categories c where s.slug = 'echoes-engineer-rpo' and c.slug = 'recruitment-agency' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('etoile-young-recruitment', 'ETOILE 若手特化人材紹介', '株式会社ETOILE', '20代〜30代前半の若手人材を紹介する完全成果報酬型の人材紹介。初期費用0円で、採用決定まで手数料は発生しない。', '株式会社ETOILEは、2026年9月22日のプレスリリースで、採用代行と若手特化の人材紹介の2サービスの本格開始を発表しました。ここでは人材紹介サービスを掲載します。
+
+人材紹介は20代〜30代前半の若手人材を中心に、採用要件に合致する候補者を面談のうえ紹介するサービスで、初期費用0円、採用決定まで紹介手数料は発生しない完全成果報酬型と記載されています。
+
+具体的な手数料の金額や料率は相談内容を確認したうえで案内とされており、公式リリースに記載がないため要問い合わせです。月額費用の有無も明確な記載がなく、確認できていません。無料相談の明記もありません。', null, 'https://prtimes.jp/main/html/rd/p/000000008.000183129.html', 'free', '0円', 'unknown', null, null, '2026年9月のプレスリリースに基づく情報。手数料は相談内容を確認のうえ案内。', '採用決定まで紹介手数料は発生しない（完全成果報酬型）', 'hire', false, false, '20代〜30代前半の若手人材を採用したい企業', array['20代〜30代前半の若手人材が中心', '初期費用0円', '採用決定まで紹介手数料は発生しない', '採用要件に合う候補者を面談のうえ紹介']::text[], 'unpartnered', false, true, true, 'verified', 'https://prtimes.jp/main/html/rd/p/000000008.000183129.html', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'etoile-young-recruitment' and c.slug = 'recruitment-agency' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('techcamp-jinzai-shokai', 'テックキャンプ 人材紹介', 'div株式会社', 'プログラミングスクール卒業生を紹介する人材紹介サービス。初期費用0円の完全成果報酬制で、入社後の退職時は規定に沿って返金。', 'テックキャンプ人材紹介は、div株式会社が提供するエンジニア向けの人材紹介サービスです。公式ページでは、初期費用0円、完全成果報酬制で採用まで費用は一切かからないと案内されています。成功報酬の金額・料率と月額費用は確認したページに記載がなく、要問い合わせです。
+
+紹介する人材は、前職を辞めて600時間の学習をやりきった人材で、90%以上が前職IT業界ではないと紹介されています。契約から最短1週間で内定を出せるとしています。
+
+万一入社後に退職した場合は、規定に沿って返金すると記載があります。問い合わせ後、担当者が1営業日以内に連絡し、面談・ヒアリングは無料とされています。', null, 'https://di-v.co.jp/tech-camp/recruitment', 'free', '0円', 'unknown', null, null, '成功報酬の金額・料率は公式ページに記載がないため要問い合わせ。', '採用まで費用はかからない（完全成果報酬制）', 'hire', false, true, 'エンジニアを採用したい企業', array['初期費用0円の完全成果報酬制', '入社後に退職した場合は規定に沿って返金', '契約から最短1週間で内定を出せる', '面談・ヒアリングは無料']::text[], 'unpartnered', false, true, true, 'verified', 'https://di-v.co.jp/tech-camp/recruitment', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'techcamp-jinzai-shokai' and c.slug = 'recruitment-agency' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('kanmo-success-plan', 'KANMO 成果報酬プラン', 'いぬのて', '中小企業向け採用ソリューションKANMOの完全成果報酬型プラン。初期費用・月額0円、入社1名につき30万円（税別）。', 'KANMO（カンモー）は、いぬのてが提供する中小企業向けの採用ソリューションです。2026年7月1日に開始した「成果報酬プラン」は、初期費用0円・月額費用0円で、入社が決定した場合にのみ費用が発生するプランと発表されています。
+
+成果報酬は入社1名につき30万円（税別）で、成果の定義は対象ポジションへの入社日到達とされています。採用戦略の設計、求人原稿の最適化、媒体選定の支援を行い、求人の掲載、応募者対応、面接は依頼企業側が担当すると記載があります。
+
+リリースでは2026年7月10日までの申し込み限定で1名10万円（税別）とするキャンペーンも案内されていました。無料相談の明記は確認できなかったため、要問い合わせです。', null, 'https://pr-free.jp/2026/174048/', 'free', '0円', 'free', '0円', '入社1名につき300,000円（税別）', '2026年7月のプレスリリースに基づく情報。2026年7月10日までの申し込み限定で1名100,000円（税別）のキャンペーンが案内されていた。', '対象ポジションへの入社日到達', 'hire', true, false, '中小企業', array['初期費用0円・月額費用0円', '入社1名につき30万円（税別）', '採用戦略設計・求人原稿最適化・媒体選定を支援', '掲載・応募者対応・面接は依頼企業側が担当']::text[], 'unpartnered', false, true, true, 'verified', 'https://pr-free.jp/2026/174048/', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'kanmo-success-plan' and c.slug = 'recruitment-outsourcing' on conflict do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, false from services s, categories c where s.slug = 'kanmo-success-plan' and c.slug = 'job-ads' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('findy-freelance-enterprise', 'Findy Freelance', 'ファインディ株式会社', '案件掲載は無料、初期費用0円で、人材の参画決定時に成功報酬が発生するフリーランスエンジニア採用サービス。', 'Findy Freelanceは、Findy Inc.が提供する、フリーランスエンジニアの活用を検討する企業向けの採用サービスです。公式ページには、案件の掲載に関して料金は発生せず、初期費用は0円で、採用決定時に成功報酬として料金をいただくと記載されています。
+
+紹介した人材の参画が決定するまで無料で利用できると案内されています。成功報酬の具体的な金額は料金表が別ページにあるとされ、確認したページには表示がなかったため、要問い合わせです。月額費用の有無も記載が確認できていません。
+
+ページには「まずはお気軽にお問い合わせください」との案内があります。無料相談の明記は確認できていません。', null, 'https://freelance.findy-code.io/enterprise-service/', 'free', '0円', 'unknown', null, null, '成功報酬の金額は公式ページ上に表示がないため要問い合わせ。', '紹介した人材の参画が決定した時点で成功報酬が発生', 'hire', false, false, 'フリーランスエンジニアを採用したい企業（スタートアップ等）', array['案件の掲載は無料', '初期費用は0円', '参画が決定するまで無料で利用可能', '採用決定時に成功報酬が発生']::text[], 'unpartnered', false, true, true, 'verified', 'https://freelance.findy-code.io/enterprise-service/', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'findy-freelance-enterprise' and c.slug = 'recruitment-agency' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('dgloss-appopro', 'ディグロス 成果報酬型テレアポ代行・インサイドセールス', '株式会社ディグロス', '初期費用・固定費なしで、新規アポイント1件10,000円〜35,000円の成果報酬型テレアポ代行・インサイドセールス。', 'ディグロスの成果報酬型テレアポ代行・インサイドセールスは、公式サイトで「初期費用・固定費用無し」とされています。新規アプローチのアポイント単価は1件10,000円〜35,000円と記載されています。
+
+契約は1か月単位で、初回契約は2か月以上が条件とされています。課金はアポイント獲得時点で、訪問できなかった場合はキャンセル対応（相殺・返金）があると記載されています。公式サイトでは、アポイント成約率が平均30%以上、コミット達成率89.8%以上などの実績値が示されています。
+
+レポートはオプションで、1回30,000円または60,000円の費用が別途記載されています。相談は電話またはお問い合わせフォームから可能です。業種別の単価の内訳は公式サイトに記載がないため要問い合わせです。', null, 'https://dgloss.co.jp/tele-appointment/', 'free', '0円（初期費用なし）', 'free', '固定費なし', '新規アプローチ1件10,000円〜35,000円', 'オプションのレポートは1回30,000円または60,000円が別途かかる記載があるため、完全成果報酬型には分類していません。', 'アポイント獲得時点で課金', 'appointment', false, true, 'BtoB企業', array['初期費用・固定費用なしの成果報酬型', 'アポイント単価10,000円〜35,000円（新規アプローチ）', '訪問できなかった場合はキャンセル対応（相殺・返金）', '1か月単位の契約（初回は2か月以上）']::text[], 'unpartnered', false, true, true, 'verified', 'https://dgloss.co.jp/tele-appointment/', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'dgloss-appopro' and c.slug = 'tele-appointment' on conflict do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, false from services s, categories c where s.slug = 'dgloss-appopro' and c.slug = 'sales-outsourcing' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('eigyo-hack-apo100', 'アポ100', '株式会社営業ハック', '初期費用・稼働費・固定費・デポジットが無料で、成果報酬のみの完全成果報酬型テレアポ代行。', '株式会社営業ハックの「アポ100」は、成果報酬型のテレアポ代行サービスです。2024年10月16日のプレスリリースでは、初期費用・稼働費・運営固定費・デポジットが無料で、料金はアポイント獲得の成果報酬のみ、アポが0件であれば費用は0円とされています。
+
+サービス内容は新規アポイント100件の獲得支援と記載されています。相談では、アウトバウンドを実施すべきか、代行が必要かといった実施可否の相談を含めて対応すると記載されています。
+
+1件あたりの成果報酬額は公開情報に記載がないため要問い合わせです。', null, 'https://eigyou-hack.com/sales-agency', 'free', '無料', 'free', '稼働費・運営固定費は無料', null, '2024年10月のプレスリリースに基づく情報。成果報酬額は未公開のため要問い合わせ。', 'アポイント獲得の成果報酬のみ（アポ0件なら費用0円）', 'appointment', true, false, 'BtoB企業', array['初期費用・稼働費・運営固定費・デポジットがすべて無料', '料金はアポイント獲得の成果報酬のみ', 'アポが0件であれば費用は0円', '実施可否の相談を含めて代表が対応']::text[], 'unpartnered', false, true, true, 'verified', 'https://prtimes.jp/main/html/rd/p/000000438.000050843.html', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'eigyo-hack-apo100' and c.slug = 'sales-outsourcing' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('salesdrive-outbound', 'セールスドライブ 完全成果報酬型営業代行', 'セールスドライブ株式会社', '初期費用・月額費用0円で、アポイント1件4万円〜の成果報酬型営業代行。月1件から利用可能。', 'セールスドライブ株式会社の営業代行は、公式サイトで初期費用0円・月額費用0円、アポイント単価は4万円〜と記載されています。最低利用期間はなく、月に1件から利用できるプランとされています。
+
+リストやスクリプトなども無償で提供されると記載されています。50プロジェクト以上の支援実績があり、契約後最短2週間でセールスチームを構築できるとされています。
+
+資料請求、御見積依頼、無料のオンライン相談に対応しています。単価の「〜」の上限や条件の詳細は公式サイトに記載がないため要問い合わせです。', null, 'https://www.salesdrive.co.jp/outboundsales', 'free', '0円', 'free', '0円', 'アポイント単価4万円〜', '単価は「4万円〜」の表記のため、詳細は要問い合わせ。', 'アポイント獲得に対して費用が発生', 'appointment', true, true, 'BtoB企業', array['初期費用0円・月額費用0円', '月1件から利用でき最低利用期間なし', 'リストやスクリプトなども無償で提供', '契約後最短2週間でセールスチームを構築']::text[], 'unpartnered', false, true, true, 'verified', 'https://www.salesdrive.co.jp/outboundsales', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'salesdrive-outbound' and c.slug = 'sales-outsourcing' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('jobs-form-sales', 'Jobs お問い合わせフォーム営業代行', 'Jobs Co., Ltd', '初期費用・基本料金0円で、送信成功分のみ1通15〜20円の問い合わせフォーム営業代行。完全手動配信。', 'Jobs Co., Ltdのフォーム営業代行は、公式サイトで初期費用・基本料金0円とされ、成功分のみの課金と記載されています。単発利用プランは1通20円、このページからの申し込みで5,000件以上の依頼の場合は15円、定期利用プランは1通15円とされています。定期利用は3か月・月5,000件以上の条件が記載されています。
+
+配信は完全手動で、100万社以上の法人データベースを保有すると記載されています。24時間受付の無料相談フォームがあります。
+
+課金対象は送信の成功分であり、商談・受注などの成果ではない点にご注意ください。', null, 'https://jobs-tokyo.com/form-sales/', 'free', '0円', 'free', '基本料金0円（定期利用は3か月・月5,000件以上の条件）', '単発プラン1通20円（条件付きで15円）、定期プラン1通15円', '定期利用プランには3か月・月5,000件以上の条件があるため、完全成果報酬型には分類していません。', '送信に成功した分のみ課金（商談・受注などの成果ではない）', 'other', false, true, 'BtoB企業', array['初期費用・基本料金0円', '送信成功分のみ課金', '完全手動配信', '100万社以上の法人データベースを保有']::text[], 'unpartnered', false, true, true, 'verified', 'https://jobs-tokyo.com/form-sales/', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'jobs-form-sales' and c.slug = 'form-sales' on conflict do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, false from services s, categories c where s.slug = 'jobs-form-sales' and c.slug = 'sales-outsourcing' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('caraful-sns-seika', '完全成果報酬型SNSアカウント運用代行', 'CARAFUL株式会社', 'フォロワー獲得数に応じて料金が確定する成果報酬型のSNSアカウント運用代行メニュー。効果が出るまで運用代行料金は発生しないと公式PRに記載。', 'CARAFUL株式会社が提供する、フォロワー獲得数に応じて料金が確定する「完全成果報酬型」のSNSアカウント運用代行メニューです。1フォロワー獲得あたりの対価をあらかじめ決め、月間のフォロワー獲得数で料金を確定する仕組みとされています。
+
+公式プレスリリースでは、「SNSアカウント運用代行料金は効果が出るまでは頂きません」と記載され、通常の運用代行の業界平均価格以下を上限として設定することで、依頼企業の想定外の支出を防ぐと説明されています。また、4万人のインフルエンサーネットワーク「CARAFUL Influencer Network」を活用でき、プロデューサーの起用には別途料金が必要です。
+
+初期費用・月額費用の有無や、1フォロワーあたりの具体的な単価は記載がないため、公式サイトに記載がなく要問い合わせです。本情報は2020年4月のプレスリリースに基づくため、最新の条件は公式にご確認ください。', null, 'https://www.caraful.co.jp/', 'unknown', null, 'unknown', null, null, '2020年4月のプレスリリースに基づく情報。単価・初期費用・月額は記載がなく要問い合わせ。', '月間のフォロワー獲得数に応じて料金が確定(1フォロワーあたりの単価は事前に決定、上限は業界平均価格以下)', 'other', false, false, null, array['フォロワー獲得数に応じて料金が確定', '効果が出るまで運用代行料金は発生しない', '業界平均価格以下を上限とし想定外の支出を防止', '4万人のインフルエンサーネットワークを活用']::text[], 'unpartnered', false, true, true, 'verified', 'https://prtimes.jp/main/html/rd/p/000000005.000046229.html', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'caraful-sns-seika' and c.slug = 'sns' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('takecoco-instagram', 'Takecoco(テイクココ)', 'セスグモ株式会社', 'Instagramアカウント運用を、月額固定費とフォロワー増加数に応じた成果報酬で依頼できる運用代行サービス。', 'セスグモ株式会社が運営する、Instagram向けのアカウント運用代行サービスです。成果報酬型で依頼でき、フォロワー1件あたりの単価やエンゲージメントなどの指標に応じた料金設定が可能とされています。
+
+公式サイトの料金表では、Trialプラン(3か月契約)は月額30,000円＋フォロワー1件あたり150円〜、スタンダードプラン(6か月契約)は月額30,000円＋フォロワー1件あたり80円〜と記載されています。予算内で運用できるよう上限を設定できる仕組みがあり、アカウントごとにチームを組み、月1回以上のミーティングを行うと案内されています。
+
+相談は問い合わせフォームまたはChatworkから行えます。初期費用の記載は確認できなかったため、公式サイトに記載がなく要問い合わせです。', null, 'https://take-coco.com/', 'unknown', null, 'paid', '月額30,000円(Trial・スタンダード共通)', 'フォロワー1件あたり150円〜(Trial)/80円〜(スタンダード)', '料金は公式サイト掲載のプラン表に基づく。初期費用の記載は確認できず要問い合わせ。', 'フォロワー増加数、またはエンゲージメント等の指標に応じた単価設定', 'other', false, false, null, array['Instagramの運用代行', '月額固定＋フォロワー増加数連動の成果報酬', '予算超過を防ぐ上限設定が可能', 'アカウントごとにチームを組み月1回以上のMTG']::text[], 'unpartnered', false, true, true, 'verified', 'https://take-coco.com/', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'takecoco-instagram' and c.slug = 'instagram-ops' on conflict do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, false from services s, categories c where s.slug = 'takecoco-instagram' and c.slug = 'sns' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('snaplace-talent-insta', 'スナップレイス・タレント(Instagram運用代行サポートプラン)', '合同会社SNAPLACE', 'フォロワー増加数に応じた成果報酬型のInstagram運用代行プラン。最低予算の設定あり。', '合同会社SNAPLACEが提供する、Instagram運用代行・サポートプランです。公式プレスリリースでは、フォロワー増加数に応じた金額のみを支払う成果報酬型で、20フォロワー増加ごとに成果報酬が発生すると説明されています。
+
+プレスリリースでは最低予算として25万円からと記載されており、フォロワーが増加しない場合は報酬が発生しないとされています。契約期間はフォロワー増加の達成まで、または最大2年間です。アカウント運用はすべて人手で行い、自動ツールは使用しないと説明されています。
+
+無料相談の記載は確認できませんでした。初期費用・月額費用の有無は記載がないため要問い合わせです。本情報は2018年2月のプレスリリースに基づくため、現在の条件は公式にご確認ください。', null, 'https://snaplace.biz/', 'unknown', null, 'unknown', null, '20フォロワー増加ごとに成果報酬が発生(金額は記載なし)', '2018年2月のプレスリリースに基づく情報。現在の料金は公式に要確認。', 'フォロワー増加数。増加しない場合は報酬なし。最低予算25万円から。契約期間は達成まで、または最大2年間', 'other', false, false, null, array['フォロワー増加数に応じた成果報酬', 'すべて人手で運用し自動ツールは不使用', '最低予算は25万円から', '契約期間は最大2年間']::text[], 'unpartnered', false, true, true, 'verified', 'https://prtimes.jp/main/html/rd/p/000000023.000018041.html', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'snaplace-talent-insta' and c.slug = 'instagram-ops' on conflict do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, false from services s, categories c where s.slug = 'snaplace-talent-insta' and c.slug = 'sns' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('dekidaka-sns', 'デキダカ', '合同会社TSUMIAGE', 'フォロワー数に連動する成果報酬型のInstagram運用代行。基本運用費は月額1万円から。', '合同会社TSUMIAGEが2025年7月に正式リリースした、フォロワー連動の成果報酬型SNS運用代行サービスです。Instagramに特化しています。
+
+公式プレスリリースによると、基本運用費は月額1万円からで、これに加えて獲得した新規フォロワー数に連動する変動報酬が発生します。「効果ゼロなら支払いゼロ」とうたう成果重視の設計とされています。
+
+フォロワー1人あたりの単価や初期費用、無料相談の有無は公式の記載を確認できなかったため、要問い合わせです。', null, 'https://sns-dekidaka.studio.site/', 'unknown', null, 'paid', '基本運用費 月額1万円から', null, '2025年7月のプレスリリースに基づく。成果報酬の単価は記載がなく要問い合わせ。', '獲得した新規フォロワー数に連動する変動報酬', 'other', false, false, null, array['Instagram特化の運用代行', '基本運用費＋フォロワー数連動の成果報酬', '「効果ゼロなら支払いゼロ」とうたう設計']::text[], 'unpartnered', false, true, true, 'verified', 'https://prtimes.jp/main/html/rd/p/000000002.000162855.html', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'dekidaka-sns' and c.slug = 'instagram-ops' on conflict do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, false from services s, categories c where s.slug = 'dekidaka-sns' and c.slug = 'sns' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('senjin-tiktok-seika', '成果報酬型TikTok運用代行', '株式会社Senjin Holdings', '再生数に応じて1再生2円(税別・上限あり)で依頼できる成果報酬型のTikTok運用代行。', '株式会社Senjin Holdingsが2023年9月のプレスリリースで案内した、成果報酬型のSNS(TikTok)運用代行サービスです。完全成果報酬プランは1再生あたり2円(上限金額の設定あり)、固定費＋成果報酬プランは月額15万円＋1再生2円(上限あり)と記載されています。
+
+条件として月間投稿本数10本が示され、YouTube ShortsやInstagramリールへの転載も含まれます。企画・台本、撮影、編集、投稿、分析までを担当し、累計4,000本以上の投稿データを活用すると説明されています。
+
+成果の指標が再生数である点にご注意ください。初期費用や無料相談の有無は記載を確認できず、要問い合わせです。', null, 'https://www.senjinholdings.co.jp/contact', 'unknown', null, 'unknown', '完全成果報酬プランは固定費の記載なし。固定費＋成果報酬プランは月額15万円', '1再生あたり2円(上限金額あり)', '2023年9月のプレスリリースに基づく情報。成果指標は再生数で、問い合わせ・売上とは連動しない点に注意。', '動画の再生数(月間投稿10本、Shorts・リールへの転載を含む)', 'other', false, false, null, array['完全成果報酬プランは1再生2円(上限あり)', '月額15万円＋成果報酬の併用プランも用意', '企画から投稿・分析まで対応', '累計4,000本以上の投稿データを活用']::text[], 'unpartnered', false, true, true, 'verified', 'https://prtimes.jp/main/html/rd/p/000000003.000089789.html', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'senjin-tiktok-seika' and c.slug = 'tiktok-ops' on conflict do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, false from services s, categories c where s.slug = 'senjin-tiktok-seika' and c.slug = 'sns' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('deita-driver-sns', '完全成果報酬型SNS運用代行(ドライバー採用向け)', '株式会社DEITA', 'ドライバー採用に特化し、年間6名以上の採用を確約するとうたう完全成果報酬型のSNS運用代行。', '株式会社DEITAが2025年2月に発表した、ドライバー採用向けの完全成果報酬型SNS運用代行サービスです。InstagramやTikTokを対象に、コンテンツ企画・撮影・投稿、広告運用、LP制作、LINE公式アカウント運用などを含めて支援すると説明されています。
+
+公式プレスリリースでは、年間6名以上のドライバー採用を確約するとし、導入事例では有効応募数が240%アップしたと紹介されています。成果報酬の具体的な金額や、初期費用・月額費用の有無は記載がないため、公式サイトに記載がなく要問い合わせです。
+
+相談は無料で受け付けていると案内されています。', null, 'https://deita.co.jp/', 'unknown', null, 'unknown', null, null, '2025年2月のプレスリリースに基づく。金額・料率は記載がなく要問い合わせ。', '年間6名以上のドライバー採用(確約と記載)', 'hire', false, true, 'ドライバー採用を行う運送会社など', array['ドライバー採用に特化したSNS運用', 'InstagramとTikTokに対応', '広告運用・LP制作・LINE運用まで支援', '導入事例で有効応募数が240%アップ']::text[], 'unpartnered', false, true, true, 'verified', 'https://prtimes.jp/main/html/rd/p/000000021.000136651.html', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'deita-driver-sns' and c.slug = 'sns' on conflict do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, false from services s, categories c where s.slug = 'deita-driver-sns' and c.slug = 'instagram-ops' on conflict do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, false from services s, categories c where s.slug = 'deita-driver-sns' and c.slug = 'tiktok-ops' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('belka-shukyaku-seo', '集客SEO(成果報酬型)', '株式会社ベルカ', '初期費用ゼロ円、上位表示しなければ費用もゼロ円とうたう成果報酬型SEO。1日500円からの料金設定。', '株式会社ベルカ(神奈川県横浜市)が提供する成果報酬型のSEO対策サービスです。公式サイトでは「初期費用ゼロ円、上位表示しなければ費用もゼロ円」と案内され、料金は1日500円からとされています。毎月固定でかかる一般的なSEOの料金体系とは異なる点も説明されています。
+
+内部対策と外部リンク施策を組み合わせ、サイト診断は10営業日以内に行うとされています。契約期間は初回順位表示から6か月で、以降は6か月ごとの更新です。月次の順位レポートも提供されます。
+
+無料相談・無料見積の明記は確認できませんでした。月額の固定費の有無や、順位の具体的な達成条件は公式サイトに記載がないため要問い合わせです。', null, 'http://www.belka.co.jp/', 'free', 'ゼロ円', 'unknown', null, '1日500円から', '契約期間は初回順位表示から6か月。月額固定費の有無は要問い合わせ。', '検索結果で上位表示された場合に課金(順位の具体的条件は要問い合わせ)', 'other', false, false, null, array['上位表示しなければ費用ゼロ円とうたう成果報酬型', '内部対策と外部リンク施策を組み合わせ', 'サイト診断は10営業日以内', '月次の順位レポートを提供']::text[], 'unpartnered', false, true, true, 'verified', 'https://www.belka.co.jp/seo_brochure/', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'belka-shukyaku-seo' and c.slug = 'seo' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('pluse-seika-seo', '成果報酬型SEO対策', '株式会社プラスイー', '10位以内に入った日数分のみ日割りで課金する成果報酬型SEO。初期費用は0円、月額8,000円から。', '株式会社プラスイーが提供する成果報酬型のSEO対策サービスです。公式サイトでは、基本的に10位以内にランクインした場合にのみ料金が発生し、上位表示した日数分を日割りで請求すると説明されています。ただし難易度の高いキーワードなどには例外があります。
+
+初期費用は0円で、月額は8,000円からと記載されています。公式サイトによれば、約80%のお客様は月額19,800円から39,800円の範囲に収まるとされています。初期契約期間があり、その間は解約できない旨も明記されていますが、期間の長さは同ページに記載がありません。
+
+HTML最適化、被リンク対策、コンテンツ制作などに対応します。目標キーワードとサイトURLを送ると、1営業日以内にお見積りが提出されます。', null, 'https://seo-nagoya.net/', 'free', '0円', 'paid', '月額8,000円から(約80%のお客様は19,800円〜39,800円)', '10位以内に入った日数分を日割りで請求', '初期契約期間中は解約不可と公式に記載(期間は要問い合わせ)。', '対象キーワードで検索10位以内にランクインした日数(競合の強いキーワードには例外あり)', 'other', false, false, null, array['10位以内の日数分のみ日割り課金', '初期費用0円・月額8,000円から', 'HTML最適化・被リンク・コンテンツ制作に対応', 'キーワードとURL送付で1営業日以内に見積提出']::text[], 'unpartnered', false, true, true, 'verified', 'https://seo-nagoya.net/seo/seo_contents03', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'pluse-seika-seo' and c.slug = 'seo' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('getlead-teleapo', 'ゲットリード', '株式会社日本テレアポセンター', '初期費用・月額費用0円で、商談が実施されたタイミングで費用が発生する成果報酬型のテレアポ代行。契約期間の縛りもありません。', 'ゲットリードは、株式会社日本テレアポセンターが提供するテレアポ代行サービスです。公式サイトでは初期費用・月額費用ともに0円で、商談が実施されたタイミングで費用が発生する仕組みと案内されています。
+
+BtoB・BtoCの両方に対応し、人材紹介、コンサルティング、SaaS、不動産投資、保険、リフォーム、健康食品など幅広い業種が例として挙げられています。最低契約期間や縛りはなく、トークスクリプトやリストを用意しなくても依頼できるとされています。
+
+Slackを活用した進捗共有に対応し、月間アポイント数100件/社の実績を掲げています。成果報酬の具体的な単価は公式サイトに記載がないため要問い合わせです。無料オンライン相談の予約ができます。', null, 'https://teleapo-center.co.jp/getlead/', 'free', '0円', 'free', '0円', null, '成果報酬の単価は公式サイトに記載がないため要問い合わせ。', '商談が実施されたタイミングで費用が発生', 'meeting', true, true, 'BtoB・BtoC問わず幅広い業種', array['商談実施時に費用が発生', '最低契約期間・縛りなし', 'トークスクリプト・リスト不要で依頼可能', 'Slackを活用した進捗共有']::text[], 'unpartnered', false, true, true, 'verified', 'https://teleapo-center.co.jp/getlead/', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'getlead-teleapo' and c.slug = 'tele-appointment' on conflict do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, false from services s, categories c where s.slug = 'getlead-teleapo' and c.slug = 'sales-outsourcing' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('shift-teleapo-seika', '成果報酬型テレアポ代行サービス', 'SHIFT inc.', '初期費用・月額固定費0円で、アポイント1件あたり法人10,000円〜の成果報酬型テレアポ代行。キャンセル時は返金対応があります。', 'SHIFT inc.の成果報酬型テレアポ代行サービスは、公式サイトで月額固定費も初期費用も全て0円と案内されています。料金はアポイント1件あたり法人10,000円〜、個人20,000円〜と記載されています。
+
+課金はアポイント取得日に発生し、アポイントのキャンセル等が発生した場合はキャンセル・返金対応となるとされています。週報・日報、リスト作成、トークスクリプト作成はオプションで依頼できます。
+
+アポイントの最低契約数は10件と記載されています。無料相談の明記は確認できず、詳細は公式サイトからの問い合わせが必要です。', null, 'https://shift-inc.net/call01/', 'free', '0円', 'free', '0円（月額固定費なし）', 'アポイント1件あたり 法人10,000円〜、個人20,000円〜', 'アポイント最低契約数は10件。週報・日報、リスト作成、トークスクリプト作成はオプション。', 'アポイント取得日に課金。キャンセル等が発生した場合は返金対応', 'appointment', true, false, '法人・個人向けのアポイント獲得', array['アポイント1件あたり法人10,000円〜の成果報酬', 'キャンセル時は返金対応', '週報・日報はオプションで対応', 'リスト・トークスクリプト作成はオプション']::text[], 'unpartnered', false, true, true, 'verified', 'https://shift-inc.net/call01/', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'shift-teleapo-seika' and c.slug = 'tele-appointment' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('salesneeds-referral', '完全成果報酬型リファーラルマーケティング', '株式会社セールスニーズ', '初期費用・月額費用ゼロの人脈紹介型マーケティング。成約・成果報酬ベースで、広告費をかけずに見込み客へ接点を持てます。', '株式会社セールスニーズの「成果報酬型リファーラル（人脈紹介）マーケティング」は、公式サイトで初期費用ゼロ円・月額費用ゼロ円と案内されています。成約・成果報酬ベースで対応するとされています。
+
+完全紹介制による人脈活用型で、対面・面談型のマーケティングに特化し、「高い信頼性」「質の高いターゲット」「ミスマッチ削減」などを特徴に挙げています。マーケティング代行や営業リソース不足の企業が対象です。
+
+成果報酬の金額・料率や無料相談の有無は公式ページに記載がないため、公式サイトに記載がないため要問い合わせです。', null, 'https://www.salesneeds.jp/marketing', 'free', 'ゼロ円', 'free', 'ゼロ円', null, '成果報酬の金額・料率は公式サイトに記載がないため要問い合わせ。', '成約、成果報酬ベースで対応', 'matching', true, false, 'マーケティング代行が必要な企業、営業リソース不足に課題のある企業', array['完全紹介制の人脈活用型マーケティング', '初期費用・月額費用ゼロ', '対面・面談型マーケティングに特化', 'ミスマッチ削減をうたう']::text[], 'unpartnered', false, true, true, 'verified', 'https://www.salesneeds.jp/marketing', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'salesneeds-referral' and c.slug = 'referral-sales' on conflict do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, false from services s, categories c where s.slug = 'salesneeds-referral' and c.slug = 'sales-outsourcing' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('roots-alpha-sales', 'ルーツアルファ営業代行', 'Roots Alpha', '会員情報を活用した営業代行。初期費用・月額費用0円で、商談訪問時に1件10,000円〜の成果報酬が発生します。', 'Roots Alphaの営業代行サービスは、公式サイトで初期費用0円・月額費用0円と案内されています。成果報酬は1件につき10,000円〜で、営業代行で獲得した商談へ訪問する際に発生すると記載されています。
+
+会員情報を活用した営業代行で、生命保険、投資用不動産、損害保険コンサル、リノベーション、外壁塗装・防水工事などの業種が対象例として挙げられています。アポイント確定後はアポイント表を随時更新し、メールで送付するとされています。
+
+問い合わせフォームと電話相談が用意されていますが、「無料相談」の明記は確認できないため、詳細は要問い合わせです。', null, 'https://roots-alpha.com/', 'free', '0円', 'free', '0円', '1件につき10,000円〜', null, '獲得した商談へ訪問する際に発生', 'appointment', true, false, '生命保険、投資用不動産、損害保険コンサル、リノベーション、外壁塗装・防水工事等', array['初期費用・月額費用0円', '1件10,000円〜の成果報酬', '会員情報を活用した営業代行', 'アポイント表を随時更新してメール送付']::text[], 'unpartnered', false, true, true, 'verified', 'https://roots-alpha.com/', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'roots-alpha-sales' and c.slug = 'sales-outsourcing' on conflict do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, false from services s, categories c where s.slug = 'roots-alpha-sales' and c.slug = 'field-sales' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('apodol-hpg', 'アポドル', 'H.P.G. 服部プロセスグループ', '初期費用0円・固定費0円の完全成果報酬型テレアポ営業代行。リスト・スクリプト作成から架電まで対応します。', 'アポドルは、H.P.G. 服部プロセスグループが運営する完全成果報酬型のテレアポ営業代行サービスです。公式サイトでは初期費用0円・固定費0円とされ、1件あたりの料金で獲得件数に応じて請求すると案内されています。月次の獲得上限は10件から設定でき、実績が上限に満たない場合は獲得数分のみの請求とされています。
+
+アタックリスト作成、トークスクリプト作成、架電に対応し、展示会で得た名刺や休眠顧客リストへの架電も可能と記載されています。契約は月単位で1か月から利用でき、長期契約の縛りはないとされています。
+
+料金は案件内容に応じて商談時に個別提示されるため、公式サイトに記載がなく要問い合わせです。お問い合わせフォームから相談・資料請求ができます。', null, 'https://apodol.jp/', 'free', '0円', 'free', '0円', null, '成果報酬の単価は商談時に個別提示のため、公式サイトに記載がなく要問い合わせ。', 'アポイント獲得件数に応じて請求。上限に満たない場合は獲得数分のみ', 'appointment', true, true, 'テレアポで新規顧客開拓をしたい企業', array['初期費用0円・固定費0円', 'リスト作成・スクリプト作成・架電に対応', '展示会名刺・休眠顧客リストへの架電が可能', '1か月から契約可能、長期縛りなし']::text[], 'unpartnered', false, true, true, 'verified', 'https://apodol.jp/', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'apodol-hpg' and c.slug = 'tele-appointment' on conflict do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, false from services s, categories c where s.slug = 'apodol-hpg' and c.slug = 'sales-outsourcing' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('saleshub-referral', 'Saleshub', 'Saleshub inc.', 'サポーターからの紹介で商談を獲得する顧客紹介マッチング。アポ設定と成約に応じた報酬の仕組みです。', 'Saleshubは、企業と営業のサポーターをつなぐ顧客紹介型の営業マッチングサービスです。公式サイトによると、50,000人以上のサポーター（2025年2月時点）と100,000件以上の紹介提案実績（2024年11月時点）を掲げています。
+
+報酬は、商談アポイントをセッティングした際の報酬と、ビジネスが成約した場合の成約報酬で構成され、金額は事業ごとに異なり、成約報酬は設定されない場合もあると記載されています。企業担当者との事前打ち合わせはメッセージ、ビデオミーティング、電話、対面で可能です。
+
+初期費用・月額費用の有無は公式サイトに記載がないため要問い合わせです。', null, 'https://saleshub.jp/', 'unknown', null, 'unknown', null, null, '初期費用・月額費用・報酬額は公式サイトに記載がなく要問い合わせ。', '商談アポイント設定時に報酬、ビジネス成約時に成約報酬（事業により異なり、設定しない場合もある）', 'matching', false, false, '紹介による新規顧客開拓を行いたい企業', array['サポーターからの顧客紹介で商談を獲得', 'アポ設定時と成約時の二段階報酬', '事前打ち合わせはメッセージ・ビデオ・電話・対面に対応', '50,000人以上のサポーターを掲げる']::text[], 'unpartnered', false, true, true, 'verified', 'https://saleshub.jp/', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'saleshub-referral' and c.slug = 'referral-sales' on conflict do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, false from services s, categories c where s.slug = 'saleshub-referral' and c.slug = 'sales-outsourcing' on conflict do nothing;
+
 insert into articles (slug, title, excerpt, body, category_id, published, published_at) values ('what-is-performance-based-pricing', '成果報酬型サービスとは？固定費型との違いと選び方', '成果報酬型と固定費型の違い、メリット・注意点、比較時に確認したいポイントをまとめました。', '## 成果報酬型とは
 
 成果報酬型とは、あらかじめ決めた「成果」が発生した場合にだけ費用を支払う料金体系です。営業代行ならアポイント獲得や商談実施、採用なら採用決定、広告なら購入や申込といったものが成果にあたります。
