@@ -98,6 +98,8 @@ create table if not exists leads (
   timing        text,                          -- 検討時期
   employees     text,                          -- 従業員規模（任意）
   message       text,                          -- 検討の背景・ご要望（任意）
+  consent_version text,                        -- 同意時に表示した文言のバージョン（lib/lead-options.ts の CONSENT_VERSION）
+  third_party_consent boolean not null default false, -- 提携済みサービスの提供会社への情報提供に同意したか
   request_id    uuid,                          -- 1回の入力でまとめて請求した場合に共通のID
   source        text,                          -- 流入元（utm_source または referrer ホスト）
   medium        text,                          -- utm_medium

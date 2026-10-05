@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useActionState, useEffect, useMemo, useRef, useState } from "react";
+import { startTransition, useActionState, useEffect, useMemo, useRef, useState } from "react";
 import { submitLeads, type LeadState } from "@/app/actions/lead";
 import { EMPLOYEE_OPTIONS, MAX_REQUEST_SERVICES, TIMING_OPTIONS } from "@/lib/lead-options";
 import { leadDisclaimer } from "@/lib/partner";
@@ -101,9 +101,12 @@ export function RequestFlow({ services, initialSlugs }: { services: ServiceLite[
     chosen.forEach((c) => track("lead_form_start", { service_id: c.id, service_name: c.name }));
   }
 
-  function onSubmit() {
-    // 「次回から入力を省略」にチェックがあれば、この端末（localStorage）にだけ保存する
+  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    // action 属性で送ると、エラー時にも入力欄が自動リセットされてしまうため、手動で Server Action を呼ぶ
+    e.preventDefault();
     const fd = new FormData(formRef.current!);
+    startTransition(() => action(fd));
+    // 「次回から入力を省略」にチェックがあれば、この端末（localStorage）にだけ保存する
     try {
       if (fd.get("remember") === "on") {
         const p: Profile = {};
@@ -143,6 +146,12 @@ export function RequestFlow({ services, initialSlugs }: { services: ServiceLite[
           ) : (
             <p className="panel p-6 text-center text-sm text-muted">請求するサービスが選ばれていません。下のおすすめから選ぶか、<Link href="/services" className="font-bold text-brand-700 underline">サービス一覧</Link>から選んでください。</p>
           )}
+          {chosen.length > 0 && (
+            <p className="mt-2 flex flex-wrap items-center justify-between gap-2 text-xs text-muted">
+              <span>チェックを外したサービスには請求されません。</span>
+              <button type="button" className="font-bold text-brand-700 underline" onClick={() => setSelected([])}>すべて外す</button>
+            </p>
+          )}
           {err("services") && <p role="alert" className="mt-2 text-sm text-red-600">{err("services")}</p>}
 
           {suggestions.length > 0 && (
@@ -162,7 +171,7 @@ export function RequestFlow({ services, initialSlugs }: { services: ServiceLite[
         <section aria-labelledby="step2">
           <h2 id="step2" className="mb-3 flex items-center gap-2 text-lg"><span className="inline-flex size-7 items-center justify-center rounded-full bg-brand-600 text-sm text-white">2</span>お客様の情報を入力<span className="text-sm font-normal text-muted">（1回の入力で、選んだ全サービスに使われます）</span></h2>
           {profile && (
-            <form id="request-form" ref={formRef} action={action} onInputCapture={onFormStart} onSubmit={onSubmit} className="panel space-y-4 p-4 sm:p-6">
+            <form id="request-form" ref={formRef} onInputCapture={onFormStart} onSubmit={onSubmit} className="panel space-y-4 p-4 sm:p-6">
               {selected.map((s) => <input key={s} type="hidden" name="service_slugs" value={s} />)}
               <input type="hidden" name="source" value={attr.source} />
               <input type="hidden" name="medium" value={attr.medium} />
@@ -220,6 +229,15 @@ export function RequestFlow({ services, initialSlugs }: { services: ServiceLite[
                 {unpartnered.length > 0 && <p>{leadDisclaimer("unpartnered")}</p>}
                 {partners.length > 0 && <p>次のサービスには、資料のご案内のため入力内容が提供されます：{partners.map((p) => p.name).join("、")}</p>}
               </div>
+              {partners.length > 0 && (
+                <div>
+                  <label className="flex cursor-pointer items-start gap-2.5 rounded-md border-2 border-cta-500 bg-warn-50 p-3 text-sm text-ink">
+                    <input type="checkbox" name="third_party_consent" className="mt-1 size-4 accent-cta-500" aria-describedby={err("consent") ? "req-consent-err" : undefined} />
+                    <span><b>必須</b> 上記の提供会社（{partners.length}社）に、資料のご案内のため、入力した会社名・氏名・連絡先・ご要望などが提供されることに同意します。</span>
+                  </label>
+                  {err("consent") && <p id="req-consent-err" role="alert" className="mt-1 text-sm text-red-600">{err("consent")}</p>}
+                </div>
+              )}
               <p className="text-xs leading-6 text-muted">送信により<Link href="/privacy" target="_blank" className="underline">プライバシーポリシー</Link>に同意したものとみなします。</p>
               {state.message && <p role="alert" className="rounded bg-red-50 p-3 text-sm text-red-700">{state.message}</p>}
               <button type="submit" disabled={pending || state.ok || chosen.length === 0} className="btn-cta w-full py-3.5 text-base disabled:opacity-60">
@@ -243,6 +261,7 @@ export function RequestFlow({ services, initialSlugs }: { services: ServiceLite[
             <ul className="mt-4 space-y-1 border-t border-line pt-3 text-xs leading-6 text-muted">
               <li>・請求は無料です</li>
               <li>・1回の入力で複数サービスに請求できます</li>
+              <li>・コンシェルジュが資料を用意してご連絡します</li>
               <li>・未提携のサービスには、入力内容を送信しません</li>
             </ul>
           </div>

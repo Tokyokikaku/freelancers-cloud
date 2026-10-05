@@ -3,7 +3,7 @@
 import { randomUUID } from "node:crypto";
 import { z } from "zod";
 import { getServices } from "@/lib/data";
-import { EMPLOYEE_OPTIONS, MAX_REQUEST_SERVICES, TIMING_OPTIONS } from "@/lib/lead-options";
+import { CONSENT_VERSION, EMPLOYEE_OPTIONS, MAX_REQUEST_SERVICES, TIMING_OPTIONS } from "@/lib/lead-options";
 import { postWebhook, sendMail } from "@/lib/notify";
 import { hasServiceRole, serviceClient } from "@/lib/supabase";
 import { OPERATOR_NAME, SITE_NAME } from "@/lib/site";
@@ -58,6 +58,13 @@ export async function submitLeads(_prev: LeadState, formData: FormData): Promise
   const targets = slugs.map((slug) => all.find((s) => s.slug === slug)).filter((s) => !!s);
   if (targets.length === 0) return { ok: false, message: "対象のサービスが見つかりませんでした。ページを再読み込みしてもう一度お試しください。" };
 
+  // 提携済みサービスへ入力内容を提供する場合は、本人の明示的な同意（未チェックのボックスを自分でオン）が必要
+  const hasPartner = targets.some((s) => s!.partner_status !== "unpartnered");
+  const thirdPartyConsent = formData.get("third_party_consent") === "on";
+  if (hasPartner && !thirdPartyConsent) {
+    return { ok: false, errors: { consent: "掲載契約のある提供会社への情報提供に同意いただく必要があります" } };
+  }
+
   const redirectTo = `/thanks?s=${targets.map((s) => encodeURIComponent(s!.slug)).join(",")}`;
   const sent = targets.map((s) => ({ id: s!.id, name: s!.name }));
 
@@ -84,6 +91,8 @@ export async function submitLeads(_prev: LeadState, formData: FormData): Promise
     campaign: d.campaign || null,
     visitor_id: d.visitor_id || null,
     partner_status: s!.partner_status,
+    consent_version: CONSENT_VERSION,
+    third_party_consent: s!.partner_status !== "unpartnered" && thirdPartyConsent,
   }));
   const { data: leads, error } = await db.from("leads").insert(rows).select("lead_id, service_id, created_at");
   if (error || !leads) {

@@ -19,7 +19,7 @@ export function partnerBadge(status: PartnerStatus): { label: string; title: str
 
 export function leadDisclaimer(status: PartnerStatus): string {
   if (status === "unpartnered") {
-    return "現在、本サービスは当サイト経由での直接資料請求に対応していない場合があります。入力内容をもとに、公開されている資料または公式の資料請求ページをご案内します。";
+    return "現在、本サービスは当サイト経由での直接の資料請求に対応していない場合があります。ご入力いただいた内容はサービス提供会社へは送信せず、当サイトのコンシェルジュが資料をご用意のうえ、ご入力のメールアドレス宛にご連絡します。";
   }
   return "入力いただいた内容は、資料のご案内のためサービス提供会社に提供されます。";
 }

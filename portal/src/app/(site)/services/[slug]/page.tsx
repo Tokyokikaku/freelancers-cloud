@@ -113,7 +113,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
         <div className="mt-6">{ctas("detail_top")}</div>
         <p className="mt-3 text-xs leading-6 text-muted">
           {service.partner_status === "unpartnered"
-            ? "公式サイトは外部サイトです。資料請求は、現在は当サイトから各社へ直接送信せず、入力内容をもとに公開されている資料や公式の資料請求ページをご案内する形です。"
+            ? "公式サイトは外部サイトです。資料請求は、現在は当サイトから各社へ直接送信せず、コンシェルジュが資料をご用意してご連絡する形です。"
             : "公式サイトは外部サイトです。"}
         </p>
       </header>

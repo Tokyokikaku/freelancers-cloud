@@ -54,7 +54,7 @@ export default async function ThanksPage({ searchParams }: { searchParams: Promi
           <div className="mt-6 space-y-3 text-left text-sm leading-7 sm:text-base sm:leading-8">
             {hasUnpartnered && (
               <>
-                <p>資料情報を確認し、公開されている資料または公式の資料請求ページを、ご入力のメールアドレス宛にご案内します。</p>
+                <p>当サイトのコンシェルジュが資料をご用意のうえ、ご入力のメールアドレス宛にご連絡します。</p>
                 <p className="rounded-md bg-surface p-4 text-sm">
                   提携前のサービスには、ご入力いただいた内容を送信していません。このお問い合わせは、サービス提供会社への資料請求が完了したことを意味するものではありません。
                 </p>
