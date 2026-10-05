@@ -7,6 +7,7 @@ export const dynamic = "force-dynamic";
 const NAV = [
   ["/admin", "ダッシュボード"],
   ["/admin/services", "サービス"],
+  ["/admin/import", "CSV取込"],
   ["/admin/categories", "カテゴリ"],
   ["/admin/leads", "リード"],
   ["/admin/articles", "記事"],

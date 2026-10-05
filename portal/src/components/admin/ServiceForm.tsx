@@ -1,7 +1,7 @@
 "use client";
 import { useActionState } from "react";
 import { saveService, type FormState } from "@/app/actions/admin";
-import { OUTCOME_LABELS, PARTNER_STATUS_LABELS, type Category, type Service } from "@/lib/types";
+import { OUTCOME_LABELS, PARTNER_STATUS_LABELS, REVIEW_LABELS, type Category, type Service } from "@/lib/types";
 import { flattenTree } from "@/lib/categories";
 import { Check, Field, FormMessage, Section } from "./FormUI";
 
@@ -87,6 +87,11 @@ export function ServiceForm({ service, categories, contact }: { service?: Servic
       </Section>
 
       <Section title="公開設定">
+        <Field label="確認状態" name="review_status" error={e.review_status} hint="下書き → 確認中 → 確認済み の順に進めます。公開できるのは「確認済み」のみです。">
+          <select id="review_status" name="review_status" defaultValue={s?.review_status ?? "draft"} className="input">
+            {Object.entries(REVIEW_LABELS).map(([v, l]) => <option key={v} value={v}>{l}</option>)}
+          </select>
+        </Field>
         <Check name="published" label="公開する" defaultChecked={s?.published} />
         <Check name="featured" label="おすすめに設定する（編集部の判断。人気ランキングの順位には影響しません）" defaultChecked={s?.featured} />
         <Check name="show_in_popular" label="人気ランキングの対象にする" defaultChecked={s?.show_in_popular ?? true} />

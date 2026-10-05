@@ -1,4 +1,6 @@
 export type FeeType = "free" | "paid" | "unknown";
+export type ReviewStatus = "draft" | "needs_review" | "verified";
+export const REVIEW_LABELS: Record<ReviewStatus, string> = { draft: "下書き", needs_review: "確認中", verified: "確認済み" };
 export type PartnerStatus = "unpartnered" | "partner" | "premium";
 export type OutcomeType =
   | "appointment"
@@ -49,6 +51,7 @@ export interface Service {
   featured: boolean;
   show_in_popular: boolean;
   published: boolean;
+  review_status: ReviewStatus;
   source_url: string | null;
   last_verified_at: string | null;
   created_at: string;

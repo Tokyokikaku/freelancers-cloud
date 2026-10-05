@@ -46,6 +46,7 @@ export function seedServices(): Service[] {
     featured: s.featured,
     show_in_popular: s.show_in_popular,
     published: s.published,
+    review_status: "verified" as const,
     source_url: s.source_url,
     last_verified_at: s.last_verified_at,
     created_at: NOW,

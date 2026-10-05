@@ -60,6 +60,7 @@ const serviceSchema = z.object({
   outcome_type: z.enum(["appointment", "meeting", "contract", "hire", "lead", "sale", "click", "matching", "other"]),
   target_companies: optional,
   partner_status: z.enum(["unpartnered", "partner", "premium"]),
+  review_status: z.enum(["draft", "needs_review", "verified"]),
   last_verified_at: z.string().regex(/^(\d{4}-\d{2}-\d{2})?$/, "日付の形式が正しくありません"),
   notify_email: z.string().trim().max(200).refine((v) => !v || z.string().email().safeParse(v).success, "メールアドレスの形式が正しくありません"),
   webhook_url: z.string().trim().max(500).refine((v) => !v || /^https:\/\//i.test(v), "Webhook URL は https:// で始まる必要があります"),
@@ -83,10 +84,16 @@ export async function saveService(_prev: FormState, fd: FormData): Promise<FormS
     return { errors: { is_full_success_fee: "完全成果報酬にするには、初期費用・月額費用をどちらも「0円」にしてください。" }, message: "入力内容を確認してください。" };
   }
 
+  // 公開できるのは「確認済み」のみ（下書き・確認中の情報を誤って公開しない）
+  if (bool(fd, "published") && d.review_status !== "verified") {
+    return { errors: { review_status: "公開するには「確認済み」にしてください" }, message: "入力内容を確認してください。" };
+  }
+
   const row = {
     slug: d.slug,
     name: d.name,
     company_name: d.company_name,
+    review_status: d.review_status,
     summary: nul(d.summary),
     description: nul(d.description),
     logo_url: nul(d.logo_url),
@@ -152,7 +159,13 @@ export async function toggleServiceFlag(fd: FormData) {
   const id = get(fd, "id");
   const field = get(fd, "field");
   if (!id || !FLAGS.has(field)) return;
-  await serviceClient().from("services").update({ [field]: get(fd, "value") === "true" }).eq("id", id);
+  const db = serviceClient();
+  const value = get(fd, "value") === "true";
+  if (field === "published" && value) {
+    const { data } = await db.from("services").select("review_status").eq("id", id).maybeSingle();
+    if (data?.review_status !== "verified") return; // 確認済みでなければ公開しない
+  }
+  await db.from("services").update({ [field]: value }).eq("id", id);
   refresh();
   revalidatePath("/admin/services");
 }
@@ -269,4 +282,16 @@ export async function deleteArticle(fd: FormData) {
   if (id) await serviceClient().from("articles").delete().eq("id", id);
   refresh();
   redirect("/admin/articles?deleted=1");
+}
+
+const STATUSES = new Set(["draft", "needs_review", "verified"]);
+export async function setReviewStatus(fd: FormData) {
+  await requireAdmin();
+  const id = get(fd, "id");
+  const status = get(fd, "status");
+  if (!id || !STATUSES.has(status)) return;
+  // 確認済みを外したら、公開も同時に止める
+  await serviceClient().from("services").update(status === "verified" ? { review_status: status } : { review_status: status, published: false }).eq("id", id);
+  refresh();
+  revalidatePath("/admin/services");
 }

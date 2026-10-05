@@ -56,12 +56,15 @@ create table if not exists services (
   featured              boolean not null default false, -- おすすめ（編集部が設定）
   show_in_popular       boolean not null default true,  -- 人気ランキング算出の対象にするか
   published             boolean not null default false,
+  -- 編集ワークフロー: draft(取込直後) → needs_review(確認中) → verified(確認済み)。公開できるのは verified のみ
+  review_status         text not null default 'draft' check (review_status in ('draft','needs_review','verified')),
   -- 情報の出典
   source_url            text,
   last_verified_at      date,
   created_at            timestamptz not null default now(),
   updated_at            timestamptz not null default now(),
   -- 完全成果報酬は初期費用・月額が「0円」と確認できている場合のみ
+  constraint published_requires_verified check (not published or review_status = 'verified'),
   constraint full_success_requires_free check (
     not is_full_success_fee or (initial_fee_type = 'free' and monthly_fee_type = 'free')
   )
