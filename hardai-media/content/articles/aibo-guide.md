@@ -83,7 +83,6 @@ aiboは、2018年1月に発売された、愛着が持てる犬型の自律型�
 
 - 手のひらサイズで始めやすい：[Moflin（モフリン）](/articles/moflin-guide/)
 - 長く暮らす家族型ロボット：[LOVOT 3.0と2.0](/articles/lovot-guide/)
-- 費用の違いを比べる：[3年間の費用を試算](/articles/ai-pet-robot-3year-cost/)
 
 ## 出典
 

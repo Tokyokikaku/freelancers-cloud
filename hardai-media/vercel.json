@@ -123,6 +123,16 @@
       "source": "/category/education/",
       "destination": "/category/sports/",
       "permanent": true
+    },
+    {
+      "source": "/articles/ai-pet-robot-3year-cost",
+      "destination": "/category/pets/",
+      "permanent": true
+    },
+    {
+      "source": "/articles/ai-pet-robot-3year-cost/",
+      "destination": "/category/pets/",
+      "permanent": true
     }
   ]
 }

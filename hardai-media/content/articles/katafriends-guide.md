@@ -57,7 +57,7 @@ KATAフレンズは、スマートホームのSwitchBotが販売するパート�
 
 出典：[KATAフレンズの価格](https://www.switchbot.jp/pages/katafriends-pricing)
 
-プランに加入しないと、公式の説明では、トライアル終了後は活動できなくなります。購入前に、公式のFAQやRentioのレンタルで体験する方法も案内されています。3年間の費用の比較は、[試算記事](/articles/ai-pet-robot-3year-cost/)も参考にしてください。
+プランに加入しないと、公式の説明では、トライアル終了後は活動できなくなります。購入前に、公式のFAQやRentioのレンタルで体験する方法も案内されています。ほかのAIペットロボットとの違いは、[AIペットロボットの比較ページ](/category/pets/)も参考にしてください。
 
 @video 0GCJsSOnQAs|かしこさの先に、ぬくもりを感じる。KATAフレンズ（SwitchBot Japan）|公式チャンネル（SwitchBot Japan）の投稿
 

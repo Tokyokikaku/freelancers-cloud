@@ -213,7 +213,7 @@ ${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" hr
 <a class="skip" href="#main">本文へスキップ</a>
 <header class="site-header"><div class="wrap">
 <a class="logo" href="/" aria-label="${esc(NAME)} トップ">${LOGO_MARK}<span>${esc(NAME)}<small>HARD AI NAVI</small></span></a>
-<nav class="nav" aria-label="メイン"><a href="/#categories"${nav === 'category' ? ' aria-current="page"' : ''}>商品カテゴリ</a><a href="/#articles"${nav === 'articles' ? ' aria-current="page"' : ''}>記事一覧</a><a href="/about/"${nav === 'about' ? ' aria-current="page"' : ''}>運営方針<span class="nav-x">・広告表示</span></a><a class="nav-cta" href="/articles/ai-pet-robot-3year-cost/">3年の費用を比べる</a></nav>
+<nav class="nav" aria-label="メイン"><a href="/#articles"${nav === 'articles' ? ' aria-current="page"' : ''}>記事一覧</a><a href="/about/"${nav === 'about' ? ' aria-current="page"' : ''}>運営方針<span class="nav-x">・広告表示</span></a><a class="nav-cta" href="/#categories">カテゴリから探す</a></nav>
 </div></header>
 <main id="main">${body}</main>
 <footer class="site-footer"><div class="wrap"><div class="footer-grid">
@@ -337,7 +337,7 @@ for (const a of articles) {
   const prose = sections.join('\n').replace(/<h3>(【重要】)/g, '<h3 class="alert">$1');
   const tocHtml = toc.length > 1 ? `<div class="toc-box"><h2>目次</h2><ol>${toc.map(t => `<li><a href="#${t.id}">${t.text}</a></li>`).join('')}</ol></div>` : '';
   const minutes = Math.max(1, Math.ceil(a.body.replace(/\s/g, '').length / 500));
-  const nextArticle = x => articles.find(o => o.slug !== x.slug && o.slug === (x.next || 'ai-pet-robot-3year-cost')) || null;
+  const nextArticle = x => articles.find(o => o.slug !== x.slug && o.slug === x.next) || null;
   const others = articles.filter(o => o.slug !== a.slug).sort((x, y) => (y.category === a.category) - (x.category === a.category)).slice(0, 3);
 
   write(`articles/${a.slug}/index.html`, layout({
@@ -466,7 +466,7 @@ write('index.html', layout({
 <section class="section pick" id="pick"><div class="wrap">
 <div class="section-head"><div><p class="kicker">STEP 2</p><h2>目的から選ぶ</h2></div><p>カテゴリが決まっていなくても、やりたいことから探せます</p></div>
 <div class="pick-grid">
-<a class="pick-card" href="/articles/ai-pet-robot-3year-cost/"><span class="pick-q">まず安く試したい</span><span class="pick-a">3年間の試算で、Moflinは約8万円。aibo・LOVOT・KATAフレンズと費用を並べて比較</span><span class="pick-go">費用を比べる<i class="arr" aria-hidden="true"></i></span></a>
+<a class="pick-card" href="/articles/moflin-guide/"><span class="pick-q">まず手軽に試したい</span><span class="pick-a">Moflinは本体59,400円。手のひらサイズで、声を覚えて感情が育つAIペット</span><span class="pick-go">Moflinを見る<i class="arr" aria-hidden="true"></i></span></a>
 <a class="pick-card" href="/articles/aibo-guide/"><span class="pick-q">犬型ロボットが気になる</span><span class="pick-a">aiboは2026年6月に国内の新規販売終了が発表。特徴と既存サービスを整理</span><span class="pick-go">aiboの現状を見る<i class="arr" aria-hidden="true"></i></span></a>
 <a class="pick-card" href="/articles/lovot-guide/"><span class="pick-q">長く一緒に暮らしたい</span><span class="pick-a">LOVOT 3.0は10月26日に値上げ予定。現行価格は10月25日まで</span><span class="pick-go">LOVOTの費用を見る<i class="arr" aria-hidden="true"></i></span></a>
 <a class="pick-card" href="/articles/1x-neo-home-humanoid/"><span class="pick-q">家事を任せたい</span><span class="pick-a">1X NEOは月額499ドルまたは20,000ドル。米国で先行提供</span><span class="pick-go">NEOの条件を見る<i class="arr" aria-hidden="true"></i></span></a>
@@ -492,7 +492,7 @@ ${catGroups.map(([c, list]) => { const hh = topHubs.find(h => h.allItems.some(a 
 <div class="pledge-item"><h3>体験談を装わない</h3><p>実機を使っていない製品について、使用感や口コミ風の文章、架空の評価点は書きません。</p></div>
 <div class="pledge-item"><h3>報酬で順位を変えない</h3><p>アフィリエイト報酬の有無・多寡で、掲載順位や評価を変えることはありません。</p></div>
 </div></div></section>
-<section class="end-cta"><div class="wrap"><p class="cta-kicker">START HERE</p><h2>迷ったら、まず<wbr>3年間の総額から</h2><p class="end-lead">本体価格が6万円台でも、継続費用が加わると差が開く製品があります。公式の料金をもとに試算しました。</p><div class="btns" style="justify-content:center"><a class="btn-cta btn-lg" href="/articles/ai-pet-robot-3year-cost/"><span>3年間の費用を比べる</span><i class="arr" aria-hidden="true"></i></a></div></div></section>`
+<section class="end-cta"><div class="wrap"><p class="cta-kicker">START HERE</p><h2>迷ったら、まず<wbr>商品カテゴリから</h2><p class="end-lead">AIペット、ロボット掃除機、AIガジェットなど、カテゴリごとに価格と特徴を比較できます。</p><div class="btns" style="justify-content:center"><a class="btn-cta btn-lg" href="/#categories"><span>商品カテゴリから探す</span><i class="arr" aria-hidden="true"></i></a></div></div></section>`
 }));
 
 const about = md(fs.readFileSync('content/about.md', 'utf8').replace(/^---[\s\S]*?---\n/, ''));
