@@ -23,7 +23,7 @@ export default async function LeadsPage() {
       <div className="card overflow-x-auto">
         <table className="w-full min-w-[56rem] text-sm">
           <thead className="bg-surface text-left text-xs text-muted">
-            <tr>{["発生日時", "サービス", "会社名", "氏名", "メール", "電話", "検討時期", "流入元 / medium / campaign"].map((h) => <th key={h} className="p-3">{h}</th>)}</tr>
+            <tr>{["発生日時", "サービス", "会社名", "氏名", "メール", "電話", "検討時期", "従業員規模", "流入元 / medium / campaign"].map((h) => <th key={h} className="p-3">{h}</th>)}</tr>
           </thead>
           <tbody>
             {(data ?? []).map((l) => (
@@ -35,10 +35,11 @@ export default async function LeadsPage() {
                 <td className="p-3 break-all">{l.email}</td>
                 <td className="p-3">{l.phone ?? "-"}</td>
                 <td className="p-3">{l.timing ?? "-"}</td>
+                <td className="p-3">{l.employees ?? "-"}</td>
                 <td className="p-3 text-xs">{[l.source, l.medium, l.campaign].map((x) => x || "-").join(" / ")}</td>
               </tr>
             ))}
-            {(data ?? []).length === 0 && <tr><td colSpan={8} className="p-8 text-center text-muted">リードはまだありません</td></tr>}
+            {(data ?? []).length === 0 && <tr><td colSpan={9} className="p-8 text-center text-muted">リードはまだありません</td></tr>}
           </tbody>
         </table>
       </div>

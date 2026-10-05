@@ -4,6 +4,7 @@ import { PageHeader } from "@/components/PageHeader";
 import { FilterPanel } from "@/components/FilterPanel";
 import { SearchBox } from "@/components/SearchBox";
 import { ServiceCard } from "@/components/ServiceCard";
+import { BulkRequestBar } from "@/components/BulkRequestBar";
 import { PageEvent } from "@/components/Trackers";
 import { getCategories, getServices } from "@/lib/data";
 import { getPopularServices } from "@/lib/popular";
@@ -158,6 +159,7 @@ export default async function ServicesPage({ searchParams }: { searchParams: Pro
               ))}
             </nav>
           </div>
+          {list.length > 0 && <BulkRequestBar label={q ? "検索結果" : "成果報酬サービス"} items={list.map((r) => ({ id: r.id, slug: r.slug, name: r.name }))} />}
           {list.length ? (
             <ul className="space-y-3">
               {list.map((s) => <li key={s.id}><ServiceCard service={s} categories={categories} /></li>)}

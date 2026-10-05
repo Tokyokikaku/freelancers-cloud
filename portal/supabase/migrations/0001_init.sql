@@ -96,6 +96,9 @@ create table if not exists leads (
   email         text not null,
   phone         text,
   timing        text,                          -- 検討時期
+  employees     text,                          -- 従業員規模（任意）
+  message       text,                          -- 検討の背景・ご要望（任意）
+  request_id    uuid,                          -- 1回の入力でまとめて請求した場合に共通のID
   source        text,                          -- 流入元（utm_source または referrer ホスト）
   medium        text,                          -- utm_medium
   campaign      text,                          -- utm_campaign
@@ -105,6 +108,7 @@ create table if not exists leads (
   created_at    timestamptz not null default now()
 );
 create index if not exists leads_created_idx on leads (created_at desc);
+create index if not exists leads_request_idx on leads (request_id);
 create index if not exists leads_service_idx on leads (service_id, created_at desc);
 
 -- ───────────────────────── page_events ─────────────────────────

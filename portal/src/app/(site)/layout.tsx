@@ -1,5 +1,5 @@
 import { GoogleAnalytics } from "@next/third-parties/google";
-import { CompareBar } from "@/components/CompareBar";
+import { SelectionBar } from "@/components/SelectionBar";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { JsonLd } from "@/components/JsonLd";
@@ -15,7 +15,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
       <Header />
       <main id="main">{children}</main>
       <Footer />
-      <CompareBar />
+      <SelectionBar />
       {gaId && <GoogleAnalytics gaId={gaId} />}
       <JsonLd
         data={{

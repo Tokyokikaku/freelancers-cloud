@@ -7,13 +7,14 @@ import { FeeTags } from "@/components/FeeTags";
 import { FeeTile } from "@/components/FeeTile";
 import { Icon } from "@/components/Icon";
 import { JsonLd } from "@/components/JsonLd";
-import { LeadDialog } from "@/components/LeadDialog";
+import { RequestButton } from "@/components/RequestButton";
+import { RequestToggle } from "@/components/RequestToggle";
 import { ServiceLogo } from "@/components/Logo";
 import { ServiceCard } from "@/components/ServiceCard";
 import { OfficialSiteLink, PageEvent } from "@/components/Trackers";
 import { getArticles, getCategories, getServiceBySlug, getServices } from "@/lib/data";
 import { infoUpdatedAt, initialFeeLabel, monthlyFeeLabel, successConditionLabel, successFeeLabel } from "@/lib/format";
-import { documentCtaLabel, leadDisclaimer, partnerBadge } from "@/lib/partner";
+import { partnerBadge } from "@/lib/partner";
 import { ancestors } from "@/lib/categories";
 import { buildMetadata, truncate } from "@/lib/seo";
 import { absoluteUrl } from "@/lib/site";
@@ -66,23 +67,14 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
     .slice(0, 3);
   const relatedArticles = articles.filter((a) => a.service_ids.includes(service.id));
   const badge = partnerBadge(service.partner_status);
-  const cta = documentCtaLabel(service.partner_status);
   const paragraphs = (service.description ?? "").split(/\n{2,}/).filter(Boolean);
 
   const ctas = (placement: string) => (
     <div className="flex flex-col gap-3 sm:flex-row">
-      <OfficialSiteLink href={service.website_url} serviceId={service.id} serviceName={service.name} placement={placement} className="btn-cta flex-1 py-3.5 text-base sm:flex-none sm:px-8">
+      <OfficialSiteLink href={service.website_url} serviceId={service.id} serviceName={service.name} placement={placement} className="btn-secondary flex-1 py-3.5 text-base sm:flex-none sm:px-8">
         公式サイトを見る <Icon name="external" className="size-4" />
       </OfficialSiteLink>
-      <LeadDialog
-        serviceId={service.id}
-        serviceName={service.name}
-        buttonLabel={cta}
-        disclaimer={leadDisclaimer(service.partner_status)}
-        partnerStatus={service.partner_status}
-        placement={placement}
-        className="btn-secondary flex-1 py-3.5 text-base sm:flex-none sm:px-8"
-      />
+      <RequestButton id={service.id} slug={service.slug} name={service.name} partnerStatus={service.partner_status} placement={placement} className="btn-cta flex-1 py-3.5 text-base sm:flex-none sm:px-8" />
     </div>
   );
 
@@ -121,7 +113,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
         <div className="mt-6">{ctas("detail_top")}</div>
         <p className="mt-3 text-xs leading-6 text-muted">
           {service.partner_status === "unpartnered"
-            ? "公式サイトは外部サイトです。「資料を確認する」は、入力内容をもとに公開されている資料や公式の資料請求ページをご案内するフォームです。"
+            ? "公式サイトは外部サイトです。資料請求は、現在は当サイトから各社へ直接送信せず、入力内容をもとに公開されている資料や公式の資料請求ページをご案内する形です。"
             : "公式サイトは外部サイトです。"}
         </p>
       </header>
@@ -204,9 +196,9 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
 
         <aside className="space-y-4 lg:sticky lg:top-40 lg:self-start">
           <div className="card p-5">
-            <h2 className="text-base">他のサービスと比べる</h2>
-            <p className="mt-2 text-xs leading-6 text-muted">最大3サービスまで、料金・成果地点・特徴を横並びで比較できます。</p>
-            <div className="mt-3"><CompareToggle slug={service.slug} name={service.name} /></div>
+            <h2 className="text-base">他のサービスもまとめて請求・比較</h2>
+            <p className="mt-2 text-xs leading-6 text-muted">資料請求リストに追加すると、複数サービスを1回の入力でまとめて請求できます。比較は最大3サービスまで。</p>
+            <div className="mt-3 space-y-2"><RequestToggle item={{ id: service.id, slug: service.slug, name: service.name }} /><CompareToggle slug={service.slug} name={service.name} /></div>
           </div>
         </aside>
       </div>

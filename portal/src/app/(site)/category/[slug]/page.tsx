@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { PageHeader } from "@/components/PageHeader";
 import { JsonLd } from "@/components/JsonLd";
 import { ServiceCard } from "@/components/ServiceCard";
+import { BulkRequestBar } from "@/components/BulkRequestBar";
 import { PageEvent } from "@/components/Trackers";
 import { getArticles, getCategories, getServices, servicesInCategory } from "@/lib/data";
 import { getPopularServices } from "@/lib/popular";
@@ -75,11 +76,11 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
       {children.length > 0 && (
         <section aria-labelledby="sub" className="mb-8">
           <h2 id="sub" className="mb-3 border-l-[5px] border-brand-600 pl-3 text-lg">{cat.name}のカテゴリ</h2>
-          <ul className="grid gap-px overflow-hidden rounded-md border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="grid overflow-hidden rounded-md border-l border-t border-line bg-white sm:grid-cols-2 lg:grid-cols-3">
             {children.map((ch) => {
               const grand = categories.filter((g) => g.parent_id === ch.id);
               return (
-                <li key={ch.id} className="bg-white p-3">
+                <li key={ch.id} className="border-b border-r border-line bg-white p-3">
                   <Link href={`/category/${ch.slug}`} className="flex items-center justify-between font-bold text-brand-700 hover:underline">
                     {ch.name}<span className="text-xs font-normal text-muted">{servicesInCategory(allServices, categories, ch.id).length}件</span>
                   </Link>
@@ -103,6 +104,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
           </div>
           <Link href={`/services?category=${cat.slug}`} className="btn-ghost">条件で絞り込む</Link>
         </div>
+        {ranked.length > 0 && <BulkRequestBar label={`成果報酬型の${cat.name}`} items={ranked.map((r) => ({ id: r.id, slug: r.slug, name: r.name }))} />}
         {ranked.length ? (
           <ul className="space-y-3">
             {ranked.map((s, i) => <li key={s.id}><ServiceCard service={s} categories={categories} rank={i + 1} /></li>)}

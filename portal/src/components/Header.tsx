@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getCategories } from "@/lib/data";
 import { SITE_NAME } from "@/lib/site";
+import { HeaderRequestLink } from "./HeaderRequestLink";
 import { Icon } from "./Icon";
 import { SearchBox } from "./SearchBox";
 
@@ -33,9 +34,11 @@ export async function Header() {
           <Link href="/services" className="rounded px-3 py-2 hover:bg-brand-50 hover:text-brand-700">サービス一覧</Link>
           <Link href="/services?full=1" className="rounded px-3 py-2 hover:bg-brand-50 hover:text-brand-700">完全成果報酬</Link>
           <Link href="/articles" className="rounded px-3 py-2 hover:bg-brand-50 hover:text-brand-700">記事</Link>
+          <HeaderRequestLink />
         </nav>
 
-        <details className="group relative ml-auto md:ml-0 lg:hidden">
+        <div className="ml-auto lg:hidden"><HeaderRequestLink /></div>
+        <details className="group relative lg:hidden">
           <summary className="flex size-11 cursor-pointer list-none items-center justify-center rounded border border-line [&::-webkit-details-marker]:hidden" aria-label="メニューを開く">
             <Icon name="menu" className="size-6 group-open:hidden" />
             <Icon name="close" className="hidden size-6 group-open:block" />

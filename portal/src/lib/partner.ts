@@ -8,7 +8,7 @@ import type { PartnerStatus, Service } from "./types";
 export const isPartnered = (s: Pick<Service, "partner_status">) => s.partner_status !== "unpartnered";
 
 export function documentCtaLabel(status: PartnerStatus): string {
-  return status === "unpartnered" ? "資料を確認する" : "無料で資料請求";
+  return status === "unpartnered" ? "資料請求（無料）" : "無料で資料請求";
 }
 
 export function partnerBadge(status: PartnerStatus): { label: string; title: string } | null {
