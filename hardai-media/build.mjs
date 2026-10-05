@@ -57,6 +57,19 @@ function inline(s) {
   return s;
 }
 
+function imgSize(src) {
+  try {
+    const f = fs.readFileSync(path.join('public', src));
+    if (f.slice(0, 4).toString() === 'RIFF' && f.slice(8, 12).toString() === 'WEBP') {
+      const k = f.slice(12, 16).toString();
+      if (k === 'VP8 ') return ` width="${f.readUInt16LE(26) & 0x3fff}" height="${f.readUInt16LE(28) & 0x3fff}"`;
+      if (k === 'VP8L') { const b = f.readUInt32LE(21); return ` width="${(b & 0x3fff) + 1}" height="${((b >> 14) & 0x3fff) + 1}"`; }
+      if (k === 'VP8X') return ` width="${f.readUIntLE(24, 3) + 1}" height="${f.readUIntLE(27, 3) + 1}"`;
+    }
+  } catch { /* 寸法なしでも表示できる */ }
+  return '';
+}
+
 function md(src) {
   const lines = src.split('\n');
   let out = '', i = 0;
@@ -65,6 +78,13 @@ function md(src) {
     if (!l.trim()) { i++; continue; }
     let m;
     if ((m = l.match(/^(#{2,4})\s+(.*)/))) { out += `<h${m[1].length}>${inline(m[2])}</h${m[1].length}>\n`; i++; continue; }
+    if ((m = l.match(/^!\[([^\]]*)\]\((\/[^)\s]+)(?:\s+"([^"]*)")?\)\s*$/))) {
+      const [credit, curl] = (m[3] || '').split('|');
+      const dim = imgSize(m[2]);
+      out += `<figure class="fig"><img src="${esc(m[2])}" alt="${esc(m[1])}" loading="lazy"${dim}>` +
+        `<figcaption>${esc(m[1])}${credit ? `　<span class="credit">画像：${curl ? `<a href="${esc(curl)}" target="_blank" rel="noopener nofollow">${esc(credit)}</a>` : esc(credit)}</span>` : ''}</figcaption></figure>\n`;
+      i++; continue;
+    }
     if (l.startsWith('|')) {
       const rows = [];
       while (i < lines.length && lines[i].startsWith('|')) rows.push(lines[i++]);
@@ -137,7 +157,7 @@ const cssHash = crypto.createHash('md5').update(css).digest('hex').slice(0, 8);
 const OG = '/og.png';
 
 const YT_JS = `<script>document.addEventListener('click',function(e){var a=e.target.closest('a[data-yt]');if(!a)return;e.preventDefault();var f=document.createElement('iframe');f.src='https://www.youtube-nocookie.com/embed/'+a.dataset.yt+'?autoplay=1&rel=0';f.allow='accelerometer;autoplay;encrypted-media;picture-in-picture';f.allowFullscreen=true;f.title=a.getAttribute('aria-label')||'YouTube';a.replaceWith(f);});</script>`;
-const layout = ({ title, desc, body, url, type = 'website', ld = [], nav = '', noindex = false }) => `<!doctype html>
+const layout = ({ title, desc, body, url, type = 'website', ld = [], nav = '', noindex = false, ogImage = OG }) => `<!doctype html>
 <html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(title)}</title><meta name="description" content="${esc(desc)}">
 <meta name="theme-color" content="#0d6e66"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -145,7 +165,7 @@ ${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" hr
 <link rel="alternate" type="application/rss+xml" title="${esc(NAME)}" href="/rss.xml">
 <meta property="og:site_name" content="${esc(NAME)}"><meta property="og:locale" content="ja_JP">
 <meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(desc)}"><meta property="og:type" content="${type}"><meta property="og:url" content="${BASE}${url}">
-<meta property="og:image" content="${BASE}${OG}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:image" content="${BASE}${ogImage}">${ogImage === OG ? '<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">' : ''}
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="/style.css?v=${cssHash}">${ld.map(jsonLd).join('')}</head><body>
 <a class="skip" href="#main">本文へスキップ</a>
@@ -182,7 +202,10 @@ const articles = fs.readdirSync('content/articles').filter(f => f.endsWith('.md'
 
 const isNew = a => (Date.now() - new Date(a.date).getTime()) / 864e5 <= 14;
 const metaRow = a => `<div class="meta"><span>公開 <time datetime="${a.date}">${fmtDate(a.date)}</time></span><span>最終更新 <time datetime="${a.updated}">${fmtDate(a.updated)}</time></span></div>`;
-const card = (a, feature = false) => `<a class="card${feature ? ' card-feature' : ''}" href="/articles/${a.slug}/"><div class="card-thumb">${iconFor(a.category)}</div><div class="card-body"><div><span class="tag">${esc(a.category)}</span>${isNew(a) ? '<span class="tag tag-new">NEW</span>' : ''}</div><h3>${esc(a.title)}</h3><p>${esc(a.description)}</p>${metaRow(a)}</div></a>`;
+const thumb = a => a.image
+  ? `<div class="card-thumb has-img"><img src="${esc(a.image)}" alt="" loading="lazy">${a.imageCredit ? `<span class="thumb-credit">画像：${esc(a.imageCredit.split('|')[0])}</span>` : ''}</div>`
+  : `<div class="card-thumb">${iconFor(a.category)}</div>`;
+const card = (a, feature = false) => `<a class="card${feature ? ' card-feature' : ''}" href="/articles/${a.slug}/">${thumb(a)}<div class="card-body"><div><span class="tag">${esc(a.category)}</span>${isNew(a) ? '<span class="tag tag-new">NEW</span>' : ''}</div><h3>${esc(a.title)}</h3><p>${esc(a.description)}</p>${metaRow(a)}</div></a>`;
 
 for (const a of articles) {
   const url = `/articles/${a.slug}/`;
@@ -216,13 +239,13 @@ for (const a of articles) {
   const prose = sections.join('\n').replace(/<h3>(【重要】)/g, '<h3 class="alert">$1');
   const tocHtml = toc.length > 1 ? `<div class="toc-box"><h2>目次</h2><ol>${toc.map(t => `<li><a href="#${t.id}">${t.text}</a></li>`).join('')}</ol></div>` : '';
   const minutes = Math.max(1, Math.ceil(a.body.replace(/\s/g, '').length / 500));
-  const others = articles.filter(o => o.slug !== a.slug);
+  const others = articles.filter(o => o.slug !== a.slug).sort((x, y) => (y.category === a.category) - (x.category === a.category)).slice(0, 3);
 
   write(`articles/${a.slug}/index.html`, layout({
-    title: `${a.title} | ${NAME}`, desc: a.description, url, type: 'article', nav: 'articles',
+    title: `${a.title} | ${NAME}`, desc: a.description, url, type: 'article', nav: 'articles', ogImage: a.image || OG,
     ld: [{
       '@context': 'https://schema.org', '@type': 'Article', headline: a.title, description: a.description, inLanguage: 'ja',
-      datePublished: a.date, dateModified: a.updated, mainEntityOfPage: `${BASE}${url}`, image: `${BASE}${OG}`,
+      datePublished: a.date, dateModified: a.updated, mainEntityOfPage: `${BASE}${url}`, image: `${BASE}${a.image || OG}`,
       author: { '@type': 'Organization', name: NAME }, publisher: { '@type': 'Organization', name: NAME }
     }, {
       '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [

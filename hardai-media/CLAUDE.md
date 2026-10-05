@@ -31,3 +31,10 @@
 ## アフィリエイトタグの自動付与
 
 `site.config.json` に `amazonTag`（アソシエイトのトラッキングID）を入れると、`amazon.co.jp` へのリンクすべてに `tag=` が付く。`rakutenId`（楽天アフィリエイトID）を入れると、`rakuten.co.jp` へのリンクが `hb.afl.rakuten.co.jp` の汎用リンクに包まれる（登録後に実際のリンクで計測できるか確認すること）。空の間は通常URLのまま。いずれも `rel="nofollow sponsored"` が付く。
+
+## 画像・動画の取り扱い
+
+- 製品画像は、メーカー公式サイトのものを、出典（会社名とURL）を記事内のキャプションに明記したうえで使う（運営者の許可あり）。記事本文では `![説明](/images/xxx.webp "出典名|出典URL")` と書く。`public/images/` にWebPで保存する（幅1000px程度、`convert in -resize '1000x>' -quality 82 out.webp`）。
+- 人物（モデル）が写っている画像は使わない。画像がどの製品か公式ページ上で確認できないものは使わない。
+- 動画は `node check-video.mjs <ID>` で投稿元を確認し、公式チャンネルなら「公式チャンネル（名前）の投稿」と書く。確認できなければ「投稿元は未確認」。
+- `image` / `imageCredit`（出典名|URL）はトップ・一覧のカード画像とOGP画像に使われる。
