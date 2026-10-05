@@ -7,6 +7,7 @@ category: AIガジェット
 image: /images/doorbell-1.webp
 imageCredit: Anker Japan|https://www.ankerjapan.com/products/t8214
 cta: [Eufy Video Doorbell E340|Anker Japan公式で見る|https://www.ankerjapan.com/products/t8214|19,990円（税込）|ブラックのみ。公式ストアの商品データでは購入可能と表示されていました|shops||/images/doorbell-1.webp|正面と足元の2つのカメラで、訪問者と置き配の荷物を確認できるビデオドアベル|正面のカメラで訪問者、下向きのカメラで足元の荷物を確認できる／顔認識システムで人物ごとの検知動画を管理。荷物検知で、配達・引き取りをAIが検知して通知／3Mテープかネジ留めで、工事不要で取り付けできる。IP65の防塵・防水|置き配の荷物も含めて、玄関先の様子をスマホで確認したい人]
+hubTitle: Eufy Video Doorbell E340：置き配の荷物も見えるAIドアホン
 sources: [anker-eufy-e340]
 ---
 > 価格の確認日：2026年10月5日。価格・機能は変更されます。購入前に必ずAnker Japan公式ストアをご確認ください。当サイトの編集者は実機を使用していません。機能の説明はメーカーによるものです。

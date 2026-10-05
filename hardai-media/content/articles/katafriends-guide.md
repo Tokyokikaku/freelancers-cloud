@@ -8,6 +8,7 @@ image: /images/kata-1.webp
 imageCredit: SwitchBot|https://www.switchbot.jp/products/katafriends
 cta: [KATAフレンズ|SwitchBot公式で見る|https://www.switchbot.jp/products/katafriends|129,800円（ノア・ニコ）／149,800円（くまモン Ver.）、税込|本体のほか、くらしプランが必要です（無料トライアル15日間あり）。公式ストアの商品データでは購入可能と表示されていました|||/images/kata-1.webp|オンデバイスAI（LLM）を搭載し、顔を覚えて育つSwitchBotのパートナーロボット|ネット接続なしでも、言葉やジェスチャーを理解して反応する（一部機能はクラウド利用）／全身12か所のタッチセンサー、4つのマイク、カメラ、LiDARで人や部屋を把握し、自分で充電に戻る／赤外線家電やSwitchBotの機器の操作を手伝う「おてつだい」機能|ペットのような存在を家に迎えつつ、スマートホームとも連携させたい人]
 videos: [TQRKDASJ6DM|はじめて目が合った、あの瞬間から。KATAフレンズ（SwitchBot Japan）|公式チャンネル（SwitchBot Japan）の投稿, 0GCJsSOnQAs|かしこさの先に、ぬくもりを感じる。KATAフレンズ（SwitchBot Japan）|公式チャンネル（SwitchBot Japan）の投稿]
+hubTitle: SwitchBot KATAフレンズ：オンデバイスAI搭載のパートナーロボット
 sources: [switchbot-kata, switchbot-kata-pricing, switchbot-kata-tech]
 ---
 > 価格の確認日：2026年10月5日。価格・プラン内容は変更されます。購入前に必ずSwitchBot公式サイトをご確認ください。当サイトの編集者はKATAフレンズの実機を使用していません。以下は公式情報の整理です。

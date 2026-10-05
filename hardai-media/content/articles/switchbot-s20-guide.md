@@ -7,6 +7,7 @@ category: ロボット掃除機
 image: /images/s20-1.webp
 imageCredit: SwitchBot|https://www.switchbot.jp/products/switchbot-robot-vacuum-cleaner-s20
 cta: [SwitchBot お掃除ロボットS20|SwitchBot公式で見る|https://www.switchbot.jp/products/switchbot-robot-vacuum-cleaner-s20|91,800円（税込）|交換用の紙パックやブラシなどの消耗品も、同じ公式ストアで販売されています|shops||/images/s20-1.webp|ローラーモップを洗いながら水拭きする、全自動ステーション付きのお掃除ロボット|ローラーモップが回転して、水拭きとモップ洗浄を同時に行う／ステーションが給水・排水・ごみ収集を自動化。2.7Lの水タンク、2.5Lの汚水タンク、4Lの抗菌紙パック／AIカメラの障害物回避。カーペットを検知すると水拭きを止め、吸引力は最大10,000Paに|吸引も水拭きもまとめて任せて、お手入れの手間を減らしたい人]
+hubTitle: SwitchBot S20：モップを洗いながら水拭きする全自動モデル
 sources: [switchbot-s20]
 ---
 > 価格の確認日：2026年10月5日。価格・仕様は変更されます。購入前に必ずSwitchBot公式サイトをご確認ください。当サイトの編集者は実機を使用していません。性能に関する説明はメーカーによるもので、使用環境によって異なる場合があります。

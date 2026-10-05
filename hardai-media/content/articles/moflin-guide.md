@@ -8,6 +8,7 @@ image: /images/moflin-1.webp
 imageCredit: カシオ計算機|https://www.casio.com/jp/moflin/
 videos: [Ao9wxAPvuZ0|Moflin Brand Movie（CASIO Japan）|公式チャンネル（CASIO Japan）の投稿, QBtdTTyF32Q|Moflin Promotion Movie（CASIO Japan）|公式チャンネル（CASIO Japan）の投稿]
 cta: [Moflin|CASIO公式ストアで見る|https://www.casio.com/jp/moflin/|本体59,400円（発売時の希望小売価格・税込）|新型番（PE-M11）の価格は公式ストアで確認してください|shops||/images/moflin-1.webp|手のひらサイズのAIペットロボット。声を覚え、ふれあうほど感情が育つ|飼い主の声を覚えてなつく（言葉そのものは理解しない）／なでる・抱っこで感情が変わり、性格が育つ（個性は400万通り以上）／約260gで持ち運べる。公式は「動物アレルギーにはならない」と案内|手軽に試したい人、動物アレルギーなどでペットを飼えない人]
+hubTitle: Moflin（モフリン）：声を覚えて感情が育つ、手のひらサイズのAIペット
 sources: [casio-release, casio-moflin, casio-club]
 ---
 > 確認日：2026年10月5日。価格・サービス内容は変更されます。購入前に必ずカシオ公式ページをご確認ください。当サイトの編集者はMoflinの実機を使用していません。以下は公式情報の整理です。

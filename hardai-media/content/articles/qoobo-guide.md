@@ -8,6 +8,7 @@ image: /images/qoobo-1.webp
 imageCredit: ユカイ工学|https://qoobo.info/
 videos: [-2TbYYXajNY|Qoobo（ユカイ工学）|公式サイトに掲載されている動画（チャンネル名：ユカイ工学）, 9s8B3RmGMlY|Petit Qoobo（ユカイ工学）|公式サイトに掲載されている動画（チャンネル名：ユカイ工学）]
 cta: [Qoobo|ユカイ工学の公式ストアで見る|https://store.ux-xu.com/products/qoobo|17,600円（税込）|公式ストアの商品データでは、確認日時点でFRENCH BROWNは購入可能、HUSKY GRAYは購入不可の表示でした。在庫は変動します|shops||/images/qoobo-1.webp|しっぽのついたクッション型のセラピーロボット|そっとなでるとふわふわ、たくさんなでるとぶんぶん、ときどき気まぐれにしっぽを振る（公式）／音声や表情はなく、しっぽの動きだけで応える／約52×32×15cm・約1kg。歩き回らないので見失わない|手軽な価格で、なでて癒やされるロボットを試したい人, Petit Qoobo|ユカイ工学の公式ストアで見る|https://store.ux-xu.com/products/petit-qoobo|14,300円（税込）|Gris・Blanc・Noirは購入可能、Marronは購入不可の表示でした（確認日時点）|shops||/images/qoobo-2.webp|ひとまわり小さい、持ち出せるしっぽクッション|約28×21×11cm・約0.6kg／音や声にしっぽで反応する／鼓動（トクントクン）が鳴る|外出先やデスクにも連れていきたい人]
+hubTitle: Qoobo・Petit Qoobo：しっぽで応えるクッション型ロボット
 sources: [qoobo-info, ux-xu-store]
 ---
 > 価格の確認日：2026年10月5日。価格・在庫は変更されます。購入前に必ず公式ストアをご確認ください。当サイトの編集者はQooboの実機を使用していません。以下は公式情報の整理です。

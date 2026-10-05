@@ -58,3 +58,11 @@
 ## 在庫の確認
 
 ユカイ工学ストアなどShopifyのストアは、ページ上の「在庫切れ」の文字がテンプレートとして常に含まれる。在庫は商品ページの `.js`（例：`https://store.ux-xu.com/products/qoobo.js`）の `variants[].available` で確認する。
+
+## カテゴリ詳細ページ（比較記事を兼ねる）
+
+- `content/categories/*.md` が `/category/<slug>/` になる。トップのFV（商品カテゴリ一覧）、ナビ、フッター、記事一覧の「比較ページへ」リンクの起点。
+- frontmatter: `title / description / name / summary / products（記事スラッグ、価格の低い順など基準を本文に明記）/ priceRange / icon / order / updated`。
+- 本文に `@@table`（自動の比較表）と `@@products`（各製品の節）を置く。製品の節は、各記事の「特徴・仕様・費用・買う前に確認したいこと」などの節を自動で埋め込み、その下にCTAカードを出す。記事側の `hubTitle:` が節の見出しになる。`hub: all` の記事は全節を埋め込む（複数製品を扱う記事）。
+- 製品を深く書くときは、**元の記事を書き込む**（カテゴリページに自動反映される）。順位の基準にアフィリエイト報酬を使わない。
+- 旧 `ai-pet-robot-comparison` は `/category/pets/` へ恒久リダイレクト（`vercel.json`）。

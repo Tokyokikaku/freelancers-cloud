@@ -7,6 +7,7 @@ category: コミュニケーションロボット
 image: /images/bocco-1.webp
 imageCredit: ユカイ工学（ユカイ工学オンラインストア）|https://store.ux-xu.com/products/bocco-emo
 cta: [BOCCO emo|ユカイ工学の公式ストアで見る|https://store.ux-xu.com/products/bocco-emo|Wi-Fiモデル52,800円（税込）|LTEレンタルモデルは月額2,970円（税込）。在庫は公式ストアで確認してください|shops||/images/bocco-1.webp|家族の会話をつなぐ、ユカイ工学のコミュニケーションロボット|首の動き・ほっぺの色・ぼんぼりの動きで、感情を表現する／音声メッセージの送受信、センサー連携、天気配信やリマインドなど、先代BOCCOの機能を引き継ぐ／血圧計や体重計などと無線接続し、測定時間のお知らせと記録ができる（2024年9月の新機能）|家族のコミュニケーションを、ロボットを通して穏やかに支えたい人]
+hubTitle: BOCCO emo：家族の会話をつなぐ感情表現ロボット
 sources: [ux-bocco-store, ux-bocco-press, ux-bocco-health]
 ---
 > 価格の確認日：2026年10月5日。価格・在庫は変更されます。購入前に必ず公式ストアをご確認ください。当サイトの編集者はBOCCO emoの実機を使用していません。以下は公式情報の整理です。

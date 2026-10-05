@@ -198,6 +198,7 @@ const cssHash = crypto.createHash('md5').update(css).digest('hex').slice(0, 8);
 const OG = '/og.png';
 
 const YT_JS = `<script>document.addEventListener('click',function(e){var a=e.target.closest('a[data-yt]');if(!a)return;e.preventDefault();var f=document.createElement('iframe');f.src='https://www.youtube-nocookie.com/embed/'+a.dataset.yt+'?autoplay=1&rel=0';f.allow='accelerometer;autoplay;encrypted-media;picture-in-picture';f.allowFullscreen=true;f.title=a.getAttribute('aria-label')||'YouTube';a.replaceWith(f);});</script>`;
+let HUB_LINKS = '';
 const layout = ({ title, desc, body, url, type = 'website', ld = [], nav = '', noindex = false, ogImage = OG }) => `<!doctype html>
 <html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(title)}</title><meta name="description" content="${esc(desc)}">
@@ -212,13 +213,13 @@ ${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" hr
 <a class="skip" href="#main">本文へスキップ</a>
 <header class="site-header"><div class="wrap">
 <a class="logo" href="/" aria-label="${esc(NAME)} トップ">${LOGO_MARK}<span>${esc(NAME)}<small>HARD AI NAVI</small></span></a>
-<nav class="nav" aria-label="メイン"><a href="/#articles"${nav === 'articles' ? ' aria-current="page"' : ''}>記事一覧</a><a href="/about/"${nav === 'about' ? ' aria-current="page"' : ''}>運営方針・広告表示</a><a class="nav-cta" href="/articles/ai-pet-robot-3year-cost/">3年の費用を比べる</a></nav>
+<nav class="nav" aria-label="メイン"><a href="/#categories"${nav === 'category' ? ' aria-current="page"' : ''}>商品カテゴリ</a><a href="/#articles"${nav === 'articles' ? ' aria-current="page"' : ''}>記事一覧</a><a href="/about/"${nav === 'about' ? ' aria-current="page"' : ''}>運営方針<span class="nav-x">・広告表示</span></a><a class="nav-cta" href="/articles/ai-pet-robot-3year-cost/">3年の費用を比べる</a></nav>
 </div></header>
 <main id="main">${body}</main>
 <footer class="site-footer"><div class="wrap"><div class="footer-grid">
 <div><a class="logo" href="/">${LOGO_MARK}<span>${esc(NAME)}<small>HARD AI NAVI</small></span></a>
 <p>${esc(cfg.tagline)}。公式情報と出典をもとに整理するメディアです。当サイトはアフィリエイト広告を利用しています。詳細は<a href="/about/">運営方針・広告表示</a>をご覧ください。</p></div>
-<nav class="footer-nav" aria-label="フッター"><a href="/#articles">記事一覧</a><a href="/about/">運営方針・広告表示</a><a href="/rss.xml">RSS</a><a href="/sitemap.xml">サイトマップ</a></nav>
+<nav class="footer-nav" aria-label="フッター">${HUB_LINKS}<a href="/#articles">記事一覧</a><a href="/about/">運営方針・広告表示</a><a href="/rss.xml">RSS</a><a href="/sitemap.xml">サイトマップ</a></nav>
 </div><div class="copy">© ${new Date().getFullYear()} ${esc(NAME)}</div></div></footer>
 ${body.includes('data-yt=') ? YT_JS : ''}${body.includes('id="sticky-cta"') ? STICKY_JS : ''}</body></html>`;
 
@@ -248,17 +249,63 @@ const thumb = a => a.image
   : `<div class="card-thumb">${iconFor(a.category)}</div>`;
 const card = (a, feature = false) => `<a class="card${feature ? ' card-feature' : ''}" href="/articles/${a.slug}/">${thumb(a)}<div class="card-body"><div><span class="tag">${esc(a.category)}</span>${isNew(a) ? '<span class="tag tag-new">NEW</span>' : ''}</div><h3>${esc(a.title)}</h3><p>${esc(a.description)}</p>${metaRow(a)}<span class="more">記事を読む<i class="arr" aria-hidden="true"></i></span></div></a>`;
 
-for (const a of articles) {
-  const url = `/articles/${a.slug}/`;
+const prep = a => {
   // 冒頭の引用ブロック（確認日の注記）は専用の注意書きとして切り出す
   let body = a.body.replace(/^\s+/, '');
-  let verify = '';
+  a._verify = '';
   const vm = body.match(/^((?:>.*\n?)+)/);
-  if (vm) { verify = `<aside class="verify" role="note">${ALERT_ICON}<p>${inline(vm[1].replace(/^>\s?/gm, ' ').trim())}</p></aside>`; body = body.slice(vm[0].length); }
+  if (vm) { a._verify = `<aside class="verify" role="note">${ALERT_ICON}<p>${inline(vm[1].replace(/^>\s?/gm, ' ').trim())}</p></aside>`; body = body.slice(vm[0].length); }
+  a._offers = parseOffers(a);
+  a._chunks = md(body, { offers: a._offers }).split(/(?=<h2>)/).filter(s => s.trim());
+};
+articles.forEach(prep);
 
-  const offers = parseOffers(a);
+/* ---------- カテゴリ詳細ページ兼・比較記事 ---------- */
+const CIRC = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨', '⑩'];
+const circ = n => CIRC[n - 1] || `${n}.`;
+const HUB_INCLUDE = /(どんな|特徴|できること|仕様|費用|価格|種類|プラン|違い|モデル|機能|仕組み|比較|スペック|中身|セット|買う前|使う前)/;
+const HUB_EXCLUDE = /^(出典|どんな人に向いて|どんな人向け|買える|販売状況|あわせて|どれを選ぶ|動画)/;
+const embedArticle = a => {
+  const all = a.hub === 'all';
+  const parts = [];
+  a._chunks.forEach(c => {
+    const m = c.match(/^<h2>(.*?)<\/h2>/);
+    if (!m) { parts.push(c); return; }
+    const t = m[1].replace(/<[^>]+>/g, '');
+    const rest = c.slice(m[0].length).replace(/<h3/g, '<h4').replace(/<\/h3>/g, '</h4>');
+    if (/^結論/.test(t)) { parts.push(`<div class="hub-lead">${rest}</div>`); return; }
+    if (HUB_EXCLUDE.test(t)) return;
+    if (!all && !HUB_INCLUDE.test(t)) return;
+    parts.push(`<h3 class="hub-h3">${m[1]}</h3>${rest}`);
+  });
+  return parts.join('');
+};
+const hubs = fs.existsSync('content/categories') ? fs.readdirSync('content/categories').filter(f => f.endsWith('.md')).map(f => {
+  const { data, body } = parseFrontmatter(fs.readFileSync(path.join('content/categories', f), 'utf8'));
+  for (const k of ['title', 'description', 'name', 'summary', 'products']) if (!data[k]) throw new Error(`categories/${f}: "${k}" がありません`);
+  const slug = f.replace(/\.md$/, '');
+  const items = data.products.map(sl => { const a = articles.find(x => x.slug === sl); if (!a) throw new Error(`categories/${f}: 記事 ${sl} がありません`); return a; });
+  return { ...data, slug, body, items, order: Number(data.order || 99) };
+}).sort((a, b) => a.order - b.order) : [];
+const hubUrl = h => `/category/${h.slug}/`;
+const HUB_ICONS = {
+  vacuum: '<svg viewBox="0 0 120 120" role="img" aria-label="ロボット掃除機のイラスト"><ellipse cx="60" cy="106" rx="34" ry="5" fill="#0d6e66" opacity=".15"/><circle cx="60" cy="62" r="42" fill="#fffefb" stroke="#0d6e66" stroke-width="4"/><circle cx="60" cy="62" r="16" fill="#0d6e66"/><circle cx="60" cy="62" r="6" fill="#fffefb"/><circle cx="92" cy="40" r="5" fill="#e8431f"/><path d="M30 86q8 8 22 8" fill="none" stroke="#0d6e66" stroke-width="4" stroke-linecap="round" opacity=".5"/></svg>',
+  gadget: '<svg viewBox="0 0 120 120" role="img" aria-label="AIガジェットのイラスト"><rect x="34" y="14" width="52" height="92" rx="14" fill="#fffefb" stroke="#0d6e66" stroke-width="4"/><circle cx="60" cy="40" r="12" fill="#0d6e66"/><circle cx="60" cy="40" r="4" fill="#fffefb"/><path d="M46 70h28M46 82h20" stroke="#0d6e66" stroke-width="5" stroke-linecap="round" opacity=".45"/><circle cx="82" cy="24" r="6" fill="#e8431f"/></svg>',
+  comm: '<svg viewBox="0 0 120 120" role="img" aria-label="コミュニケーションロボットのイラスト"><ellipse cx="60" cy="108" rx="28" ry="4" fill="#0d6e66" opacity=".15"/><path d="M60 8v14" stroke="#0d6e66" stroke-width="4" stroke-linecap="round"/><circle cx="60" cy="8" r="5" fill="#e8431f"/><rect x="26" y="22" width="68" height="62" rx="26" fill="#fffefb" stroke="#0d6e66" stroke-width="4"/><circle cx="46" cy="52" r="7" fill="#13201e"/><circle cx="74" cy="52" r="7" fill="#13201e"/><path d="M50 68q10 8 20 0" fill="none" stroke="#13201e" stroke-width="4" stroke-linecap="round"/><rect x="40" y="90" width="40" height="16" rx="8" fill="#0d6e66"/></svg>',
+  edu: '<svg viewBox="0 0 120 120" role="img" aria-label="知育・スポーツロボットのイラスト"><rect x="14" y="52" width="48" height="48" rx="8" fill="#fffefb" stroke="#0d6e66" stroke-width="4"/><circle cx="30" cy="68" r="4" fill="#0d6e66"/><circle cx="46" cy="68" r="4" fill="#0d6e66"/><path d="M26 84h24" stroke="#0d6e66" stroke-width="4" stroke-linecap="round"/><circle cx="90" cy="44" r="26" fill="#fffefb" stroke="#e8431f" stroke-width="4"/><path d="M68 44q22 12 44 0M90 18q-12 26 0 52" fill="none" stroke="#e8431f" stroke-width="3"/></svg>'
+};
+const hubIcon = h => HUB_ICONS[h.icon] || ICONS[h.icon] || ICONS.default;
+const catCard = h => `<a class="cat-card" href="${hubUrl(h)}"><span class="cat-icon">${hubIcon(h)}</span><span class="cat-name">${esc(h.name)}</span><span class="cat-sum">${esc(h.summary)}</span><span class="cat-meta">${h.items.reduce((n, a) => n + Math.max(1, a._offers.length), 0)}製品${h.priceRange ? `　${esc(h.priceRange)}` : ''}</span><span class="cat-go">比較ページを見る<i class="arr" aria-hidden="true"></i></span></a>`;
+
+
+HUB_LINKS = hubs.map(h => `<a href="${hubUrl(h)}">${esc(h.name)}</a>`).join('');
+
+for (const a of articles) {
+  const url = `/articles/${a.slug}/`;
+  const verify = a._verify;
+  const offers = a._offers;
   const many = offers.length > 1;
-  const chunks = md(body, { offers }).split(/(?=<h2>)/).filter(s => s.trim());
+  const chunks = a._chunks;
   const toc = [];
   const sections = chunks.map((c, idx) => {
     const m = c.match(/^<h2>(.*?)<\/h2>/);
@@ -315,19 +362,76 @@ ${others.length ? `<section class="related"><div class="wrap"><div class="sectio
 const CAT_ORDER = ['AIペット', 'コミュニケーションロボット', 'ロボット掃除機', 'AIガジェット', '知育ロボット', 'スポーツロボット', '人型ロボット', '四足ロボット', '購入ガイド'];
 const catSlug = c => 'c' + (CAT_ORDER.indexOf(c) >= 0 ? CAT_ORDER.indexOf(c) : 99);
 const catGroups = [...new Set([...CAT_ORDER, ...articles.map(a => a.category)])].map(c => [c, articles.filter(a => a.category === c)]).filter(([, l]) => l.length);
+
+for (const h of hubs) {
+  const url = hubUrl(h);
+  const offerRows = [];
+  const secs = [];
+  let n = 0;
+  h.items.forEach(a => {
+    const names = a._offers.map(o => o.name);
+    const start = n + 1;
+    a._offers.forEach(o => { n++; offerRows.push({ rank: n, o, a }); });
+    if (!a._offers.length) n++;
+    const end = n;
+    const label = start === end ? circ(start) : `${circ(start)}〜${circ(end)}`;
+    const title = a.hubTitle || names.join('・');
+    const extra = a.ctaMode === 'inline' ? '' : `<div class="offers${a._offers.length > 1 ? ' offers-multi' : ''}">${a._offers.map(o => offerCard(o, o.img || a.image)).join('')}</div>${CTA_FOOT(a._offers.some(o => o.shops))}`;
+    secs.push({ id: `p-${a.slug}`, text: `${label} ${title}`, html: `<section class="hub-prod" id="p-${a.slug}"><h2 class="hub-h2"><span class="hub-rank">${label}</span>${esc(title)}</h2>${embedArticle(a)}${extra}<p class="hub-more"><a class="btn-sub" href="/articles/${a.slug}/">${esc(names.join('・'))}の詳しい記事を読む</a></p></section>` });
+  });
+  const tableHtml = `<section id="hub-table"><h2 id="hub-table-h">${esc(h.name)}の比較表</h2><div class="tw" tabindex="0"><table><thead><tr><th scope="col">順位</th><th scope="col">製品</th><th scope="col">価格の目安</th><th scope="col">どんな製品か</th><th scope="col">向いている人</th></tr></thead><tbody>${offerRows.map(r => `<tr><td>${circ(r.rank)}</td><td><a href="#p-${r.a.slug}">${esc(r.o.name)}</a>${r.o.badge ? `<br><span class="offer-badge">${esc(r.o.badge)}</span>` : ''}</td><td>${esc(r.o.price)}</td><td>${esc(r.o.tagline)}</td><td>${esc(r.o.audience)}</td></tr>`).join('')}</tbody></table></div></section>`;
+  const [leadMd, restMd = ''] = h.body.split('@@table');
+  const [midMd = '', tailMd = ''] = restMd.split('@@products');
+  const leadHtml = md(leadMd.replace(/^\s+/, ''));
+  const verifyM = leadMd.match(/^\s*((?:>.*\n?)+)/);
+  const toc = [{ id: 'hub-table-h', text: `${h.name}の比較表` }, ...secs.map(x => ({ id: x.id, text: x.text }))];
+  const tailChunks = md(tailMd).split(/(?=<h2>)/).filter(x => x.trim()).map((c, i) => {
+    const m = c.match(/^<h2>(.*?)<\/h2>/);
+    if (!m) return `<section>${c}</section>`;
+    const id = `t${i + 1}`; toc.push({ id, text: m[1] });
+    const cls = /^出典/.test(m[1]) ? ' class="sources"' : '';
+    return `<section${cls}><h2 id="${id}">${m[1]}</h2>${c.slice(m[0].length)}</section>`;
+  });
+  const allOffers = offerRows.map(r => r.o);
+  const tocHtml = `<div class="toc-box"><h2>目次</h2><ol>${toc.map(t => `<li><a href="#${t.id}">${t.text}</a></li>`).join('')}</ol></div>`;
+  const aside = allOffers.length <= 4 ? asideCta(allOffers, h.image) : '';
+  const sticky = stickyCta(allOffers, '#hub-table');
+  const lead = leadHtml.replace(/<blockquote>/, '<blockquote class="hub-note">');
+  const others = hubs.filter(x => x.slug !== h.slug);
+  write(`category/${h.slug}/index.html`, layout({
+    title: `${h.title} | ${NAME}`, desc: h.description, url, type: 'article', nav: 'category', ogImage: h.image || OG,
+    ld: [{ '@context': 'https://schema.org', '@type': 'CollectionPage', name: h.title, description: h.description, url: `${BASE}${url}`, inLanguage: 'ja' },
+      { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+        { '@type': 'ListItem', position: 1, name: NAME, item: `${BASE}/` }, { '@type': 'ListItem', position: 2, name: h.name, item: `${BASE}${url}` }] }],
+    body: `<div class="wrap"><header class="article-head">
+<ol class="crumbs"><li><a href="/">ホーム</a></li><li><a href="/#categories">商品カテゴリ</a></li><li aria-current="page">${esc(h.name)}</li></ol>
+<span class="tag">${esc(h.name)}</span><h1>${esc(h.title)}</h1><p class="desc">${esc(h.description)}</p>
+<div class="meta"><span>製品 ${allOffers.length}点を比較</span><span>最終確認 ${fmtDate(h.updated || '2026-10-05')}</span></div>
+${PR}</header>
+<div class="article-grid"><article class="prose"><details class="toc-mobile"><summary>目次を開く</summary>${tocHtml}</details>
+<section class="hub-intro">${lead}</section>${tableHtml}
+${secs.map(x => x.html).join('\n')}
+${tailChunks.join('\n')}</article>
+<aside class="toc" aria-label="目次">${aside}${tocHtml}</aside></div></div>
+${sticky}
+<section class="related"><div class="wrap"><div class="section-head"><div><p class="kicker">Categories</p><h2>ほかの商品カテゴリ</h2></div></div><div class="cat-grid">${others.map(catCard).join('')}</div></div></section>`
+  }));
+}
+
 write('index.html', layout({
   title: `${NAME} | ${cfg.tagline}`, desc: `${cfg.tagline}。AIペット・家庭用ロボット・AIガジェットを、公式情報と出典つきで整理します。`, url: '/', nav: 'articles',
   ld: [{ '@context': 'https://schema.org', '@type': 'WebSite', name: NAME, url: `${BASE}/`, inLanguage: 'ja', description: cfg.tagline }],
-  body: `<section class="hero"><div class="wrap"><div>
+  body: `<section class="hero hero-compact"><div class="wrap">
+<div class="hero-top"><div>
 <p class="eyebrow">AI Pet ・ Robot ・ Gadget</p>
 <h1>家庭で使える<wbr>AIロボット・<wbr>AIガジェットを、<wbr><em>出典つき</em>で<wbr>比較する</h1>
-<p class="lead">AIペット、家庭用ロボット、小型ヒューマノイド。気になる製品の価格や仕様を、メーカー公式ページとプレスリリースで確認して整理します。</p>
+<p class="lead">AIペット、コミュニケーションロボット、ロボット掃除機、AIガジェット。製品の価格と仕様を、公式情報で確認して整理します。</p>
 <ul class="chips"><li>公式情報だけで整理</li><li>価格には確認日つき</li><li>実機レビューではありません</li></ul>
-<div class="btns"><a class="btn-cta btn-lg" href="/articles/ai-pet-robot-3year-cost/"><span>3年間の費用を比べる</span><i class="arr" aria-hidden="true"></i></a><a class="btn btn-ghost" href="#pick">目的から記事を探す</a></div>
-<p class="hero-note">本体価格だけでなく、継続費用まで含めた総額の試算です。</p>
-</div><div class="hero-art">${HERO_ART}</div></div></section>
+</div><div class="hero-art">${HERO_ART}</div></div>
+<div class="hero-cats" id="categories"><p class="hero-cats-k">STEP 1　商品カテゴリから探す</p><div class="cat-grid">${hubs.map(catCard).join('')}</div></div>
+</div></section>
 <section class="section pick" id="pick"><div class="wrap">
-<div class="section-head"><div><p class="kicker">Find Yours</p><h2>目的から選ぶ</h2></div><p>気になる項目から、該当する記事へ</p></div>
+<div class="section-head"><div><p class="kicker">STEP 2</p><h2>目的から選ぶ</h2></div><p>カテゴリが決まっていなくても、やりたいことから探せます</p></div>
 <div class="pick-grid">
 <a class="pick-card" href="/articles/ai-pet-robot-3year-cost/"><span class="pick-q">まず安く試したい</span><span class="pick-a">3年間の試算で、Moflinは約8万円・Qooboは本体のみ17,600円</span><span class="pick-go">費用を比べる<i class="arr" aria-hidden="true"></i></span></a>
 <a class="pick-card" href="/articles/aibo-guide/"><span class="pick-q">犬型ロボットが気になる</span><span class="pick-a">aiboは2026年6月に国内の新規販売終了が発表。特徴と既存サービスを整理</span><span class="pick-go">aiboの現状を見る<i class="arr" aria-hidden="true"></i></span></a>
@@ -340,10 +444,12 @@ write('index.html', layout({
 <a class="pick-card" href="/articles/switchbot-ai-mindclip-guide/"><span class="pick-q">会議や思いつきをAIにメモさせたい</span><span class="pick-a">約16.8gのAIマインドクリップは、録音から文字起こし・要約・ToDo抽出まで自動</span><span class="pick-go">AIガジェットを見る<i class="arr" aria-hidden="true"></i></span></a>
 <a class="pick-card" href="/articles/try-before-buying-ai-robot/"><span class="pick-q">買う前に試したい</span><span class="pick-a">LOVOTはレンタルと体験施設（MUSEUM）で試せる</span><span class="pick-go">試し方を見る<i class="arr" aria-hidden="true"></i></span></a>
 </div></div></section>
+<section class="section" id="latest"><div class="wrap">
+<div class="section-head"><div><p class="kicker">New</p><h2>新着記事</h2></div><p>価格は月1回、公式ページで再確認します</p></div>
+<div class="cards">${articles.slice(0, 6).map(a => card(a)).join('')}</div></div></section>
 <section class="section" id="articles"><div class="wrap">
-<div class="section-head"><div><p class="kicker">Articles</p><h2>記事一覧</h2></div><p>全${articles.length}本 ／ 価格は月1回、公式ページで再確認します</p></div>
-<nav class="cat-nav" aria-label="カテゴリ">${catGroups.map(([c, list]) => `<a href="#cat-${catSlug(c)}">${esc(c)}<span>${list.length}</span></a>`).join('')}</nav>
-${catGroups.map(([c, list]) => `<div class="cat-group" id="cat-${catSlug(c)}"><h3 class="cat-title">${esc(c)}</h3><div class="cards">${list.map(a => card(a)).join('')}</div></div>`).join('')}
+<div class="section-head"><div><p class="kicker">All Articles</p><h2>すべての記事</h2></div><p>全${articles.length}本</p></div>
+${catGroups.map(([c, list]) => { const hh = hubs.find(h => h.items.some(a => a.category === c)); return `<div class="cat-group" id="cat-${catSlug(c)}"><h3 class="cat-title">${esc(c)}${hh ? `<a class="cat-title-link" href="${hubUrl(hh)}">比較ページへ →</a>` : ''}</h3><div class="cards">${list.map(a => card(a)).join('')}</div></div>`; }).join('')}
 </div></section>
 <section class="section pledge"><div class="wrap">
 <div class="section-head"><div><p class="kicker">Our Rules</p><h2>このメディアの4つの約束</h2></div><p><a href="/about/">編集方針の全文を見る</a></p></div>
@@ -367,7 +473,7 @@ write('404.html', layout({
   body: `<div class="wrap nf"><p class="big">404</p><h1>ページが見つかりません</h1><p>URLが変更されたか、削除された可能性があります。</p><div class="btns" style="justify-content:center"><a class="btn btn-primary" href="/">トップへ戻る</a></div></div>`
 }));
 
-const urls = [['/', articles[0]?.updated], ['/about/'], ...articles.map(a => [`/articles/${a.slug}/`, a.updated])];
+const urls = [['/', articles[0]?.updated], ['/about/'], ...hubs.map(h => [hubUrl(h), h.updated || articles[0]?.updated]), ...articles.map(a => [`/articles/${a.slug}/`, a.updated])];
 write('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls.map(([u, d]) => `<url><loc>${BASE}${u}</loc>${d ? `<lastmod>${d}</lastmod>` : ''}</url>`).join('')}</urlset>`);
 write('rss.xml', `<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>${esc(NAME)}</title><link>${BASE}</link><description>${esc(cfg.tagline)}</description><language>ja</language>${articles.map(a => `<item><title>${esc(a.title)}</title><link>${BASE}/articles/${a.slug}/</link><guid>${BASE}/articles/${a.slug}/</guid><pubDate>${new Date(a.date).toUTCString()}</pubDate><description>${esc(a.description)}</description></item>`).join('')}</channel></rss>`);
 write('robots.txt', `User-agent: *\nAllow: /\nSitemap: ${BASE}/sitemap.xml\n`);

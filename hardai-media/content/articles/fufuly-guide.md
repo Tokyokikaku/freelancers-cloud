@@ -8,6 +8,7 @@ image: /images/fufuly-1.webp
 imageCredit: ユカイ工学（ユカイ工学オンラインストア）|https://store.ux-xu.com/products/fufuly
 cta: [fufuly|ユカイ工学の公式ストアで見る|https://store.ux-xu.com/products/fufuly|29,800円（税込）|公式ストアの商品データでは購入可能と表示されていました（確認日時点）|shops||/images/fufuly-1.webp|呼吸するように膨らんだり縮んだりする、クッション型のロボット|抱えて使うクッションが、ゆっくり膨らんだり縮んだりする／ワークモード・レストモード・スリープモードの3つから選べる／充電式で約5時間充電、約8時間使用。約2kg|仕事や家事のすきま時間に、抱えて一息つきたい人]
 videos: [fEwn2lsr0HI|呼吸するクッション「fufuly」（フフリー）PV（ユカイ工学）|公式チャンネル（ユカイ工学）の投稿]
+hubTitle: fufuly：呼吸するクッション型ロボット
 sources: [ux-fufuly]
 ---
 > 価格の確認日：2026年10月5日。価格・在庫は変更されます。購入前に必ず公式ストアをご確認ください。当サイトの編集者はfufulyの実機を使用していません。以下は公式情報の整理です。

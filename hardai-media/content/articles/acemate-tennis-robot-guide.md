@@ -7,6 +7,7 @@ category: スポーツロボット
 image: /images/acemate-1.webp
 imageCredit: SwitchBot（Acemate）|https://www.switchbot.jp/products/acemate-tennis-robot
 cta: [Acemate テニスロボット|SwitchBot公式で見る|https://www.switchbot.jp/products/acemate-tennis-robot|349,800円（税込）|専用の予備バッテリー（13,800円）も同じストアで販売されています|||/images/acemate-1.webp|自走してボールを拾い、ラリーの相手もしてくれる、世界初をうたうAIテニスロボット|4Kビジョンとメカナムホイールで全方向に移動。最高秒速5mの機動力／ラリーモードとボールマシンモード。球速・着弾点・イン／アウトを記録し、AIが練習のアドバイスを提示／最大1.5時間の連続プレー。80球を搭載し、自分でボールを回収する|一人でも、実戦に近いテニスの練習相手がほしい人]
+hubTitle: Acemate：自走してラリーできるAIテニスロボット
 sources: [switchbot-acemate]
 ---
 > 価格の確認日：2026年10月5日。価格・仕様は変更されます。購入前に必ずSwitchBot公式サイトをご確認ください。当サイトの編集者は実機を使用していません。連続プレー時間などはメーカーの条件下での値です。

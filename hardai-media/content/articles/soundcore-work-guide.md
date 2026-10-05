@@ -7,6 +7,7 @@ category: AIガジェット
 image: /images/soundcore-work.webp
 imageCredit: Anker Japan|https://www.ankerjapan.com/products/d3200
 cta: [Soundcore Work|Anker Japan公式で見る|https://www.ankerjapan.com/products/d3200|64GBモデル26,990円／8GBモデル24,990円（税込）|ブラックとホワイト。公式ストアの商品データでは購入可能と表示されていました|shops||/images/soundcore-work.webp|取り外せる約10gのマイクで録音し、AIが文字起こし・要約してくれるウェアラブルAIボイスレコーダー|最大5m先の音声まで収音。話者識別や段落分けに対応した文字起こし／内容に応じてAIが最適なテンプレートを選び、要約／日本語を含む世界150以上の言語（各国のアクセントを含む）に対応|会議や商談の議事録づくりを、AIに任せて効率化したい人]
+hubTitle: Soundcore Work：世界最小クラスのウェアラブルAIボイスレコーダー
 sources: [anker-soundcore-work]
 ---
 > 価格の確認日：2026年10月5日。価格・在庫・機能は変更されます。購入前に必ずAnker Japan公式ストアをご確認ください。当サイトの編集者は実機を使用していません。性能の説明はメーカーによるものです。

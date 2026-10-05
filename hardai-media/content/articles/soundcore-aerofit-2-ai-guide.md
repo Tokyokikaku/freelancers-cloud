@@ -7,6 +7,7 @@ category: AIガジェット
 image: /images/aerofit-1.webp
 imageCredit: Anker Japan|https://www.ankerjapan.com/products/a3874n12
 cta: [Soundcore AeroFit 2 AI Assistant|Anker Japan公式で見る|https://www.ankerjapan.com/products/a3874n12|18,990円（税込）|ブラックのみ。公式ストアの商品データでは購入可能と表示されていました|shops||/images/aerofit-1.webp|耳をふさがないオープンイヤー型で、翻訳とAIアシスタントの機能を備えたイヤホン|「対話翻訳」と「リスニング翻訳」の2種類の翻訳機能。100以上の言語に対応（各国のアクセントを含む、2026年1月時点）／AIアシスタント「Anka」に、天気やニュース、日常の疑問をチャットで尋ねられる／イヤーフックの角度を4段階で調節できる|耳をふさがずに音楽を聴きながら、翻訳やAIアシスタントも使いたい人]
+hubTitle: Soundcore AeroFit 2 AI Assistant：翻訳とAIアシスタント付きイヤホン
 sources: [anker-aerofit2-ai]
 ---
 > 価格の確認日：2026年10月5日。価格・機能は変更されます。購入前に必ずAnker Japan公式ストアをご確認ください。当サイトの編集者は実機を使用していません。翻訳機能の利用には、Soundcoreアプリ（無料、ver 4.0.0以上）のダウンロードとログインが必要です。

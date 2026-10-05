@@ -7,6 +7,7 @@ category: AIガジェット
 image: /images/artcanvas-1.webp
 imageCredit: SwitchBot|https://www.switchbot.jp/products/switchbot-ai-art-frame
 cta: [SwitchBot AIアートキャンバス|SwitchBot公式で見る|https://www.switchbot.jp/products/switchbot-ai-art-frame|7.3インチ 24,800円／13.3インチ 59,800円／31.5インチ 249,800円（税込・1枚）|2枚セットも販売されています。公式ストアの商品データでは購入可能と表示されていました|shops||/images/artcanvas-1.webp|フルカラーの電子ペーパーで、絵画のように飾れるフォトフレーム|E Ink Spectra 6のフルカラー電子ペーパー。バックライトがなく、自然光で見る反射型／テキストや写真からAIがアートを生成・編集できる（アプリ）／コードレス。2000mAhバッテリーで、週1回の表示変更なら最長約2年表示できる（公式）|スマホで選んだアートを、部屋に絵画のように飾りたい人]
+hubTitle: SwitchBot AIアートキャンバス：電子ペーパーで飾るAI生成アート
 sources: [switchbot-artcanvas]
 ---
 > 価格の確認日：2026年10月5日。価格・機能は変更されます。購入前に必ずSwitchBot公式サイトをご確認ください。当サイトの編集者は実機を使用していません。電池の持ちなどはメーカーの条件下での値です。

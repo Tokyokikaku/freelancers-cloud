@@ -7,6 +7,7 @@ category: ロボット掃除機
 image: /images/k11-1.webp
 imageCredit: SwitchBot|https://www.switchbot.jp/products/switchbot-robot-vacuum-cleaner-k11-pro
 cta: [SwitchBot K11+ Pro|SwitchBot公式で見る|https://www.switchbot.jp/products/switchbot-robot-vacuum-cleaner-k11-pro|59,800円（税込）|カラーはアイボリーとブラック。K11+も同じ59,800円で並んでいます（公式ストア）|shops||/images/k11-1.webp|直径24.8cmの小型ボディに、最大12,000Paの吸引力を載せたロボット掃除機|イスの脚まわりやベッド下など、一般的な機種（32〜35cm）が入りにくい場所に入れる小ささ／静音モードで約45dB。4L紙パックで約90日間ごみ捨て不要（使用環境による）／髪の毛やペットの毛が絡みにくい、2本構造のサイドブラシとゴム製メインブラシ|ワンルームや一人暮らしで、置き場所を取らずに自動でごみを集めたい人]
+hubTitle: SwitchBot K11+ Pro：直径24.8cmの小型ロボット掃除機
 sources: [switchbot-k11pro]
 ---
 > 価格の確認日：2026年10月5日。価格・仕様は変更されます。購入前に必ずSwitchBot公式サイトをご確認ください。当サイトの編集者は実機を使用していません。性能に関する数値はメーカーの説明で、社内試験や使用環境によって異なる場合があります。

@@ -7,6 +7,7 @@ category: ロボット掃除機
 image: /images/k20-2.webp
 imageCredit: SwitchBot|https://www.switchbot.jp/products/switchbot-robot-vacuum-cleaner-k20-pro
 cta: [SwitchBot K20+ Pro|SwitchBot公式で見る|https://www.switchbot.jp/products/switchbot-robot-vacuum-cleaner-k20-pro|99,800円（税込）|スタンド（2,980円）やコードレス掃除機（24,980円）は、同じストアで別の商品として販売されています||家庭用ロボット|/images/k20-1.webp|ロボット掃除機を土台に、見守りカメラや空気清浄機などを載せて運べる多機能ロボット|ロボット掃除機のナビゲーション（dToF LiDAR、AI障害物回避）で、家の中を自走する／Type-C、DC、カメラ用充電、空気清浄機用の計4つのインターフェースで、機器を接続できる／水漏れセンサーなどの警報をきっかけに、現場へ走らせて確認できる（公式の説明）|掃除に加えて、見守りや空気の循環など、家の中の作業をまとめて任せたい人]
+hubTitle: SwitchBot K20+ Pro：掃除もできるマルチタスク家庭用ロボット
 sources: [switchbot-k20pro]
 ---
 > 価格の確認日：2026年10月5日。価格・仕様は変更されます。購入前に必ずSwitchBot公式サイトをご確認ください。当サイトの編集者は実機を使用していません。機能の説明はメーカーによるものです。

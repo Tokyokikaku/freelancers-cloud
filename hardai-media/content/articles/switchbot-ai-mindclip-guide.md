@@ -7,6 +7,7 @@ category: AIガジェット
 image: /images/mindclip-1.webp
 imageCredit: SwitchBot|https://www.switchbot.jp/products/switchbot-ai-mindclip
 cta: [SwitchBot AIマインドクリップ|SwitchBot公式で見る|https://www.switchbot.jp/products/switchbot-ai-mindclip|19,980円（税込）|カラーはディープスペースとルナホワイト（公式ストア）|shops||/images/mindclip-1.webp|襟元などに付けて、会話やアイデアを録音できる約16.8gのウェアラブルAIアシスタント|最大20時間の連続録音。64GBの本体ストレージに最大約5,000時間分を保存できる／録音後に自動で文字起こし、要約、ToDo抽出。複数人の会議は話者識別にも対応／録音の開始・終了は本体のスライドスイッチで操作。データは暗号化して転送され、転送後は本体データが自動削除される|会議や商談、アイデアのメモを、スマホを取り出さずに残したい人]
+hubTitle: SwitchBot AIマインドクリップ：16.8gの録音AIアシスタント
 sources: [switchbot-mindclip]
 ---
 > 価格の確認日：2026年10月5日。価格・機能は変更されます。購入前に必ずSwitchBot公式サイトをご確認ください。当サイトの編集者は実機を使用していません。録音や文字起こしの精度は、録音環境や話し方によって異なります。

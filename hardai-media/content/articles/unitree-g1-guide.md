@@ -8,6 +8,7 @@ image: /images/g1-1.webp
 imageCredit: Unitree Robotics|https://www.unitree.com/g1
 cta: [Unitree G1|Unitree公式ページで見る|https://www.unitree.com/g1|13,500ドルから（税・送料別）|G1 EDUは価格非公開（Contact sales）。日本での販売・サポートは未確認です||開発者向け|/images/g1-1.webp|Unitreeの人型ロボット。力制御の器用な手と、広い関節可動域を備える|身長1320mm・約35kg。自由度は23（EDUは23〜43）／デプスカメラと3D LiDAR、4マイクアレイを搭載。駆動時間は約2時間／力制御のハンド（Dex3-1）を選択でき、物をつかむ研究にも使える（公式）|ヒューマノイドの開発・研究に取り組みたい人（家庭用ではありません）]
 videos: [O5GphCrjx98|Unitree G1 Kungfu Kid V6.0（Unitree Robotics）|公式チャンネル（Unitree Robotics）の投稿]
+hubTitle: Unitree G1：13,500ドルからの本格ヒューマノイド
 sources: [unitree-g1]
 ---
 > 価格の確認日：2026年10月5日。価格は税・送料を含まない公式ページの表示で、為替や販売条件によって変わります。当サイトの編集者はG1の実機を使用していません。以下は公式情報の整理です。日本国内での販売・サポートの有無は未確認です。
