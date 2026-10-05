@@ -1,7 +1,7 @@
 "use client";
 import { useActionState } from "react";
 import { saveService, type FormState } from "@/app/actions/admin";
-import { OUTCOME_LABELS, PARTNER_STATUS_LABELS, REVIEW_LABELS, type Category, type Service } from "@/lib/types";
+import { OUTCOME_LABELS, PARTNER_STATUS_LABELS, PRICING_MODEL_LABELS, REVIEW_LABELS, type Category, type Service } from "@/lib/types";
 import { flattenTree } from "@/lib/categories";
 import { Check, Field, FormMessage, Section } from "./FormUI";
 
@@ -65,6 +65,11 @@ export function ServiceForm({ service, categories, contact }: { service?: Servic
             <select id="outcome_type" name="outcome_type" defaultValue={s?.outcome_type ?? "other"} className="input">{Object.entries(OUTCOME_LABELS).map(([v, l]) => <option key={v} value={v}>{l}</option>)}</select>
           </Field>
         </div>
+        <Field label="料金モデル" name="pricing_model" hint="成果報酬のみ=標準が成果発生時のみ／固定費＋成果報酬=固定費も標準／成果報酬プランあり=標準は固定費型で、条件つきの成果報酬プランが公式に定義されている。「相談に応じる」程度は掲載対象外です。">
+          <select id="pricing_model" name="pricing_model" defaultValue={s?.pricing_model ?? "success_only"} className="input">
+            {Object.entries(PRICING_MODEL_LABELS).map(([v, l]) => <option key={v} value={v}>{l}</option>)}
+          </select>
+        </Field>
         <Check name="is_full_success_fee" label="完全成果報酬（固定費・月額費用がなく、成果発生時のみ費用が発生）" defaultChecked={s?.is_full_success_fee} hint="初期費用・月額費用がどちらも「0円」の場合のみ設定できます。" error={e.is_full_success_fee} />
         <Check name="has_free_consultation" label="無料相談あり" defaultChecked={s?.has_free_consultation} />
       </Section>

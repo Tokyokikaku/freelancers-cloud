@@ -8,7 +8,7 @@ import { OfficialSiteLink } from "@/components/Trackers";
 import { getServices } from "@/lib/data";
 import { infoUpdatedAt, initialFeeLabel, monthlyFeeLabel, successConditionLabel, successFeeLabel } from "@/lib/format";
 import { buildMetadata } from "@/lib/seo";
-import { OUTCOME_LABELS } from "@/lib/types";
+import { OUTCOME_LABELS, PRICING_MODEL_LABELS } from "@/lib/types";
 
 export const metadata: Metadata = buildMetadata({
   title: "成果報酬サービスの比較",
@@ -25,6 +25,7 @@ export default async function ComparePage({ searchParams }: { searchParams: Prom
 
   const rows: [string, (x: (typeof items)[number]) => React.ReactNode][] = [
     ["料金条件", (x) => <FeeTags service={x} />],
+    ["料金モデル", (x) => PRICING_MODEL_LABELS[x.pricing_model]],
     ["初期費用", (x) => initialFeeLabel(x)],
     ["月額料金", (x) => monthlyFeeLabel(x)],
     ["成果報酬額", (x) => successFeeLabel(x)],

@@ -1,5 +1,5 @@
 import raw from "@/data/seed.json";
-import type { Article, Category, OutcomeType, Service, FeeType, PartnerStatus } from "./types";
+import type { Article, Category, OutcomeType, Service, FeeType, PartnerStatus, PricingModel } from "./types";
 
 /** Supabase 未設定（デモモード）で DB の代わりに使うデータ。seed.json から組み立てる。 */
 const NOW = "2026-10-05T00:00:00+09:00";
@@ -38,6 +38,7 @@ export function seedServices(): Service[] {
     pricing_note: s.pricing_note,
     success_condition: s.success_condition,
     outcome_type: s.outcome_type as OutcomeType,
+    pricing_model: ((s as { pricing_model?: string }).pricing_model ?? "success_only") as PricingModel,
     is_full_success_fee: s.is_full_success_fee,
     has_free_consultation: s.has_free_consultation,
     target_companies: s.target_companies,

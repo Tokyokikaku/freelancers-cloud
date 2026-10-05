@@ -5,7 +5,7 @@ import type { Category } from "./types";
 export const CSV_COLUMNS = [
   "slug", "name", "company_name", "website_url", "summary", "description",
   "initial_fee_type", "initial_fee", "monthly_fee_type", "monthly_fee", "success_fee", "pricing_note",
-  "success_condition", "outcome_type", "is_full_success_fee", "has_free_consultation", "target_companies",
+  "success_condition", "outcome_type", "pricing_model", "is_full_success_fee", "has_free_consultation", "target_companies",
   "features", "categories", "source_url", "last_verified_at",
 ] as const;
 
@@ -56,6 +56,7 @@ const rowSchema = z.object({
   pricing_note: optText,
   success_condition: optText,
   outcome_type: z.enum(["appointment", "meeting", "contract", "hire", "lead", "sale", "click", "matching", "other"]),
+  pricing_model: z.enum(["success_only", "hybrid", "optional_plan"]),
   is_full_success_fee: bool,
   has_free_consultation: bool,
   target_companies: optText,
@@ -93,6 +94,7 @@ export function validateCsv(text: string, categories: Pick<Category, "slug">[]):
     if (!raw.initial_fee_type) raw.initial_fee_type = "unknown";
     if (!raw.monthly_fee_type) raw.monthly_fee_type = "unknown";
     if (!raw.outcome_type) raw.outcome_type = "other";
+    if (!raw.pricing_model) raw.pricing_model = "success_only";
     const parsed = rowSchema.safeParse(raw);
     const line = i + 2;
     const messages: string[] = [];
@@ -104,8 +106,8 @@ export function validateCsv(text: string, categories: Pick<Category, "slug">[]):
       const unknownCats = r.categories.filter((c) => !known.has(c));
       if (unknownCats.length) messages.push(`categories: 未登録のカテゴリ ${unknownCats.join(", ")}`);
       if (r.categories.length === 0) messages.push("categories: 1つ以上指定してください");
-      if (r.is_full_success_fee && !(r.initial_fee_type === "free" && r.monthly_fee_type === "free"))
-        messages.push("is_full_success_fee: 完全成果報酬は初期費用・月額費用がともに free の場合のみ");
+      if (r.is_full_success_fee && !(r.initial_fee_type === "free" && r.monthly_fee_type === "free" && r.pricing_model === "success_only"))
+        messages.push("is_full_success_fee: 完全成果報酬は初期費用・月額費用がともに free で、pricing_model が success_only の場合のみ");
       if (!messages.length) rows.push(r);
     }
     if (messages.length) errors.push({ line, slug: raw.slug || "(slug なし)", messages });

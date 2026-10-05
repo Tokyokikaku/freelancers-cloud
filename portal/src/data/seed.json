@@ -98,10 +98,34 @@
       "description": "Instagramの運用代行のうち、再生数やフォロワー数などの成果に応じて費用が発生するサービスを比較できます。"
     },
     {
+      "slug": "youtube-ops",
+      "name": "YouTube運用",
+      "icon": "marketing",
+      "sort_order": 27,
+      "parent": "sns",
+      "description": "YouTube・YouTubeショートの運用代行のうち、再生数・登録者数・問い合わせなどの成果に応じて費用が発生するサービスを比較できます。"
+    },
+    {
+      "slug": "x-ops",
+      "name": "X（旧Twitter）運用",
+      "icon": "marketing",
+      "sort_order": 28,
+      "parent": "sns",
+      "description": "X（旧Twitter）アカウントの運用代行のうち、フォロワー数・インプレッション・問い合わせなどの成果に応じて費用が発生するサービスを比較できます。"
+    },
+    {
+      "slug": "line-ops",
+      "name": "LINE公式アカウント運用",
+      "icon": "marketing",
+      "sort_order": 29,
+      "parent": "sns",
+      "description": "LINE公式アカウントの運用代行のうち、友だち追加数・購入などの成果に応じて費用が発生するサービスを比較できます。"
+    },
+    {
       "slug": "seo",
       "name": "SEO",
       "icon": "marketing",
-      "sort_order": 27,
+      "sort_order": 40,
       "parent": "marketing",
       "description": "成果報酬型のSEO対策では、検索順位が一定以内に入った日・月に応じて費用が発生する料金体系が多く見られます。保証する順位の定義、対象の検索エンジン、日割りや上限の有無を確認して比較しましょう。"
     },

@@ -16,7 +16,7 @@ export async function GET() {
     rows.push([
       s.slug, s.name, s.company_name, s.website_url, s.summary, s.description,
       s.initial_fee_type, s.initial_fee, s.monthly_fee_type, s.monthly_fee, s.success_fee, s.pricing_note,
-      s.success_condition, s.outcome_type, String(s.is_full_success_fee), String(s.has_free_consultation), s.target_companies,
+      s.success_condition, s.outcome_type, s.pricing_model, String(s.is_full_success_fee), String(s.has_free_consultation), s.target_companies,
       s.features.join("|"), s.category_ids.map((id) => slugOf.get(id) ?? "").filter(Boolean).join("|"), s.source_url, s.last_verified_at,
     ]);
   }

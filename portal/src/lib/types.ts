@@ -1,6 +1,12 @@
 export type FeeType = "free" | "paid" | "unknown";
 export type ReviewStatus = "draft" | "needs_review" | "verified";
 export const REVIEW_LABELS: Record<ReviewStatus, string> = { draft: "下書き", needs_review: "確認中", verified: "確認済み" };
+export type PricingModel = "success_only" | "hybrid" | "optional_plan";
+export const PRICING_MODEL_LABELS: Record<PricingModel, string> = {
+  success_only: "成果報酬のみ",
+  hybrid: "固定費＋成果報酬",
+  optional_plan: "成果報酬プランあり",
+};
 export type PartnerStatus = "unpartnered" | "partner" | "premium";
 export type OutcomeType =
   | "appointment"
@@ -43,6 +49,7 @@ export interface Service {
   pricing_note: string | null;
   success_condition: string | null;
   outcome_type: OutcomeType;
+  pricing_model: PricingModel;
   is_full_success_fee: boolean;
   has_free_consultation: boolean;
   target_companies: string | null;

@@ -47,6 +47,8 @@ create table if not exists services (
   success_condition     text,                          -- 成果地点（自由記述）
   outcome_type          text not null default 'other'
                           check (outcome_type in ('appointment','meeting','contract','hire','lead','sale','click','matching','other')),
+  -- 料金モデル: success_only=標準が成果発生時のみ / hybrid=固定費+成果報酬が標準 / optional_plan=標準は固定費型で、成果報酬プランが条件つきで定義されている
+  pricing_model         text not null default 'success_only' check (pricing_model in ('success_only','hybrid','optional_plan')),
   is_full_success_fee   boolean not null default false, -- 固定費・月額費用がなく、成果発生時のみ費用が発生
   has_free_consultation boolean not null default false,
   target_companies      text,                          -- 対象企業
@@ -66,7 +68,7 @@ create table if not exists services (
   -- 完全成果報酬は初期費用・月額が「0円」と確認できている場合のみ
   constraint published_requires_verified check (not published or review_status = 'verified'),
   constraint full_success_requires_free check (
-    not is_full_success_fee or (initial_fee_type = 'free' and monthly_fee_type = 'free')
+    not is_full_success_fee or (initial_fee_type = 'free' and monthly_fee_type = 'free' and pricing_model = 'success_only')
   )
 );
 create trigger services_updated_at before update on services

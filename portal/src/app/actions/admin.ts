@@ -61,6 +61,7 @@ const serviceSchema = z.object({
   target_companies: optional,
   partner_status: z.enum(["unpartnered", "partner", "premium"]),
   review_status: z.enum(["draft", "needs_review", "verified"]),
+  pricing_model: z.enum(["success_only", "hybrid", "optional_plan"]),
   last_verified_at: z.string().regex(/^(\d{4}-\d{2}-\d{2})?$/, "日付の形式が正しくありません"),
   notify_email: z.string().trim().max(200).refine((v) => !v || z.string().email().safeParse(v).success, "メールアドレスの形式が正しくありません"),
   webhook_url: z.string().trim().max(500).refine((v) => !v || /^https:\/\//i.test(v), "Webhook URL は https:// で始まる必要があります"),
@@ -80,8 +81,8 @@ export async function saveService(_prev: FormState, fd: FormData): Promise<FormS
 
   // 完全成果報酬 = 固定費・月額費用がなく成果発生時のみ費用が発生。初期費用・月額が「0円」と確認できている場合のみ許可
   const wantsFull = bool(fd, "is_full_success_fee");
-  if (wantsFull && !(d.initial_fee_type === "free" && d.monthly_fee_type === "free")) {
-    return { errors: { is_full_success_fee: "完全成果報酬にするには、初期費用・月額費用をどちらも「0円」にしてください。" }, message: "入力内容を確認してください。" };
+  if (wantsFull && !(d.initial_fee_type === "free" && d.monthly_fee_type === "free" && d.pricing_model === "success_only")) {
+    return { errors: { is_full_success_fee: "完全成果報酬にするには、初期費用・月額費用をどちらも「0円」にし、料金モデルを「成果報酬のみ」にしてください。" }, message: "入力内容を確認してください。" };
   }
 
   // 公開できるのは「確認済み」のみ（下書き・確認中の情報を誤って公開しない）
@@ -94,6 +95,7 @@ export async function saveService(_prev: FormState, fd: FormData): Promise<FormS
     name: d.name,
     company_name: d.company_name,
     review_status: d.review_status,
+    pricing_model: d.pricing_model,
     summary: nul(d.summary),
     description: nul(d.description),
     logo_url: nul(d.logo_url),

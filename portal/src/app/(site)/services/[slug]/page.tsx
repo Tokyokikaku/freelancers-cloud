@@ -18,7 +18,7 @@ import { partnerBadge } from "@/lib/partner";
 import { ancestors } from "@/lib/categories";
 import { buildMetadata, truncate } from "@/lib/seo";
 import { absoluteUrl } from "@/lib/site";
-import { OUTCOME_LABELS } from "@/lib/types";
+import { OUTCOME_LABELS, PRICING_MODEL_LABELS } from "@/lib/types";
 
 export const revalidate = 300;
 
@@ -134,6 +134,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
                 <span className="font-bold text-ink">{successConditionLabel(service)}</span>
                 {service.outcome_type !== "other" && <span className="ml-2 tag bg-slate-100 text-slate-700">{OUTCOME_LABELS[service.outcome_type]}</span>}
               </Fact>
+              <Fact label="料金モデル"><span className="font-bold text-ink">{PRICING_MODEL_LABELS[service.pricing_model]}</span></Fact>
               <Fact label="成果報酬額"><span className="font-bold text-ink">{successFeeLabel(service)}</span></Fact>
               <Fact label="初期費用"><span className="font-bold text-ink">{initialFeeLabel(service)}</span></Fact>
               <Fact label="月額費用"><span className="font-bold text-ink">{monthlyFeeLabel(service)}</span></Fact>

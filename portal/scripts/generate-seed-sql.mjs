@@ -24,11 +24,11 @@ out.push("");
 
 for (const s of seed.services) {
   out.push(
-    `insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)\n` +
+    `insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, pricing_model, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)\n` +
       `values (${[
         q(s.slug), q(s.name), q(s.company_name), q(s.summary), q(s.description), q(s.logo_url), q(s.website_url),
         q(s.initial_fee_type), q(s.initial_fee), q(s.monthly_fee_type), q(s.monthly_fee), q(s.success_fee), q(s.pricing_note),
-        q(s.success_condition), q(s.outcome_type), b(s.is_full_success_fee), b(s.has_free_consultation), q(s.target_companies),
+        q(s.success_condition), q(s.outcome_type), q(s.pricing_model ?? "success_only"), b(s.is_full_success_fee), b(s.has_free_consultation), q(s.target_companies),
         arr(s.features), q(s.partner_status), b(s.featured), b(s.show_in_popular), b(s.published), q("verified"), q(s.source_url), q(s.last_verified_at),
       ].join(", ")})\n` +
       `  on conflict (slug) do nothing;`,

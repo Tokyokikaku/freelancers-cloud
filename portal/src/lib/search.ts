@@ -1,4 +1,4 @@
-import type { Category, OutcomeType, Service } from "./types";
+import type { Category, OutcomeType, PricingModel, Service } from "./types";
 
 /**
  * サイト内検索。MVP は辞書 + 全文一致 + 文字bigramの簡易スコアリング。
@@ -154,6 +154,7 @@ export const searchEngine: SearchEngine = defaultSearchEngine;
 export interface ServiceFilters {
   category?: string; // カテゴリ slug
   outcome?: OutcomeType;
+  model?: PricingModel;
   zeroInitial?: boolean;
   zeroMonthly?: boolean;
   fullSuccess?: boolean;
@@ -182,6 +183,7 @@ export function applyFilters(services: Service[], f: ServiceFilters, categories:
     (s) =>
       (!allowed || s.category_ids.some((id) => allowed!.has(id))) &&
       (!f.outcome || s.outcome_type === f.outcome) &&
+      (!f.model || s.pricing_model === f.model) &&
       (!f.zeroInitial || s.initial_fee_type === "free") &&
       (!f.zeroMonthly || s.monthly_fee_type === "free") &&
       (!f.fullSuccess || s.is_full_success_fee) &&

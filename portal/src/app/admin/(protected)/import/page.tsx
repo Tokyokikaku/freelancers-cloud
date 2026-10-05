@@ -26,7 +26,8 @@ export default async function ImportPage() {
           <li>列（この順でなくても可・ヘッダー名で判定）: <code className="text-xs">{CSV_COLUMNS.join(", ")}</code></li>
           <li><code>initial_fee_type / monthly_fee_type</code>: <code>free</code>（公式が0円・不要と明記）／<code>paid</code>（有料・条件付き）／<code>unknown</code>（不明）</li>
           <li><code>outcome_type</code>: appointment, meeting, contract, hire, lead, sale, click, matching, other</li>
-          <li><code>is_full_success_fee</code>: true は初期費用・月額がともに free の場合のみ</li>
+          <li><code>pricing_model</code>: <code>success_only</code>（成果発生時のみ）／<code>hybrid</code>（固定費＋成果報酬）／<code>optional_plan</code>（成果報酬プランが条件つきで定義されている）。「相談に応じる」程度のものは掲載しないでください</li>
+          <li><code>is_full_success_fee</code>: true は初期費用・月額がともに free で、pricing_model=success_only の場合のみ</li>
           <li><code>features</code>: 「|」区切り（最大8）。<code>categories</code>: カテゴリslugを「|」区切り（先頭が主カテゴリ）</li>
           <li>確認済み・公開中のサービスと同じ slug の行は上書きされません（個別画面から編集してください）</li>
         </ul>

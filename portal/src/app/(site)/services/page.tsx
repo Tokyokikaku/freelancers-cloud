@@ -12,7 +12,7 @@ import { RANKING_NOTE } from "@/lib/ranking";
 import { applyFilters, normalize, parseIntent, searchEngine } from "@/lib/search";
 import { flattenTree } from "@/lib/categories";
 import { buildMetadata } from "@/lib/seo";
-import { OUTCOME_LABELS, type OutcomeType } from "@/lib/types";
+import { OUTCOME_LABELS, PRICING_MODEL_LABELS, type OutcomeType, type PricingModel } from "@/lib/types";
 
 type Params = Record<string, string | string[] | undefined>;
 const one = (v: string | string[] | undefined) => (Array.isArray(v) ? v[0] : v) ?? "";
@@ -42,6 +42,7 @@ export default async function ServicesPage({ searchParams }: { searchParams: Pro
   const filters = {
     category: one(sp.category) || undefined,
     outcome: (one(sp.outcome) in OUTCOME_LABELS ? one(sp.outcome) : undefined) as OutcomeType | undefined,
+    model: (one(sp.model) in PRICING_MODEL_LABELS ? one(sp.model) : undefined) as PricingModel | undefined,
     zeroInitial: one(sp.zero_initial) === "1",
     zeroMonthly: one(sp.zero_monthly) === "1",
     fullSuccess: one(sp.full) === "1",
@@ -75,11 +76,11 @@ export default async function ServicesPage({ searchParams }: { searchParams: Pro
 
   const intent = q ? parseIntent(q) : null;
   const outcomes = (Object.keys(OUTCOME_LABELS) as OutcomeType[]).filter((o) => all.some((s) => s.outcome_type === o));
-  const activeCount = [filters.category, filters.outcome, filters.zeroInitial, filters.zeroMonthly, filters.fullSuccess, filters.freeConsultation].filter(Boolean).length;
+  const activeCount = [filters.category, filters.outcome, filters.model, filters.zeroInitial, filters.zeroMonthly, filters.fullSuccess, filters.freeConsultation].filter(Boolean).length;
 
   const buildHref = (over: Record<string, string | undefined>) => {
     const p = new URLSearchParams();
-    const base: Record<string, string | undefined> = { q, category: filters.category, outcome: filters.outcome, zero_initial: filters.zeroInitial ? "1" : undefined, zero_monthly: filters.zeroMonthly ? "1" : undefined, full: filters.fullSuccess ? "1" : undefined, consult: filters.freeConsultation ? "1" : undefined, sort: sortParam || undefined, ...over };
+    const base: Record<string, string | undefined> = { q, category: filters.category, outcome: filters.outcome, model: filters.model, zero_initial: filters.zeroInitial ? "1" : undefined, zero_monthly: filters.zeroMonthly ? "1" : undefined, full: filters.fullSuccess ? "1" : undefined, consult: filters.freeConsultation ? "1" : undefined, sort: sortParam || undefined, ...over };
     for (const [k, v] of Object.entries(base)) if (v) p.set(k, v);
     const s = p.toString();
     return s ? `/services?${s}` : "/services";
@@ -124,6 +125,13 @@ export default async function ServicesPage({ searchParams }: { searchParams: Pro
                 <select id="f-outcome" name="outcome" defaultValue={filters.outcome ?? ""} className="input">
                   <option value="">すべて</option>
                   {outcomes.map((o) => <option key={o} value={o}>{OUTCOME_LABELS[o]}</option>)}
+                </select>
+              </div>
+              <div>
+                <label htmlFor="f-model" className="label">料金モデル</label>
+                <select id="f-model" name="model" defaultValue={filters.model ?? ""} className="input">
+                  <option value="">すべて</option>
+                  {Object.entries(PRICING_MODEL_LABELS).map(([v, l]) => <option key={v} value={v}>{l}</option>)}
                 </select>
               </div>
               <fieldset className="space-y-2.5">

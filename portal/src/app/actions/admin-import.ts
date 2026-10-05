@@ -57,7 +57,7 @@ export async function importServices(_prev: ImportState, fd: FormData): Promise<
       summary: r.summary, description: r.description,
       initial_fee_type: r.initial_fee_type, initial_fee: r.initial_fee, monthly_fee_type: r.monthly_fee_type, monthly_fee: r.monthly_fee,
       success_fee: r.success_fee, pricing_note: r.pricing_note, success_condition: r.success_condition,
-      outcome_type: r.outcome_type, is_full_success_fee: r.is_full_success_fee, has_free_consultation: r.has_free_consultation,
+      outcome_type: r.outcome_type, pricing_model: r.pricing_model, is_full_success_fee: r.is_full_success_fee, has_free_consultation: r.has_free_consultation,
       target_companies: r.target_companies, features: r.features, source_url: r.source_url, last_verified_at: r.last_verified_at,
       published: false, review_status: "draft",
     };
