@@ -6,6 +6,7 @@ updated: 2026-10-05
 category: 四足ロボット
 image: /images/go2-1.webp
 imageCredit: Unitree Robotics|https://www.unitree.com/go2
+cta: [Unitree Go2|Unitree公式ページで価格を見る|https://www.unitree.com/go2|1,600ドルから（税・送料別）|グレードはAIR・PRO・X・EDU。日本での販売・サポートは未確認です]
 sources: [unitree-go2]
 ---
 > 価格の確認日：2026年10月5日。価格は税・送料を含まない公式ページの表示で、為替や販売条件によって変わります。当サイトの編集者はGo2の実機を使用していません。以下は公式情報の整理です。日本国内での販売・サポートの有無は未確認です。

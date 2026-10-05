@@ -7,6 +7,7 @@ category: 人型ロボット
 image: /images/neo-1.webp
 imageCredit: 1X Technologies|https://www.1x.tech/order
 videos: [mveqrNJj8ME|NEO The Home Robot｜Design（1X）|公式チャンネル（1X）の投稿, LTYMWadOW7c|NEO The Home Robot｜Order Today（1X）|公式チャンネル（1X）の投稿]
+cta: [1X NEO|1X公式の注文ページを見る|https://www.1x.tech/order|月額499ドル または 20,000ドル|予約金200ドル（返金可）。配送は米国で2026年開始、日本は未確認です]
 sources: [1x-order, 1x-neo]
 ---
 > 価格の確認日：2026年10月5日。価格・提供条件は変更されます。当サイトの編集者はNEOの実機を使用しておらず、以下は公式ページの整理です。日本での販売・配送は公式ページに記載がなく、**未確認**です。

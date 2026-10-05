@@ -19,7 +19,7 @@ function parseFrontmatter(src) {
     const i = line.indexOf(':');
     if (i < 0) continue;
     let v = line.slice(i + 1).trim();
-    if (v.startsWith('[')) v = v.slice(1, -1).split(',').map(s => s.trim()).filter(Boolean);
+    if (v.startsWith('[')) v = v.slice(1, -1).split(/,(?!\d)/).map(s => s.trim()).filter(Boolean);
     else v = v.replace(/^"(.*)"$/, '$1');
     data[line.slice(0, i).trim()] = v;
   }
@@ -70,7 +70,7 @@ function imgSize(src) {
   return '';
 }
 
-function md(src) {
+function md(src, ctx = {}) {
   const lines = src.split('\n');
   let out = '', i = 0;
   while (i < lines.length) {
@@ -78,6 +78,12 @@ function md(src) {
     if (!l.trim()) { i++; continue; }
     let m;
     if ((m = l.match(/^(#{2,4})\s+(.*)/))) { out += `<h${m[1].length}>${inline(m[2])}</h${m[1].length}>\n`; i++; continue; }
+    if ((m = l.match(/^@video\s+(.+)$/))) { out += `<div class="vone">${videoFigure(m[1])}<p class="vnote">YouTubeの動画です。再生ボタンを押すとYouTubeから読み込まれます。</p></div>\n`; i++; continue; }
+    if ((m = l.match(/^@cta\s+(.+)$/))) {
+      const o = (ctx.offers || []).find(x => x.name === m[1].trim());
+      if (!o) throw new Error(`@cta の対象が cta にありません: ${m[1]}`);
+      out += `<div class="offers offers-inline">${offerCard(o, o.img)}</div>${CTA_FOOT(o.shops)}\n`; i++; continue;
+    }
     if ((m = l.match(/^!\[([^\]]*)\]\((\/[^)\s]+)(?:\s+"([^"]*)")?\)\s*$/))) {
       const [credit, curl] = (m[3] || '').split('|');
       const dim = imgSize(m[2]);
@@ -119,19 +125,45 @@ function md(src) {
 
 /* ---------- 動画・商品リンク ---------- */
 const ytId = v => /^[\w-]{11}$/.test(v) ? v : null;
-const videoBlock = videos => `<section class="videos"><h2 id="videos">動画で見る</h2>
-<p class="vnote">YouTubeの動画です。再生ボタンを押すとYouTubeから読み込まれます。投稿元の確認状況は各動画の下に記載しています。内容の正確さは、この記事の出典（公式情報）を優先してください。</p>
-<div class="vgrid">${videos.map(v => {
-    const [id, title = '動画', status = '投稿元は未確認'] = v.split('|').map(x => x.trim());
-    if (!ytId(id)) throw new Error(`動画IDが不正です: ${v}`);
-    return `<figure class="video"><div class="vframe"><a href="https://www.youtube.com/watch?v=${id}" data-yt="${id}" target="_blank" rel="noopener" aria-label="${esc(title)}を再生">
+const videoFigure = v => {
+  const [id, title = '動画', status = '投稿元は未確認'] = v.split('|').map(x => x.trim());
+  if (!ytId(id)) throw new Error(`動画IDが不正です: ${v}`);
+  return `<figure class="video"><div class="vframe"><a href="https://www.youtube.com/watch?v=${id}" data-yt="${id}" target="_blank" rel="noopener" aria-label="${esc(title)}を再生">
 <img src="https://i.ytimg.com/vi/${id}/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="play" aria-hidden="true"></span></a></div>
 <figcaption><strong>${esc(title)}</strong><br><span>${esc(status)}　<a href="https://www.youtube.com/watch?v=${id}" target="_blank" rel="noopener nofollow">YouTubeで開く</a></span></figcaption></figure>`;
-  }).join('')}</div></section>`;
+};
+const videoBlock = videos => `<section class="videos"><h2 id="videos">動画で見る</h2>
+<p class="vnote">YouTubeの動画です。再生ボタンを押すとYouTubeから読み込まれます。投稿元の確認状況は各動画の下に記載しています。内容の正確さは、この記事の出典（公式情報）を優先してください。</p>
+<div class="vgrid">${videos.map(videoFigure).join('')}</div></section>`;
 const productBlock = names => `<section class="products"><h2 id="products">商品ページを探す</h2>
 <p class="vnote">商品名で検索した結果ページへのリンクです。取り扱いの有無・価格・在庫は各サイトでご確認ください。購入前に、この記事の出典（公式情報）もあわせてご確認ください。</p>
 <ul class="plist">${names.map(n => `<li><strong>${esc(n)}</strong><span><a href="${inlineUrl('https://www.amazon.co.jp/s?k=' + encodeURIComponent(n))}" target="_blank" rel="noopener nofollow sponsored">Amazonで検索</a><a href="${inlineUrl('https://search.rakuten.co.jp/search/mall/' + encodeURIComponent(n) + '/')}" target="_blank" rel="noopener nofollow sponsored">楽天市場で検索</a></span></li>`).join('')}</ul></section>`;
 const inlineUrl = u => esc(affiliate(u).href);
+
+
+/* ---------- CTA ---------- */
+const parseOffers = a => (a.cta || []).map(x => {
+  const [name, label, url, price = '', note = '', shops = '', badge = '', img = ''] = x.split('|').map(v => v.trim());
+  if (!/^https?:\/\//.test(url || '')) throw new Error(`${a.slug}: cta のURLが不正です: ${x}`);
+  return { name, label, url, price, note, shops: shops === 'shops', badge, img };
+});
+const outLink = u => esc(affiliate(u).href);
+const shopLinks = n => `<a class="btn-sub" href="${outLink('https://www.amazon.co.jp/s?k=' + encodeURIComponent(n))}" target="_blank" rel="noopener nofollow sponsored">Amazonで探す</a><a class="btn-sub" href="${outLink('https://search.rakuten.co.jp/search/mall/' + encodeURIComponent(n) + '/')}" target="_blank" rel="noopener nofollow sponsored">楽天市場で探す</a>`;
+const ctaBtn = (o, cls = '') => `<a class="btn-cta${cls}" href="${outLink(o.url)}" target="_blank" rel="noopener nofollow" data-cta="${esc(o.name)}"><span>${esc(o.label)}</span><i class="arr" aria-hidden="true"></i></a>`;
+const offerCard = (o, img) => `<div class="offer">${img ? `<img class="offer-img" src="${esc(img)}" alt="" loading="lazy">` : ''}<div class="offer-main">
+<p class="offer-name">${esc(o.name)}${o.badge ? `<span class="offer-badge">${esc(o.badge)}</span>` : ''}</p>
+${o.price ? `<p class="offer-price">${esc(o.price)}</p>` : ''}${o.note ? `<p class="offer-note">${esc(o.note)}</p>` : ''}
+<div class="offer-btns">${ctaBtn(o)}${o.shops ? shopLinks(o.name) : ''}</div></div></div>`;
+const CTA_FOOT = anyShops => `<p class="cta-foot">※外部サイトへ移動します。価格・在庫は変動するため、リンク先の最新情報と、この記事の確認日・出典もあわせてご確認ください。${anyShops ? 'Amazon・楽天市場のリンクは広告（アフィリエイト）を含みます。' : ''}</p>`;
+const inlineCta = (offers, img) => `<section class="cta-block" aria-label="公式サイトで確認する"><p class="cta-kicker">NEXT STEP</p><h2 class="cta-title">${offers.length > 1 ? '気になる製品は、公式サイトで最新の価格を確認' : `${esc(offers[0].name)}の最新価格を、公式サイトで確認`}</h2>
+<div class="offers${offers.length > 1 ? ' offers-multi' : ''}">${offers.map(o => offerCard(o, o.img || (offers.length === 1 ? img : ''))).join('')}</div>${CTA_FOOT(offers.some(o => o.shops))}</section>`;
+const asideCta = (o, many, target = '#cta-inline') => `<div class="side-cta"><p class="side-cta-kicker">公式サイトで確認</p><p class="side-cta-name">${esc(many ? '気になる製品' : o.name)}</p>${!many && o.price ? `<p class="side-cta-price">${esc(o.price)}</p>` : ''}${many ? `<a class="btn-cta btn-block" href="${target}"><span>公式リンクを見る</span><i class="arr" aria-hidden="true"></i></a>` : ctaBtn(o, ' btn-block')}<p class="side-cta-note">外部サイトへ移動します</p></div>`;
+const stickyCta = (o, many, target = '#cta-inline') => `<div class="sticky-cta" id="sticky-cta" aria-hidden="true"><div class="sticky-cta-in"><div class="sticky-cta-text"><strong>${esc(many ? 'ハードAIナビ' : o.name)}</strong><span>${esc(many ? '公式サイトで最新価格を確認' : (o.price || '公式サイトで確認'))}</span></div>${many ? `<a class="btn-cta btn-sm" href="${target}"><span>リンクを見る</span><i class="arr" aria-hidden="true"></i></a>` : ctaBtn(o, ' btn-sm')}</div></div>`;
+const endCta = (offers, img, next) => `<section class="end-cta" id="end-cta"><div class="wrap"><p class="cta-kicker">BEFORE YOU BUY</p><h2>購入を決める前に、<wbr>最新の価格と在庫を公式で確認</h2>
+<p class="end-lead">価格・プラン・在庫は予告なく変わります。この記事の確認日は記事冒頭に記載しています。</p>
+<div class="offers${offers.length > 1 ? ' offers-multi' : ''} offers-dark">${offers.map(o => offerCard(o, o.img || (offers.length === 1 ? img : ''))).join('')}</div>${CTA_FOOT(offers.some(o => o.shops))}
+${next ? `<a class="end-next" href="/articles/${next.slug}/"><span class="end-next-k">次に読む</span><span class="end-next-t">${esc(next.title)}</span><i class="arr" aria-hidden="true"></i></a>` : ''}</div></section>`;
+const STICKY_JS = `<script>(function(){var b=document.getElementById('sticky-cta');if(!b)return;var e=document.getElementById('end-cta'),i=document.getElementById('cta-inline'),ve=false,vi=false;function u(){var s=window.scrollY>480&&!ve&&!vi;b.classList.toggle('on',s);b.setAttribute('aria-hidden',s?'false':'true')}addEventListener('scroll',u,{passive:true});if('IntersectionObserver'in window){var o=new IntersectionObserver(function(x){x.forEach(function(t){if(t.target===e)ve=t.isIntersecting;if(t.target===i)vi=t.isIntersecting});u()});e&&o.observe(e);i&&o.observe(i)}u()})();</script>`;
 
 /* ---------- イラスト（オリジナルのSVG。製品写真は使わない） ---------- */
 const ICONS = {
@@ -171,7 +203,7 @@ ${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" hr
 <a class="skip" href="#main">本文へスキップ</a>
 <header class="site-header"><div class="wrap">
 <a class="logo" href="/" aria-label="${esc(NAME)} トップ">${LOGO_MARK}<span>${esc(NAME)}<small>HARD AI NAVI</small></span></a>
-<nav class="nav" aria-label="メイン"><a href="/#articles"${nav === 'articles' ? ' aria-current="page"' : ''}>記事一覧</a><a href="/about/"${nav === 'about' ? ' aria-current="page"' : ''}>運営方針・広告表示</a></nav>
+<nav class="nav" aria-label="メイン"><a href="/#articles"${nav === 'articles' ? ' aria-current="page"' : ''}>記事一覧</a><a href="/about/"${nav === 'about' ? ' aria-current="page"' : ''}>運営方針・広告表示</a><a class="nav-cta" href="/articles/ai-pet-robot-3year-cost/">3年の費用を比べる</a></nav>
 </div></header>
 <main id="main">${body}</main>
 <footer class="site-footer"><div class="wrap"><div class="footer-grid">
@@ -179,7 +211,7 @@ ${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" hr
 <p>${esc(cfg.tagline)}。公式情報と出典をもとに整理するメディアです。当サイトはアフィリエイト広告を利用しています。詳細は<a href="/about/">運営方針・広告表示</a>をご覧ください。</p></div>
 <nav class="footer-nav" aria-label="フッター"><a href="/#articles">記事一覧</a><a href="/about/">運営方針・広告表示</a><a href="/rss.xml">RSS</a><a href="/sitemap.xml">サイトマップ</a></nav>
 </div><div class="copy">© ${new Date().getFullYear()} ${esc(NAME)}</div></div></footer>
-${body.includes('data-yt=') ? YT_JS : ''}</body></html>`;
+${body.includes('data-yt=') ? YT_JS : ''}${body.includes('id="sticky-cta"') ? STICKY_JS : ''}</body></html>`;
 
 const PR = `<div class="notice"><strong>【PR・広告表示】</strong>この記事にはアフィリエイト広告（Amazonアソシエイト、楽天アフィリエイト等）のリンクが含まれる場合があります。リンク経由で購入されると当サイトに報酬が入りますが、掲載順位・評価は報酬の有無・多寡で決めていません。</div>`;
 const ALERT_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 7v5M12 16h.01"/></svg>`;
@@ -205,7 +237,7 @@ const metaRow = a => `<div class="meta"><span>公開 <time datetime="${a.date}">
 const thumb = a => a.image
   ? `<div class="card-thumb has-img"><img src="${esc(a.image)}" alt="" loading="lazy">${a.imageCredit ? `<span class="thumb-credit">画像：${esc(a.imageCredit.split('|')[0])}</span>` : ''}</div>`
   : `<div class="card-thumb">${iconFor(a.category)}</div>`;
-const card = (a, feature = false) => `<a class="card${feature ? ' card-feature' : ''}" href="/articles/${a.slug}/">${thumb(a)}<div class="card-body"><div><span class="tag">${esc(a.category)}</span>${isNew(a) ? '<span class="tag tag-new">NEW</span>' : ''}</div><h3>${esc(a.title)}</h3><p>${esc(a.description)}</p>${metaRow(a)}</div></a>`;
+const card = (a, feature = false) => `<a class="card${feature ? ' card-feature' : ''}" href="/articles/${a.slug}/">${thumb(a)}<div class="card-body"><div><span class="tag">${esc(a.category)}</span>${isNew(a) ? '<span class="tag tag-new">NEW</span>' : ''}</div><h3>${esc(a.title)}</h3><p>${esc(a.description)}</p>${metaRow(a)}<span class="more">記事を読む<i class="arr" aria-hidden="true"></i></span></div></a>`;
 
 for (const a of articles) {
   const url = `/articles/${a.slug}/`;
@@ -215,7 +247,9 @@ for (const a of articles) {
   const vm = body.match(/^((?:>.*\n?)+)/);
   if (vm) { verify = `<aside class="verify" role="note">${ALERT_ICON}<p>${inline(vm[1].replace(/^>\s?/gm, ' ').trim())}</p></aside>`; body = body.slice(vm[0].length); }
 
-  const chunks = md(body).split(/(?=<h2>)/).filter(s => s.trim());
+  const offers = parseOffers(a);
+  const many = offers.length > 1;
+  const chunks = md(body, { offers }).split(/(?=<h2>)/).filter(s => s.trim());
   const toc = [];
   const sections = chunks.map((c, idx) => {
     const m = c.match(/^<h2>(.*?)<\/h2>/);
@@ -223,13 +257,17 @@ for (const a of articles) {
     const id = `s${idx + 1}`;
     const text = m[1];
     toc.push({ id, text });
-    const cls = /^結論/.test(text.replace(/<[^>]+>/g, '')) ? 'conclusion' : /^出典/.test(text) ? 'sources' : '';
+    const cls = /^結論/.test(text.replace(/<[^>]+>/g, '')) ? 'conclusion' : /^出典/.test(text) ? 'sources' : /^[①②③④⑤]/.test(text) ? 'rank-sec' : '';
     const h2 = cls === 'conclusion' ? `<h2 id="${id}"><span>CONCLUSION</span>${text}</h2>` : `<h2 id="${id}">${text}</h2>`;
     return `<section${cls ? ` class="${cls}"` : ''}>${h2}${c.slice(m[0].length)}</section>`;
   });
+  if (offers.length && a.ctaMode !== 'inline') {
+    sections.splice(Math.min(1, sections.length), 0, inlineCta(offers, a.image).replace('<section class="cta-block"', '<section class="cta-block" id="cta-inline"'));
+    toc.splice(Math.min(1, toc.length), 0, { id: 'cta-inline', text: many ? '公式サイトで確認する' : `${offers[0].name}を公式サイトで確認` });
+  }
   const extraTop = a.videos && a.videos.length ? videoBlock(a.videos) : '';
   const extraBottom = a.products && a.products.length ? productBlock(a.products) : '';
-  if (extraTop) { sections.splice(Math.min(1, sections.length), 0, extraTop); toc.splice(Math.min(1, toc.length), 0, { id: 'videos', text: '動画で見る' }); }
+  if (extraTop) { const at = Math.min(offers.length && a.ctaMode !== 'inline' ? 2 : 1, sections.length); sections.splice(at, 0, extraTop); toc.splice(Math.min(at, toc.length), 0, { id: 'videos', text: '動画で見る' }); }
   if (extraBottom) {
     const si = sections.findIndex(x => x.startsWith('<section class="sources"'));
     sections.splice(si < 0 ? sections.length : si, 0, extraBottom);
@@ -239,6 +277,7 @@ for (const a of articles) {
   const prose = sections.join('\n').replace(/<h3>(【重要】)/g, '<h3 class="alert">$1');
   const tocHtml = toc.length > 1 ? `<div class="toc-box"><h2>目次</h2><ol>${toc.map(t => `<li><a href="#${t.id}">${t.text}</a></li>`).join('')}</ol></div>` : '';
   const minutes = Math.max(1, Math.ceil(a.body.replace(/\s/g, '').length / 500));
+  const nextArticle = x => articles.find(o => o.slug !== x.slug && o.slug === (x.next || 'ai-pet-robot-3year-cost')) || null;
   const others = articles.filter(o => o.slug !== a.slug).sort((x, y) => (y.category === a.category) - (x.category === a.category)).slice(0, 3);
 
   write(`articles/${a.slug}/index.html`, layout({
@@ -258,7 +297,8 @@ for (const a of articles) {
 <div class="meta"><span>公開 <time datetime="${a.date}">${fmtDate(a.date)}</time></span><span>最終更新 <time datetime="${a.updated}">${fmtDate(a.updated)}</time></span><span>読了目安 約${minutes}分</span></div>
 ${PR}${verify}</header>
 <div class="article-grid"><article class="prose">${tocHtml ? `<details class="toc-mobile"><summary>目次を開く</summary>${tocHtml}</details>` : ''}${prose}</article>
-<aside class="toc" aria-label="目次">${tocHtml}</aside></div></div>
+<aside class="toc" aria-label="目次">${offers.length ? asideCta(offers[0], many, a.ctaMode === 'inline' ? '#end-cta' : '#cta-inline') : ''}${tocHtml}</aside></div></div>
+${offers.length ? endCta(offers, a.image, nextArticle(a)) : ''}${offers.length ? stickyCta(offers[0], many, a.ctaMode === 'inline' ? '#end-cta' : '#cta-inline') : ''}
 ${others.length ? `<section class="related"><div class="wrap"><div class="section-head"><div><p class="kicker">Related</p><h2>あわせて読みたい</h2></div></div><div class="cards">${others.map(o => card(o)).join('')}</div></div></section>` : ''}`
   }));
 }
@@ -271,8 +311,19 @@ write('index.html', layout({
 <h1>家庭で使える<wbr>AIロボット・<wbr>AIガジェットを、<wbr><em>出典つき</em>で<wbr>比較する</h1>
 <p class="lead">AIペット、家庭用ロボット、小型ヒューマノイド。気になる製品の価格や仕様を、メーカー公式ページとプレスリリースで確認して整理します。</p>
 <ul class="chips"><li>公式情報だけで整理</li><li>価格には確認日つき</li><li>実機レビューではありません</li></ul>
-<div class="btns"><a class="btn btn-primary" href="#articles">記事を読む →</a><a class="btn btn-ghost" href="/about/">運営方針・広告表示</a></div>
+<div class="btns"><a class="btn-cta btn-lg" href="/articles/ai-pet-robot-3year-cost/"><span>3年間の費用を比べる</span><i class="arr" aria-hidden="true"></i></a><a class="btn btn-ghost" href="#pick">目的から記事を探す</a></div>
+<p class="hero-note">本体価格だけでなく、継続費用まで含めた総額の試算です。</p>
 </div><div class="hero-art">${HERO_ART}</div></div></section>
+<section class="section pick" id="pick"><div class="wrap">
+<div class="section-head"><div><p class="kicker">Find Yours</p><h2>目的から選ぶ</h2></div><p>気になる項目から、該当する記事へ</p></div>
+<div class="pick-grid">
+<a class="pick-card" href="/articles/ai-pet-robot-3year-cost/"><span class="pick-q">まず安く試したい</span><span class="pick-a">3年間の試算で、Moflinは約8万円・Qooboは本体のみ17,600円</span><span class="pick-go">費用を比べる<i class="arr" aria-hidden="true"></i></span></a>
+<a class="pick-card" href="/articles/aibo-guide/"><span class="pick-q">犬型で動き回る相手がいい</span><span class="pick-a">aiboは本体272,800円〜＋必須のベーシックプラン</span><span class="pick-go">aiboの費用を見る<i class="arr" aria-hidden="true"></i></span></a>
+<a class="pick-card" href="/articles/lovot-guide/"><span class="pick-q">長く一緒に暮らしたい</span><span class="pick-a">LOVOT 3.0は10月26日に値上げ予定。現行価格は10月25日まで</span><span class="pick-go">LOVOTの費用を見る<i class="arr" aria-hidden="true"></i></span></a>
+<a class="pick-card" href="/articles/1x-neo-home-humanoid/"><span class="pick-q">家事を任せたい</span><span class="pick-a">1X NEOは月額499ドルまたは20,000ドル。米国で先行提供</span><span class="pick-go">NEOの条件を見る<i class="arr" aria-hidden="true"></i></span></a>
+<a class="pick-card" href="/articles/humanoid-robot-price-and-how-to-buy/"><span class="pick-q">開発・学習用に触りたい</span><span class="pick-a">Unitree R1は4,900ドルから、Go2は1,600ドルから</span><span class="pick-go">R1の条件を見る<i class="arr" aria-hidden="true"></i></span></a>
+<a class="pick-card" href="/articles/try-before-buying-ai-robot/"><span class="pick-q">買う前に試したい</span><span class="pick-a">LOVOTはレンタルと体験施設（MUSEUM）で試せる</span><span class="pick-go">試し方を見る<i class="arr" aria-hidden="true"></i></span></a>
+</div></div></section>
 <section class="section" id="articles"><div class="wrap">
 <div class="section-head"><div><p class="kicker">Articles</p><h2>記事一覧</h2></div><p>全${articles.length}本 ／ 価格は月1回、公式ページで再確認します</p></div>
 <div class="cards">${articles.map((a, i) => card(a, i === 0)).join('')}</div></div></section>
@@ -283,7 +334,8 @@ write('index.html', layout({
 <div class="pledge-item"><h3>価格には確認日</h3><p>価格は変動します。いつ確認した値かを明記し、確認できなかった項目は「未確認」と書きます。</p></div>
 <div class="pledge-item"><h3>体験談を装わない</h3><p>実機を使っていない製品について、使用感や口コミ風の文章、架空の評価点は書きません。</p></div>
 <div class="pledge-item"><h3>報酬で順位を変えない</h3><p>アフィリエイト報酬の有無・多寡で、掲載順位や評価を変えることはありません。</p></div>
-</div></div></section>`
+</div></div></section>
+<section class="end-cta"><div class="wrap"><p class="cta-kicker">START HERE</p><h2>迷ったら、まず<wbr>3年間の総額から</h2><p class="end-lead">本体価格が6万円台でも、継続費用が加わると差が開く製品があります。公式の料金をもとに試算しました。</p><div class="btns" style="justify-content:center"><a class="btn-cta btn-lg" href="/articles/ai-pet-robot-3year-cost/"><span>3年間の費用を比べる</span><i class="arr" aria-hidden="true"></i></a></div></div></section>`
 }));
 
 const about = md(fs.readFileSync('content/about.md', 'utf8').replace(/^---[\s\S]*?---\n/, ''));

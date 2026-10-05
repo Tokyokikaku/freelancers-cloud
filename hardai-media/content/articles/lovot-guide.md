@@ -7,6 +7,7 @@ category: AIペット
 image: /images/lovot-3-0.webp
 imageCredit: GROOVE X|https://lovot.life/
 videos: [bIeHvf_fb_g|【LOVOT 3.0】ブランドムービー（LOVOT OFFICIAL）|公式チャンネル（LOVOT OFFICIAL）の投稿, 04FTFkbi3Qo|LOVOT マニュアルムービー 動きを教える（LOVOT 3.0）|公式チャンネル（LOVOT OFFICIAL）の投稿]
+cta: [LOVOT 3.0|LOVOT公式ストアで価格を見る|https://store.lovot.life/buy|577,500円〜（税込）＋月額の暮らしの費用|現行価格は10月25日まで。10月26日から599,500円に改定予定です（公式発表）||10/26に値上げ予定]
 sources: [lovot-store, lovot-spec, groovex-pr]
 ---
 > 価格の確認日：2026年10月5日。価格・プラン内容は変更されます。LOVOT 3.0の本体価格は2026年10月26日から改定予定です。購入前に必ず公式ストアをご確認ください。当サイトの編集者はLOVOTの実機を使用していません。以下は公式情報の整理です。

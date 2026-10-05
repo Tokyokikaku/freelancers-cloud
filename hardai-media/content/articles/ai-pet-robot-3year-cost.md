@@ -4,6 +4,8 @@ description: 本体価格と継続費用を公式の料金から足し合わせ�
 date: 2026-10-05
 updated: 2026-10-05
 category: 購入ガイド
+next: moflin-guide
+cta: [Moflin|公式で確認する|https://www.casio.com/jp/moflin/|本体59,400円〜|3年の試算：79,200円（Club Moflin含む）|shops, aibo|ソニーストアで確認する|https://aibo.sony.jp/store/|本体272,800円〜|3年の試算：371,800円（ベーシックプラン含む）, LOVOT 3.0|LOVOT公式ストアで確認する|https://store.lovot.life/buy|本体577,500円〜|3年の試算：933,900円（ミニマムケアプラン）||10/26に値上げ予定, Qoobo|ユカイ工学の公式ストアで見る|https://store.ux-xu.com/products/qoobo|17,600円（税込）|本体のみの試算。在庫表示は公式で確認|shops]
 sources: [casio-club, sony-store, lovot-store, ux-xu-store]
 ---
 > 価格の確認日：2026年10月5日。この記事は、各社の公式ページで確認した料金を足し算した「試算」です。実際の請求額ではありません。料金・プランは変更されるため、購入前に必ず公式ページをご確認ください。当サイトの編集者は、ここで紹介する製品の実機を使用していません。

@@ -7,6 +7,7 @@ category: AIペット
 image: /images/aibo-1.webp
 imageCredit: ソニー|https://aibo.sony.jp/
 videos: [twRWEdsi1Vc|aiboの飼い方、aiboのサービスについてご紹介！（ソニーストア）|公式チャンネル（SonyStoreJapan）の投稿, 6GUoCnCmbQQ|とってもかわいいaibo（aibo公式）|aibo公式サイトに掲載されている動画（チャンネル名：aibo）]
+cta: [aibo|ソニーストアで価格・プランを見る|https://aibo.sony.jp/store/|本体272,800円〜（税込）＋ベーシックプラン（3年99,000円）|ソニーストアのオンライン・店舗で手続きできます]
 sources: [sony-store, sony-spec, sony-premium]
 ---
 > 価格の確認日：2026年10月5日。価格・プラン内容は変更されます。購入前に必ずソニー公式ストアをご確認ください。当サイトの編集者はaiboの実機を使用していません。以下は公式情報の整理です。

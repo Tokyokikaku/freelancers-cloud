@@ -7,7 +7,7 @@ category: AIペット
 image: /images/moflin-1.webp
 imageCredit: カシオ計算機|https://www.casio.com/jp/moflin/
 videos: [Ao9wxAPvuZ0|Moflin Brand Movie（CASIO Japan）|公式チャンネル（CASIO Japan）の投稿, QBtdTTyF32Q|Moflin Promotion Movie（CASIO Japan）|公式チャンネル（CASIO Japan）の投稿]
-products: [Moflin]
+cta: [Moflin|CASIO公式ストアで価格を見る|https://www.casio.com/jp/moflin/|本体59,400円（発売時の希望小売価格・税込）|年6,600円のClub Moflinは任意。新型番（PE-M11）の価格は公式ストアで確認してください|shops]
 sources: [casio-release, casio-moflin, casio-club]
 ---
 > 確認日：2026年10月5日。価格・サービス内容は変更されます。購入前に必ずカシオ公式ページをご確認ください。当サイトの編集者はMoflinの実機を使用していません。以下は公式情報の整理です。

@@ -7,6 +7,7 @@ category: 購入ガイド
 image: /images/lovot-2-0.webp
 imageCredit: GROOVE X|https://lovot.life/
 videos: [AiMcT4vfbiI|LOVOT コンセプトティザームービー|公式チャンネル（LOVOT OFFICIAL）の投稿]
+cta: [LOVOT MUSEUM|MUSEUMの来館案内を見る|https://lovot.life/blog/article/qw-tn8qxh45i|1人500円（完全予約制・90分）|営業日・料金は変更される場合があります。予約前に公式で確認してください, LOVOTレンタル|レンタルの案内を見る|https://lovot.life/blog/article/rentio/|最短7泊8日から|対象機種・料金は公式ページで確認してください]
 sources: [groovex, rentio]
 ---
 > 確認日：2026年10月5日。料金・営業時間・対象機種は変更されます。ご利用前に各公式ページをご確認ください。当サイトの編集者は、ここで紹介するサービスを利用していません。以下は公式情報の整理です。

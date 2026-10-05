@@ -7,7 +7,7 @@ category: AIペット
 image: /images/qoobo-1.webp
 imageCredit: ユカイ工学|https://qoobo.info/
 videos: [-2TbYYXajNY|Qoobo（ユカイ工学）|公式サイトに掲載されている動画（チャンネル名：ユカイ工学）, 9s8B3RmGMlY|Petit Qoobo（ユカイ工学）|公式サイトに掲載されている動画（チャンネル名：ユカイ工学）]
-products: [Qoobo, Petit Qoobo]
+cta: [Qoobo|ユカイ工学の公式ストアで見る|https://store.ux-xu.com/products/qoobo|17,600円（税込）|確認日時点で「在庫切れ」の表示あり。在庫を確認してください|shops, Petit Qoobo|ユカイ工学の公式ストアで見る|https://store.ux-xu.com/products/petit-qoobo|14,300円（税込）|小型サイズ。在庫は公式ストアで確認してください|shops]
 sources: [qoobo-info, ux-xu-store]
 ---
 > 価格の確認日：2026年10月5日。価格・在庫は変更されます。購入前に必ず公式ストアをご確認ください。当サイトの編集者はQooboの実機を使用していません。以下は公式情報の整理です。
