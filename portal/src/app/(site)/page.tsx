@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { CostCompare } from "@/components/CostCompare";
 import { FaqList } from "@/components/FaqList";
+import { Icon } from "@/components/Icon";
 import { JsonLd } from "@/components/JsonLd";
 import { SearchBox } from "@/components/SearchBox";
 import { SectionHead } from "@/components/SectionHead";
@@ -43,7 +44,8 @@ export default async function HomePage() {
   const fullSuccess = services.filter((s) => s.is_full_success_fee);
   const newest = [...services].sort((a, b) => b.created_at.localeCompare(a.created_at)).slice(0, 5);
   const countOf = (id: string) => servicesInCategory(services, categories, id).length;
-  const topCategories = categories.filter((c) => !c.parent_id && countOf(c.id) > 0);
+  const topCategories = categories.filter((c) => !c.parent_id);
+  const childrenOf = (id: string) => categories.filter((c) => c.parent_id === id).sort((a, b) => a.sort_order - b.sort_order);
   const catName = (id: string | null) => categories.find((c) => c.id === id)?.name;
   const filters = [
     { href: "/services?zero_initial=1", label: "初期費用0円", count: services.filter((s) => s.initial_fee_type === "free").length },
@@ -83,6 +85,44 @@ export default async function HomePage() {
               ))}
             </ul>
           </div>
+        </div>
+      </section>
+
+      {/* ───── 全カテゴリ ───── */}
+      <section className="border-b border-line bg-white py-8 sm:py-10" aria-labelledby="all-categories">
+        <div className="container-page">
+          <SectionHead title={<span id="all-categories">カテゴリから探す</span>} lead="成果報酬で依頼できるサービスを、カテゴリ別に探せます。" href="/services" hrefLabel="サービス一覧" />
+          <ul className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {topCategories.map((c) => (
+              <li key={c.id} className="panel overflow-hidden">
+                <Link href={`/category/${c.slug}`} className="flex items-center gap-2.5 bg-brand-700 px-4 py-2.5 font-bold text-white hover:bg-brand-600">
+                  <Icon name={c.icon ?? "other"} className="size-5" />
+                  <span className="flex-1">{c.name}</span>
+                  <span className="text-xs font-normal text-white/80">{countOf(c.id)}件</span>
+                </Link>
+                {childrenOf(c.id).length > 0 ? (
+                  <ul className="divide-y divide-line">
+                    {childrenOf(c.id).map((ch) => (
+                      <li key={ch.id} className="px-4 py-2">
+                        <Link href={`/category/${ch.slug}`} className="flex items-center justify-between text-sm font-bold text-ink hover:text-brand-700 hover:underline">
+                          {ch.name}<span className={`text-xs font-normal ${countOf(ch.id) ? "text-muted" : "text-slate-400"}`}>{countOf(ch.id) ? `${countOf(ch.id)}件` : "準備中"}</span>
+                        </Link>
+                        {childrenOf(ch.id).length > 0 && (
+                          <ul className="mt-1 flex flex-wrap gap-x-3 gap-y-0.5 pl-2 text-xs">
+                            {childrenOf(ch.id).map((g) => (
+                              <li key={g.id}><Link href={`/category/${g.slug}`} className="text-body hover:text-brand-700 hover:underline">└ {g.name}<span className="text-muted">（{countOf(g.id)}）</span></Link></li>
+                            ))}
+                          </ul>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="px-4 py-3 text-sm text-muted">{countOf(c.id) ? "このカテゴリのサービスを見る" : "掲載準備中です"}</p>
+                )}
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
@@ -175,20 +215,6 @@ export default async function HomePage() {
 
         {/* ───── サイドバー ───── */}
         <aside className="space-y-5 lg:sticky lg:top-36 lg:self-start" aria-label="サイドバー">
-          <div className="panel">
-            <p className="border-b border-line bg-brand-700 px-4 py-2 text-sm font-bold text-white">カテゴリから探す</p>
-            <ul className="divide-y divide-line">
-              {topCategories.map((c) => (
-                <li key={c.id}>
-                  <Link href={`/category/${c.slug}`} className="flex items-center justify-between px-4 py-2.5 text-sm font-bold text-ink hover:bg-brand-50 hover:text-brand-700">{c.name}<span className="text-xs font-normal text-muted">{countOf(c.id)}</span></Link>
-                  <ul className="flex flex-wrap gap-x-3 gap-y-1 px-4 pb-3 text-xs">
-                    {categories.filter((x) => x.parent_id === c.id).map((ch) => <li key={ch.id}><Link href={`/category/${ch.slug}`} className="text-body hover:text-brand-700 hover:underline">{ch.name}</Link></li>)}
-                  </ul>
-                </li>
-              ))}
-            </ul>
-          </div>
-
           <div className="panel">
             <p className="border-b border-line bg-brand-700 px-4 py-2 text-sm font-bold text-white">新着記事</p>
             <ul className="divide-y divide-line">
