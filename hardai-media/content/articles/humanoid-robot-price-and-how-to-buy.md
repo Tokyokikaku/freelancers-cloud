@@ -4,8 +4,9 @@ description: 4,900ドルからで話題のUnitree R1について、公式ペー�
 date: 2026-10-05
 updated: 2026-10-05
 category: 人型ロボット
-videos: [v1Q4Su54iho|Unitree R1 紹介動画（Unitree Robotics）|公式チャンネル（Unitree Robotics）の投稿]
-cta: [Unitree R1|Unitree公式ページで見る|https://www.unitree.com/R1|4,900ドルから（税・送料別）|日本での取り扱いは未確認です||||Unitreeの小型ヒューマノイド。開発者・教育機関向けのエントリーモデル|高さ1230mm・約27〜29kgの小型ボディ／自由度は20〜26（EDUは26〜40）／駆動時間は約1時間。着脱式のバッテリー|ヒューマノイドの開発・学習に取り組みたい人（家庭用ではありません）]
+image: /images/r1-1.webp
+imageCredit: Unitree Robotics|https://www.unitree.com/R1
+cta: [Unitree R1|Unitree公式ページで見る|https://www.unitree.com/R1|4,900ドルから（税・送料別）|日本での取り扱いは未確認です|||/images/r1-1.webp|Unitreeの小型ヒューマノイド。開発者・教育機関向けのエントリーモデル|高さ1230mm・約27〜29kgの小型ボディ／自由度は20〜26（EDUは26〜40）／駆動時間は約1時間。着脱式のバッテリー|ヒューマノイドの開発・学習に取り組みたい人（家庭用ではありません）]
 sources: [unitree-r1, robotstart, humanoidpress]
 ---
 > 確認日：2026年10月5日。為替・販売条件は変動します。当サイトの編集者は実機を使用しておらず、以下は公式ページと報道・解説記事の整理です。確認できなかった項目は「未確認」と書いています。
@@ -15,6 +16,10 @@ sources: [unitree-r1, robotstart, humanoidpress]
 Unitreeの小型ヒューマノイド「R1」は、公式ページで「Price from $4,900」（税・送料別）と表示されています。報道では約73万円からと紹介されています（[ロボスタ、2026年6月26日](https://robotstart.info/article/2026/06/26/382083.html)）。ただし、位置づけは「開発者・教育機関・ホビイスト向けのエントリーモデル」とされており、家事をこなす家庭用ロボットではありません。
 
 公式ページにも、「個人ユーザーは、購入前にヒューマノイドロボットの限界を十分に理解することを強く推奨する」「構造が複雑で出力が大きいため、常に十分な安全距離を保つ」という注意書きがあります。
+
+![Unitree R1（公式ページの画像）](/images/r1-1.webp "Unitree Robotics|https://www.unitree.com/R1")
+
+@video v1Q4Su54iho|Unitree R1 紹介動画（Unitree Robotics）|公式チャンネル（Unitree Robotics）の投稿
 
 ## 公式ページのモデルと価格
 
@@ -55,10 +60,6 @@ Unitreeの小型ヒューマノイド「R1」は、公式ページで「Price fr
 4. **安全**：約27〜29kgの機体が転倒・誤動作する可能性があります。小さな子どもやペットがいる環境では、使い方に注意が必要です（一般的な注意点であり、R1固有の試験結果は確認していません）。
 
 同じUnitreeの四足歩行ロボットについては、[Unitree Go2の記事](/articles/unitree-go2-guide/)もご覧ください。また、家事を目的にした家庭用ヒューマノイドは、[1X NEOの記事](/articles/1x-neo-home-humanoid/)で整理しています。
-
-## 訂正履歴
-
-- 2026年10月5日：Unitree公式ページを確認し、R1の身長・重量・自由度・価格の表記を公式の値に差し替えました。以前は解説記事の「身長121cm、重量25kg、26 DOF、100 TOPS」をそのまま掲載していました。
 
 ## 出典
 
