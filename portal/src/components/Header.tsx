@@ -24,6 +24,7 @@ export async function Header() {
           <Link href="/services" className="hover:text-brand-700">サービス一覧</Link>
           <Link href="/articles" className="hover:text-brand-700">記事</Link>
           <Link href="/about" className="hover:text-brand-700">成果報酬ナビとは</Link>
+          <Link href="/services" className="btn-primary !min-h-10 !px-4 !py-2">サービスを探す</Link>
         </nav>
 
         <details className="group relative ml-auto md:ml-0 lg:hidden">

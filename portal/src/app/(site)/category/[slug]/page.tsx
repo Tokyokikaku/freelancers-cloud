@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { PageHeader } from "@/components/PageHeader";
 import { JsonLd } from "@/components/JsonLd";
 import { ServiceCard } from "@/components/ServiceCard";
 import { PageEvent } from "@/components/Trackers";
@@ -54,13 +54,13 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
   const relatedArticles = articles.filter((a) => a.category_id === cat.id).slice(0, 4);
 
   return (
-    <div className="container-page py-8 sm:py-10">
+    <>
       <PageEvent name="category_page_view" params={{ category_id: cat.id, category_name: cat.name }} />
-      <Breadcrumbs items={[...(parent ? [{ name: parent.name, href: `/category/${parent.slug}` }] : []), { name: cat.name }]} />
-
-      <header className="mt-5 rounded-2xl bg-gradient-to-b from-brand-50 to-white p-6 sm:p-10">
-        <h1 className="text-2xl sm:text-4xl">成果報酬型の{cat.name}サービス一覧</h1>
-        <p className="mt-4 max-w-3xl leading-8">{cat.description || defaultIntro(cat.name)}</p>
+      <PageHeader
+        crumbs={[...(parent ? [{ name: parent.name, href: `/category/${parent.slug}` }] : []), { name: cat.name }]}
+        title={`成果報酬型の${cat.name}サービス一覧`}
+        lead={cat.description || defaultIntro(cat.name)}
+      >
         {(children.length > 0 || siblings.length > 0) && (
           <ul className="mt-5 flex flex-wrap gap-2">
             {[...children, ...siblings].map((c) => (
@@ -68,8 +68,9 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
             ))}
           </ul>
         )}
-      </header>
+      </PageHeader>
 
+    <div className="container-page py-8 sm:py-10">
       <section className="mt-10" aria-labelledby="list">
         <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
           <div>
@@ -111,5 +112,6 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
         />
       )}
     </div>
+    </>
   );
 }

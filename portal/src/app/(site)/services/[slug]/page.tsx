@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { CompareToggle } from "@/components/CompareToggle";
 import { FeeTags } from "@/components/FeeTags";
+import { FeeTile } from "@/components/FeeTile";
 import { Icon } from "@/components/Icon";
 import { JsonLd } from "@/components/JsonLd";
 import { LeadDialog } from "@/components/LeadDialog";
@@ -106,6 +107,16 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
         </div>
         <div className="mt-5"><FeeTags service={service} size="md" /></div>
         {service.summary && <p className="mt-4 leading-8">{service.summary}</p>}
+        <dl className="mt-5 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+          <FeeTile label="初期費用" type={service.initial_fee_type} detail={service.initial_fee} />
+          <FeeTile label="月額料金" type={service.monthly_fee_type} detail={service.monthly_fee} />
+          <div className="rounded-xl bg-brand-50/70 px-3.5 py-3 sm:col-span-2">
+            <dt className="text-[11px] font-bold text-brand-700">成果報酬額</dt>
+            <dd className="mt-0.5 text-sm font-bold leading-6 text-ink">{successFeeLabel(service)}</dd>
+            <dt className="mt-2 text-[11px] font-bold text-brand-700">成果地点</dt>
+            <dd className="mt-0.5 text-sm font-bold leading-6 text-ink">{successConditionLabel(service)}</dd>
+          </div>
+        </dl>
         <div className="mt-6">{ctas("detail_top")}</div>
         <p className="mt-3 text-xs leading-6 text-muted">
           {service.partner_status === "unpartnered"

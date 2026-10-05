@@ -141,7 +141,10 @@ export const defaultSearchEngine: SearchEngine = {
 
       if (score > 0) results.push({ service, score });
     }
-    return results.sort((a, b) => b.score - a.score || a.service.name.localeCompare(b.service.name, "ja"));
+    results.sort((a, b) => b.score - a.score || a.service.name.localeCompare(b.service.name, "ja"));
+    // 最上位に対して関連度が極端に低い結果（助詞や共通語だけの偶然一致）は除外する
+    const top = results[0]?.score ?? 0;
+    return results.filter((r) => r.score >= top * 0.3);
   },
 };
 

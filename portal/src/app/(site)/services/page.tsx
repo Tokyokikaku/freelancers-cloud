@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { PageHeader } from "@/components/PageHeader";
 import { FilterPanel } from "@/components/FilterPanel";
 import { SearchBox } from "@/components/SearchBox";
 import { ServiceCard } from "@/components/ServiceCard";
@@ -85,25 +85,25 @@ export default async function ServicesPage({ searchParams }: { searchParams: Pro
   };
 
   return (
-    <div className="container-page py-8 sm:py-10">
+    <>
       {q && <PageEvent name="search" params={{ query: q, results_count: list.length }} />}
-      <Breadcrumbs items={[{ name: "サービス一覧" }]} />
-      <h1 className="mt-4 text-2xl sm:text-3xl">{q ? `「${q}」の検索結果` : "成果報酬サービス一覧"}</h1>
-      <p className="mt-2 text-sm text-muted">
-        成果報酬で利用できるサービスを、成果地点・料金条件で絞り込んで比較できます。
-        {sort === "popular" && <>人気順は{RANKING_NOTE}しています。</>}
-      </p>
+      <PageHeader
+        crumbs={[{ name: "サービス一覧" }]}
+        title={q ? `「${q}」の検索結果` : "成果報酬サービス一覧"}
+        lead={<>成果報酬で利用できるサービスを、成果地点・料金条件で絞り込んで比較できます。{sort === "popular" && <>人気順は{RANKING_NOTE}しています。</>}</>}
+      >
+        <div className="mt-6 max-w-2xl"><SearchBox defaultValue={q} id="list-search" /></div>
+        {intent && (intent.outcome.length > 0 || intent.fullSuccess || intent.zeroInitial || intent.zeroMonthly) && (
+          <p className="mt-3 text-sm text-muted">
+            検索語から読み取った条件:{" "}
+            {[...intent.outcome.map((o) => `成果地点＝${OUTCOME_LABELS[o]}`), intent.fullSuccess && "完全成果報酬", intent.zeroInitial && "初期費用0円", intent.zeroMonthly && "月額0円"].filter(Boolean).join(" / ")}
+            （該当するサービスを優先表示しています）
+          </p>
+        )}
+      </PageHeader>
 
-      <div className="mt-6 max-w-2xl"><SearchBox defaultValue={q} id="list-search" /></div>
-      {intent && (intent.outcome.length > 0 || intent.fullSuccess || intent.zeroInitial || intent.zeroMonthly) && (
-        <p className="mt-3 text-sm text-muted">
-          検索語から読み取った条件:{" "}
-          {[...intent.outcome.map((o) => `成果地点＝${OUTCOME_LABELS[o]}`), intent.fullSuccess && "完全成果報酬", intent.zeroInitial && "初期費用0円", intent.zeroMonthly && "月額0円"].filter(Boolean).join(" / ")}
-          （該当するサービスを優先表示しています）
-        </p>
-      )}
-
-      <div className="mt-8 grid gap-8 lg:grid-cols-[18rem_1fr]">
+    <div className="container-page py-8 sm:py-10">
+      <div className="grid gap-8 lg:grid-cols-[18rem_1fr]">
         <aside>
           <FilterPanel activeCount={activeCount}>
             <form action="/services" method="get" className="space-y-5">
@@ -175,5 +175,6 @@ export default async function ServicesPage({ searchParams }: { searchParams: Pro
         </section>
       </div>
     </div>
+    </>
   );
 }

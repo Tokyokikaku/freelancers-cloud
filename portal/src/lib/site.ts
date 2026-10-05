@@ -2,8 +2,9 @@ export const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME || "成果報酬ナ�
 export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000").replace(/\/$/, "");
 export const OPERATOR_NAME = process.env.NEXT_PUBLIC_OPERATOR_NAME || "成果報酬ナビ編集部";
 export const CONTACT_EMAIL = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@tyokikaku.co.jp";
-export const SITE_TAGLINE = "固定費をかけずに使えるサービスが、すぐ見つかる。";
+export const SITE_TAGLINE = "初期費用なし、リスクなしで事業を推進。";
+export const SITE_TITLE = `初期費用なし・リスクなしで事業を推進｜成果報酬サービスを比較｜${SITE_NAME}`;
 export const SITE_DESCRIPTION =
-  "成果報酬で依頼できる営業代行・採用・マーケティング・集客サービスを比較。初期費用・月額費用・成果地点・成果報酬額から自社に合ったサービスを探せます。";
+  "成果が出たときだけ支払う成果報酬サービスを比較。営業代行・広告運用・採用・補助金申請支援などを、初期費用0円・月額0円・完全成果報酬などの条件で探せます。";
 
 export const absoluteUrl = (path: string) => `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;

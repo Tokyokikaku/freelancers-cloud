@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { PageHeader } from "@/components/PageHeader";
 import { getArticles, getCategories } from "@/lib/data";
 import { formatDate } from "@/lib/format";
 import { buildMetadata } from "@/lib/seo";
@@ -16,17 +16,16 @@ export const metadata: Metadata = buildMetadata({
 export default async function ArticlesPage() {
   const [articles, categories] = await Promise.all([getArticles(), getCategories()]);
   return (
-    <div className="container-page py-8 sm:py-10">
-      <Breadcrumbs items={[{ name: "記事" }]} />
-      <h1 className="mt-4 text-2xl sm:text-3xl">成果報酬サービスに関する記事</h1>
-      <p className="mt-2 text-sm text-muted">成果報酬型サービスの選び方や比較のポイントをまとめています。</p>
+    <>
+      <PageHeader crumbs={[{ name: "記事" }]} title="成果報酬サービスに関する記事" lead="成果報酬型サービスの選び方や比較のポイントをまとめています。" />
+      <div className="container-page py-8 sm:py-10">
       {articles.length ? (
-        <ul className="mt-8 grid gap-4 md:grid-cols-2">
+        <ul className="grid gap-5 md:grid-cols-2">
           {articles.map((a) => {
             const cat = categories.find((c) => c.id === a.category_id);
             return (
               <li key={a.id}>
-                <Link href={`/articles/${a.slug}`} className="card block h-full p-6 transition hover:border-brand-500 hover:shadow-md">
+                <Link href={`/articles/${a.slug}`} className="card card-hover block h-full p-6">
                   <div className="flex items-center gap-2 text-xs text-muted">
                     {cat && <span className="tag bg-slate-100 text-slate-700">{cat.name}</span>}
                     <time dateTime={a.published_at ?? undefined}>{formatDate(a.published_at ?? a.created_at)}</time>
@@ -39,8 +38,9 @@ export default async function ArticlesPage() {
           })}
         </ul>
       ) : (
-        <p className="card mt-8 p-10 text-center text-sm text-muted">記事は準備中です。</p>
+        <p className="card p-10 text-center text-sm text-muted">記事は準備中です。</p>
       )}
     </div>
+    </>
   );
 }
