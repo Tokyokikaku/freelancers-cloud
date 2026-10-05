@@ -110,7 +110,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
         <dl className="mt-5 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
           <FeeTile label="初期費用" type={service.initial_fee_type} detail={service.initial_fee} />
           <FeeTile label="月額料金" type={service.monthly_fee_type} detail={service.monthly_fee} />
-          <div className="rounded-xl bg-brand-50/70 px-3.5 py-3 sm:col-span-2">
+          <div className="rounded-md bg-brand-50/70 px-3.5 py-3 sm:col-span-2">
             <dt className="text-[11px] font-bold text-brand-700">成果報酬額</dt>
             <dd className="mt-0.5 text-sm font-bold leading-6 text-ink">{successFeeLabel(service)}</dd>
             <dt className="mt-2 text-[11px] font-bold text-brand-700">成果地点</dt>
@@ -160,7 +160,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
                 </Fact>
               )}
             </dl>
-            <p className="mt-3 flex gap-2 rounded-xl bg-warn-50 p-4 text-sm leading-7 text-warn-700">
+            <p className="mt-3 flex gap-2 rounded-md bg-warn-50 p-4 text-sm leading-7 text-warn-700">
               <Icon name="info" className="mt-1 size-4 shrink-0" />
               本ページの情報は公開情報をもとに編集部が作成しています。最新の料金・提供条件については公式サイトをご確認ください。
             </p>

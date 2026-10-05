@@ -1,44 +1,47 @@
 @import "tailwindcss";
 
 @theme {
+  --font-serif: "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", "Noto Serif JP", "IPAexMincho", "IPAMincho", serif;
   --font-sans: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "BIZ UDPGothic", "Yu Gothic UI", Meiryo, "Noto Sans JP", system-ui, sans-serif;
-  --color-ink: #0f172a;
-  --color-body: #334155;
-  --color-muted: #64748b;
-  --color-line: #e2e8f0;
-  --color-surface: #f8fafc;
-  --color-brand-50: #eff6ff;
-  --color-brand-100: #dbeafe;
-  --color-brand-500: #2563eb;
-  --color-brand-600: #1d4ed8;
-  --color-brand-700: #1e40af;
-  --color-brand-900: #172554;
-  --color-good-50: #ecfdf5;
-  --color-good-100: #d1fae5;
-  --color-good-700: #047857;
-  --color-warn-50: #fffbeb;
-  --color-warn-700: #b45309;
-  --color-navy-950: #060f26;
-  --color-navy-900: #0a1633;
-  --color-navy-800: #0f2150;
-  --color-navy-700: #17306d;
+  --color-ink: #1a1b1e;
+  --color-body: #3c3b38;
+  --color-muted: #6f6a5f;
+  --color-line: #ddd6c8;
+  --color-surface: #f3efe6;
+  --color-paper: #faf8f3;
+  --color-brand-50: #edf4f0;
+  --color-brand-100: #d3e5dc;
+  --color-brand-500: #1d7358;
+  --color-brand-600: #0e5a46;
+  --color-brand-700: #0a4838;
+  --color-brand-900: #052e22;
+  --color-good-50: #fdf3ef;
+  --color-good-100: #f6d8cc;
+  --color-good-700: #b3321a;
+  --color-warn-50: #faf3df;
+  --color-warn-700: #8a5a0a;
+  --color-navy-950: #16150f;
+  --color-navy-900: #1f1e19;
+  --color-navy-800: #2a2822;
+  --color-navy-700: #3a372f;
   --color-mint-300: #6ee7b7;
   --color-mint-400: #34d399;
   --color-mint-500: #10b981;
   --color-sun-300: #fde047;
-  --shadow-card: 0 1px 2px rgb(15 23 42 / 0.04), 0 8px 24px -12px rgb(15 23 42 / 0.12);
-  --shadow-lift: 0 2px 4px rgb(15 23 42 / 0.05), 0 18px 40px -16px rgb(30 64 175 / 0.28);
+  --shadow-card: none;
+  --shadow-lift: none;
 }
 
 @layer base {
   html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
   body {
-    @apply bg-white font-sans text-body antialiased;
+    @apply bg-paper font-sans text-body antialiased;
     line-height: 1.8;
     word-break: auto-phrase; /* 対応ブラウザでは日本語を文節単位で折り返す */
     overflow-wrap: anywhere;
   }
-  h1, h2, h3, h4 { @apply text-ink font-bold; line-height: 1.4; text-wrap: balance; }
+  h1, h2, h3, h4 { @apply text-ink font-bold; line-height: 1.45; text-wrap: balance; }
+  h1, h2 { font-family: var(--font-serif); letter-spacing: 0.01em; }
   a { text-underline-offset: 3px; }
   :focus-visible { outline: 3px solid var(--color-brand-500); outline-offset: 2px; border-radius: 4px; }
   dialog::backdrop { background: rgb(15 23 42 / 0.55); }
@@ -47,32 +50,16 @@
 @utility container-page { @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8; }
 @utility section { @apply py-12 sm:py-16; }
 @utility h-section { @apply text-2xl sm:text-3xl; }
-@utility card { @apply rounded-2xl border border-line bg-white shadow-card; }
-@utility card-hover { @apply transition duration-200 hover:-translate-y-0.5 hover:border-brand-500/50 hover:shadow-lift; }
-@utility bg-hero {
-  background-color: var(--color-navy-900);
-  background-image:
-    radial-gradient(56rem 28rem at 88% -8%, rgb(59 130 246 / 0.42), transparent 62%),
-    radial-gradient(40rem 24rem at -4% 105%, rgb(16 185 129 / 0.2), transparent 62%),
-    linear-gradient(180deg, var(--color-navy-900), var(--color-navy-800));
-}
-@utility bg-grid {
-  background-image:
-    linear-gradient(rgb(255 255 255 / 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(255 255 255 / 0.05) 1px, transparent 1px);
-  background-size: 44px 44px;
-  mask-image: radial-gradient(ellipse at 70% 30%, #000 20%, transparent 72%);
-}
-@utility bg-soft {
-  background-image: radial-gradient(44rem 18rem at 100% 0%, rgb(219 234 254 / 0.7), transparent 70%), linear-gradient(180deg, #fff, var(--color-surface));
-}
-@utility marker { background-image: linear-gradient(transparent 64%, rgb(253 224 71 / 0.6) 64%); }
-@utility eyebrow { @apply mb-3 inline-flex items-center gap-2 text-xs font-bold tracking-[0.14em] text-brand-600 uppercase; }
-@utility btn { @apply inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-bold transition-colors; }
+@utility card { @apply rounded-lg border border-line bg-white; }
+@utility card-hover { @apply transition-colors duration-150 hover:border-ink; }
+@utility bg-soft { background-color: var(--color-surface); }
+@utility marker { background-image: linear-gradient(transparent 68%, rgb(214 90 56 / 0.28) 68%); }
+@utility eyebrow { @apply mb-2 inline-block text-xs font-bold text-muted; }
+@utility btn { @apply inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-md px-5 py-2.5 text-sm font-bold transition-colors; }
 @utility btn-primary { @apply btn bg-brand-600 text-white hover:bg-brand-700; }
 @utility btn-secondary { @apply btn border border-brand-600 bg-white text-brand-700 hover:bg-brand-50; }
-@utility btn-ghost { @apply btn border border-line bg-white text-ink hover:bg-surface; }
-@utility input { @apply w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-base text-ink placeholder:text-slate-400 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30 focus:outline-none; }
+@utility btn-ghost { @apply btn border border-ink/30 bg-white text-ink hover:border-ink; }
+@utility input { @apply w-full rounded-md border border-slate-400 bg-white px-3.5 py-2.5 text-base text-ink placeholder:text-slate-400 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30 focus:outline-none; }
 @utility label { @apply mb-1.5 block text-sm font-bold text-ink; }
 @utility tag { @apply inline-flex items-center rounded-md px-2 py-0.5 text-xs leading-6 font-bold; }
 @utility prose-ja {

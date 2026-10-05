@@ -30,7 +30,7 @@ export default async function ThanksPage({ searchParams }: { searchParams: Promi
           ) : (
             <>
               <p>資料情報を確認し、公開されている資料または公式の資料請求ページを、ご入力のメールアドレス宛にご案内します。</p>
-              <p className="rounded-xl bg-surface p-4 text-sm">
+              <p className="rounded-md bg-surface p-4 text-sm">
                 ご入力いただいた内容は、サービス提供会社へは送信されていません。このお問い合わせは、サービス提供会社への資料請求が完了したことを意味するものではありません。
               </p>
             </>

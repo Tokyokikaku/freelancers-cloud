@@ -28,7 +28,7 @@ export function ServiceCard({
 
   return (
     <article className="card card-hover relative flex h-full flex-col overflow-hidden">
-      {service.is_full_success_fee && <div className="h-1 bg-gradient-to-r from-mint-400 to-brand-500" aria-hidden="true" />}
+      {service.is_full_success_fee && <div className="h-1 bg-brand-600" aria-hidden="true" />}
       <div className="flex flex-1 flex-col p-5 sm:p-6">
         <div className="flex items-start gap-4">
           <ServiceLogo name={service.name} url={service.logo_url} />
@@ -50,7 +50,7 @@ export function ServiceCard({
         <dl className="mt-4 grid grid-cols-2 gap-2">
           <FeeTile label="初期費用" type={service.initial_fee_type} detail={service.initial_fee} />
           <FeeTile label="月額料金" type={service.monthly_fee_type} detail={service.monthly_fee} />
-          <div className="col-span-2 rounded-xl bg-brand-50/70 px-3.5 py-3">
+          <div className="col-span-2 rounded-md bg-brand-50/70 px-3.5 py-3">
             <dt className="text-[11px] font-bold text-brand-700">成果報酬額</dt>
             <dd className={`mt-0.5 text-sm font-bold leading-6 ${successFeeLabel(service) === UNKNOWN_TEXT ? "text-muted" : "text-ink"}`}>{successFeeLabel(service)}</dd>
             <dt className="mt-2 text-[11px] font-bold text-brand-700">成果地点</dt>

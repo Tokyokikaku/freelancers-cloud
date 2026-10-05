@@ -7,12 +7,12 @@ export function ServiceLogo({ name, url, size = 56 }: { name: string; url: strin
     return (
       // eslint-disable-next-line @next/next/no-img-element
       <img src={url} alt={`${name}のロゴ`} width={size} height={size} loading="lazy" decoding="async" style={style}
-        className="shrink-0 rounded-xl border border-line bg-white object-contain p-1" />
+        className="shrink-0 rounded-md border border-line bg-white object-contain p-1" />
     );
   }
   return (
     <span aria-hidden="true" style={{ ...style, fontSize: size * 0.42 }}
-      className="inline-flex shrink-0 items-center justify-center rounded-xl bg-brand-50 font-bold text-brand-700 ring-1 ring-inset ring-brand-100">
+      className="inline-flex shrink-0 items-center justify-center rounded-md bg-brand-50 font-bold text-brand-700 ring-1 ring-inset ring-brand-100">
       {initialOf(name)}
     </span>
   );

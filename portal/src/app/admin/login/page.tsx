@@ -14,7 +14,7 @@ export default async function LoginPage() {
         {isSupabaseConfigured ? (
           <LoginForm />
         ) : (
-          <p className="mt-4 rounded-xl bg-warn-50 p-4 text-sm leading-7 text-warn-700">
+          <p className="mt-4 rounded-md bg-warn-50 p-4 text-sm leading-7 text-warn-700">
             Supabase が未設定のため、管理画面は利用できません（デモモード）。README の手順で環境変数を設定してください。
           </p>
         )}

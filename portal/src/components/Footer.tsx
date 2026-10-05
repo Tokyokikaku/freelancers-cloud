@@ -1,16 +1,15 @@
 import Link from "next/link";
 import { getCategories } from "@/lib/data";
 import { CONTACT_EMAIL, OPERATOR_NAME, SITE_NAME } from "@/lib/site";
-import { Icon } from "./Icon";
 
 export async function Footer() {
   const categories = (await getCategories()).filter((c) => !c.parent_id);
   return (
-    <footer className="mt-20 bg-navy-950 pb-24 pt-14 text-slate-300">
+    <footer className="bg-navy-950 pb-24 pt-14 text-slate-300">
       <div className="container-page grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
         <div>
           <p className="flex items-center gap-2 text-lg font-bold text-white">
-            <span className="inline-flex size-9 items-center justify-center rounded-lg bg-brand-600" aria-hidden="true"><Icon name="scale" className="size-5" /></span>
+            <span className="inline-flex size-9 items-center justify-center rounded-md bg-brand-600 font-serif text-lg" aria-hidden="true">成</span>
             {SITE_NAME}
           </p>
           <p className="mt-4 text-sm leading-7">初期費用なし・リスクなしで事業を推進。成果が出たときだけ支払う「成果報酬サービス」をまとめて比較できる、検索・比較メディアです。</p>

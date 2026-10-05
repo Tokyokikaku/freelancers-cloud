@@ -17,7 +17,7 @@ export function SearchBox({
   return (
     <form action="/services" method="get" role="search" className="w-full">
       <label htmlFor={id} className="sr-only">サイト内検索</label>
-      <div className={`flex items-stretch overflow-hidden rounded-xl border border-slate-300 bg-white focus-within:border-brand-500 focus-within:ring-2 focus-within:ring-brand-500/30 ${lg ? "shadow-lg" : ""}`}>
+      <div className={`flex items-stretch overflow-hidden rounded-md border border-slate-300 bg-white focus-within:border-brand-500 focus-within:ring-2 focus-within:ring-brand-500/30 ${lg ? "shadow-lg" : ""}`}>
         <span className={`flex items-center pl-3.5 text-muted ${lg ? "pl-5" : ""}`}><Icon name="search" className={lg ? "size-6" : "size-5"} /></span>
         <input
           id={id}

@@ -54,7 +54,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         <div className="prose-ja mt-8">
           <ReactMarkdown remarkPlugins={[remarkGfm]}>{article.body}</ReactMarkdown>
         </div>
-        <p className="mt-10 rounded-xl bg-warn-50 p-4 text-sm leading-7 text-warn-700">
+        <p className="mt-10 rounded-md bg-warn-50 p-4 text-sm leading-7 text-warn-700">
           本記事の情報は公開情報をもとに編集部が作成しています。最新の料金・提供条件については、各サービスの公式サイトをご確認ください。
         </p>
       </article>

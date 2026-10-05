@@ -62,7 +62,7 @@ export function LeadDialog({ serviceId, serviceName, buttonLabel, disclaimer, cl
       <dialog
         ref={dialogRef}
         aria-labelledby="lead-title"
-        className="m-auto w-[min(100%-1.5rem,34rem)] max-h-[92dvh] overflow-y-auto rounded-2xl border border-line bg-white p-0 shadow-2xl"
+        className="m-auto w-[min(100%-1.5rem,34rem)] max-h-[92dvh] overflow-y-auto rounded-lg border border-line bg-white p-0 shadow-2xl"
         onClick={(e) => e.target === dialogRef.current && dialogRef.current?.close()}
       >
         <form action={action} onInputCapture={onFormStart} className="p-5 sm:p-7">
@@ -122,7 +122,7 @@ export function LeadDialog({ serviceId, serviceName, buttonLabel, disclaimer, cl
             </div>
           </div>
 
-          <p className="mt-5 rounded-xl bg-surface p-3.5 text-sm leading-7 text-body">{disclaimer}</p>
+          <p className="mt-5 rounded-md bg-surface p-3.5 text-sm leading-7 text-body">{disclaimer}</p>
           <p className="mt-3 text-xs leading-6 text-muted">
             送信により<a href="/privacy" target="_blank" className="underline">プライバシーポリシー</a>に同意したものとみなします。
           </p>

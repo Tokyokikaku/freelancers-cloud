@@ -7,13 +7,11 @@ import { SearchBox } from "./SearchBox";
 export async function Header() {
   const categories = (await getCategories()).filter((c) => !c.parent_id);
   return (
-    <header className="sticky top-0 z-30 border-b border-line bg-white/95 backdrop-blur">
+    <header className="sticky top-0 z-30 border-b border-line bg-paper/95 backdrop-blur">
       <div className="container-page flex items-center gap-3 py-3 lg:gap-6">
         <Link href="/" className="flex shrink-0 items-center gap-2 text-ink" aria-label={`${SITE_NAME} トップへ`}>
-          <span className="inline-flex size-9 items-center justify-center rounded-lg bg-brand-600 text-white" aria-hidden="true">
-            <Icon name="scale" className="size-5" />
-          </span>
-          <span className="text-lg font-bold tracking-tight">{SITE_NAME}</span>
+          <span className="inline-flex size-9 items-center justify-center rounded-md bg-brand-600 font-serif text-lg font-bold text-white" aria-hidden="true">成</span>
+          <span className="font-serif text-xl font-bold tracking-tight">{SITE_NAME}</span>
         </Link>
 
         <div className="hidden min-w-0 flex-1 md:block lg:max-w-xl">
@@ -32,7 +30,7 @@ export async function Header() {
             <Icon name="menu" className="size-6 group-open:hidden" />
             <Icon name="close" className="hidden size-6 group-open:block" />
           </summary>
-          <div className="absolute right-0 top-14 w-[min(88vw,20rem)] rounded-2xl border border-line bg-white p-4 shadow-xl">
+          <div className="absolute right-0 top-14 w-[min(88vw,20rem)] rounded-lg border border-line bg-white p-4 shadow-xl">
             <ul className="space-y-1 text-sm font-bold text-ink">
               <li><Link className="block rounded-lg px-3 py-2.5 hover:bg-surface" href="/services">サービス一覧</Link></li>
               <li><Link className="block rounded-lg px-3 py-2.5 hover:bg-surface" href="/articles">記事</Link></li>

@@ -27,7 +27,7 @@ export function ArticleForm({ article, categories, services }: { article?: Artic
       </Field>
       <fieldset>
         <legend className="label">関連サービス（記事下に表示）</legend>
-        <div className="grid max-h-48 gap-1 overflow-y-auto rounded-xl border border-line p-3 sm:grid-cols-2">
+        <div className="grid max-h-48 gap-1 overflow-y-auto rounded-md border border-line p-3 sm:grid-cols-2">
           {services.map((s) => (
             <label key={s.id} className="flex items-center gap-2 text-sm">
               <input type="checkbox" name="service_ids" value={s.id} defaultChecked={a?.service_ids.includes(s.id)} className="size-4 accent-brand-600" />{s.name}
