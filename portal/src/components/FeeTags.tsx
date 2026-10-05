@@ -8,6 +8,8 @@ export function FeeTags({ service, size = "sm", omitFees = false }: { service: S
       {service.is_full_success_fee && (
         <li className={`tag bg-brand-700 text-white ${cls}`}>完全成果報酬</li>
       )}
+      {service.pricing_model === "hybrid" && <li className={`tag bg-warn-50 text-warn-700 ${cls}`}>固定費＋成果報酬</li>}
+      {service.pricing_model === "optional_plan" && <li className={`tag bg-warn-50 text-warn-700 ${cls}`}>成果報酬プランあり</li>}
       {!omitFees && service.initial_fee_type === "free" && (
         <li className={`tag bg-good-100 text-good-700 ${cls}`}>初期費用0円</li>
       )}
