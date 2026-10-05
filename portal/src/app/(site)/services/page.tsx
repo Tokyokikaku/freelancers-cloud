@@ -162,7 +162,7 @@ export default async function ServicesPage({ searchParams }: { searchParams: Pro
             </nav>
           </div>
           {list.length ? (
-            <ul className="grid gap-4 md:grid-cols-2">
+            <ul className="space-y-3">
               {list.map((s) => <li key={s.id}><ServiceCard service={s} categories={categories} /></li>)}
             </ul>
           ) : (

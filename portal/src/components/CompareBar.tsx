@@ -10,7 +10,7 @@ export function CompareBar() {
   if (items.length === 0 || pathname.startsWith("/admin") || pathname === "/compare") return null;
   const href = `/compare?s=${items.map((i) => encodeURIComponent(i.slug)).join(",")}`;
   return (
-    <div className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-white/95 shadow-[0_-4px_16px_rgb(15_23_42/0.08)] backdrop-blur" role="region" aria-label="比較リスト">
+    <div className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-white shadow-[0_-2px_8px_rgb(15_23_42/0.1)]" role="region" aria-label="比較リスト">
       <div className="container-page flex flex-wrap items-center gap-x-4 gap-y-2 py-3">
         <p className="text-sm font-bold text-ink">
           比較リスト <span className="text-muted">({items.length}/{MAX_COMPARE})</span>
@@ -26,7 +26,7 @@ export function CompareBar() {
         <div className="flex items-center gap-2">
           <button type="button" onClick={clear} className="text-sm text-muted underline">クリア</button>
           {items.length >= 2 ? (
-            <Link href={href} className="btn-primary">{items.length}サービスを比較する</Link>
+            <Link href={href} className="btn-cta">{items.length}サービスを比較する</Link>
           ) : (
             <span className="text-sm text-muted">あと1サービス以上選ぶと比較できます</span>
           )}

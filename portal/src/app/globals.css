@@ -1,71 +1,70 @@
 @import "tailwindcss";
 
 @theme {
-  --font-serif: "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", "Noto Serif JP", "IPAexMincho", "IPAMincho", serif;
-  --font-sans: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "BIZ UDPGothic", "Yu Gothic UI", Meiryo, "Noto Sans JP", system-ui, sans-serif;
-  --color-ink: #1a1b1e;
-  --color-body: #3c3b38;
-  --color-muted: #6f6a5f;
-  --color-line: #ddd6c8;
-  --color-surface: #f3efe6;
-  --color-paper: #faf8f3;
-  --color-brand-50: #edf4f0;
-  --color-brand-100: #d3e5dc;
-  --color-brand-500: #1d7358;
-  --color-brand-600: #0e5a46;
-  --color-brand-700: #0a4838;
-  --color-brand-900: #052e22;
-  --color-good-50: #fdf3ef;
-  --color-good-100: #f6d8cc;
-  --color-good-700: #b3321a;
-  --color-warn-50: #faf3df;
+  --font-sans: var(--font-noto), "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic UI", Meiryo, system-ui, sans-serif;
+  --font-serif: var(--font-noto), "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+  --color-ink: #1d2733;
+  --color-body: #3a4553;
+  --color-muted: #6b7685;
+  --color-line: #d9dfe7;
+  --color-surface: #eef2f7;
+  --color-paper: #f4f6f9;
+  --color-brand-50: #eef4fc;
+  --color-brand-100: #d6e5f8;
+  --color-brand-500: #1f6fd0;
+  --color-brand-600: #0f5fc2;
+  --color-brand-700: #0b4a9c;
+  --color-brand-900: #072a5a;
+  --color-cta-500: #f28c00;
+  --color-cta-600: #d97a00;
+  --color-good-50: #fff4f1;
+  --color-good-100: #fbd9d1;
+  --color-good-700: #d02f18;
+  --color-warn-50: #fff8e5;
   --color-warn-700: #8a5a0a;
-  --color-navy-950: #16150f;
-  --color-navy-900: #1f1e19;
-  --color-navy-800: #2a2822;
-  --color-navy-700: #3a372f;
-  --color-mint-300: #6ee7b7;
-  --color-mint-400: #34d399;
-  --color-mint-500: #10b981;
-  --color-sun-300: #fde047;
-  --shadow-card: none;
-  --shadow-lift: none;
+  --color-navy-950: #16202c;
+  --color-navy-900: #1d2733;
+  --color-navy-800: #2a3646;
+  --color-gold: #d4a017;
+  --color-silver: #8a94a3;
+  --color-bronze: #b0733c;
 }
 
 @layer base {
   html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
   body {
     @apply bg-paper font-sans text-body antialiased;
-    line-height: 1.8;
-    word-break: auto-phrase; /* 対応ブラウザでは日本語を文節単位で折り返す */
+    line-height: 1.75;
+    font-feature-settings: "palt";
+    word-break: auto-phrase;
     overflow-wrap: anywhere;
   }
   h1, h2, h3, h4 { @apply text-ink font-bold; line-height: 1.45; text-wrap: balance; }
-  h1, h2 { font-family: var(--font-serif); letter-spacing: 0.01em; }
   a { text-underline-offset: 3px; }
-  :focus-visible { outline: 3px solid var(--color-brand-500); outline-offset: 2px; border-radius: 4px; }
+  :focus-visible { outline: 3px solid var(--color-brand-500); outline-offset: 2px; border-radius: 3px; }
   dialog::backdrop { background: rgb(15 23 42 / 0.55); }
 }
 
-@utility container-page { @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8; }
-@utility section { @apply py-12 sm:py-16; }
-@utility h-section { @apply text-2xl sm:text-3xl; }
-@utility card { @apply rounded-lg border border-line bg-white; }
-@utility card-hover { @apply transition-colors duration-150 hover:border-ink; }
+@utility container-page { @apply mx-auto w-full max-w-[72rem] px-4 sm:px-6; }
+@utility section { @apply py-10 sm:py-12; }
+@utility panel { @apply rounded-md border border-line bg-white; }
+@utility card { @apply rounded-md border border-line bg-white; }
+@utility card-hover { @apply transition-colors duration-150 hover:border-brand-500; }
 @utility bg-soft { background-color: var(--color-surface); }
-@utility marker { background-image: linear-gradient(transparent 68%, rgb(214 90 56 / 0.28) 68%); }
+@utility marker { background-image: linear-gradient(transparent 62%, rgb(255 214 0 / 0.55) 62%); }
 @utility eyebrow { @apply mb-2 inline-block text-xs font-bold text-muted; }
-@utility btn { @apply inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-md px-5 py-2.5 text-sm font-bold transition-colors; }
+@utility btn { @apply inline-flex min-h-10 cursor-pointer items-center justify-center gap-2 rounded px-4 py-2 text-sm font-bold transition-colors; }
 @utility btn-primary { @apply btn bg-brand-600 text-white hover:bg-brand-700; }
+@utility btn-cta { @apply btn bg-cta-500 text-white shadow-[0_2px_0_var(--color-cta-600)] hover:bg-cta-600; }
 @utility btn-secondary { @apply btn border border-brand-600 bg-white text-brand-700 hover:bg-brand-50; }
-@utility btn-ghost { @apply btn border border-ink/30 bg-white text-ink hover:border-ink; }
-@utility input { @apply w-full rounded-md border border-slate-400 bg-white px-3.5 py-2.5 text-base text-ink placeholder:text-slate-400 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30 focus:outline-none; }
+@utility btn-ghost { @apply btn border border-line bg-white text-ink hover:border-brand-500 hover:text-brand-700; }
+@utility input { @apply w-full rounded border border-slate-400 bg-white px-3 py-2.5 text-base text-ink placeholder:text-slate-400 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30 focus:outline-none; }
 @utility label { @apply mb-1.5 block text-sm font-bold text-ink; }
-@utility tag { @apply inline-flex items-center rounded-md px-2 py-0.5 text-xs leading-6 font-bold; }
+@utility tag { @apply inline-flex items-center rounded-sm px-1.5 py-0.5 text-[11px] leading-5 font-bold; }
 @utility prose-ja {
   @apply text-base leading-8 text-body;
-  & h2 { @apply mt-10 mb-4 border-l-4 border-brand-600 pl-3 text-xl sm:text-2xl; }
-  & h3 { @apply mt-8 mb-3 text-lg; }
+  & h2 { @apply mt-10 mb-4 border-l-4 border-brand-600 bg-brand-50 py-2 pl-3 text-xl; }
+  & h3 { @apply mt-8 mb-3 border-b border-line pb-1 text-lg; }
   & p { @apply my-4; }
   & ul { @apply my-4 list-disc pl-6; }
   & ol { @apply my-4 list-decimal pl-6; }

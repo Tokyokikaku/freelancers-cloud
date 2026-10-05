@@ -62,7 +62,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
       {related.length > 0 && (
         <section className="mx-auto mt-12 max-w-6xl">
           <h2 className="mb-5 text-xl">この記事で紹介したサービス</h2>
-          <ul className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <ul className="space-y-3">
             {related.map((s) => <li key={s!.id}><ServiceCard service={s!} categories={categories} compact /></li>)}
           </ul>
         </section>

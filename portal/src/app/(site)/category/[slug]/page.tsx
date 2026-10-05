@@ -80,7 +80,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
           <Link href={`/services?category=${cat.slug}`} className="btn-ghost">条件で絞り込む</Link>
         </div>
         {ranked.length ? (
-          <ul className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <ul className="space-y-3">
             {ranked.map((s, i) => <li key={s.id}><ServiceCard service={s} categories={categories} rank={i + 1} /></li>)}
           </ul>
         ) : (

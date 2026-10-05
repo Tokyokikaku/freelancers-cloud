@@ -70,7 +70,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
 
   const ctas = (placement: string) => (
     <div className="flex flex-col gap-3 sm:flex-row">
-      <OfficialSiteLink href={service.website_url} serviceId={service.id} serviceName={service.name} placement={placement} className="btn-primary flex-1 py-3.5 text-base sm:flex-none sm:px-8">
+      <OfficialSiteLink href={service.website_url} serviceId={service.id} serviceName={service.name} placement={placement} className="btn-cta flex-1 py-3.5 text-base sm:flex-none sm:px-8">
         公式サイトを見る <Icon name="external" className="size-4" />
       </OfficialSiteLink>
       <LeadDialog
@@ -213,7 +213,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
       {related.length > 0 && (
         <section className="mt-14" aria-labelledby="related">
           <h2 id="related" className="mb-5 text-xl">同じカテゴリのサービス</h2>
-          <ul className="grid gap-4 md:grid-cols-3">
+          <ul className="space-y-3">
             {related.map((s) => <li key={s.id}><ServiceCard service={s} categories={categories} compact /></li>)}
           </ul>
         </section>

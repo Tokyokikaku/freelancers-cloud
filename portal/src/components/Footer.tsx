@@ -5,38 +5,31 @@ import { CONTACT_EMAIL, OPERATOR_NAME, SITE_NAME } from "@/lib/site";
 export async function Footer() {
   const categories = (await getCategories()).filter((c) => !c.parent_id);
   return (
-    <footer className="bg-navy-950 pb-24 pt-14 text-slate-300">
-      <div className="container-page grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
+    <footer className="mt-12 border-t border-line bg-white pb-24 pt-10">
+      <div className="container-page grid gap-8 md:grid-cols-[1.4fr_1fr_1fr]">
         <div>
-          <p className="flex items-center gap-2 text-lg font-bold text-white">
-            <span className="inline-flex size-9 items-center justify-center rounded-md bg-brand-600 font-serif text-lg" aria-hidden="true">成</span>
-            {SITE_NAME}
-          </p>
-          <p className="mt-4 text-sm leading-7">初期費用なし・リスクなしで事業を推進。成果が出たときだけ支払う「成果報酬サービス」をまとめて比較できる、検索・比較メディアです。</p>
-          <p className="mt-4 text-xs leading-6 text-slate-400">
-            掲載情報は公開情報をもとに編集部が作成しています。掲載企業との広告契約がある場合は、該当サービスに明示します。
-          </p>
+          <p className="text-xl font-black text-brand-700">{SITE_NAME}</p>
+          <p className="mt-3 text-xs leading-6">初期費用なし・リスクなしで事業を推進。成果が出たときだけ支払う「成果報酬サービス」をまとめて比較できる、比較メディアです。</p>
+          <p className="mt-3 text-xs leading-6 text-muted">掲載情報は公開情報をもとに編集部が作成しています。掲載企業との広告契約がある場合は、該当サービスに明示します。</p>
         </div>
         <div>
-          <p className="text-sm font-bold text-white">カテゴリから探す</p>
-          <ul className="mt-4 space-y-2.5 text-sm">
-            {categories.map((c) => (
-              <li key={c.id}><Link href={`/category/${c.slug}`} className="hover:text-white hover:underline">成果報酬型の{c.name}</Link></li>
-            ))}
+          <p className="border-b border-line pb-2 text-sm font-bold text-ink">カテゴリ</p>
+          <ul className="mt-3 space-y-2 text-sm">
+            {categories.map((c) => <li key={c.id}><Link href={`/category/${c.slug}`} className="hover:text-brand-700 hover:underline">成果報酬型の{c.name}</Link></li>)}
           </ul>
         </div>
         <div>
-          <p className="text-sm font-bold text-white">サイト情報</p>
-          <ul className="mt-4 space-y-2.5 text-sm">
-            <li><Link href="/services" className="hover:text-white hover:underline">サービス一覧</Link></li>
-            <li><Link href="/articles" className="hover:text-white hover:underline">記事</Link></li>
-            <li><Link href="/about" className="hover:text-white hover:underline">成果報酬ナビとは・掲載方針</Link></li>
-            <li><Link href="/privacy" className="hover:text-white hover:underline">プライバシーポリシー</Link></li>
-            <li><a href={`mailto:${CONTACT_EMAIL}`} className="hover:text-white hover:underline">お問い合わせ</a></li>
+          <p className="border-b border-line pb-2 text-sm font-bold text-ink">{SITE_NAME}について</p>
+          <ul className="mt-3 space-y-2 text-sm">
+            <li><Link href="/services" className="hover:text-brand-700 hover:underline">サービス一覧</Link></li>
+            <li><Link href="/articles" className="hover:text-brand-700 hover:underline">記事</Link></li>
+            <li><Link href="/about" className="hover:text-brand-700 hover:underline">掲載方針・ランキングの算出方法</Link></li>
+            <li><Link href="/privacy" className="hover:text-brand-700 hover:underline">プライバシーポリシー</Link></li>
+            <li><a href={`mailto:${CONTACT_EMAIL}`} className="hover:text-brand-700 hover:underline">お問い合わせ</a></li>
           </ul>
         </div>
       </div>
-      <p className="container-page mt-12 border-t border-white/10 pt-6 text-xs text-slate-500">© {new Date().getFullYear()} {OPERATOR_NAME}</p>
+      <p className="container-page mt-8 border-t border-line pt-4 text-xs text-muted">© {new Date().getFullYear()} {OPERATOR_NAME}</p>
     </footer>
   );
 }
