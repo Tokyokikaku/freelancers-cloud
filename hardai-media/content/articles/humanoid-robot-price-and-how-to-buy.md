@@ -4,6 +4,7 @@ description: 70万円台で話題のUnitree R1について、価格・サイズ�
 date: 2026-10-05
 updated: 2026-10-05
 category: 人型ロボット
+videos: [DaDsA3oEh-c|Unitree R1 紹介動画（英語）|検索結果の表記のみで投稿元は未確認]
 sources: [robotstart, humanoidpress]
 ---
 > 確認日：2026年10月5日。為替・販売条件は変動します。当サイトの編集者は実機を使用しておらず、以下は報道と解説記事の整理です。確認できなかった項目は「未確認」と書いています。

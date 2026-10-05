@@ -4,6 +4,8 @@ description: 家庭向けAIペットロボットの代表3機種について、�
 date: 2026-10-05
 updated: 2026-10-05
 category: AIペット
+videos: [Ao9wxAPvuZ0|Moflin Brand Movie（タイトル表記はCASIO）|検索結果の表記のみで投稿元は未確認, twRWEdsi1Vc|aiboの飼い方・サービス紹介|検索結果の表記のみで投稿元は未確認, AiMcT4vfbiI|LOVOT コンセプトティザームービー|検索結果の表記のみで投稿元は未確認]
+products: [Moflin, aibo, LOVOT]
 sources: [casio, sony, groovex]
 ---
 > 価格の確認日：2026年10月5日。価格・プランは変更されます。購入前に必ず各公式ページをご確認ください。当サイトの編集者は、ここで紹介する製品の実機を使用していません。以下は公式情報の整理です。

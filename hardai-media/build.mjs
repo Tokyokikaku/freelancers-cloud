@@ -29,8 +29,17 @@ function parseFrontmatter(src) {
 function affiliate(url) {
   try {
     const u = new URL(url);
-    if (cfg.amazonTag && /(^|\.)amazon\.co\.jp$/.test(u.hostname)) { u.searchParams.set('tag', cfg.amazonTag); return { href: u.toString(), sponsored: true }; }
-    if (/(^|\.)(amazon\.co\.jp|rakuten\.co\.jp|a\.r10\.to|hb\.afl\.rakuten\.co\.jp)$/.test(u.hostname)) return { href: url, sponsored: true };
+    const h = u.hostname;
+    if (/(^|\.)amazon\.co\.jp$/.test(h)) {
+      if (cfg.amazonTag) u.searchParams.set('tag', cfg.amazonTag);
+      return { href: u.toString(), sponsored: true };
+    }
+    // 楽天: ID設定後は楽天アフィリエイトの汎用リンク形式に包む（未設定の間は通常URLのまま）
+    if (/(^|\.)rakuten\.co\.jp$/.test(h) && !/^hb\.afl\./.test(h)) {
+      if (cfg.rakutenId) return { href: `https://hb.afl.rakuten.co.jp/hgc/${encodeURIComponent(cfg.rakutenId)}/?pc=${encodeURIComponent(url)}&m=${encodeURIComponent(url)}`, sponsored: true };
+      return { href: url, sponsored: true };
+    }
+    if (/(^|\.)(a\.r10\.to|hb\.afl\.rakuten\.co\.jp)$/.test(h)) return { href: url, sponsored: true };
   } catch { /* 無効なURLはそのまま */ }
   return { href: url, sponsored: false };
 }
@@ -87,6 +96,23 @@ function md(src) {
   return out;
 }
 
+
+/* ---------- 動画・商品リンク ---------- */
+const ytId = v => /^[\w-]{11}$/.test(v) ? v : null;
+const videoBlock = videos => `<section class="videos"><h2 id="videos">動画で見る</h2>
+<p class="vnote">YouTubeの動画です。再生ボタンを押すとYouTubeから読み込まれます。投稿元の確認状況は各動画の下に記載しています。内容の正確さは、この記事の出典（公式情報）を優先してください。</p>
+<div class="vgrid">${videos.map(v => {
+    const [id, title = '動画', status = '投稿元は未確認'] = v.split('|').map(x => x.trim());
+    if (!ytId(id)) throw new Error(`動画IDが不正です: ${v}`);
+    return `<figure class="video"><div class="vframe"><a href="https://www.youtube.com/watch?v=${id}" data-yt="${id}" target="_blank" rel="noopener" aria-label="${esc(title)}を再生">
+<img src="https://i.ytimg.com/vi/${id}/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="play" aria-hidden="true"></span></a></div>
+<figcaption><strong>${esc(title)}</strong><br><span>${esc(status)}　<a href="https://www.youtube.com/watch?v=${id}" target="_blank" rel="noopener nofollow">YouTubeで開く</a></span></figcaption></figure>`;
+  }).join('')}</div></section>`;
+const productBlock = names => `<section class="products"><h2 id="products">商品ページを探す</h2>
+<p class="vnote">商品名で検索した結果ページへのリンクです。取り扱いの有無・価格・在庫は各サイトでご確認ください。購入前に、この記事の出典（公式情報）もあわせてご確認ください。</p>
+<ul class="plist">${names.map(n => `<li><strong>${esc(n)}</strong><span><a href="${inlineUrl('https://www.amazon.co.jp/s?k=' + encodeURIComponent(n))}" target="_blank" rel="noopener nofollow sponsored">Amazonで検索</a><a href="${inlineUrl('https://search.rakuten.co.jp/search/mall/' + encodeURIComponent(n) + '/')}" target="_blank" rel="noopener nofollow sponsored">楽天市場で検索</a></span></li>`).join('')}</ul></section>`;
+const inlineUrl = u => esc(affiliate(u).href);
+
 /* ---------- イラスト（オリジナルのSVG。製品写真は使わない） ---------- */
 const ICONS = {
   'AIペット': `<svg viewBox="0 0 120 120" role="img" aria-label="AIペットのイラスト"><ellipse cx="60" cy="106" rx="30" ry="5" fill="#0d6e66" opacity=".15"/><path d="M30 44 22 18 46 32Z M90 44 98 18 74 32Z" fill="#0d6e66"/><ellipse cx="60" cy="68" rx="38" ry="34" fill="#fffefb" stroke="#0d6e66" stroke-width="4"/><circle cx="46" cy="64" r="6" fill="#13201e"/><circle cx="74" cy="64" r="6" fill="#13201e"/><circle cx="48" cy="62" r="2" fill="#fff"/><circle cx="76" cy="62" r="2" fill="#fff"/><path d="M54 78q6 6 12 0" fill="none" stroke="#13201e" stroke-width="3.5" stroke-linecap="round"/><ellipse cx="36" cy="76" rx="6" ry="4" fill="#e8431f" opacity=".35"/><ellipse cx="84" cy="76" rx="6" ry="4" fill="#e8431f" opacity=".35"/></svg>`,
@@ -110,6 +136,7 @@ const css = fs.readFileSync('src/style.css', 'utf8');
 const cssHash = crypto.createHash('md5').update(css).digest('hex').slice(0, 8);
 const OG = '/og.png';
 
+const YT_JS = `<script>document.addEventListener('click',function(e){var a=e.target.closest('a[data-yt]');if(!a)return;e.preventDefault();var f=document.createElement('iframe');f.src='https://www.youtube-nocookie.com/embed/'+a.dataset.yt+'?autoplay=1&rel=0';f.allow='accelerometer;autoplay;encrypted-media;picture-in-picture';f.allowFullscreen=true;f.title=a.getAttribute('aria-label')||'YouTube';a.replaceWith(f);});</script>`;
 const layout = ({ title, desc, body, url, type = 'website', ld = [], nav = '', noindex = false }) => `<!doctype html>
 <html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(title)}</title><meta name="description" content="${esc(desc)}">
@@ -132,7 +159,7 @@ ${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" hr
 <p>${esc(cfg.tagline)}。公式情報と出典をもとに整理するメディアです。当サイトはアフィリエイト広告を利用しています。詳細は<a href="/about/">運営方針・広告表示</a>をご覧ください。</p></div>
 <nav class="footer-nav" aria-label="フッター"><a href="/#articles">記事一覧</a><a href="/about/">運営方針・広告表示</a><a href="/rss.xml">RSS</a><a href="/sitemap.xml">サイトマップ</a></nav>
 </div><div class="copy">© ${new Date().getFullYear()} ${esc(NAME)}</div></div></footer>
-</body></html>`;
+${body.includes('data-yt=') ? YT_JS : ''}</body></html>`;
 
 const PR = `<div class="notice"><strong>【PR・広告表示】</strong>この記事にはアフィリエイト広告（Amazonアソシエイト、楽天アフィリエイト等）のリンクが含まれる場合があります。リンク経由で購入されると当サイトに報酬が入りますが、掲載順位・評価は報酬の有無・多寡で決めていません。</div>`;
 const ALERT_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 7v5M12 16h.01"/></svg>`;
@@ -177,6 +204,15 @@ for (const a of articles) {
     const h2 = cls === 'conclusion' ? `<h2 id="${id}"><span>CONCLUSION</span>${text}</h2>` : `<h2 id="${id}">${text}</h2>`;
     return `<section${cls ? ` class="${cls}"` : ''}>${h2}${c.slice(m[0].length)}</section>`;
   });
+  const extraTop = a.videos && a.videos.length ? videoBlock(a.videos) : '';
+  const extraBottom = a.products && a.products.length ? productBlock(a.products) : '';
+  if (extraTop) { sections.splice(Math.min(1, sections.length), 0, extraTop); toc.splice(Math.min(1, toc.length), 0, { id: 'videos', text: '動画で見る' }); }
+  if (extraBottom) {
+    const si = sections.findIndex(x => x.startsWith('<section class="sources"'));
+    sections.splice(si < 0 ? sections.length : si, 0, extraBottom);
+    const ti = toc.findIndex(t => /^出典/.test(t.text));
+    toc.splice(ti < 0 ? toc.length : ti, 0, { id: 'products', text: '商品ページを探す' });
+  }
   const prose = sections.join('\n').replace(/<h3>(【重要】)/g, '<h3 class="alert">$1');
   const tocHtml = toc.length > 1 ? `<div class="toc-box"><h2>目次</h2><ol>${toc.map(t => `<li><a href="#${t.id}">${t.text}</a></li>`).join('')}</ol></div>` : '';
   const minutes = Math.max(1, Math.ceil(a.body.replace(/\s/g, '').length / 500));
