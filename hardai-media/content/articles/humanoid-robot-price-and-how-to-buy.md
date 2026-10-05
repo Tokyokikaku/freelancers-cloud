@@ -5,7 +5,7 @@ date: 2026-10-05
 updated: 2026-10-05
 category: 人型ロボット
 videos: [v1Q4Su54iho|Unitree R1 紹介動画（Unitree Robotics）|公式チャンネル（Unitree Robotics）の投稿]
-cta: [Unitree R1|Unitree公式ページで価格を見る|https://www.unitree.com/R1|4,900ドルから（税・送料別）|開発者・教育向けのモデルです。日本での取り扱いは未確認です]
+cta: [Unitree R1|Unitree公式ページで見る|https://www.unitree.com/R1|4,900ドルから（税・送料別）|日本での取り扱いは未確認です||||Unitreeの小型ヒューマノイド。開発者・教育機関向けのエントリーモデル|高さ1230mm・約27〜29kgの小型ボディ／自由度は20〜26（EDUは26〜40）／駆動時間は約1時間。着脱式のバッテリー|ヒューマノイドの開発・学習に取り組みたい人（家庭用ではありません）]
 sources: [unitree-r1, robotstart, humanoidpress]
 ---
 > 確認日：2026年10月5日。為替・販売条件は変動します。当サイトの編集者は実機を使用しておらず、以下は公式ページと報道・解説記事の整理です。確認できなかった項目は「未確認」と書いています。

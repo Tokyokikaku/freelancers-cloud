@@ -7,7 +7,7 @@ category: 人型ロボット
 image: /images/neo-1.webp
 imageCredit: 1X Technologies|https://www.1x.tech/order
 videos: [mveqrNJj8ME|NEO The Home Robot｜Design（1X）|公式チャンネル（1X）の投稿, LTYMWadOW7c|NEO The Home Robot｜Order Today（1X）|公式チャンネル（1X）の投稿]
-cta: [1X NEO|1X公式の注文ページを見る|https://www.1x.tech/order|月額499ドル または 20,000ドル|予約金200ドル（返金可）。配送は米国で2026年開始、日本は未確認です]
+cta: [1X NEO|1X公式の注文ページを見る|https://www.1x.tech/order|月額499ドル または 20,000ドル|予約金200ドル（返金可）。配送は米国で2026年開始。日本は未確認です||米国で先行|/images/neo-1.webp|家の雑用を任せることを目指した家庭用ヒューマノイド|身長5フィート6インチ・重量66ポンド。やわらかい素材で覆い、関節に指を挟みにくい設計／声とアプリで家事の予定を指示。知らない家事は1XのExpertが遠隔で支援（予約制）／バッテリー約4時間。自分で充電する|家事の自動化に関心があり、米国での先行提供を試せる人]
 sources: [1x-order, 1x-neo]
 ---
 > 価格の確認日：2026年10月5日。価格・提供条件は変更されます。当サイトの編集者はNEOの実機を使用しておらず、以下は公式ページの整理です。日本での販売・配送は公式ページに記載がなく、**未確認**です。

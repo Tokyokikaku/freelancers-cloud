@@ -179,10 +179,10 @@ a:hover{text-decoration-thickness:2px}
 .toc h2{font:800 .7rem/1 var(--mono);letter-spacing:.18em;color:var(--mute);margin:0 0 12px;text-transform:uppercase}
 .toc ol{list-style:none;margin:0;padding:0;counter-reset:t}
 .toc li{counter-increment:t;margin:0}
-.toc a{display:flex;gap:10px;padding:7px 0;color:var(--ink-2);text-decoration:none;line-height:1.55;border-top:1px solid var(--line)}
-.toc li:first-child a{border-top:0}
-.toc a::before{content:counter(t,decimal-leading-zero);font:700 .72rem/1.9 var(--mono);color:var(--accent)}
-.toc a:hover{color:var(--accent)}
+.toc-box a{display:flex;gap:10px;padding:7px 0;color:var(--ink-2);text-decoration:none;line-height:1.55;border-top:1px solid var(--line)}
+.toc-box li:first-child a{border-top:0}
+.toc-box a::before{content:counter(t,decimal-leading-zero);font:700 .72rem/1.9 var(--mono);color:var(--accent)}
+.toc-box a:hover{color:var(--accent)}
 .toc-mobile{display:none}
 
 .related{padding-block:56px 72px;border-top:1px solid var(--line);background:var(--surface)}
@@ -338,3 +338,54 @@ a:hover{text-decoration-thickness:2px}
   .end-next{flex-wrap:wrap}
 }
 @media print{.sticky-cta,.end-cta,.side-cta{display:none}}
+
+/* ---------- 製品カード（紹介を主役に） ---------- */
+.btn-cta,.btn-cta:visited,.btn-cta:hover{color:#fff}
+@media (prefers-color-scheme:dark){.btn-cta,.btn-cta:visited,.btn-cta:hover,.nav .nav-cta{color:#2a0d05}}
+.btn-cta span{text-shadow:0 1px 0 rgba(0,0,0,.18)}
+@media (prefers-color-scheme:dark){.btn-cta span{text-shadow:none}}
+.offer-tagline{margin:2px 0 10px;font-weight:700;font-size:.98rem;line-height:1.7;color:var(--ink)}
+.offer-points{list-style:none;margin:0 0 12px;padding:0;display:grid;gap:6px}
+.offer-points li{position:relative;padding-left:26px;font-size:.88rem;line-height:1.7;color:var(--ink-2)}
+.offer-points li::before{content:"";position:absolute;left:2px;top:.45em;width:14px;height:8px;border-left:3px solid var(--accent);border-bottom:3px solid var(--accent);transform:rotate(-45deg)}
+.offer-audience{margin:0 0 12px;font-size:.86rem;line-height:1.7;color:var(--ink-2);padding:8px 12px;border-radius:10px;background:var(--accent-soft)}
+.offer-audience strong{display:block;font-size:.7rem;letter-spacing:.1em;color:var(--accent);margin-bottom:2px}
+.offer-price{margin:0;font-weight:700;font-size:.95rem;line-height:1.6;color:var(--ink);font-feature-settings:"tnum"}
+.offer-price-k{display:block;font:800 .66rem/1.6 var(--mono);letter-spacing:.12em;color:var(--mute);margin-bottom:1px}
+.offer-note{display:block;margin:2px 0 0;font-size:.78rem;font-weight:400;color:var(--mute);line-height:1.7}
+.offer-name{font-size:1.2rem}
+.offers-multi .offer-img{height:170px}
+.end-cta .offer-tagline,.end-cta .offer-name{color:#fff}
+.end-cta .offer-points li,.end-cta .offer-audience{color:#d4dfdc}
+.end-cta .offer-audience{background:#1d3029}
+.end-cta .offer-audience strong,.end-cta .offer-points li::before{color:#ff8460;border-color:#ff8460}
+.end-cta .offer-price,.end-cta .offer-price-k{color:#cfdcd8}
+.end-cta .offer-img{background:#fff}
+.offer-btns{margin-top:16px}
+
+.side-cta-img{width:100%;height:140px;object-fit:contain;background:#fff;border:1px solid var(--line);border-radius:10px;margin:2px 0 10px}
+.side-cta-tag{margin:2px 0 4px;font-size:.8rem;line-height:1.65;color:var(--ink-2)}
+.side-cta .btn-cta{color:#fff}
+.side-list{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.side-list li{display:grid;gap:8px;padding-top:12px;border-top:1px solid var(--line)}
+.side-list li:first-child{border-top:0;padding-top:0}
+.side-list-name{font-weight:800;font-size:.95rem;line-height:1.5}
+.side-list .offer-badge{margin:0;justify-self:start}
+.side-list .btn-cta{margin-top:0;padding:11px 12px;font-size:.82rem}
+@media (prefers-color-scheme:dark){.side-cta .btn-cta{color:#2a0d05}}
+
+/* 製品カードの余白・画像の修正 */
+.offer p{margin:0}
+.offer .offer-name{margin:0 0 6px}
+.offer .offer-tagline{margin:0 0 12px}
+.offer .offer-audience{margin:0 0 14px}
+.offer .offer-audience strong{background:none;display:block;font-weight:800}
+.offer .offer-price{margin:0}
+.offer .offer-note{margin:2px 0 0}
+.offer-img{width:230px;height:auto;aspect-ratio:4/3;align-self:flex-start;object-fit:contain}
+.offer-img.is-photo{object-fit:cover}
+.offers-multi .offer-img{width:100%;height:auto;aspect-ratio:4/3}
+@media (max-width:960px){.offer-img{width:100%;height:auto;aspect-ratio:16/10}}
+.side-cta .side-cta-name{margin:0}
+.side-cta .btn-cta{padding:13px 10px;font-size:.84rem;gap:8px}
+.side-cta .btn-cta span{white-space:nowrap}

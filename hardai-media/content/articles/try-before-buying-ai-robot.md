@@ -7,7 +7,7 @@ category: 購入ガイド
 image: /images/lovot-2-0.webp
 imageCredit: GROOVE X|https://lovot.life/
 videos: [AiMcT4vfbiI|LOVOT コンセプトティザームービー|公式チャンネル（LOVOT OFFICIAL）の投稿]
-cta: [LOVOT MUSEUM|MUSEUMの来館案内を見る|https://lovot.life/blog/article/qw-tn8qxh45i|1人500円（完全予約制・90分）|営業日・料金は変更される場合があります。予約前に公式で確認してください, LOVOTレンタル|レンタルの案内を見る|https://lovot.life/blog/article/rentio/|最短7泊8日から|対象機種・料金は公式ページで確認してください]
+cta: [LOVOT MUSEUM|MUSEUMの来館案内を見る|https://lovot.life/blog/article/qw-tn8qxh45i|1人500円（未就学児は無料）|営業日・料金は変更される場合があります。予約前に公式で確認してください|||/images/lovot-2-0.webp|東京・日本橋浜町にあるLOVOTの体験施設|90分の予約制。1組5名まで／月・木・金 13:00〜21:30、土日祝 10:00〜19:00（最終予約あり）／専用の部屋でLOVOTに触れ、スタッフから説明を聞ける|購入前に、実物のLOVOTに会ってみたい人, LOVOTレンタル|レンタルの案内を見る|https://lovot.life/blog/article/rentio/|最短7泊8日から|対象機種・料金は公式ページで確認してください||||購入前にLOVOTと暮らしを試せるレンタルサービス|Rentio：7泊8日のワンタイムプランと月額制プラン／LOVOTホームステイ：最短21泊22日から／レンタル後に購入すると25,000円割引クーポン|購入前に、家族やペットの反応を確かめたい人]
 sources: [groovex, rentio]
 ---
 > 確認日：2026年10月5日。料金・営業時間・対象機種は変更されます。ご利用前に各公式ページをご確認ください。当サイトの編集者は、ここで紹介するサービスを利用していません。以下は公式情報の整理です。

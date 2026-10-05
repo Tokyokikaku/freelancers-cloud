@@ -143,24 +143,33 @@ const inlineUrl = u => esc(affiliate(u).href);
 
 /* ---------- CTA ---------- */
 const parseOffers = a => (a.cta || []).map(x => {
-  const [name, label, url, price = '', note = '', shops = '', badge = '', img = ''] = x.split('|').map(v => v.trim());
+  const [name, label, url, price = '', note = '', shops = '', badge = '', img = '', tagline = '', points = '', audience = ''] = x.split('|').map(v => v.trim());
   if (!/^https?:\/\//.test(url || '')) throw new Error(`${a.slug}: cta のURLが不正です: ${x}`);
-  return { name, label, url, price, note, shops: shops === 'shops', badge, img };
+  return { name, label, url, price, note, shops: shops === 'shops', badge, img, tagline, points: points ? points.split('／').map(v => v.trim()).filter(Boolean) : [], audience };
 });
 const outLink = u => esc(affiliate(u).href);
 const shopLinks = n => `<a class="btn-sub" href="${outLink('https://www.amazon.co.jp/s?k=' + encodeURIComponent(n))}" target="_blank" rel="noopener nofollow sponsored">Amazonで探す</a><a class="btn-sub" href="${outLink('https://search.rakuten.co.jp/search/mall/' + encodeURIComponent(n) + '/')}" target="_blank" rel="noopener nofollow sponsored">楽天市場で探す</a>`;
 const ctaBtn = (o, cls = '') => `<a class="btn-cta${cls}" href="${outLink(o.url)}" target="_blank" rel="noopener nofollow" data-cta="${esc(o.name)}"><span>${esc(o.label)}</span><i class="arr" aria-hidden="true"></i></a>`;
-const offerCard = (o, img) => `<div class="offer">${img ? `<img class="offer-img" src="${esc(img)}" alt="" loading="lazy">` : ''}<div class="offer-main">
+// 製品カード：画像 → 名前 → 紹介文 → 特徴3点 → 向く人 → 価格の目安（補助）→ ボタン
+const offerCard = (o, img) => `<div class="offer">${img ? `<img class="offer-img${/moflin|go2|neo/.test(img) ? ' is-photo' : ''}" src="${esc(img)}" alt="${esc(o.name)}の画像" loading="lazy">` : ''}<div class="offer-main">
 <p class="offer-name">${esc(o.name)}${o.badge ? `<span class="offer-badge">${esc(o.badge)}</span>` : ''}</p>
-${o.price ? `<p class="offer-price">${esc(o.price)}</p>` : ''}${o.note ? `<p class="offer-note">${esc(o.note)}</p>` : ''}
+${o.tagline ? `<p class="offer-tagline">${esc(o.tagline)}</p>` : ''}
+${o.points.length ? `<ul class="offer-points">${o.points.map(p => `<li>${esc(p)}</li>`).join('')}</ul>` : ''}
+${o.audience ? `<p class="offer-audience"><strong>向いている人</strong>${esc(o.audience)}</p>` : ''}
+${o.price || o.note ? `<p class="offer-price"><span class="offer-price-k">価格の目安</span>${esc(o.price)}${o.note ? `<span class="offer-note">${esc(o.note)}</span>` : ''}</p>` : ''}
 <div class="offer-btns">${ctaBtn(o)}${o.shops ? shopLinks(o.name) : ''}</div></div></div>`;
 const CTA_FOOT = anyShops => `<p class="cta-foot">※外部サイトへ移動します。価格・在庫は変動するため、リンク先の最新情報と、この記事の確認日・出典もあわせてご確認ください。${anyShops ? 'Amazon・楽天市場のリンクは広告（アフィリエイト）を含みます。' : ''}</p>`;
-const inlineCta = (offers, img) => `<section class="cta-block" aria-label="公式サイトで確認する"><p class="cta-kicker">NEXT STEP</p><h2 class="cta-title">${offers.length > 1 ? '気になる製品は、公式サイトで最新の価格を確認' : `${esc(offers[0].name)}の最新価格を、公式サイトで確認`}</h2>
+const inlineCta = (offers, img) => `<section class="cta-block" aria-label="製品の紹介と公式サイト"><p class="cta-kicker">PRODUCT</p><h2 class="cta-title">${offers.length > 1 ? 'この記事で取り上げた製品' : `${esc(offers[0].name)}を、あらためて紹介`}</h2>
 <div class="offers${offers.length > 1 ? ' offers-multi' : ''}">${offers.map(o => offerCard(o, o.img || (offers.length === 1 ? img : ''))).join('')}</div>${CTA_FOOT(offers.some(o => o.shops))}</section>`;
-const asideCta = (o, many, target = '#cta-inline') => `<div class="side-cta"><p class="side-cta-kicker">公式サイトで確認</p><p class="side-cta-name">${esc(many ? '気になる製品' : o.name)}</p>${!many && o.price ? `<p class="side-cta-price">${esc(o.price)}</p>` : ''}${many ? `<a class="btn-cta btn-block" href="${target}"><span>公式リンクを見る</span><i class="arr" aria-hidden="true"></i></a>` : ctaBtn(o, ' btn-block')}<p class="side-cta-note">外部サイトへ移動します</p></div>`;
-const stickyCta = (o, many, target = '#cta-inline') => `<div class="sticky-cta" id="sticky-cta" aria-hidden="true"><div class="sticky-cta-in"><div class="sticky-cta-text"><strong>${esc(many ? 'ハードAIナビ' : o.name)}</strong><span>${esc(many ? '公式サイトで最新価格を確認' : (o.price || '公式サイトで確認'))}</span></div>${many ? `<a class="btn-cta btn-sm" href="${target}"><span>リンクを見る</span><i class="arr" aria-hidden="true"></i></a>` : ctaBtn(o, ' btn-sm')}</div></div>`;
-const endCta = (offers, img, next) => `<section class="end-cta" id="end-cta"><div class="wrap"><p class="cta-kicker">BEFORE YOU BUY</p><h2>購入を決める前に、<wbr>最新の価格と在庫を公式で確認</h2>
-<p class="end-lead">価格・プラン・在庫は予告なく変わります。この記事の確認日は記事冒頭に記載しています。</p>
+// PC右側：1製品なら紹介つきのボタン、複数なら製品ごとに行を分けて、どの製品に飛ぶかを明示する
+const asideCta = (offers, img) => offers.length === 1
+  ? `<div class="side-cta"><p class="side-cta-kicker">この製品を見る</p>${img ? `<img class="side-cta-img" src="${esc(img)}" alt="" loading="lazy">` : ''}<p class="side-cta-name">${esc(offers[0].name)}</p>${offers[0].tagline ? `<p class="side-cta-tag">${esc(offers[0].tagline)}</p>` : ''}${ctaBtn(offers[0], ' btn-block')}<p class="side-cta-note">外部サイトへ移動します</p></div>`
+  : `<div class="side-cta"><p class="side-cta-kicker">製品の公式ページ</p><ul class="side-list">${offers.map(o => `<li><span class="side-list-name">${esc(o.name)}</span>${o.badge ? `<span class="offer-badge">${esc(o.badge)}</span>` : ''}<a class="btn-cta btn-sm btn-block" href="${outLink(o.url)}" target="_blank" rel="noopener nofollow"><span>${esc(o.label)}</span><i class="arr" aria-hidden="true"></i></a></li>`).join('')}</ul><p class="side-cta-note">外部サイトへ移動します</p></div>`;
+const stickyCta = (offers, target) => offers.length === 1
+  ? `<div class="sticky-cta" id="sticky-cta" aria-hidden="true"><div class="sticky-cta-in"><div class="sticky-cta-text"><strong>${esc(offers[0].name)}</strong><span>${esc(offers[0].tagline || '公式サイトで確認')}</span></div>${ctaBtn(offers[0], ' btn-sm')}</div></div>`
+  : `<div class="sticky-cta" id="sticky-cta" aria-hidden="true"><div class="sticky-cta-in"><div class="sticky-cta-text"><strong>${offers.length}製品の公式ページ</strong><span>${esc(offers.map(o => o.name).join('・'))}</span></div><a class="btn-cta btn-sm" href="${target}"><span>製品を選ぶ</span><i class="arr" aria-hidden="true"></i></a></div></div>`;
+const endCta = (offers, img, next) => `<section class="end-cta" id="end-cta"><div class="wrap"><p class="cta-kicker">BEFORE YOU BUY</p><h2>気になったら、<wbr>公式サイトで詳細と最新情報を確認</h2>
+<p class="end-lead">製品の仕様・価格・在庫は予告なく変わります。この記事の確認日は記事冒頭に記載しています。</p>
 <div class="offers${offers.length > 1 ? ' offers-multi' : ''} offers-dark">${offers.map(o => offerCard(o, o.img || (offers.length === 1 ? img : ''))).join('')}</div>${CTA_FOOT(offers.some(o => o.shops))}
 ${next ? `<a class="end-next" href="/articles/${next.slug}/"><span class="end-next-k">次に読む</span><span class="end-next-t">${esc(next.title)}</span><i class="arr" aria-hidden="true"></i></a>` : ''}</div></section>`;
 const STICKY_JS = `<script>(function(){var b=document.getElementById('sticky-cta');if(!b)return;var e=document.getElementById('end-cta'),i=document.getElementById('cta-inline'),ve=false,vi=false;function u(){var s=window.scrollY>480&&!ve&&!vi;b.classList.toggle('on',s);b.setAttribute('aria-hidden',s?'false':'true')}addEventListener('scroll',u,{passive:true});if('IntersectionObserver'in window){var o=new IntersectionObserver(function(x){x.forEach(function(t){if(t.target===e)ve=t.isIntersecting;if(t.target===i)vi=t.isIntersecting});u()});e&&o.observe(e);i&&o.observe(i)}u()})();</script>`;
@@ -297,8 +306,8 @@ for (const a of articles) {
 <div class="meta"><span>公開 <time datetime="${a.date}">${fmtDate(a.date)}</time></span><span>最終更新 <time datetime="${a.updated}">${fmtDate(a.updated)}</time></span><span>読了目安 約${minutes}分</span></div>
 ${PR}${verify}</header>
 <div class="article-grid"><article class="prose">${tocHtml ? `<details class="toc-mobile"><summary>目次を開く</summary>${tocHtml}</details>` : ''}${prose}</article>
-<aside class="toc" aria-label="目次">${offers.length ? asideCta(offers[0], many, a.ctaMode === 'inline' ? '#end-cta' : '#cta-inline') : ''}${tocHtml}</aside></div></div>
-${offers.length ? endCta(offers, a.image, nextArticle(a)) : ''}${offers.length ? stickyCta(offers[0], many, a.ctaMode === 'inline' ? '#end-cta' : '#cta-inline') : ''}
+<aside class="toc" aria-label="目次">${offers.length ? asideCta(offers, a.image) : ''}${tocHtml}</aside></div></div>
+${offers.length ? endCta(offers, a.image, nextArticle(a)) : ''}${offers.length ? stickyCta(offers, '#end-cta') : ''}
 ${others.length ? `<section class="related"><div class="wrap"><div class="section-head"><div><p class="kicker">Related</p><h2>あわせて読みたい</h2></div></div><div class="cards">${others.map(o => card(o)).join('')}</div></div></section>` : ''}`
   }));
 }
@@ -318,7 +327,7 @@ write('index.html', layout({
 <div class="section-head"><div><p class="kicker">Find Yours</p><h2>目的から選ぶ</h2></div><p>気になる項目から、該当する記事へ</p></div>
 <div class="pick-grid">
 <a class="pick-card" href="/articles/ai-pet-robot-3year-cost/"><span class="pick-q">まず安く試したい</span><span class="pick-a">3年間の試算で、Moflinは約8万円・Qooboは本体のみ17,600円</span><span class="pick-go">費用を比べる<i class="arr" aria-hidden="true"></i></span></a>
-<a class="pick-card" href="/articles/aibo-guide/"><span class="pick-q">犬型で動き回る相手がいい</span><span class="pick-a">aiboは本体272,800円〜＋必須のベーシックプラン</span><span class="pick-go">aiboの費用を見る<i class="arr" aria-hidden="true"></i></span></a>
+<a class="pick-card" href="/articles/aibo-guide/"><span class="pick-q">犬型ロボットが気になる</span><span class="pick-a">aiboは2026年6月に国内の新規販売終了が発表。特徴と既存サービスを整理</span><span class="pick-go">aiboの現状を見る<i class="arr" aria-hidden="true"></i></span></a>
 <a class="pick-card" href="/articles/lovot-guide/"><span class="pick-q">長く一緒に暮らしたい</span><span class="pick-a">LOVOT 3.0は10月26日に値上げ予定。現行価格は10月25日まで</span><span class="pick-go">LOVOTの費用を見る<i class="arr" aria-hidden="true"></i></span></a>
 <a class="pick-card" href="/articles/1x-neo-home-humanoid/"><span class="pick-q">家事を任せたい</span><span class="pick-a">1X NEOは月額499ドルまたは20,000ドル。米国で先行提供</span><span class="pick-go">NEOの条件を見る<i class="arr" aria-hidden="true"></i></span></a>
 <a class="pick-card" href="/articles/humanoid-robot-price-and-how-to-buy/"><span class="pick-q">開発・学習用に触りたい</span><span class="pick-a">Unitree R1は4,900ドルから、Go2は1,600ドルから</span><span class="pick-go">R1の条件を見る<i class="arr" aria-hidden="true"></i></span></a>
