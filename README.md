@@ -11,6 +11,7 @@
 │   ├── styles.css
 │   ├── main.js              # スマホ・タブレット用メニューの開閉のみ
 │   └── assets/              # 画像
+├── api/                     # サーバレス関数（/slide 用）
 ├── vercel.json              # Vercel設定（出力先・キャッシュ・セキュリティヘッダー）
 └── README.md
 ```
@@ -35,6 +36,37 @@ Vercel CLI を使う場合は `npx vercel dev` でも確認できます。
    - Output Directory: `public`（`vercel.json` で指定済み）
 
 以降は `main` ブランチへの push で本番、それ以外のブランチ／PR はプレビュー環境に自動デプロイされます。
+
+## コンサルスライドメーカー（`/slide`）
+
+素材（打合せの文字起こしなど）を貼ると、AIが「設計図 → HTMLスライド」の順にスライドを作る社内向けツールです。プロンプトは、うちた（[@uchita_success](https://x.com/uchita_success)）さんの記事 [うちた式コンサルスライドメーカー](https://note.com/uchita_success/n/na5babdc58b0e) で無料公開されているものを、そのまま `api/_prompt.js` に入れています（記事のフォーム項目だけ画面の入力欄に置き換え）。
+
+```
+api/generate.js      # Claude API を呼ぶ Vercel サーバレス関数（ストリーミング）
+api/_prompt.js       # 記事のプロンプト＋この画面向けの運用ルール
+public/slide/        # 画面（index.html / app.js / style.css）
+```
+
+### 使い方
+
+1. 素材を貼って「設計図を作る」。ヘッド（見出し）を縦に読んで筋が通るか確認する
+2. 直したいときは「修正指示」に書いて「設計図を直す」。質問が返ってきたら回答もここに書く
+3. OKなら「この設計図でHTMLを作る」。プレビュー、HTML保存、PDF（印刷）ができる
+
+pptx出力は未対応です（記事ではコードを実行できるAIでpython-pptxを使う方式）。HTMLを保存して、そのまま使うか、Claude Code などに渡して変換してください。
+
+### 環境変数（Vercel の Settings → Environment Variables）
+
+| 名前 | 必須 | 内容 |
+| --- | --- | --- |
+| `ANTHROPIC_API_KEY` | はい | Claude API のキー |
+| `ACCESS_CODE` | はい | 画面で入力する合言葉。未設定だとAPIは動きません（APIキーの不正利用を防ぐため） |
+| `ANTHROPIC_MODEL` | いいえ | 既定は `claude-sonnet-5-5` |
+| `MAX_OUTPUT_TOKENS` | いいえ | 既定は `32000` |
+
+ローカルで試すときは `npx vercel dev`（`.env` に上記を書く。`.env` は git 管理外）。HTML生成は長時間かかるため、`vercel.json` で関数の最長実行時間を300秒にしています（プランによっては上限が下がります）。
+
+文字起こしには先方の情報が入ります。AIに渡してよい範囲は、会社のルールと契約に従ってください。
 
 ## レスポンシブ対応
 

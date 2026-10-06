@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>コンサルスライドメーカー</title>
+  <link rel="stylesheet" href="/slide/style.css">
+</head>
+<body>
+  <header class="top">
+    <h1>コンサルスライドメーカー</h1>
+    <p>素材を貼ると、設計図 → HTMLスライドの順に作ります。まず設計図で止まるので、ヘッドを縦に読んで確認してから進めてください。</p>
+  </header>
+
+  <main class="layout">
+    <section class="panel" aria-label="入力">
+      <form id="form" autocomplete="off">
+        <label class="field">
+          <span>アクセスコード</span>
+          <input type="password" id="code" placeholder="管理者から共有されたコード" required>
+        </label>
+
+        <label class="field">
+          <span>背景（この資料を誰に見せ、何を決めさせたいか）</span>
+          <textarea id="background" rows="2" placeholder="例：先方の部長が社内上申に使う。導入の可否を決めてもらう"></textarea>
+        </label>
+
+        <div class="row">
+          <label class="field">
+            <span>読み手</span>
+            <select id="reader">
+              <option value="">おまかせ</option>
+              <option>経営層</option>
+              <option>実務者</option>
+              <option>一般読者</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>枚数</span>
+            <input type="text" id="pages" placeholder="例：3〜4枚">
+          </label>
+          <label class="field">
+            <span>ブランド色</span>
+            <input type="text" id="brand" placeholder="例：#1976D2">
+          </label>
+        </div>
+
+        <label class="check">
+          <input type="checkbox" id="icons">
+          <span>アイコンを入れる（主体のあるページだけ。Material Symbols）</span>
+        </label>
+
+        <label class="field">
+          <span>素材（伝えたいこと・事実・数字・出所。打合せの文字起こしは整形せずそのまま）</span>
+          <textarea id="material" rows="14" required placeholder="ここに貼り付け。数字は出所つきで。無い数字は「xx」のまま残ります。"></textarea>
+        </label>
+
+        <button type="submit" id="start" class="primary">設計図を作る</button>
+        <p class="note">文字起こしには先方の情報が入ります。AIに渡してよい範囲は、会社のルールと契約に従ってください。</p>
+      </form>
+    </section>
+
+    <section class="panel out" aria-label="出力">
+      <div class="tabs" role="tablist">
+        <button type="button" role="tab" id="tab-design" aria-selected="true" data-tab="design">設計図</button>
+        <button type="button" role="tab" id="tab-slides" aria-selected="false" data-tab="slides" disabled>HTMLスライド</button>
+        <span id="status" class="status" role="status" aria-live="polite"></span>
+      </div>
+
+      <div id="view-design" class="view">
+        <div id="empty" class="empty">左に素材を入れて「設計図を作る」を押してください。</div>
+        <article id="design" class="md" hidden></article>
+        <div id="design-actions" class="actions" hidden>
+          <label class="field grow">
+            <span>修正指示（任意）</span>
+            <textarea id="feedback" rows="2" placeholder="例：③の費用ページを外す。ヘッド②をもっと断定的に。質問への回答もここに"></textarea>
+          </label>
+          <div class="buttons">
+            <button type="button" id="revise" class="secondary">設計図を直す</button>
+            <button type="button" id="to-html" class="primary">この設計図でHTMLを作る</button>
+            <button type="button" id="copy-design" class="ghost">設計図をコピー</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="view-slides" class="view" hidden>
+        <div class="actions bar">
+          <button type="button" id="dl-html" class="secondary">HTMLを保存</button>
+          <button type="button" id="print" class="secondary">PDFにする（印刷）</button>
+          <button type="button" id="back" class="ghost">設計図に戻って直す</button>
+        </div>
+        <iframe id="frame" title="スライドのプレビュー" sandbox="allow-scripts allow-modals"></iframe>
+      </div>
+
+      <pre id="raw" class="raw" hidden></pre>
+    </section>
+  </main>
+
+  <footer class="foot">
+    プロンプト：<a href="https://note.com/uchita_success/n/na5babdc58b0e" target="_blank" rel="noopener">うちた式コンサルスライドメーカー</a>（うちた / @uchita_success 作）をもとにしています。
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js"></script>
+  <script src="/slide/app.js"></script>
+</body>
+</html>
