@@ -5,7 +5,6 @@ import { BulkRequestBar } from "@/components/BulkRequestBar";
 import { FaqList } from "@/components/FaqList";
 import { Icon } from "@/components/Icon";
 import { JsonLd } from "@/components/JsonLd";
-import { SearchBox } from "@/components/SearchBox";
 import { SectionHead } from "@/components/SectionHead";
 import { ServiceCard } from "@/components/ServiceCard";
 import { FAQ } from "@/lib/content";
@@ -48,7 +47,6 @@ export default async function HomePage() {
   const topCategories = categories.filter((c) => !c.parent_id);
   const childrenOf = (id: string) => categories.filter((c) => c.parent_id === id).sort((a, b) => a.sort_order - b.sort_order);
   const catName = (id: string | null) => categories.find((c) => c.id === id)?.name;
-  const outcomes: [string, string][] = [["再生数", "再生数"], ["フォロワー数", "フォロワー"], ["問い合わせ数", "問い合わせ"], ["アポ数", "アポ"], ["採用・入社", "採用"], ["検索順位", "順位"], ["採択", "補助金"], ["売上", "売上"]];
   const categoryCount = categories.filter((c) => servicesInCategory(services, categories, c.id).length > 0).length;
 
   return (
@@ -65,17 +63,10 @@ export default async function HomePage() {
             <p className="mt-5 max-w-xl text-sm leading-7 text-brand-100 sm:text-base sm:leading-8">
               再生数・問い合わせ数・アポ数・採用数に応じて課金される<b className="text-white">{services.length}サービス</b>を、月額の固定費なしで比較。成果が出るかわからない段階で、毎月の固定費を払い続ける必要はありません。
             </p>
-            <div className="mt-6 max-w-2xl">
-              <SearchBox size="lg" id="hero-search" placeholder="例：営業代行、広告運用、SEO、人材紹介" />
-              <div className="mt-4">
-                <p className="text-xs font-bold text-brand-100 sm:text-sm">何の実績に払うかで探す</p>
-                <ul className="mt-2 flex flex-wrap gap-2 text-sm">
-                  {outcomes.map(([label, q]) => (
-                    <li key={label}><Link href={`/services?q=${encodeURIComponent(q)}`} className="inline-flex min-h-9 items-center rounded-sm border border-white/30 bg-white/5 px-3 font-bold text-white hover:bg-white hover:text-brand-700">{label}</Link></li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+            <p className="mt-7 flex flex-wrap gap-3">
+              <Link href="#all-categories" className="btn btn-cta min-h-12 px-6 text-base">カテゴリから探す</Link>
+              <Link href="/services" className="btn min-h-12 border border-white/40 px-6 text-base text-white hover:bg-white hover:text-brand-700">サービス一覧を見る</Link>
+            </p>
             <ul className="mt-8 flex items-center gap-4 sm:gap-6" aria-label="掲載の規模">
               {[[services.length, "件", "掲載サービス"], [categoryCount, "種", "カテゴリ"]].map(([n, u, l]) => (
                 <li key={l as string} className="flex size-[6.5rem] shrink-0 flex-col items-center justify-center rounded-full bg-gold text-navy-950 ring-4 ring-gold/30 ring-offset-2 ring-offset-brand-900 sm:size-28">
@@ -83,7 +74,6 @@ export default async function HomePage() {
                   <span className="mt-1 leading-none"><b className="text-[2rem] font-black sm:text-4xl">{n}</b><span className="text-xs font-bold sm:text-sm">{u}</span></span>
                 </li>
               ))}
-              <li className="text-xs leading-6 text-brand-100 sm:text-sm">公式サイトの料金ページで<br />確認できたサービスだけを掲載</li>
             </ul>
           </div>
 
@@ -119,11 +109,6 @@ export default async function HomePage() {
                 <Link href="/services" className="bg-white px-3 py-3 text-brand-700 hover:bg-brand-50">すべて見る</Link>
               </div>
             </div>
-            <ul className="mt-4 grid grid-cols-3 gap-2 text-center text-[11px] font-bold text-brand-100 sm:text-xs">
-              <li className="rounded-sm border border-white/20 px-2 py-2">固定費を<br />かけない</li>
-              <li className="rounded-sm border border-white/20 px-2 py-2">実績に応じて<br />支払う</li>
-              <li className="rounded-sm border border-white/20 px-2 py-2">まとめて<br />資料請求</li>
-            </ul>
           </aside>
         </div>
       </section>
