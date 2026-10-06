@@ -48,7 +48,8 @@ export default async function HomePage() {
   const topCategories = categories.filter((c) => !c.parent_id);
   const childrenOf = (id: string) => categories.filter((c) => c.parent_id === id).sort((a, b) => a.sort_order - b.sort_order);
   const catName = (id: string | null) => categories.find((c) => c.id === id)?.name;
-  const keywords = ["営業代行", "テレアポ", "広告運用", "SEO", "人材紹介", "採用代行", "補助金"];
+  const outcomes: [string, string][] = [["再生数", "再生数"], ["フォロワー数", "フォロワー"], ["問い合わせ数", "問い合わせ"], ["アポ数", "アポ"], ["採用・入社", "採用"], ["検索順位", "順位"], ["採択", "補助金"], ["売上", "売上"]];
+  const categoryCount = categories.filter((c) => servicesInCategory(services, categories, c.id).length > 0).length;
 
   return (
     <>
@@ -57,27 +58,33 @@ export default async function HomePage() {
         <div aria-hidden className="pointer-events-none absolute inset-y-0 right-0 hidden w-1/2 bg-[repeating-linear-gradient(135deg,rgb(255_255_255/0.04)_0_2px,transparent_2px_14px)] lg:block" />
         <div className="container-page relative grid grid-cols-[minmax(0,1fr)] gap-8 py-8 sm:py-12 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] lg:gap-12 lg:py-14">
           <div>
-            <p className="inline-flex items-center gap-2 rounded-sm bg-white/10 px-3 py-1 text-xs font-bold tracking-wide text-brand-100 sm:text-sm">
-              <span className="size-1.5 rounded-full bg-cta-500" />成果報酬サービス比較メディア
-            </p>
-            <h1 className="mt-4 text-[2rem] font-black leading-[1.25] text-white sm:text-5xl sm:leading-[1.2]">
-              <span className="text-cta-500">初期費用なし</span>、<br className="hidden sm:block" />リスクなしで<wbr />事業を推進。
+            <p className="text-sm font-bold tracking-wide text-cta-500 sm:text-base">初期費用なし・リスクなしで事業を推進</p>
+            <h1 className="mt-3 text-[2.1rem] font-black leading-[1.2] text-white sm:text-[3.4rem] sm:leading-[1.15]">
+              払うのは、<br />実績が出た<wbr />分だけ。
             </h1>
-            <p className="mt-4 max-w-xl text-sm leading-7 text-brand-100 sm:text-base sm:leading-8">
-              再生数・問い合わせ数・アポ数・採用数など、<b className="text-white">実績に応じて支払う</b>サービスだけを集めました。月額の固定費なしで、営業・マーケティング・採用・資金調達までまとめて比較できます。
+            <p className="mt-5 max-w-xl text-sm leading-7 text-brand-100 sm:text-base sm:leading-8">
+              再生数・問い合わせ数・アポ数・採用数に応じて課金される<b className="text-white">{services.length}サービス</b>を、月額の固定費なしで比較。成果が出るかわからない段階で、毎月の固定費を払い続ける必要はありません。
             </p>
             <div className="mt-6 max-w-2xl">
               <SearchBox size="lg" id="hero-search" placeholder="例：営業代行、広告運用、SEO、人材紹介" />
-              <p className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-2 text-sm">
-                <span className="font-bold text-brand-100">人気のキーワード</span>
-                {keywords.map((k) => <Link key={k} href={`/services?q=${encodeURIComponent(k)}`} className="rounded-full border border-white/30 px-3 py-1 text-white hover:bg-white hover:text-brand-700">{k}</Link>)}
-              </p>
+              <div className="mt-4">
+                <p className="text-xs font-bold text-brand-100 sm:text-sm">何の実績に払うかで探す</p>
+                <ul className="mt-2 flex flex-wrap gap-2 text-sm">
+                  {outcomes.map(([label, q]) => (
+                    <li key={label}><Link href={`/services?q=${encodeURIComponent(q)}`} className="inline-flex min-h-9 items-center rounded-sm border border-white/30 bg-white/5 px-3 font-bold text-white hover:bg-white hover:text-brand-700">{label}</Link></li>
+                  ))}
+                </ul>
+              </div>
             </div>
-            <dl className="mt-8 grid max-w-xl grid-cols-3 divide-x divide-white/20 border-y border-white/20 py-4 text-center">
-              <div className="px-2"><dt className="text-[11px] text-brand-100 sm:text-xs">掲載サービス</dt><dd className="mt-1 font-black"><span className="text-3xl sm:text-4xl">{services.length}</span><span className="ml-0.5 text-xs sm:text-sm">件</span></dd></div>
-              <div className="px-2"><dt className="text-[11px] text-brand-100 sm:text-xs">完全成果報酬</dt><dd className="mt-1 font-black"><span className="text-3xl text-cta-500 sm:text-4xl">{fullSuccess.length}</span><span className="ml-0.5 text-xs sm:text-sm">件</span></dd></div>
-              <div className="px-2"><dt className="text-[11px] text-brand-100 sm:text-xs">カテゴリ</dt><dd className="mt-1 font-black"><span className="text-3xl sm:text-4xl">{categories.filter((c) => servicesInCategory(services, categories, c.id).length > 0).length}</span><span className="ml-0.5 text-xs sm:text-sm">種</span></dd></div>
-            </dl>
+            <ul className="mt-8 flex items-center gap-4 sm:gap-6" aria-label="掲載の規模">
+              {[[services.length, "件", "掲載サービス"], [categoryCount, "種", "カテゴリ"]].map(([n, u, l]) => (
+                <li key={l as string} className="flex size-[6.5rem] shrink-0 flex-col items-center justify-center rounded-full bg-gold text-navy-950 ring-4 ring-gold/30 ring-offset-2 ring-offset-brand-900 sm:size-28">
+                  <span className="text-[11px] font-bold leading-none sm:text-xs">{l}</span>
+                  <span className="mt-1 leading-none"><b className="text-[2rem] font-black sm:text-4xl">{n}</b><span className="text-xs font-bold sm:text-sm">{u}</span></span>
+                </li>
+              ))}
+              <li className="text-xs leading-6 text-brand-100 sm:text-sm">公式サイトの料金ページで<br />確認できたサービスだけを掲載</li>
+            </ul>
           </div>
 
           <aside aria-label="注目のサービス" className="self-center">
@@ -108,7 +115,7 @@ export default async function HomePage() {
                 ))}
               </ol>
               <div className="grid grid-cols-2 gap-px border-t border-line bg-line text-center text-sm font-bold">
-                <Link href="/services?full=1" className="bg-white px-3 py-3 text-brand-700 hover:bg-brand-50">完全成果報酬 {fullSuccess.length}件</Link>
+                <Link href="/services?full=1" className="bg-white px-3 py-3 text-brand-700 hover:bg-brand-50">完全成果報酬のサービス</Link>
                 <Link href="/services" className="bg-white px-3 py-3 text-brand-700 hover:bg-brand-50">すべて見る</Link>
               </div>
             </div>
