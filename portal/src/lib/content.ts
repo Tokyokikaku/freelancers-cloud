@@ -1,8 +1,8 @@
 import { SITE_NAME } from "./site";
 
 export const VALUE_PROPS = [
-  { icon: "shield", title: "固定費を抑えられる", body: "成果が出るまで料金が発生しないサービスを探せます。" },
-  { icon: "compare", title: "複数サービスを比較できる", body: "成果地点・料金体系・特徴を横並びで比較できます。" },
+  { icon: "shield", title: "固定費を抑えられる", body: "必須の月額固定費がなく、実績に応じて支払うサービスを探せます。" },
+  { icon: "compare", title: "複数サービスを比較できる", body: "何を成果として課金するか・料金体系・特徴を横並びで比較できます。" },
   { icon: "layers", title: "幅広いカテゴリから探せる", body: "営業、採用、マーケティングなど、さまざまな成果報酬サービスを横断して検索できます。" },
 ] as const;
 

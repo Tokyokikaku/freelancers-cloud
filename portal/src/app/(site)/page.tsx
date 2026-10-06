@@ -21,7 +21,7 @@ export const revalidate = 300;
 export const metadata: Metadata = buildMetadata({ title: SITE_TITLE, titleAbsolute: true, description: SITE_DESCRIPTION, path: "/" });
 
 const FIXED_FEE_RISKS = [
-  ["成果が出なくても、費用は出ていく", "固定費は「稼働」への支払いです。成果が出なくても請求額は変わらず、成果が出ないリスクはすべて発注側が負います。"],
+  ["成果が出なくても、毎月の費用は出ていく", "固定費は「稼働」への支払いです。成果が出なくても請求額は変わらず、成果が出ないリスクはすべて発注側が負います。"],
   ["費用が先に出て、資金繰りを圧迫する", "初期費用と月額費用は成果が出る前から発生します。成果が出るまでが長いほど、先行して出ていく金額は膨らみます。"],
   ["最低契約期間で、やめどきを失う", "3か月・6か月といった最低契約期間があると、成果が見えなくても支払いは続きます。"],
   ["受託側と、成果に向かう動機がずれる", "稼働に対して報酬が支払われる構造では、受託側の売上は成果と直接つながりません。"],
@@ -34,7 +34,7 @@ const CONFIDENCE = [
 ] as const;
 
 const CHECKS = [
-  ["何が「成果」か", "アポイント獲得か、商談実施か、成約か。成果の定義で、支払う時期も金額も変わります。"],
+  ["何が「成果」か", "再生数や問い合わせ数か、アポ獲得か、成約か。何を数えて課金するかで、支払う時期も金額も変わります。売上に連動しない成果もあります。"],
   ["「0円」に条件がないか", "予算が一定額以上なら初期費用無料など、条件付きの場合があります。"],
   ["単価・手数料・上限", "成果報酬の単価のほか、管理費、最低金額、返金条件も比べましょう。"],
 ] as const;
@@ -65,7 +65,7 @@ export default async function HomePage() {
             <h1 className="text-[1.65rem] font-black leading-snug sm:text-4xl sm:leading-tight">
               <span className="marker">初期費用なし</span>、リスクなしで<wbr />事業を推進。
             </h1>
-            <p className="mt-3 text-sm leading-7 sm:text-base">成果が出たときだけ支払う「成果報酬サービス」を、営業・マーケティング・採用・資金調達からまとめて比較できます。</p>
+            <p className="mt-3 text-sm leading-7 sm:text-base">再生数・問い合わせ数・アポ数・採用数など、実績に応じて支払う「成果報酬サービス」を、営業・マーケティング・採用・資金調達からまとめて比較できます。月額の固定費はかかりません。</p>
             <div className="mt-4 max-w-2xl">
               <SearchBox size="lg" id="hero-search" placeholder="例：営業代行、広告運用、SEO、人材紹介" />
               <p className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-sm">
@@ -92,7 +92,7 @@ export default async function HomePage() {
       {/* ───── 全カテゴリ ───── */}
       <section className="border-b border-line bg-white py-8 sm:py-10" aria-labelledby="all-categories">
         <div className="container-page">
-          <SectionHead title={<span id="all-categories">カテゴリから探す</span>} lead="成果報酬で依頼できるサービスを、カテゴリ別に探せます。" href="/services" hrefLabel="サービス一覧" />
+          <SectionHead title={<span id="all-categories">カテゴリから探す</span>} lead="実績に応じた課金で依頼できるサービスを、カテゴリ別に探せます。" href="/services" hrefLabel="サービス一覧" />
           <ul className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {topCategories.map((c) => (
               <li key={c.id} className="panel overflow-hidden">
@@ -145,7 +145,7 @@ export default async function HomePage() {
 
           {/* 固定費のリスク / 成果報酬の自信 */}
           <section aria-labelledby="risk">
-            <SectionHead title={<span id="risk">固定費で外注することの、リスク</span>} lead="月額の固定費で頼むと、成果が出る前から支払いが始まります。" href="/articles/fixed-fee-outsourcing-risks" hrefLabel="詳しく読む" />
+            <SectionHead title={<span id="risk">固定費で外注することの、リスク</span>} lead="月額の固定費で頼むと、再生数・問い合わせ数などの実績が出る前から支払いが始まります。" href="/articles/fixed-fee-outsourcing-risks" hrefLabel="詳しく読む" />
             <div className="panel p-4 sm:p-5">
               <ol className="grid gap-px bg-line sm:grid-cols-2">
                 {FIXED_FEE_RISKS.map(([t, b], i) => (
@@ -162,7 +162,7 @@ export default async function HomePage() {
           <section aria-labelledby="confidence">
             <SectionHead title={<span id="confidence">成果報酬で提供できるのは、サービスに自信があるから</span>} href="/articles/why-performance-based-services-are-confident" hrefLabel="見極めのポイント" />
             <div className="panel p-4 sm:p-5">
-              <p className="text-sm leading-8 sm:text-base">成果が出なければ、報酬は受け取れない。提供する側にとって、成果報酬は決して楽な料金体系ではありません。それでも成果報酬で引き受けるのは、<b className="text-ink">成果を出せる自信と、それを支えるノウハウがある</b>からです。</p>
+              <p className="text-sm leading-8 sm:text-base">再生数・問い合わせ数・アポ数といった実績が出なければ、報酬は受け取れない。提供する側にとって、成果報酬は決して楽な料金体系ではありません。それでも成果報酬で引き受けるのは、<b className="text-ink">成果を出せる自信と、それを支えるノウハウがある</b>からです。</p>
               <ul className="mt-4 grid gap-px bg-line sm:grid-cols-3">
                 {CONFIDENCE.map(([t, b]) => (
                   <li key={t} className="bg-white p-4"><p className="font-bold text-ink">{t}</p><p className="mt-2 text-sm leading-7">{b}</p></li>
@@ -174,7 +174,7 @@ export default async function HomePage() {
 
           {/* 完全成果報酬 */}
           <section aria-labelledby="full">
-            <SectionHead title={<span id="full">完全成果報酬サービス</span>} lead="固定費・月額費用がなく、成果発生時のみ費用が発生するサービス。初期費用・月額費用の両方が0円と確認できたものだけを掲載しています。" href="/services?full=1" hrefLabel="完全成果報酬をすべて見る" />
+            <SectionHead title={<span id="full">完全成果報酬サービス</span>} lead="固定費・月額費用がなく、実績の発生に応じてのみ費用が発生するサービス。初期費用・月額費用の両方が0円と確認できたものだけを掲載しています。" href="/services?full=1" hrefLabel="完全成果報酬をすべて見る" />
             {fullSuccess.length ? (
               <ul className="space-y-3">{fullSuccess.slice(0, 3).map((s) => <li key={s.id}><ServiceCard service={s} categories={categories} /></li>)}</ul>
             ) : <p className="panel p-8 text-center text-sm text-muted">現在、掲載準備中です。</p>}

@@ -11,7 +11,7 @@ export async function Header() {
     <header className="sticky top-0 z-30 bg-white shadow-[0_1px_0_var(--color-line)]">
       <div className="hidden bg-navy-900 text-[11px] text-slate-300 md:block">
         <div className="container-page flex items-center justify-between py-1">
-          <p>成果が出たときだけ支払う「成果報酬サービス」の比較メディア</p>
+          <p>実績に応じて支払う「成果報酬サービス」の比較メディア</p>
           <nav aria-label="サブメニュー" className="flex gap-4">
             <Link href="/about" className="hover:text-white">掲載方針</Link>
             <Link href="/articles" className="hover:text-white">記事</Link>

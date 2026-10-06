@@ -27,8 +27,8 @@ export function CostCompare() {
         </div>
         <div>
           <p className="text-sm font-bold text-brand-700">成果報酬で外注すると</p>
-          <p className="mb-5 mt-1 font-serif text-xl font-bold text-ink">成果が出たときだけ、支払う</p>
-          <Chart filled={[0, 0, 0, 55, 0, 75]} label="成果報酬型は成果が発生した月だけ費用が発生するイメージ" bar="bg-brand-600" />
+          <p className="mb-5 mt-1 font-serif text-xl font-bold text-ink">実績が出た分だけ、支払う</p>
+          <Chart filled={[0, 0, 0, 55, 0, 75]} label="成果報酬型は実績が発生した分だけ費用が発生するイメージ" bar="bg-brand-600" />
         </div>
       </div>
       <figcaption className="mt-5 text-xs text-muted">※ 費用の出方を示すイメージ図です。実際の料金体系はサービスごとに異なります。</figcaption>
