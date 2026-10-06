@@ -3392,6 +3392,43 @@
       "categories": [
         "system-development"
       ]
+    },
+    {
+      "slug": "givee-apo",
+      "name": "Givee 完全成果報酬型アポ獲得",
+      "company_name": "Givee株式会社",
+      "summary": "テレアポ・フォーム営業・紹介を組み合わせ、アポが獲得できた分だけ費用が発生する成果報酬型のアポ獲得サービス。",
+      "description": "ターゲットリスト作成から営業代行(テレアポ・フォーム営業・FAXDM・紹介など)、レポーティングまでを一貫して担うアポ獲得サービス。公式ページでは初期費用・月額費用ともに無料で、アポが獲得できなければ費用は発生しないとされています。商材に応じてチャネルを組み合わせます。",
+      "logo_url": null,
+      "website_url": "https://givee.co.jp/lp/apo",
+      "initial_fee_type": "free",
+      "initial_fee": "0円",
+      "monthly_fee_type": "free",
+      "monthly_fee": "0円",
+      "success_fee": null,
+      "pricing_note": "アポ1件あたりの単価は公式ページに記載がなく、要問い合わせ。最低契約期間は「柔軟に対応」とのみ記載。「月間5社まで」「条件に合致したお客様のみ」の受付制限が表示されています。",
+      "success_condition": "アポイントが獲得できた件数に応じて費用が発生(アポの定義は要問い合わせ)。",
+      "outcome_type": "appointment",
+      "pricing_model": "success_only",
+      "is_full_success_fee": true,
+      "has_free_consultation": true,
+      "target_companies": "SaaS・飲食・人材・美容・不動産・コンサルなど",
+      "features": [
+        "テレアポ・フォーム営業・紹介を組み合わせ",
+        "初期費用・月額費用0円",
+        "ターゲット設計からレポートまで一貫対応",
+        "無料相談あり"
+      ],
+      "partner_status": "unpartnered",
+      "featured": false,
+      "show_in_popular": true,
+      "published": true,
+      "source_url": "https://givee.co.jp/lp/apo",
+      "last_verified_at": "2026-10-06",
+      "categories": [
+        "sales-outsourcing",
+        "form-sales"
+      ]
     }
   ],
   "articles": [

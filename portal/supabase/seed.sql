@@ -859,6 +859,12 @@ values ('scc-co-bs', 'co-Bs コラボレーション事業開発サービス', '
   on conflict (slug) do nothing;
 insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'scc-co-bs' and c.slug = 'system-development' on conflict do nothing;
 
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, pricing_model, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('givee-apo', 'Givee 完全成果報酬型アポ獲得', 'Givee株式会社', 'テレアポ・フォーム営業・紹介を組み合わせ、アポが獲得できた分だけ費用が発生する成果報酬型のアポ獲得サービス。', 'ターゲットリスト作成から営業代行(テレアポ・フォーム営業・FAXDM・紹介など)、レポーティングまでを一貫して担うアポ獲得サービス。公式ページでは初期費用・月額費用ともに無料で、アポが獲得できなければ費用は発生しないとされています。商材に応じてチャネルを組み合わせます。', null, 'https://givee.co.jp/lp/apo', 'free', '0円', 'free', '0円', null, 'アポ1件あたりの単価は公式ページに記載がなく、要問い合わせ。最低契約期間は「柔軟に対応」とのみ記載。「月間5社まで」「条件に合致したお客様のみ」の受付制限が表示されています。', 'アポイントが獲得できた件数に応じて費用が発生(アポの定義は要問い合わせ)。', 'appointment', 'success_only', true, true, 'SaaS・飲食・人材・美容・不動産・コンサルなど', array['テレアポ・フォーム営業・紹介を組み合わせ', '初期費用・月額費用0円', 'ターゲット設計からレポートまで一貫対応', '無料相談あり']::text[], 'unpartnered', false, true, true, 'verified', 'https://givee.co.jp/lp/apo', '2026-10-06')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'givee-apo' and c.slug = 'sales-outsourcing' on conflict do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, false from services s, categories c where s.slug = 'givee-apo' and c.slug = 'form-sales' on conflict do nothing;
+
 insert into articles (slug, title, excerpt, body, category_id, published, published_at) values ('what-is-performance-based-pricing', '成果報酬型サービスとは？固定費型との違いと選び方', '成果報酬型と固定費型の違い、メリット・注意点、比較時に確認したいポイントをまとめました。', '## 成果報酬型とは
 
 成果報酬型とは、あらかじめ決めた「成果」が発生した場合にだけ費用を支払う料金体系です。営業代行ならアポイント獲得や商談実施、採用なら採用決定、広告なら購入や申込といったものが成果にあたります。
