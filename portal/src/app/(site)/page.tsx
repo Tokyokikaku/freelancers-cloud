@@ -49,7 +49,7 @@ export default async function HomePage() {
   const topCategories = categories.filter((c) => !c.parent_id);
   const childrenOf = (id: string) => categories.filter((c) => c.parent_id === id).sort((a, b) => a.sort_order - b.sort_order);
   const catName = (id: string | null) => categories.find((c) => c.id === id)?.name;
-  const heroPhoto = existsSync(path.join(process.cwd(), "public/hero/person.jpg"));
+  const heroPhoto = existsSync(path.join(process.cwd(), "public/hero/person.webp"));
   const categoryCount = categories.filter((c) => servicesInCategory(services, categories, c.id).length > 0).length;
 
   return (
@@ -57,8 +57,8 @@ export default async function HomePage() {
       {/* ───── FV ───── */}
       <section className="relative overflow-hidden bg-brand-900 text-white">
         <div aria-hidden className="pointer-events-none absolute inset-y-0 right-0 hidden w-1/2 bg-[repeating-linear-gradient(135deg,rgb(255_255_255/0.04)_0_2px,transparent_2px_14px)] lg:block" />
-        <div className="container-page relative grid grid-cols-[minmax(0,1fr)] gap-8 py-8 sm:py-12 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] lg:gap-12 lg:py-14">
-          <div>
+        <div className={`container-page relative grid grid-cols-[minmax(0,1fr)] gap-8 pt-8 sm:pt-12 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] lg:gap-12 lg:pt-14 ${heroPhoto ? "pb-0" : "pb-8 sm:pb-12 lg:pb-14"}`}>
+          <div className={heroPhoto ? "lg:pb-12" : ""}>
             <p className="text-sm font-bold tracking-wide text-cta-500 sm:text-base">初期費用なし・リスクなしで事業を推進</p>
             <h1 className="mt-3 text-[2.1rem] font-black leading-[1.2] text-white sm:text-[3.4rem] sm:leading-[1.15]">
               払うのは、<br />実績が出た<wbr />分だけ。
@@ -81,10 +81,12 @@ export default async function HomePage() {
           </div>
 
           {heroPhoto ? (
-            <div className="relative mx-auto w-full max-w-md self-end lg:max-w-none">
+            <div className="relative mx-auto flex w-full max-w-md items-end justify-center self-end overflow-hidden lg:max-w-none">
+              <div aria-hidden className="absolute bottom-0 left-1/2 aspect-square w-[84%] -translate-x-1/2 translate-y-[22%] rounded-full bg-brand-600" />
+              <div aria-hidden className="absolute bottom-0 left-1/2 aspect-square w-[84%] -translate-x-1/2 translate-y-[22%] rounded-full ring-1 ring-inset ring-white/20 [box-shadow:0_0_0_14px_rgb(255_255_255/0.04)]" />
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/hero/person.jpg" alt="スーツ姿の男性のイメージ写真" width={720} height={820} className="aspect-[4/4.2] w-full rounded-md object-cover object-top" />
-              <p className="absolute bottom-3 right-3 rounded-sm bg-brand-900/80 px-2 py-1 text-[10px] text-white">イメージ写真</p>
+              <img src="/hero/person.webp" alt="スーツ姿の男性のイメージ写真" width={1022} height={680} className="relative block w-full max-w-[34rem]" />
+              <p className="absolute bottom-2 right-2 rounded-sm bg-black/30 px-2 py-0.5 text-[10px] text-white/80">イメージ写真</p>
             </div>
           ) : (
           <aside aria-label="注目のサービス" className="self-center">
