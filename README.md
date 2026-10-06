@@ -42,7 +42,8 @@ Vercel CLI を使う場合は `npx vercel dev` でも確認できます。
 打合せメモなどの素材から、「設計図 → HTMLスライド（またはpptx）」の順にスライドを作る Claude 用スキルです。Claude の契約の利用枠の中で動くため、API の従量課金はかかりません。
 
 - スキル本体: `skills/consulting-slide-maker/`（アップロード用: `skills/consulting-slide-maker.zip`）
-- 追加方法: Claude の設定 → Skills（または Capabilities）からzipをアップロードして有効化。画面の名称は変わることがあるため、Claude側の最新の案内に従ってください
+- このリポジトリで Claude Code を使う場合は、`.claude/skills/consulting-slide-maker/` にも同じものを置いてあるため、アップロードなしで使えます
+- claude.ai に追加する方法: Claude の設定 → Skills（または Capabilities）からzipをアップロードして有効化。画面の名称は変わることがあるため、Claude側の最新の案内に従ってください
 - 使い方: 「スライドを作って」と素材（文字起こしなど）を渡すと、不足している入力を質問し、まず設計図を出します。ヘッドを縦に読んで筋が通ればOKを出し、HTMLやpptxに進みます
 - アイコン入りにしたいときは「アイコンも入れて」と伝えます
 
