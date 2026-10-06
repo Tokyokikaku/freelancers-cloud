@@ -28,6 +28,10 @@ insert into categories (slug, name, icon, description, sort_order, parent_id, pu
   on conflict (slug) do update set name = excluded.name, icon = excluded.icon, description = excluded.description, sort_order = excluded.sort_order, parent_id = excluded.parent_id;
 insert into categories (slug, name, icon, description, sort_order, parent_id, published) values ('sns', 'SNS運用', 'marketing', 'SNS運用の成果報酬型サービスでは、再生数・フォロワー増加数・問い合わせ件数など、あらかじめ決めた指標に応じて費用が発生する料金体系があります。上限額や最低契約期間の有無、成果の指標を確認して比較しましょう。', 24, (select id from categories where slug = 'marketing'), true)
   on conflict (slug) do update set name = excluded.name, icon = excluded.icon, description = excluded.description, sort_order = excluded.sort_order, parent_id = excluded.parent_id;
+insert into categories (slug, name, icon, description, sort_order, parent_id, published) values ('lead-generation', 'リード・問い合わせ獲得', 'marketing', '問い合わせ・資料請求・見積もり依頼などの件数（反響）に応じて費用が発生するリード獲得サービスを比較できます。1件あたりの単価、有効リードの定義（重複・営業電話の除外）、キャンセル時の扱いを確認しましょう。', 26, (select id from categories where slug = 'marketing'), true)
+  on conflict (slug) do update set name = excluded.name, icon = excluded.icon, description = excluded.description, sort_order = excluded.sort_order, parent_id = excluded.parent_id;
+insert into categories (slug, name, icon, description, sort_order, parent_id, published) values ('meo', 'MEO（地図検索対策）', 'marketing', 'Googleマップなど地図検索での上位表示（MEO）のうち、順位や来店・問い合わせなどの成果に応じて費用が発生するサービスを比較できます。', 41, (select id from categories where slug = 'marketing'), true)
+  on conflict (slug) do update set name = excluded.name, icon = excluded.icon, description = excluded.description, sort_order = excluded.sort_order, parent_id = excluded.parent_id;
 insert into categories (slug, name, icon, description, sort_order, parent_id, published) values ('seo', 'SEO', 'marketing', '成果報酬型のSEO対策では、検索順位が一定以内に入った日・月に応じて費用が発生する料金体系が多く見られます。保証する順位の定義、対象の検索エンジン、日割りや上限の有無を確認して比較しましょう。', 40, (select id from categories where slug = 'marketing'), true)
   on conflict (slug) do update set name = excluded.name, icon = excluded.icon, description = excluded.description, sort_order = excluded.sort_order, parent_id = excluded.parent_id;
 insert into categories (slug, name, icon, description, sort_order, parent_id, published) values ('job-ads', '求人広告', 'recruitment', null, 31, (select id from categories where slug = 'recruitment'), true)
@@ -83,7 +87,7 @@ values ('kanzenseika-appointer', '完全成果アポインター（テレアポ�
 
 料金は、アポイント1件につき15,000円〜で、別途10%のプロジェクト管理費が必要と公式サイトに記載されています。初期費用と月額費用は、予算が30万円以上の場合は無料、30万円未満の場合はそれぞれ100,000円（月額は月100,000円）と記載されています。つまり、予算規模によっては固定費が発生する点に注意が必要です。
 
-受注成果報酬のプランには、法人設立後3年以上・外部パートナー利用の営業実績1年以上などの条件があると案内されています。詳細は公式サイトでご確認ください。', null, 'https://www.kanzenseika.jp/service/appointer.html', 'paid', '初回30万円未満／2回目以降50万円未満は100,000円、それ以上は無料（公式サイト記載）', 'paid', '初回30万円未満／2回目以降50万円未満は月100,000円、それ以上は無料（公式サイト記載）', 'アポイント1件につき15,000円〜（別途プロジェクト管理費10%）', '全サービスに別途10%のプロジェクト管理費。依頼内容によりテストマーケティング（固定報酬）が必要。成果報酬型は法人設立3年以上・外部営業実績1年以上・即決型商品等の条件あり。', 'アポイントの獲得', 'appointment', 'hybrid', false, false, '法人（受注成果報酬プランは設立3年以上・外部パートナー利用の営業実績1年以上が条件）', array['アポイント1件につき15,000円〜の成果報酬', '予算30万円以上なら初期費用・月額費用が無料（公式サイト記載）', '訪問営業代行「完全成果クローザー」も提供']::text[], 'unpartnered', false, true, true, 'verified', 'https://www.kanzenseika.jp/service/appointer.html', '2026-10-05')
+受注成果報酬のプランには、法人設立後3年以上・外部パートナー利用の営業実績1年以上などの条件があると案内されています。詳細は公式サイトでご確認ください。', null, 'https://www.kanzenseika.jp/service/appointer.html', 'paid', '初回30万円未満／2回目以降50万円未満は100,000円、それ以上は無料（公式サイト記載）', 'paid', '初回30万円未満／2回目以降50万円未満は月100,000円、それ以上は無料（公式サイト記載）', 'アポイント1件につき15,000円〜（別途プロジェクト管理費10%）', '全サービスに別途10%のプロジェクト管理費。依頼内容によりテストマーケティング（固定報酬）が必要。成果報酬型は法人設立3年以上・外部営業実績1年以上・即決型商品等の条件あり。', 'アポイントの獲得', 'appointment', 'hybrid', false, false, '法人（受注成果報酬プランは設立3年以上・外部パートナー利用の営業実績1年以上が条件）', array['アポイント1件につき15,000円〜の成果報酬', '予算30万円以上なら初期費用・月額費用が無料（公式サイト記載）', '訪問営業代行「完全成果クローザー」も提供']::text[], 'unpartnered', false, true, false, 'verified', 'https://www.kanzenseika.jp/service/appointer.html', '2026-10-05')
   on conflict (slug) do nothing;
 insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'kanzenseika-appointer' and c.slug = 'sales-outsourcing' on conflict do nothing;
 
@@ -232,7 +236,7 @@ values ('chusho-support-partners', '中小企業支援パートナーズ（補�
 
 料金は着手金なしで、成功報酬は採択発表時に補助金申請額の10％と記載されています。申請額が高額になる場合は、報酬割合は10％より低くなるとされています。採択から補助金入金までの支援を希望する場合は、補助金入金額の5％または50万円のうち低い金額が別途かかります。無料相談フォームが用意されています。
 
-月額費用や、不採択時の扱いは確認できた範囲に記載がありません。', null, 'https://hojokinpro.com/', 'free', '着手金なし（公式サイト記載）', 'unknown', null, '採択発表時に補助金申請額の10％（高額の場合は料率が下がる）', '採択から補助金入金までの支援を希望する場合は、補助金入金額の5％または50万円のうち低い金額が別途かかります。', '補助金の採択', 'other', 'hybrid', false, true, '中小企業', array['着手金なし（公式サイト記載）', '成功報酬は採択発表時に申請額の10％', '税理士・診断士・社労士・弁護士・行政書士など11名で支援', '無料相談フォームあり']::text[], 'unpartnered', false, true, true, 'verified', 'https://hojokinpro.com/', '2026-10-05')
+月額費用や、不採択時の扱いは確認できた範囲に記載がありません。', null, 'https://hojokinpro.com/', 'free', '着手金なし（公式サイト記載）', 'unknown', null, '採択発表時に補助金申請額の10％（高額の場合は料率が下がる）', '採択から補助金入金までの支援を希望する場合は、補助金入金額の5％または50万円のうち低い金額が別途かかります。', '補助金の採択', 'other', 'hybrid', false, true, '中小企業', array['着手金なし（公式サイト記載）', '成功報酬は採択発表時に申請額の10％', '税理士・診断士・社労士・弁護士・行政書士など11名で支援', '無料相談フォームあり']::text[], 'unpartnered', false, true, false, 'verified', 'https://hojokinpro.com/', '2026-10-05')
   on conflict (slug) do nothing;
 insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'chusho-support-partners' and c.slug = 'subsidy' on conflict do nothing;
 
@@ -286,7 +290,7 @@ values ('valueagent-web', 'バリューエージェント 成功報酬型ホー�
 
 公式サイトでは、初期費用は100万円〜（税抜）、月額は20万円〜（税抜）、最低契約期間は12か月〜と記載されています。固定費ゼロの「完全成果報酬」ではなく、固定費を半額に抑えて成果報酬を組み合わせる形です。
 
-対象は「本気でビジネスを広めたい方」で、新規サービス、地域サービス、広告費を負担できない場合、売上増加時に対応できない組織体制の場合などは対象外と記載されています。無料相談の有無は確認できませんでした。', null, 'https://valueagent.co.jp/webmlp/success', 'paid', '100万円〜（税抜・公式サイト記載）', 'paid', '20万円〜（税抜・公式サイト記載）', '売上の5％〜20％', '最低契約12か月〜。制作・運用費の半額を同社が負担。広告費は依頼企業負担。新規・地域限定サービス等は対象外。', '売上（売上に対する5〜20％）', 'sale', 'hybrid', false, false, '本気でビジネスを広めたい企業（対象外の条件あり）', array['制作費・運用費を同社が半額負担し、売上の5〜20％を成功報酬とする', '初期費用100万円〜・月額20万円〜（固定費あり）', '最低契約期間12か月〜']::text[], 'unpartnered', false, true, true, 'verified', 'https://valueagent.co.jp/webmlp/success', '2026-10-05')
+対象は「本気でビジネスを広めたい方」で、新規サービス、地域サービス、広告費を負担できない場合、売上増加時に対応できない組織体制の場合などは対象外と記載されています。無料相談の有無は確認できませんでした。', null, 'https://valueagent.co.jp/webmlp/success', 'paid', '100万円〜（税抜・公式サイト記載）', 'paid', '20万円〜（税抜・公式サイト記載）', '売上の5％〜20％', '最低契約12か月〜。制作・運用費の半額を同社が負担。広告費は依頼企業負担。新規・地域限定サービス等は対象外。', '売上（売上に対する5〜20％）', 'sale', 'hybrid', false, false, '本気でビジネスを広めたい企業（対象外の条件あり）', array['制作費・運用費を同社が半額負担し、売上の5〜20％を成功報酬とする', '初期費用100万円〜・月額20万円〜（固定費あり）', '最低契約期間12か月〜']::text[], 'unpartnered', false, true, false, 'verified', 'https://valueagent.co.jp/webmlp/success', '2026-10-05')
   on conflict (slug) do nothing;
 insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'valueagent-web' and c.slug = 'site-production' on conflict do nothing;
 
@@ -295,7 +299,7 @@ values ('kanzenseika-closer', '完全成果クローザー（訪問営業代行�
 
 料金は、訪問1件につき15,000円〜の成果報酬で、すべてのサービスに別途10％のプロジェクト管理費が必要と記載されています。初期費用と月額費用は、予算が30万円以上の場合は無料、30万円未満の場合は初期費用100,000円・月100,000円の運用費用がかかります。
 
-利用条件として、法人設立後3年以上、外部パートナーを利用した営業実績が1年以上、即決型の商品であること、テストマーケティング（固定報酬）を実施できることが記載されています。固定報酬のテスト期間がある点にも注意してください。', null, 'https://www.kanzenseika.jp/service/closer.html', 'paid', '月発注30万円以上は無料／30万円未満は100,000円', 'paid', '2か月目以降の発注50万円未満は運用費100,000円（50万円以上は無料）', '訪問1件につき15,000円〜（別途プロジェクト管理費10％）', '発注金額分をデポジットとして前払い。テストマーケティング（固定報酬）が条件。', '訪問（商談）の実施', 'meeting', 'hybrid', false, false, '法人設立後3年以上、外部パートナー利用の営業実績1年以上、即決型の商品を扱う企業', array['訪問1件につき15,000円〜の成果報酬', '予算30万円以上なら初期費用・月額費用が無料（公式サイト記載）', '別途10％のプロジェクト管理費が必要', '受注まで見据えた提案を実施']::text[], 'unpartnered', false, true, true, 'verified', 'https://www.kanzenseika.jp/service/closer.html', '2026-10-05')
+利用条件として、法人設立後3年以上、外部パートナーを利用した営業実績が1年以上、即決型の商品であること、テストマーケティング（固定報酬）を実施できることが記載されています。固定報酬のテスト期間がある点にも注意してください。', null, 'https://www.kanzenseika.jp/service/closer.html', 'paid', '月発注30万円以上は無料／30万円未満は100,000円', 'paid', '2か月目以降の発注50万円未満は運用費100,000円（50万円以上は無料）', '訪問1件につき15,000円〜（別途プロジェクト管理費10％）', '発注金額分をデポジットとして前払い。テストマーケティング（固定報酬）が条件。', '訪問（商談）の実施', 'meeting', 'hybrid', false, false, '法人設立後3年以上、外部パートナー利用の営業実績1年以上、即決型の商品を扱う企業', array['訪問1件につき15,000円〜の成果報酬', '予算30万円以上なら初期費用・月額費用が無料（公式サイト記載）', '別途10％のプロジェクト管理費が必要', '受注まで見据えた提案を実施']::text[], 'unpartnered', false, true, false, 'verified', 'https://www.kanzenseika.jp/service/closer.html', '2026-10-05')
   on conflict (slug) do nothing;
 insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'kanzenseika-closer' and c.slug = 'field-sales' on conflict do nothing;
 
@@ -304,7 +308,7 @@ values ('web-company-lpo', '成果報酬型 LP制作×リスティング広告�
 
 公式サイトでは、LPの導入費は通常30万円〜のところ15万円〜と案内されています（漫画LPの場合は漫画の制作費10万円〜が実費でかかります）。広告費の実費は依頼者の負担ですが、LP制作費や広告運用費は、コンバージョン数や売上金額に対する成果報酬での契約も可能と記載されています。
 
-対象は、BtoB向けの商品・サービスや、個人向けでも比較的高額な商品など、単価や粗利が高めの商品です。具体的な成果報酬の料率は記載がないため、「要問い合わせ」としています。', null, 'https://www.web-company.jp/solution/lpo/', 'paid', 'LP導入費15万円〜（公式サイト記載。漫画LPは別途10万円〜）', 'unknown', 'リスティング広告運用費0円（広告費は実費・月10万円〜目安）', null, '最低契約6か月〜。成果報酬の料率非公開。BtoB・高額・独自性ある商材が対象、コーポレートサイト等は対象外。', 'コンバージョン数・売上金額（成果報酬契約の場合）', 'lead', 'hybrid', false, true, 'BtoB向け、または個人向けでも単価・粗利が比較的高い商品・サービス', array['LP導入費は15万円〜（通常30万円〜と案内）', 'LP制作費・広告運用費を成果報酬で契約することも可能', 'リスティング広告運用とあわせてCV率を改善']::text[], 'unpartnered', false, true, true, 'verified', 'https://www.web-company.jp/solution/lpo/', '2026-10-05')
+対象は、BtoB向けの商品・サービスや、個人向けでも比較的高額な商品など、単価や粗利が高めの商品です。具体的な成果報酬の料率は記載がないため、「要問い合わせ」としています。', null, 'https://www.web-company.jp/solution/lpo/', 'paid', 'LP導入費15万円〜（公式サイト記載。漫画LPは別途10万円〜）', 'unknown', 'リスティング広告運用費0円（広告費は実費・月10万円〜目安）', null, '最低契約6か月〜。成果報酬の料率非公開。BtoB・高額・独自性ある商材が対象、コーポレートサイト等は対象外。', 'コンバージョン数・売上金額（成果報酬契約の場合）', 'lead', 'hybrid', false, true, 'BtoB向け、または個人向けでも単価・粗利が比較的高い商品・サービス', array['LP導入費は15万円〜（通常30万円〜と案内）', 'LP制作費・広告運用費を成果報酬で契約することも可能', 'リスティング広告運用とあわせてCV率を改善']::text[], 'unpartnered', false, true, false, 'verified', 'https://www.web-company.jp/solution/lpo/', '2026-10-05')
   on conflict (slug) do nothing;
 insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'web-company-lpo' and c.slug = 'lp-production' on conflict do nothing;
 insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, false from services s, categories c where s.slug = 'web-company-lpo' and c.slug = 'listing-ads' on conflict do nothing;
@@ -314,7 +318,7 @@ values ('kyworks', 'KYWorks 開発費0円のレベニューシェア型共同開
 
 開発費（設計・プログラミング・テスト）は0円で、サービスから発生した広告収入・課金収入などの収益を50:50で分配します。ドメイン・サーバーなどのインフラ実費として、月700円〜3,000円程度（AI機能を使う場合は追加で月3,000円〜）がかかると記載されています。相談は無料です。
 
-収益が出た場合の分配は長期にわたる可能性があるため、契約条件（期間・分配の範囲）を事前に確認してください。', null, 'https://partner.kyworks.jp/', 'free', '開発費0円（設計・プログラミング・テスト。公式サイト記載）', 'paid', 'インフラ実費として月700〜2,000円程度（iPhoneアプリは月1,800〜3,000円程度、AI機能利用時は月3,000円〜追加）', 'サービスから発生した収益を50:50で分配', '開発費0円・収益50:50分配だが、成果の有無に関わらずインフラ実費が発生するため固定費ゼロではない。', 'サービスから発生した収益（広告収入・課金収入など）', 'sale', 'hybrid', false, true, 'アイデアを持つ個人・小規模事業者', array['開発費0円（設計・プログラミング・テスト）', '収益は50:50で分配', 'iOS・Androidアプリ、Webサービス、LINEアプリに対応', '相談無料']::text[], 'unpartnered', false, true, true, 'verified', 'https://partner.kyworks.jp/', '2026-10-05')
+収益が出た場合の分配は長期にわたる可能性があるため、契約条件（期間・分配の範囲）を事前に確認してください。', null, 'https://partner.kyworks.jp/', 'free', '開発費0円（設計・プログラミング・テスト。公式サイト記載）', 'paid', 'インフラ実費として月700〜2,000円程度（iPhoneアプリは月1,800〜3,000円程度、AI機能利用時は月3,000円〜追加）', 'サービスから発生した収益を50:50で分配', '開発費0円・収益50:50分配だが、成果の有無に関わらずインフラ実費が発生するため固定費ゼロではない。', 'サービスから発生した収益（広告収入・課金収入など）', 'sale', 'hybrid', false, true, 'アイデアを持つ個人・小規模事業者', array['開発費0円（設計・プログラミング・テスト）', '収益は50:50で分配', 'iOS・Androidアプリ、Webサービス、LINEアプリに対応', '相談無料']::text[], 'unpartnered', false, true, false, 'verified', 'https://partner.kyworks.jp/', '2026-10-05')
   on conflict (slug) do nothing;
 insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'kyworks' and c.slug = 'app-development' on conflict do nothing;
 insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, false from services s, categories c where s.slug = 'kyworks' and c.slug = 'system-development' on conflict do nothing;
@@ -389,7 +393,7 @@ values ('akt-success-consulting', '完全成功報酬型コンサルティング
 
 公式サイトでは、コスト削減・売上向上・成果物評価など課題に応じた成果指標に対応するとしています。M&Aのみの場合は成約価格の1.3%（最低報酬なし）、専門家サポート手数料は150万円〜と記載されています。事前相談は無料です。
 
-遠距離の場合など、実費精算が発生することがあります。月額費用は公式サイトに記載がないため要問い合わせです。', null, 'https://www.aktconsulting.net/team-3', 'free', '着手金なし', 'unknown', null, '案件により異なる（M&Aのみは成約価格の1.3%、最低報酬なし）', '案件ごとに報酬決定。専門家サポート150万円〜と実費は成果に関わらず発生し得る。', '事前に合意した成果指標（コスト削減・売上向上など）の達成', 'other', 'hybrid', false, true, null, array['着手金なし', '成果の定義と報酬を初回面談時に決定', 'コスト削減・売上向上など複数の成果指標に対応', '事前相談は無料']::text[], 'unpartnered', false, true, true, 'verified', 'https://www.aktconsulting.net/team-3', '2026-10-05')
+遠距離の場合など、実費精算が発生することがあります。月額費用は公式サイトに記載がないため要問い合わせです。', null, 'https://www.aktconsulting.net/team-3', 'free', '着手金なし', 'unknown', null, '案件により異なる（M&Aのみは成約価格の1.3%、最低報酬なし）', '案件ごとに報酬決定。専門家サポート150万円〜と実費は成果に関わらず発生し得る。', '事前に合意した成果指標（コスト削減・売上向上など）の達成', 'other', 'hybrid', false, true, null, array['着手金なし', '成果の定義と報酬を初回面談時に決定', 'コスト削減・売上向上など複数の成果指標に対応', '事前相談は無料']::text[], 'unpartnered', false, true, false, 'verified', 'https://www.aktconsulting.net/team-3', '2026-10-05')
   on conflict (slug) do nothing;
 insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'akt-success-consulting' and c.slug = 'business-consulting' on conflict do nothing;
 
@@ -407,7 +411,7 @@ values ('hanro-kaitaku-madoguchi', '販路開拓の窓口', '株式会社ディ�
 
 公式サイトでは、着手金0円、成功報酬は補助金交付決定額の15%で、不採択の場合は申請サポート費用がかからないと記載されています。支払いは採択時50%、事業完了後50%の分割に対応しています。販路開拓の実施費用は個別見積もり（実費）とされています。
 
-申請前のヒアリング・相談段階では費用は発生しません。月額費用については公式サイトに記載がないため要問い合わせです。', null, 'https://dactive.jp/hojyokin', 'free', '0円', 'unknown', null, '補助金交付決定額の15%', '申請サポートは着手金0円・採択時に交付決定額15%。別途、販路開拓の実施費用は個別見積(実費)で採択時・事業終了時に分割請求される。', '補助金に採択された場合のみ発生', 'other', 'hybrid', false, true, '小規模事業者', array['着手金0円', '成功報酬は交付決定額の15%で不採択時は申請サポート費用なし', '行政書士と連携した申請支援', '支払いは採択時50%・事業完了後50%の分割に対応']::text[], 'unpartnered', false, true, true, 'verified', 'https://dactive.jp/hojyokin', '2026-10-05')
+申請前のヒアリング・相談段階では費用は発生しません。月額費用については公式サイトに記載がないため要問い合わせです。', null, 'https://dactive.jp/hojyokin', 'free', '0円', 'unknown', null, '補助金交付決定額の15%', '申請サポートは着手金0円・採択時に交付決定額15%。別途、販路開拓の実施費用は個別見積(実費)で採択時・事業終了時に分割請求される。', '補助金に採択された場合のみ発生', 'other', 'hybrid', false, true, '小規模事業者', array['着手金0円', '成功報酬は交付決定額の15%で不採択時は申請サポート費用なし', '行政書士と連携した申請支援', '支払いは採択時50%・事業完了後50%の分割に対応']::text[], 'unpartnered', false, true, false, 'verified', 'https://dactive.jp/hojyokin', '2026-10-05')
   on conflict (slug) do nothing;
 insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'hanro-kaitaku-madoguchi' and c.slug = 'subsidy' on conflict do nothing;
 
@@ -416,7 +420,7 @@ values ('takeuchi-partners-joseikin', '助成金申請サポート', '竹内パ�
 
 公式サイトの解説記事によると、初回60分の無料相談を実施し、全国オンラインで対応しています。
 
-成功報酬の具体的な料率や月額費用については該当ページに記載がないため、要問い合わせです。', null, 'https://www.takeuchipartners.com/', 'free', '着手金なし', 'unknown', null, '顧問契約先 受給額の20%、スポット案件 受給額の30%', '助成金申請代行は着手金なし・成功報酬型。顧問契約先20%、スポット30%。社労士顧問料は月2万円〜(別サービス)。', '助成金の受給が確定した場合', 'other', 'hybrid', false, true, '助成金の活用を検討する中小企業', array['着手金なしの成功報酬型', '初回60分の無料相談', '全国オンライン対応']::text[], 'unpartnered', false, true, true, 'verified', 'https://www.takeuchipartners.com/blog/subsidy-no-upfront-fee-sharoushi', '2026-10-05')
+成功報酬の具体的な料率や月額費用については該当ページに記載がないため、要問い合わせです。', null, 'https://www.takeuchipartners.com/', 'free', '着手金なし', 'unknown', null, '顧問契約先 受給額の20%、スポット案件 受給額の30%', '助成金申請代行は着手金なし・成功報酬型。顧問契約先20%、スポット30%。社労士顧問料は月2万円〜(別サービス)。', '助成金の受給が確定した場合', 'other', 'hybrid', false, true, '助成金の活用を検討する中小企業', array['着手金なしの成功報酬型', '初回60分の無料相談', '全国オンライン対応']::text[], 'unpartnered', false, true, false, 'verified', 'https://www.takeuchipartners.com/blog/subsidy-no-upfront-fee-sharoushi', '2026-10-05')
   on conflict (slug) do nothing;
 insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'takeuchi-partners-joseikin' and c.slug = 'grant' on conflict do nothing;
 
@@ -425,7 +429,7 @@ values ('samurai-jigyo-saikouchiku', '事業再構築補助金サポート', '�
 
 公式サイトの料金表では、着手金10万円（税別）、成功報酬は採択金額の10%（税別）と記載されています。「募集期間内再申請無料」とされ、不採択の場合の再申請以降は成功報酬のみの対応となります。顧問契約は不要で、実績報告書類作成は15万円です。
 
-相談は無料と明記されています。月額費用の記載はありません。', null, 'https://samurai-law.com/hojokin/price/price02/', 'paid', '10万円（税別）', 'unknown', null, '採択金額の10%（税別）', '事業再構築補助金は後継制度へ移行している可能性があり、最新の対応可否は要問い合わせです。 公式サイトの現行ページで提供状況を確認できなかったため、最新の条件は公式サイトでご確認ください。', '補助金に採択された場合', 'other', 'hybrid', false, true, '補助金の活用を検討する中小企業', array['着手金10万円・成功報酬は採択金額の10%', '募集期間内の再申請は無料', '顧問契約不要', '相談無料']::text[], 'unpartnered', false, true, true, 'verified', 'https://samurai-law.com/hojokin/price/price02/', '2026-10-05')
+相談は無料と明記されています。月額費用の記載はありません。', null, 'https://samurai-law.com/hojokin/price/price02/', 'paid', '10万円（税別）', 'unknown', null, '採択金額の10%（税別）', '事業再構築補助金は後継制度へ移行している可能性があり、最新の対応可否は要問い合わせです。 公式サイトの現行ページで提供状況を確認できなかったため、最新の条件は公式サイトでご確認ください。', '補助金に採択された場合', 'other', 'hybrid', false, true, '補助金の活用を検討する中小企業', array['着手金10万円・成功報酬は採択金額の10%', '募集期間内の再申請は無料', '顧問契約不要', '相談無料']::text[], 'unpartnered', false, true, false, 'verified', 'https://samurai-law.com/hojokin/price/price02/', '2026-10-05')
   on conflict (slug) do nothing;
 insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'samurai-jigyo-saikouchiku' and c.slug = 'subsidy' on conflict do nothing;
 
@@ -443,7 +447,7 @@ values ('g1-gyoseishoshi-it-hojokin', 'デジタル化・AI導入補助金サポ
 
 公式サイトの記載では、IT導入支援事業者登録・ITツール登録サポートは各2万円（税抜）、交付申請サポートは成功報酬15万円（税抜・一律固定）です。月額費用については公式サイトに記載がないため要問い合わせです。
 
-累計申請数4,977件、累計採択数3,668件（採択率73.7%）を掲載しています。初回相談（60分）は無料で、電話相談は全国対応と記載されています。', null, 'https://g1info.jp/itvendorsupport/', 'paid', '登録サポート各2万円（税抜）', 'unknown', null, '交付申請サポート 15万円（税抜・一律固定）', '登録サポートには各2万円（税抜）の費用がかかります。', '交付申請サポートの成功報酬', 'other', 'hybrid', false, true, 'IT導入支援事業者・ITツール提供事業者', array['交付申請の成功報酬は15万円の固定額', '累計申請数4,977件・採択率73.7%', '初回60分の無料相談', '電話相談は全国対応']::text[], 'unpartnered', false, true, true, 'verified', 'https://g1info.jp/itvendorsupport/', '2026-10-05')
+累計申請数4,977件、累計採択数3,668件（採択率73.7%）を掲載しています。初回相談（60分）は無料で、電話相談は全国対応と記載されています。', null, 'https://g1info.jp/itvendorsupport/', 'paid', '登録サポート各2万円（税抜）', 'unknown', null, '交付申請サポート 15万円（税抜・一律固定）', '登録サポートには各2万円（税抜）の費用がかかります。', '交付申請サポートの成功報酬', 'other', 'hybrid', false, true, 'IT導入支援事業者・ITツール提供事業者', array['交付申請の成功報酬は15万円の固定額', '累計申請数4,977件・採択率73.7%', '初回60分の無料相談', '電話相談は全国対応']::text[], 'unpartnered', false, true, false, 'verified', 'https://g1info.jp/itvendorsupport/', '2026-10-05')
   on conflict (slug) do nothing;
 insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'g1-gyoseishoshi-it-hojokin' and c.slug = 'subsidy' on conflict do nothing;
 
@@ -461,7 +465,7 @@ values ('tokyo-kst-it-hojokin', 'IT導入補助金申請支援', '株式会社�
 
 公式サイトでは、料金は着手金50,000円、交付決定成功報酬130,000円、合計180,000円と記載されています。提携店経由の依頼では成功報酬が割引価格になる旨も記載があります。
 
-2,800件超の採択実績を掲載しています。初回相談は無料です。なお代行申請は認められていないため、申請画面への入力は申請者が行い、コンサルタントがZoomでサポートする形式です。月額費用の記載はありません。', null, 'https://www.tokyo-kst.jp/service13.html', 'paid', '50,000円', 'unknown', null, '交付決定成功報酬130,000円', null, '補助金の交付決定時', 'other', 'hybrid', false, true, 'IT導入補助金の活用を検討する中小企業', array['着手金50,000円＋交付決定成功報酬130,000円', '2,800件超の採択実績', 'Zoomでのサポート', '初回相談無料']::text[], 'unpartnered', false, true, true, 'verified', 'https://www.tokyo-kst.jp/service13.html', '2026-10-05')
+2,800件超の採択実績を掲載しています。初回相談は無料です。なお代行申請は認められていないため、申請画面への入力は申請者が行い、コンサルタントがZoomでサポートする形式です。月額費用の記載はありません。', null, 'https://www.tokyo-kst.jp/service13.html', 'paid', '50,000円', 'unknown', null, '交付決定成功報酬130,000円', null, '補助金の交付決定時', 'other', 'hybrid', false, true, 'IT導入補助金の活用を検討する中小企業', array['着手金50,000円＋交付決定成功報酬130,000円', '2,800件超の採択実績', 'Zoomでのサポート', '初回相談無料']::text[], 'unpartnered', false, true, false, 'verified', 'https://www.tokyo-kst.jp/service13.html', '2026-10-05')
   on conflict (slug) do nothing;
 insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'tokyo-kst-it-hojokin' and c.slug = 'subsidy' on conflict do nothing;
 
@@ -497,7 +501,7 @@ values ('soelu-seika-homepage', '成果報酬型ホームページ制作・Web�
 
 Web上のお問い合わせ（メール、電話、FAXなど）で成約した案件が対象で、お問い合わせのみが成果対象となる場合もあります。契約期間は最低1年間、その後は6か月ごとの更新で、契約開始6か月経っても成果が現れない場合は、要望により費用なしで解約できると記載されています。
 
-ホームページ制作から依頼する場合、初期費用をいただかない対応も相談可能とされていますが、具体的な初期費用は公式ページに記載がないため要問い合わせです。無料相談の案内があります。', null, 'https://simple-alpha.com/', 'free', '0円（制作・リニューアル費・公式サイト記載）', 'free', '毎月のコンサルティング費用は一切かからない', '成約1件ごとの固定額（例：15〜30万円・税別）または成約総額の15〜30%＋税', '最低契約期間12か月（以降自動更新）。6か月経過で成果が見えない場合は費用なしで解約可。成果が出ている場合の解約は施策内容に応じ請求あり。', 'Web上のお問い合わせ（メール・電話・FAX等）で成約した案件', 'contract', 'hybrid', false, true, 'Web経由の問い合わせから成約を増やしたい事業者（全国対応）', array['成約金額の8〜20%の成果報酬', '毎月のコンサルティング費用は不要', '6か月経過後に成果がなければ費用なしで解約可', '内部最適化・コンテンツ追加・外部施策を実施']::text[], 'unpartnered', false, true, true, 'verified', 'https://simple-alpha.com/news/2450.html', '2026-10-05')
+ホームページ制作から依頼する場合、初期費用をいただかない対応も相談可能とされていますが、具体的な初期費用は公式ページに記載がないため要問い合わせです。無料相談の案内があります。', null, 'https://simple-alpha.com/', 'free', '0円（制作・リニューアル費・公式サイト記載）', 'free', '毎月のコンサルティング費用は一切かからない', '成約1件ごとの固定額（例：15〜30万円・税別）または成約総額の15〜30%＋税', '最低契約期間12か月（以降自動更新）。6か月経過で成果が見えない場合は費用なしで解約可。成果が出ている場合の解約は施策内容に応じ請求あり。', 'Web上のお問い合わせ（メール・電話・FAX等）で成約した案件', 'contract', 'hybrid', false, true, 'Web経由の問い合わせから成約を増やしたい事業者（全国対応）', array['成約金額の8〜20%の成果報酬', '毎月のコンサルティング費用は不要', '6か月経過後に成果がなければ費用なしで解約可', '内部最適化・コンテンツ追加・外部施策を実施']::text[], 'unpartnered', false, true, false, 'verified', 'https://simple-alpha.com/news/2450.html', '2026-10-05')
   on conflict (slug) do nothing;
 insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'soelu-seika-homepage' and c.slug = 'site-production' on conflict do nothing;
 insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, false from services s, categories c where s.slug = 'soelu-seika-homepage' and c.slug = 'lp-production' on conflict do nothing;
@@ -587,11 +591,11 @@ values ('salesdrive-outbound', 'セールスドライブ 完全成果報酬型�
 insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'salesdrive-outbound' and c.slug = 'sales-outsourcing' on conflict do nothing;
 
 insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, pricing_model, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
-values ('takecoco-instagram', 'Takecoco(テイクココ)', 'セスグモ株式会社', 'Instagramアカウント運用を、月額固定費とフォロワー増加数に応じた成果報酬で依頼できる運用代行サービス。', 'セスグモ株式会社が運営する、Instagram向けのアカウント運用代行サービスです。成果報酬型で依頼でき、フォロワー1件あたりの単価やエンゲージメントなどの指標に応じた料金設定が可能とされています。
+values ('takecoco-instagram', 'TakeCoco（テイクココ）', 'セスグモ株式会社 / TAKECOCO Inc.', 'Instagram運用を月額3万円の固定費とフォロワー1人あたり80円〜150円の成果報酬で依頼できる運用代行。', 'TakeCocoは、Instagramアカウント運用を成果報酬を組み合わせた料金で依頼できる運用代行サービスです。公式サイトには、トライアルプラン（成果報酬1フォロワー増加あたり150円〜、月額固定3万円、契約期間3か月）とスタンダードプラン（1フォロワー増加あたり80円〜、月額固定3万円、契約期間6か月）の2種類が掲載されています。
 
-公式サイトの料金表では、Trialプラン(3か月契約)は月額30,000円＋フォロワー1件あたり150円〜、スタンダードプラン(6か月契約)は月額30,000円＋フォロワー1件あたり80円〜と記載されています。予算内で運用できるよう上限を設定できる仕組みがあり、アカウントごとにチームを組み、月1回以上のミーティングを行うと案内されています。
+成果の指標は主にフォロワー増加数ですが、公式サイトには、フォロワー数に限らず自社HPへの誘導や商品販売などに合わせてカスタマイズできると記載されています。また予算条件の設定が可能と案内されています。月額固定費が標準で発生するため、完全成果報酬ではなく固定費併用型です。
 
-相談は問い合わせフォームまたはChatworkから行えます。初期費用の記載は確認できなかったため、公式サイトに記載がなく要問い合わせです。', null, 'https://take-coco.com/', 'unknown', null, 'paid', '月額30,000円(成果に関わらず発生)', 'フォロワー1件あたり150円〜(Trial)/80円〜(スタンダード)', '月額固定＋フォロワー従量のハイブリッド。契約期間3か月/6か月。主にInstagram、Twitterも対応可。初期費用の記載なし。', 'フォロワー増加数、またはエンゲージメント等の指標に応じた単価設定', 'other', 'hybrid', false, false, null, array['Instagramの運用代行', '月額固定＋フォロワー増加数連動の成果報酬', '予算超過を防ぐ上限設定が可能', 'アカウントごとにチームを組み月1回以上のMTG']::text[], 'unpartnered', false, true, true, 'verified', 'https://take-coco.com/', '2026-10-05')
+初期費用の有無および税表記は公式サイトに記載がないため要問い合わせ。対応媒体はInstagramのほかTwitter等と記載されています。', null, 'https://take-coco.com/', 'unknown', null, 'paid', '30,000円（税表記は公式に記載なし）', 'トライアル150円〜/フォロワー増加、スタンダード80円〜/フォロワー増加', '月額3万円の固定費と最低契約期間（3か月/6か月）が必須。単価は「150円〜」「80円〜」と下限表記。初期費用・税表記は公式に記載なし。', 'フォロワー増加数（1人あたり単価）。自社HP誘導や商品販売などへのカスタマイズも可能と記載', 'other', 'hybrid', false, false, 'Instagram運用を予算内で外部委託したい企業', array['フォロワー増加1人あたり80円〜の成果報酬', 'トライアル(3か月)とスタンダード(6か月)の2プラン', '成果指標はHP誘導・商品販売などにカスタマイズ可能', '予算条件の設定が可能']::text[], 'unpartnered', false, true, false, 'verified', 'https://take-coco.com/', '2026-10-05')
   on conflict (slug) do nothing;
 insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'takecoco-instagram' and c.slug = 'instagram-ops' on conflict do nothing;
 insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, false from services s, categories c where s.slug = 'takecoco-instagram' and c.slug = 'x-ops' on conflict do nothing;
@@ -610,7 +614,7 @@ values ('pluse-seika-seo', '成果報酬型SEO対策', '株式会社プラスイ
 
 初期費用は0円で、月額は8,000円からと記載されています。公式サイトによれば、約80%のお客様は月額19,800円から39,800円の範囲に収まるとされています。初期契約期間があり、その間は解約できない旨も明記されていますが、期間の長さは同ページに記載がありません。
 
-HTML最適化、被リンク対策、コンテンツ制作などに対応します。目標キーワードとサイトURLを送ると、1営業日以内にお見積りが提出されます。', null, 'https://seo-nagoya.net/', 'free', '0円', 'paid', '月額8,000円から(約80%のお客様は19,800円〜39,800円)', '10位以内に入った日数分を日割りで請求', '初期契約期間中は解約不可と公式に記載(期間は要問い合わせ)。', '対象キーワードで検索10位以内にランクインした日数(競合の強いキーワードには例外あり)', 'other', 'hybrid', false, false, null, array['10位以内の日数分のみ日割り課金', '初期費用0円・月額8,000円から', 'HTML最適化・被リンク・コンテンツ制作に対応', 'キーワードとURL送付で1営業日以内に見積提出']::text[], 'unpartnered', false, true, true, 'verified', 'https://seo-nagoya.net/seo/seo_contents03', '2026-10-05')
+HTML最適化、被リンク対策、コンテンツ制作などに対応します。目標キーワードとサイトURLを送ると、1営業日以内にお見積りが提出されます。', null, 'https://seo-nagoya.net/', 'free', '0円', 'paid', '月額8,000円から(約80%のお客様は19,800円〜39,800円)', '10位以内に入った日数分を日割りで請求', '初期契約期間中は解約不可と公式に記載(期間は要問い合わせ)。', '対象キーワードで検索10位以内にランクインした日数(競合の強いキーワードには例外あり)', 'other', 'hybrid', false, false, null, array['10位以内の日数分のみ日割り課金', '初期費用0円・月額8,000円から', 'HTML最適化・被リンク・コンテンツ制作に対応', 'キーワードとURL送付で1営業日以内に見積提出']::text[], 'unpartnered', false, true, false, 'verified', 'https://seo-nagoya.net/seo/seo_contents03', '2026-10-05')
   on conflict (slug) do nothing;
 insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'pluse-seika-seo' and c.slug = 'seo' on conflict do nothing;
 
@@ -628,7 +632,7 @@ values ('shift-teleapo-seika', '成果報酬型テレアポ代行サービス', 
 
 課金はアポイント取得日に発生し、アポイントのキャンセル等が発生した場合はキャンセル・返金対応となるとされています。週報・日報、リスト作成、トークスクリプト作成はオプションで依頼できます。
 
-アポイントの最低契約数は10件と記載されています。無料相談の明記は確認できず、詳細は公式サイトからの問い合わせが必要です。', null, 'https://shift-inc.net/call01/', 'free', '0円', 'free', '0円（月額固定費なし）', 'アポイント1件あたり 法人10,000円〜、個人20,000円〜', 'アポイント最低契約数は10件。週報・日報、リスト作成、トークスクリプト作成はオプション。', 'アポイント取得日に課金。キャンセル等が発生した場合は返金対応', 'appointment', 'hybrid', false, false, '法人・個人向けのアポイント獲得', array['アポイント1件あたり法人10,000円〜の成果報酬', 'キャンセル時は返金対応', '週報・日報はオプションで対応', 'リスト・トークスクリプト作成はオプション']::text[], 'unpartnered', false, true, true, 'verified', 'https://shift-inc.net/call01/', '2026-10-05')
+アポイントの最低契約数は10件と記載されています。無料相談の明記は確認できず、詳細は公式サイトからの問い合わせが必要です。', null, 'https://shift-inc.net/call01/', 'free', '0円', 'free', '0円（月額固定費なし）', 'アポイント1件あたり 法人10,000円〜、個人20,000円〜', 'アポイント最低契約数は10件。週報・日報、リスト作成、トークスクリプト作成はオプション。', 'アポイント取得日に課金。キャンセル等が発生した場合は返金対応', 'appointment', 'hybrid', false, false, '法人・個人向けのアポイント獲得', array['アポイント1件あたり法人10,000円〜の成果報酬', 'キャンセル時は返金対応', '週報・日報はオプションで対応', 'リスト・トークスクリプト作成はオプション']::text[], 'unpartnered', false, true, false, 'verified', 'https://shift-inc.net/call01/', '2026-10-05')
   on conflict (slug) do nothing;
 insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'shift-teleapo-seika' and c.slug = 'sales-outsourcing' on conflict do nothing;
 
@@ -662,21 +666,11 @@ values ('apodol-hpg', 'アポドル', 'H.P.G. 服部プロセスグループ', '
 insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'apodol-hpg' and c.slug = 'sales-outsourcing' on conflict do nothing;
 
 insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, pricing_model, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
-values ('takecoco-instagram', 'TakeCoco（テイクココ）', 'セスグモ株式会社 / TAKECOCO Inc.', 'Instagram運用を月額3万円の固定費とフォロワー1人あたり80円〜150円の成果報酬で依頼できる運用代行。', 'TakeCocoは、Instagramアカウント運用を成果報酬を組み合わせた料金で依頼できる運用代行サービスです。公式サイトには、トライアルプラン（成果報酬1フォロワー増加あたり150円〜、月額固定3万円、契約期間3か月）とスタンダードプラン（1フォロワー増加あたり80円〜、月額固定3万円、契約期間6か月）の2種類が掲載されています。
-
-成果の指標は主にフォロワー増加数ですが、公式サイトには、フォロワー数に限らず自社HPへの誘導や商品販売などに合わせてカスタマイズできると記載されています。また予算条件の設定が可能と案内されています。月額固定費が標準で発生するため、完全成果報酬ではなく固定費併用型です。
-
-初期費用の有無および税表記は公式サイトに記載がないため要問い合わせ。対応媒体はInstagramのほかTwitter等と記載されています。', null, 'https://take-coco.com/', 'unknown', null, 'paid', '30,000円（税表記は公式に記載なし）', 'トライアル150円〜/フォロワー増加、スタンダード80円〜/フォロワー増加', '月額3万円の固定費と最低契約期間（3か月/6か月）が必須。単価は「150円〜」「80円〜」と下限表記。フォロワー数は事業成果（売上・問い合わせ）と直結しない指標のため、獲得フォロワーの質に注意。初期費用・税表記は公式に記載なし。', 'フォロワー増加数（1人あたり単価）。自社HP誘導や商品販売などへのカスタマイズも可能と記載', 'other', 'hybrid', false, false, 'Instagram運用を予算内で外部委託したい企業', array['フォロワー増加1人あたり80円〜の成果報酬', 'トライアル(3か月)とスタンダード(6か月)の2プラン', '成果指標はHP誘導・商品販売などにカスタマイズ可能', '予算条件の設定が可能']::text[], 'unpartnered', false, true, true, 'verified', 'https://take-coco.com/', '2026-10-05')
-  on conflict (slug) do nothing;
-insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'takecoco-instagram' and c.slug = 'instagram-ops' on conflict do nothing;
-insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, false from services s, categories c where s.slug = 'takecoco-instagram' and c.slug = 'x-ops' on conflict do nothing;
-
-insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, pricing_model, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
 values ('movie-penguin-tiktok', 'Movie Penguin TikTok運用代行', '株式会社Movie Penguin', '1再生2.5円の再生数連動報酬に月額撮影費5万円〜を組み合わせたTikTok運用代行。', '株式会社Movie PenguinのTikTok運用代行は、公式サイトで「1再生2.5円」の成果報酬を提示しています。1本あたりの支払いには4万円の上限が設けられていると記載されています。
 
 固定費として月額の撮影費5万円〜が別途かかる体系で、例として30万再生なら75万円（税別）に撮影費を加算、100万再生では上限適用で96万円（税別）に撮影費を加算と示されています。最低契約期間は初回3か月、更新時は半年単位です。
 
-TikTok・Instagram・YouTubeの3媒体への同時投稿が標準で、撮影、編集、投稿、ハッシュタグ選定、定例会での報告・相談が含まれます。無料相談・資料請求は毎月3社限定で受け付けているとされています。初期費用の有無および最低保証の詳細は、公式サイトに記載がないため要問い合わせです。ページの最終更新日も確認できませんでした。', null, 'https://rikito-movie-marketing.com/tiktok/', 'unknown', null, 'paid', '撮影費 月額5万円〜', '1再生2.5円（1本あたりの支払い上限4万円）', '最低契約期間は初回3か月（更新時は半年単位）。月額撮影費5万円〜は再生数に関係なく発生。成果指標は再生数であり、売上や問い合わせなど事業成果とは直結しない点に注意。ページの最終更新日は確認できず、現行提供は掲載ページの存在のみで確認。 公式サイトの現行ページで提供状況を確認できなかったため、最新の条件は公式サイトでご確認ください。', '投稿動画の再生数', 'other', 'hybrid', false, true, null, array['再生数連動の成果報酬（1再生2.5円）', '撮影・編集・投稿まで込み', '定例会での報告・相談', 'TikTok・Instagram・YouTubeに同時投稿']::text[], 'unpartnered', false, true, true, 'verified', 'https://rikito-movie-marketing.com/tiktok/', '2026-10-05')
+TikTok・Instagram・YouTubeの3媒体への同時投稿が標準で、撮影、編集、投稿、ハッシュタグ選定、定例会での報告・相談が含まれます。無料相談・資料請求は毎月3社限定で受け付けているとされています。初期費用の有無および最低保証の詳細は、公式サイトに記載がないため要問い合わせです。ページの最終更新日も確認できませんでした。', null, 'https://rikito-movie-marketing.com/tiktok/', 'unknown', null, 'paid', '撮影費 月額5万円〜', '1再生2.5円（1本あたりの支払い上限4万円）', '最低契約期間は初回3か月（更新時は半年単位）。月額撮影費5万円〜は再生数に関係なく発生。ページの最終更新日は確認できず、現行提供は掲載ページの存在のみで確認。 公式サイトの現行ページで提供状況を確認できなかったため、最新の条件は公式サイトでご確認ください。', '投稿動画の再生数', 'other', 'hybrid', false, true, null, array['再生数連動の成果報酬（1再生2.5円）', '撮影・編集・投稿まで込み', '定例会での報告・相談', 'TikTok・Instagram・YouTubeに同時投稿']::text[], 'unpartnered', false, true, false, 'verified', 'https://rikito-movie-marketing.com/tiktok/', '2026-10-05')
   on conflict (slug) do nothing;
 insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'movie-penguin-tiktok' and c.slug = 'tiktok-ops' on conflict do nothing;
 insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, false from services s, categories c where s.slug = 'movie-penguin-tiktok' and c.slug = 'instagram-ops' on conflict do nothing;
