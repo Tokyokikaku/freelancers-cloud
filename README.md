@@ -37,7 +37,20 @@ Vercel CLI を使う場合は `npx vercel dev` でも確認できます。
 
 以降は `main` ブランチへの push で本番、それ以外のブランチ／PR はプレビュー環境に自動デプロイされます。
 
-## コンサルスライドメーカー（`/slide`）
+## コンサルスライドメーカー（スキル）
+
+打合せメモなどの素材から、「設計図 → HTMLスライド（またはpptx）」の順にスライドを作る Claude 用スキルです。Claude の契約の利用枠の中で動くため、API の従量課金はかかりません。
+
+- スキル本体: `skills/consulting-slide-maker/`（アップロード用: `skills/consulting-slide-maker.zip`）
+- 追加方法: Claude の設定 → Skills（または Capabilities）からzipをアップロードして有効化。画面の名称は変わることがあるため、Claude側の最新の案内に従ってください
+- 使い方: 「スライドを作って」と素材（文字起こしなど）を渡すと、不足している入力を質問し、まず設計図を出します。ヘッドを縦に読んで筋が通ればOKを出し、HTMLやpptxに進みます
+- アイコン入りにしたいときは「アイコンも入れて」と伝えます
+
+プロンプトは、うちた（[@uchita_success](https://x.com/uchita_success)）さんの記事 [うちた式コンサルスライドメーカー](https://note.com/uchita_success/n/na5babdc58b0e) で無料公開されているものです。
+
+### Web版（`/slide`、現在は未公開）
+
+同じプロンプトを Claude API で動かす Web 版も、コードだけ残してあります（API の従量課金がかかるため、現在はデプロイしていません）。
 
 素材（打合せの文字起こしなど）を貼ると、AIが「設計図 → HTMLスライド」の順にスライドを作る社内向けツールです。プロンプトは、うちた（[@uchita_success](https://x.com/uchita_success)）さんの記事 [うちた式コンサルスライドメーカー](https://note.com/uchita_success/n/na5babdc58b0e) で無料公開されているものを、そのまま `api/_prompt.js` に入れています（記事のフォーム項目だけ画面の入力欄に置き換え）。
 
