@@ -685,6 +685,164 @@ values ('revive-line-success-plan', 'Revive 完全成果報酬プラン(LINE運�
   on conflict (slug) do nothing;
 insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'revive-line-success-plan' and c.slug = 'line-ops' on conflict do nothing;
 
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, pricing_model, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('ceeev-reel-view-based', 'Ceeev 完全成果報酬型SNS運用代行（再生数課金）', '株式会社Ceeev', 'Instagramリール/TikTok等のショート動画運用を、再生数×4円の課金で依頼できる。月額上限プランあり。', '株式会社Ceeevが提供する完全成果報酬型のSNS運用代行です。公式ブログ記事（2026年版）によると、課金は再生された分だけで1再生あたり4円（例：月間10万回再生なら40万円）とされ、月額固定の運用費は設けられていません。対象はInstagramリールやTikTokなどのショート動画です。
+
+月額の支払い上限として30万円・40万円・50万円の3つのプランが示されており、プランごとに投稿本数と基準再生数が異なります（例：上限50万円のプランは月10本・基準再生数12.5万回が目安）。基準の再生数に満たなかった場合は、その差分を同社負担の広告で補填する仕組みも記載されています。企画・撮影・編集・投稿・分析・広告運用まで自社で対応すると説明されています。
+
+課金対象は再生数であり、フォロワー数や売上は課金指標ではありません。初期費用の有無、最低契約期間、解約条件、再生数のカウント条件の詳細は公式サイトに記載がないため要問い合わせです。公式サービスページ自体には料金の記載がなく、料金情報は公式ブログ記事で確認しました。', null, 'https://ceeev.co.jp/', 'unknown', null, 'free', '月額固定費なし（再生数課金のみ。月額上限30万/40万/50万円のプランあり）', '1再生あたり4円（月額上限30万円・40万円・50万円のプラン）', '初期費用・解約条件は公式ブログに記載なし（要問い合わせ）。同ブログ内に「最低契約期間（多くは6ヶ月〜）」との言及があるが、同社固有の条件かは不明のため契約前に要確認。上限額は月額支払い上限であり固定請求ではないと読み取れる。基準再生数未達分は同社負担の広告で補填とされる。公式サービスページ・トップページには料金記載なし。', '投稿した動画の再生数（Instagramリール・TikTok等）', 'other', 'success_only', false, false, 'ショート動画での認知獲得を固定費なしで試したい企業', array['再生数×4円の成果報酬課金', '月額上限プラン（30/40/50万円）', '企画から撮影・編集・投稿・分析まで一括対応', '基準再生数未達分を自社負担の広告で補填']::text[], 'unpartnered', false, true, true, 'verified', 'https://ceeev.co.jp/blog/performance-based-sns-management-guide-2026-v2/', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'ceeev-reel-view-based' and c.slug = 'instagram-ops' on conflict do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, false from services s, categories c where s.slug = 'ceeev-reel-view-based' and c.slug = 'sns' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, pricing_model, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('lead-one-tiktok-seika', 'TikTok運用代行 成果報酬プラン（月額上限あり）', '合同会社LEAD ONE', '福岡発のTikTok運用代行。再生数1回あたり3円（2023年公式プレスリリース記載）の成果報酬で、月額上限が設定され、月額固定費はかからない。最低契約期間は3か月。', '合同会社LEAD ONE（福岡）が提供するTikTokの企画・撮影・編集・運用代行の成果報酬プランです。公式サイトのTikTok運用代行ページでは「成果報酬型×月額上限あり」「月額固定費はかからず、成果に応じて支払う」と案内されています。公式プレスリリース（2023年6月26日）では、課金は再生数1回あたり3円、初期費用は不要と記載され、月間の請求上限は月10本投稿で25万円、月15本で33万円、月20本で40万円（税別）とされています。
+
+現行の公式ページでは具体的な単価・上限額は資料請求で案内するとされており、プレスリリース時点の金額が現在も同一かは公式サイトに記載がないため要問い合わせです。
+
+別途費用として、撮影スタジオ代、演者のキャスティング代は含まれず、撮影地が福岡・沖縄以外の場合は博多からの往復交通費がかかるとプレスリリースに記載があります。公式サイトのFAQでは最低契約期間は3か月からとされ、柔軟に対応可能とも書かれています。広告費の扱いは公式サイトに記載がないため要問い合わせです。対応可能な社数には限りがあるとプレスリリースに記載されています。', null, 'https://lead-one.info/', 'free', '不要（プレスリリースに明記）', 'free', '月額固定費はかからない（公式サイトFAQに明記）', '再生数1回あたり3円（2023年プレスリリース記載。月間上限：10本25万円/15本33万円/20本40万円、税別）', '最低契約期間は3か月から（公式FAQ、柔軟対応可とあるが詳細は要問い合わせ）。月間請求上限あり（2023年プレスリリース時点：月10本25万円/15本33万円/20本40万円、税別）。現行の公式ページでは単価・上限額は資料請求で案内のため、現在の金額は要確認。別途、スタジオ代・キャスティング費、福岡/沖縄以外での撮影時の博多からの往復交通費（福岡市内は交通費無料）。広告費・解約条件は公式に記載を確認できず要問い合わせ。', 'TikTok動画の再生数', 'other', 'success_only', true, true, 'TikTokでの集客・認知を狙う企業（福岡・九州中心、全国対応可）', array['企画・台本・撮影・編集・運用・分析をワンストップで対応', '課金は再生数連動の成果報酬で月額上限あり', '月額固定費なし（最低契約期間は3か月）', '福岡市内は交通費無料、全国オンライン対応可']::text[], 'unpartnered', false, true, true, 'verified', 'https://prtimes.jp/main/html/rd/p/000000001.000098295.html', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'lead-one-tiktok-seika' and c.slug = 'tiktok-ops' on conflict do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, false from services s, categories c where s.slug = 'lead-one-tiktok-seika' and c.slug = 'sns' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, pricing_model, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('malnage-connect-shiryo', 'まるなげコネクト（まるなげ資料請求）', '株式会社インデンコンサルティング', '掲載料・初期費用・月額費用0円で、本申込後の1件につき3,000円を支払う成果報酬型のリード獲得サービス。', 'まるなげコネクトは、見込み客からの資料請求・問い合わせ獲得を成果報酬で支援するサービスです。公式サイトでは、掲載料・初期費用・月額費用がいずれも0円と案内されており、費用は成果報酬として1件あたり3,000円（本申込後）のみと記載されています。
+
+契約は月額費用なしの単月契約で、無料トライアルでは1か月間、掲載料・初期費用・月額費用がすべて0円で利用できるとされています。
+
+課金対象となる「申込」の詳細な定義、業種・案件ごとに単価が変わるかどうか、最低件数の有無、広告媒体への出稿費や制作費が別途必要になるかどうかは、公式サイトに記載がないため要問い合わせです。', null, 'https://malnage.com/', 'free', '0円', 'free', '0円', '1件あたり3,000円（本申込後）', '公式記載は掲載料・初期費用・月額費用0円、成果報酬3,000円/件のみ（本申込後）、単月契約。最低件数・業種別単価・広告費等の別途費用の有無は公式サイトに記載がないため要問い合わせ。', 'お申込（問い合わせ・資料請求）が発生した件数', 'lead', 'success_only', true, false, 'BtoB企業をはじめ、IT・不動産・FCなど見込み客獲得を目指す企業', array['掲載料・初期費用・月額費用0円', '申込1件3,000円の成果報酬', '月額費用なしの単月契約', '1か月の無料トライアルあり']::text[], 'unpartnered', false, true, true, 'verified', 'https://malnage.com/', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'malnage-connect-shiryo' and c.slug = 'lead-generation' on conflict do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, false from services s, categories c where s.slug = 'malnage-connect-shiryo' and c.slug = 'web-ads' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, pricing_model, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('howma-sales-reaction', 'HowMa売り反響獲得システム', 'コラビット株式会社', '不動産売却の売主反響に対して1反響1万円（税別）〜課金。システム使用料ほか固定費用なし、月5件から上限設定可。', 'HowMa売り反響獲得システムは、売却意欲の高い売主からの問い合わせ（反響）を不動産会社に届けるサービスです。公式ページでは、反響単価は1反響あたり10,000円（税別）からで、システム使用料ほか固定費用はないと記載されています。AI査定利用者に意思確認を行ったうえで送客される仕組みとされています。
+
+初期費用は通常50,000円（税別）ですが、現在は初期費用無料キャンペーン中です。契約は1か月から可能で契約期間の縛りはなく、不適合と感じた場合はすぐに解約できるとされ、月間の反響上限も5件から設定できます。
+
+10,000円を超える単価がどの条件で適用されるか、キャンペーン終了時期は公式サイトに記載がないため要問い合わせです。', null, 'https://bservice.collab-it.net/service/howma-sales-reaction', 'paid', '通常50,000円（税別）。キャンペーン中は0円', 'free', '0円（システム使用料ほか固定費用なし）', '1反響10,000円（税別）〜', '初期費用は通常50,000円（税別）で、無料はキャンペーン期間中のみ。契約は1か月から、契約期間の縛りなし。10,000円は「〜」の下限表記で、上振れ条件は公式サイトに記載がないため要問い合わせ。', '売却意欲の高い売主からの問い合わせ（反響）の件数', 'lead', 'success_only', false, false, '不動産売却の反響を獲得したい不動産会社', array['1反響10,000円（税別）〜の反響課金', 'システム使用料ほか固定費用なし', '1か月から契約・縛りなし', '月5件から月間上限を設定可能']::text[], 'unpartnered', false, true, true, 'verified', 'https://bservice.collab-it.net/service/howma-sales-reaction', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'howma-sales-reaction' and c.slug = 'lead-generation' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, pricing_model, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('eq-create-me-q', 'ME-Q（成果報酬型MEO対策）', 'EQクリエイト', '上位3位以内にランクインした日数×700円のみで課金される、初期費用・月額固定費0円の完全成果報酬型MEO対策。', 'ME-Qは、Googleマップ検索（MEO）で対策キーワードが上位3位以内にランクインした日数に応じて課金される成果報酬型のMEO対策サービスです。
+
+公式サイトでは「上位3位以内にランクインした日数×700円だけの完全成果報酬型」と案内されており、初期費用は0円、月額の固定費も0円と記載されています。「結果が出なければ料金は一切かかりません」との説明があり、価格は税別表示です。
+
+3つのプランが用意されているとされていますが、プランの詳細は画像で提示されており、テキストでは内容を確認できませんでした。最低契約期間や解約条件については公式サイトに記載がないため要問い合わせです。', null, 'https://eq-create.jp/me-q/', 'free', '0円', 'free', '0円', '1日あたり700円（税別）', '最低契約期間・解約条件は公式ページに記載なし（要問い合わせ）。3プランの違いは画像表記のため確認できず。料金は税別。', '対象キーワードでGoogleマップ上位3位以内にランクインした日数', 'other', 'success_only', true, false, '店舗・地域ビジネス', array['上位3位以内の日数課金', '初期費用0円・月額固定費0円', '3プラン展開', 'MEO（Googleマップ）対策']::text[], 'unpartnered', false, true, true, 'verified', 'https://eq-create.jp/me-q/', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'eq-create-me-q' and c.slug = 'meo' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, pricing_model, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('greenhill-meo-hack', 'MEO HACK', '株式会社GreenHill', 'Googleマップで上位3位以内に入った日のみ日額300円が発生する、初期費用0円・月額固定費なしの成果報酬型MEO。', 'MEO HACKは株式会社GreenHillが提供する成果報酬型のMEO対策サービスです。
+
+公式サイトでは初期費用0円、上位3位以内にランクインした日について日額300円が課金される仕組みと記載されています。月額固定費は公式ページに明示的な記載がなく、成果報酬型である旨の説明から固定月額は設定されていないと読み取れます。「効果が出た分だけ費用が発生する」との説明があります。
+
+上位表示成功率約80%との記載や最安値表記は事業者自身の主張です。税表記、最低契約期間、解約条件、対象キーワード数の上限は公式サイトに記載がないため要問い合わせです。', null, 'https://g-hill.jp/meo/', 'free', '0円', 'unknown', null, '日額300円', '月額固定費の明確な記載なし（成果報酬型の説明のみ）。最低契約期間・税表記・解約条件は公式ページに記載なし（要問い合わせ）。', 'Googleマップで上位3位以内にランクインした日数', 'other', 'success_only', false, false, '店舗・地域ビジネス', array['日額300円の日数課金', '初期費用0円', '成果報酬型で固定月額の設定なし', 'MEO対策']::text[], 'unpartnered', false, true, true, 'verified', 'https://g-hill.jp/meo/', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'greenhill-meo-hack' and c.slug = 'meo' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, pricing_model, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('gh-japan-meo', 'GH MEO対策', 'GH株式会社', '上位3位以内表示の達成日数×2,000円のみで課金される、初期費用0円の成果報酬型MEO対策。', 'GH株式会社のMEO対策は、Googleマップで対策キーワードが上位3位以内に表示された日数に応じて費用が発生する成果報酬型サービスです。
+
+公式サイトでは初期費用0円、料金は「上位3位以内表示達成日数×2,000円（税別、非表示日は課金なし）」と記載されています。順位は自社の計測ツールによるGoogleマップ検索結果の定期確認で判定されます。
+
+月額固定費の明示的な記載はありません。最低契約期間や解約の通知条件は「個別にご案内」とされ、具体的な内容は公式サイトに記載がないため要問い合わせです。無料診断の申し込み窓口があります。', null, 'https://www.ghjapan.jp/meo/', 'free', '0円', 'unknown', null, '1日あたり2,000円（税別）', '最低契約期間・解約通知は個別案内で公式ページに具体記載なし。月額固定費の明記はないが、月額料金は達成日数×単価の成果報酬と記載。消費税は別途。', 'Googleマップで上位3位以内表示を達成した日数', 'other', 'success_only', false, true, '店舗・地域ビジネス', array['上位3位以内の日数課金', '非表示日は課金なし', '初期費用0円', '無料診断あり']::text[], 'unpartnered', false, true, true, 'verified', 'https://www.ghjapan.jp/meo/', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'gh-japan-meo' and c.slug = 'meo' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, pricing_model, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('meo-kobo-seika', 'MEO工房', '富山工房 × Gleaner', '上位3位以内に入った日のみ日給1,200円。初期費用・月額基本料0円だが契約期間は6か月。', 'MEO工房は、富山工房とGleanerが運営する成果報酬型のMEO対策サービスです。
+
+公式サイトでは上位3位以内に入った日のみ日給1,200円が課金され、初期費用0円、月額費用は成果報酬のみで基本料金なしと案内されています。定期投稿代行、写真アップロード、口コミ返信対応、独自管理ツールの提供が含まれると記載されています。
+
+契約期間は6か月で、7か月目以降は1か月ごとの自動更新です。ただし期間中も固定費の記載はなく、課金は上位表示日のみです。税表記や解約条件の詳細は公式サイトに記載がないため要問い合わせです。', null, 'https://studio-meo.com/meo/', 'free', '0円', 'free', '0円（基本料金なし）', '1日あたり1,200円', '契約期間6か月（7か月目以降は1か月ごとの自動更新）。固定費の記載はなく課金は上位表示日のみ。税表記・解約条件は公式ページに記載なし（要問い合わせ）。', '希望キーワードでGoogleマップ上位3位以内に入った日数', 'other', 'success_only', true, true, '店舗・地域ビジネス', array['上位3位以内の日給課金', '投稿・写真・口コミ運用込み', '独自管理ツール付き', '契約期間6か月']::text[], 'unpartnered', false, true, true, 'verified', 'https://studio-meo.com/meo/', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'meo-kobo-seika' and c.slug = 'meo' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, pricing_model, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('myseo-seika-seo', 'MY SEO（完全成果報酬型SEO）', '株式会社マイスタースタジオ', '対策キーワードの上位表示日数に応じ日額500円〜で課金される完全成果報酬型SEO。返金対象の預託金が必要。', 'MY SEOは株式会社マイスタースタジオが提供する完全成果報酬型のSEO対策です。
+
+公式サイトでは初期費用・月額基本料とも無料で、上位表示を達成した日について日額500円〜（税込550円）が課金されると記載されています。月間の上位化日数が24日以内なら「月額料金÷30日×上位化日数」の日割り、25日以上なら月額料金の全額請求という計算方式です。
+
+契約時に月額1か月分相当の預託金が必要で、解約時に全額返金されると記載されています。最低契約期間と解約条件は公式サイトに記載がないため要問い合わせです。', null, 'https://myseo.jp/lp001/', 'paid', '初期費用は無料。ただし契約時に月額1か月分相当の預託金が必要（解約時に全額返金と記載）', 'free', '0円', '日額500円〜（税込550円）', '契約時に1か月分相当の預託金が必要（解約時に全額返金と公式記載）。最低契約期間・解約条件は要問い合わせ。月25日以上の上位化で月額料金の全額請求。', '対策キーワードが上位表示された日数', 'other', 'success_only', false, false, '自社サイトの検索順位を上げたい企業', array['上位表示日数課金', '月25日以上で月額満額の計算方式', '預託金は解約時に全額返金', 'SEO対策']::text[], 'unpartnered', false, true, true, 'verified', 'https://myseo.jp/lp001/', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'myseo-seika-seo' and c.slug = 'seo' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, pricing_model, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('raksul-apo-daiko', 'ラクスル アポ代行', 'ラクスル株式会社', '有効商談1件40,000円（税抜）の成果報酬型BtoB営業代行。初期費用0円・月額固定費なし・最低契約期間なしで月1件から利用できる。', 'ラクスルのBPO事業が提供するBtoB向けの営業代行（アポ代行）サービスです。公式サイトでは、通常プランの課金は有効商談1件あたり40,000円（税抜）の成果報酬で、初期費用は0円、月額固定費も0円、月1件から利用できると案内されています。
+
+有効商談とは、日程が確定しており、事前にヒアリングした内容や合意事項が明確になっている商談を指し、日程だけを確保した状態は対象外とされています。BtoB向けページには最低契約期間の定めはなくいつでも解約できると記載されています。
+
+難易度の高いターゲットなどは内容に応じた個別見積もりとなり、1コール400円のコール課金型も別プランとして案内されていますが、コール課金は作業量への課金であり、成果連動の標準料金ではありません。個別見積もり時の具体的な金額、キャンセル時の扱いなどは公式サイトに記載がないため要問い合わせです。', null, 'https://bpo-appointment.raksul.com/', 'free', '0円', 'free', '0円（月額固定費なし、月1件から）', '有効商談1件40,000円（税抜）', '通常プランは有効商談課金のみ。最低契約期間なし（BtoB向けページ記載）。難易度の高いターゲット等は個別見積もり。コール課金（1コール400円）は別プランで作業量課金のため標準の成果報酬とは別。', '有効商談の成立（日程が確定し、事前ヒアリング内容・合意事項が明確な商談）', 'meeting', 'success_only', true, false, 'BtoB企業', array['有効商談1件につき課金する成果報酬', '初期費用0円・月額固定費0円・月1件から', '最低契約期間なし・いつでも解約可', '有効商談は日程確定かつ合意事項が明確な商談と定義']::text[], 'unpartnered', false, true, true, 'verified', 'https://bpo-appointment.raksul.com/bpo-btob', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'raksul-apo-daiko' and c.slug = 'sales-outsourcing' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, pricing_model, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('mubiapo-teleapo', 'ムビアポ', '市川貴教（個人事業）', '採用動画制作会社・採用SNS運用代行会社向けのテレアポ代行。日時確定商談1アポ30,000円、契約獲得型は1社600,000円の成果報酬。', 'ムビアポは、採用動画制作会社や採用目的のSNS運用代行会社に特化したテレアポ・営業代行です。公式サイトの料金ページでは、テレアポ代行は決裁者または決裁関与者との日時確定商談1アポにつき30,000円（税抜）、契約獲得まで対応する完全営業代行は契約1社につき600,000円（税抜）と案内されています。
+
+初期費用は0円、月額固定費はなく、最低契約期間や違約金もありません。支払いは成果確定月の翌月末の後払いです。先方都合の商談キャンセルは課金対象外で、再調整後に実施された時点で課金対象となります。
+
+運営は個人事業主の市川貴教氏で、新規案件は月3社までの受付上限があります。対象は採用動画制作会社・SNS運用代行会社で、全国対応・オンライン完結とされています。実績数値の第三者検証の有無は公式サイトに記載がないため要問い合わせです。', null, 'https://tokutei-ginou-teleapo-senmon.com/', 'free', '0円', 'free', '0円（月額固定費なし）', 'テレアポ代行 1アポ30,000円（税抜）／完全営業代行 契約1社600,000円（税抜）', '最低契約期間・違約金なし。成果確定月の翌月末の後払い。新規案件は月3社までの受付上限あり。先方都合のキャンセルは課金対象外（再調整後の実施時に課金）。', '決裁者または決裁関与者との日時確定商談の成立（テレアポ代行）／契約獲得（完全営業代行）', 'appointment', 'success_only', true, false, '採用動画制作会社、採用目的のSNS運用代行会社', array['決裁者・決裁関与者との日時確定商談を成果として課金', '契約獲得型は1社600,000円', '初期費用0円・最低契約期間と違約金なし', '採用動画・採用SNS運用代行会社に特化']::text[], 'unpartnered', false, true, true, 'verified', 'https://tokutei-ginou-teleapo-senmon.com/price/', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'mubiapo-teleapo' and c.slug = 'sales-outsourcing' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, pricing_model, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('apo100-eigyo-hack', 'アポ100', '株式会社営業ハック', '初期費用・稼働費・運営固定費・デポジットが無料で、アポイント獲得時のみ費用が発生する成果報酬型テレアポ代行。単価は非公開。', 'アポ100は、株式会社営業ハックが提供する成果報酬型のテレアポ代行サービスです。2026年6月1日の公式プレスリリースでは、初期費用・稼働費・運営固定費・デポジットがいずれも無料で、アポイントを獲得した場合にのみ費用が発生し、アポが0件なら費用も0円と案内されています。
+
+アポイント1件あたりの単価、成果（アポ）の具体的な定義、最低契約期間、キャンセル時の扱いは、公式プレスリリースに記載がないため要問い合わせです。公式サイトのトップページでも料金情報は確認できませんでした。
+
+第三者の比較記事には単価の目安が掲載されている場合がありますが、公式確認はできていないため掲載していません。契約前に単価と成果の定義、契約期間を必ず確認してください。', null, 'https://eigyou-hack.com/', 'free', '0円', 'free', '運営固定費0円', null, '単価・アポの定義・最低契約期間・キャンセル時の扱いは公式に記載がなく要問い合わせ。', 'アポイントの獲得（アポ0件なら費用0円）', 'appointment', 'success_only', true, false, null, array['アポ獲得時のみ費用が発生', 'アポ0件なら費用0円', '初期費用・稼働費・運営固定費・デポジットが無料']::text[], 'unpartnered', false, true, true, 'verified', 'https://prtimes.jp/main/html/rd/p/000000630.000050843.html', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'apo100-eigyo-hack' and c.slug = 'sales-outsourcing' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, pricing_model, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('matcher-scout', 'Matcher Scout', 'Matcher株式会社', '新卒向けダイレクトリクルーティングで、スカウト運用まで任せられ、内定承諾時のみ1名70万円が発生する成功報酬型サービス。', 'Matcher Scoutは、新卒採用向けのダイレクトリクルーティングサービスです。公式サイトには、採用するまで費用は一切かからず、初期設定やスカウト運用業務もすべて無料で行うと記載されています。
+
+課金は、内定承諾が出た場合に紹介手数料として1名あたり70万円を支払う仕組みです。入社に至らなかった場合は全額返金すると公式に記載されています。初期費用・運用費用・月額固定費はかからないとされています。
+
+スカウト送信の対象や運用の具体的な進め方、契約期間、プランの適用条件などの詳細は、公式サイトに記載がないため要問い合わせです。', null, 'https://enterprise.matcher.jp/', 'free', '0円（公式に初期設定は無料と記載）', 'free', '0円（公式に運用費用無料・月額固定費なしと記載）', '70万円/人', '公式トップページで確認できる課金は内定承諾時の70万円/人のみ。契約期間・最低件数・解約条件などの詳細は公式に記載がなく要問い合わせ。', '新卒の内定承諾が出た場合（入社に至らなかった場合は全額返金）', 'hire', 'success_only', true, false, '新卒採用を行う企業', array['新卒向けダイレクトリクルーティング', 'スカウト運用業務まで無料で対応', '初期費用・運用費用・月額固定費なし', '入社に至らない場合は全額返金']::text[], 'unpartnered', false, true, true, 'verified', 'https://enterprise.matcher.jp/', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'matcher-scout' and c.slug = 'recruitment-outsourcing' on conflict do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, false from services s, categories c where s.slug = 'matcher-scout' and c.slug = 'recruitment-agency' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, pricing_model, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('gigabaito-apply-billing', 'ギガバイト 応募課金プラン', 'GALOIS Inc.', '初期費用0円・月額基本料0円で、求職者からの応募1件につき2,500円〜が発生するアルバイト向け求人媒体。', 'ギガバイトは、GALOIS Inc.が運営するアルバイト向けの求人掲載サービスです。公式の企業向け料金ページには、応募課金プランとして初期費用0円、月額基本料0円、1応募あたり2,500円〜と記載されています。
+
+応募課金とは別に、掲載課金プランも用意されている旨の記載があります。ただし、その価格は公式サイトに記載がありません。
+
+最低出稿額、掲載期間、無効応募の扱いについても公式サイトに記載がないため要問い合わせです。なお、応募の発生は採用の成立を保証するものではありません。', null, 'https://gigabaito.com/forkigyo', 'free', '0円', 'free', '0円（月額基本料）', '1応募あたり2,500円〜', '最低出稿額・掲載期間・無効応募の扱いは公式に記載がなく要確認。別途、掲載課金プランも存在するため、応募課金プランを選んで申し込む必要がある。応募の発生は採用を保証しない。', '求職者からの応募件数（1応募ごとに課金）', 'lead', 'optional_plan', false, false, 'アルバイト採用を行う企業', array['応募1件ごとの課金', '初期費用・月額基本料0円', 'アルバイト採用向け', '掲載課金プランも別途あり']::text[], 'unpartnered', false, true, true, 'verified', 'https://gigabaito.com/forkigyo', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'gigabaito-apply-billing' and c.slug = 'job-ads' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, pricing_model, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('gratitude-factory-referral', 'Gratitude Factory 完全成功報酬型人材紹介', '株式会社Gratitude Factory', '採用決定まで費用がかからず、紹介料が一律50万円（年収401万円以上は年収の25%）の完全成功報酬型の人材紹介。', '株式会社Gratitude Factoryは、完全成功報酬型の人材紹介サービスを提供しています。公式サイトには、初期費用・月額固定費はなく、料金は一律50万円（消費税別）と記載されています。年収401万円以上の求人については年収の25%が請求されます。
+
+返金規定は、基本の50万円の場合、採用した人材が30日以内に退職したときに半額返金です。年収の25%で請求する場合は、30日以内の退職で70%、3か月以内の退職で50%が返金されると記載されています。
+
+対象は正社員・契約社員・パート・アルバイト・留学生・外国籍人材で、ホテル、介護、IT、物流倉庫、製造、飲食小売などの業種に対応しています。ご利用の流れや紹介までの期間などの詳細は、公式サイトに記載がないため要問い合わせです。', null, 'https://gratitude-factory.com/employer/recruit-service', 'free', '0円（公式に初期費用なしと記載）', 'free', '0円（公式に月額固定費なしと記載）', '一律50万円（税別）。年収401万円以上の求人は年収の25%', '返金規定の期間を過ぎた退職は返金対象外。年収401万円以上は50万円ではなく年収の25%となり、金額が上がる点に注意。', '紹介した人材の採用決定時', 'hire', 'success_only', true, false, '正社員・契約社員・パート・アルバイト・外国籍人材を採用したい企業', array['完全成功報酬型で初期費用・月額固定費なし', '紹介料は一律50万円（高年収は年収の25%）', '早期退職時の返金規定あり', '外国籍人材・アルバイトも対象']::text[], 'unpartnered', false, true, true, 'verified', 'https://gratitude-factory.com/employer/recruit-service', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'gratitude-factory-referral' and c.slug = 'recruitment-agency' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, pricing_model, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('wizardz-plus-costdown', '完全成功報酬型コスト削減コンサルティング', '株式会社ウィザーズプラス', '初期費用・月額固定費なしで、コスト削減が実現できた場合のみ、年間削減額に一定料率を掛けた額が報酬となるコスト削減コンサルティング。', '株式会社ウィザーズプラスが提供する、コスト削減の完全成功報酬型コンサルティングです。公式サイトでは、企業側に特定の初期費用や毎月発生する固定費用の負担が一切なく、コンサルフィーは削減が実現できた場合のみ発生すると説明されています。
+
+報酬は年間削減額に一定の料率を掛けた額のみとされ、1年間のコスト削減額を基準とするため、未来永劫フィーが発生するものではないと記載されています。公式FAQでは、報酬料率は支援する案件の数や1件あたりのボリュームなどを勘案し、支払い条件を含めてお客様ごとに設定するとされています。
+
+公式サイトでは削減成功率97%、平均削減効果は年間10%、平均3～4ヶ月で削減を実現するとしています。具体的な料率、最低料金、契約期間、対象となるコスト費目の範囲は公式サイトに記載がないため要問い合わせです。', null, 'https://www.wizardz-plus.jp/services/costdown', 'free', 'なし(公式記載)', 'free', 'なし(公式記載)', '年間削減額に一定の料率を掛けた額(具体的な料率は公式サイトに記載なし。案件ごとに個別設定)', '料率の具体値、最低料金、契約期間は公式サイトに記載がないため要問い合わせ。報酬料率・支払い条件は案件数やボリュームを勘案して顧客ごとに設定される。1年間の削減額を基準とする旨の記載あり。', 'コスト削減が実現した場合のみ。年間削減額が課金対象の指標', 'other', 'success_only', true, false, 'コスト削減を検討する企業', array['初期費用・月額固定費なしと公式に明記', '削減額に応じた報酬のみが発生', '1年間の削減額を基準とし永続的な課金ではない', '料率・支払い条件は顧客ごとに個別設定']::text[], 'unpartnered', false, true, true, 'verified', 'https://www.wizardz-plus.jp/services/costdown', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'wizardz-plus-costdown' and c.slug = 'business-consulting' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, pricing_model, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('shoubaisekkei-seika-lp', '成果報酬型LP制作(セールスライティング)', '商売設計株式会社', '売上の7～10%、またはリード1件550～880円の成果報酬で制作するLP制作プラン。着手金は累計成果報酬が50万円に達した後に差し引かれる。', '商売設計株式会社が提供する、セールスライターによる成果報酬型のLP制作プランです。公式ページでは、記事LP・販売用LPは着手金55,000円(ライティングのみ)または77,000円(ライティング+デザイン)に加え、売上の7%または10%が成果報酬と示されています。
+
+LINEやメルマガ登録などのオプトインLPは、着手金が同額で、リスト1件あたり550円(ライティングのみ)または880円(ライティング+デザイン)の成果報酬です。金額はいずれも税込で、成果は定価ベースで計算され、値引き価格は含まれません。
+
+着手金は、累計成果報酬額が50万円に到達した後、次回請求時に差し引かれる(値引き処理)と記載されています。また、この成果報酬型は突然取り止める場合があると公式ページに注記されています。契約期間や最低保証の有無は公式サイトに記載がないため要問い合わせです。', null, 'https://the-saleswriting.com/lp/lp-performance-reward/', 'paid', '着手金55,000円(ライティングのみ)/77,000円(ライティング+デザイン)税込。累計成果報酬額が50万円に到達後の次回請求時に差し引き', 'unknown', null, '売上の7%(ライティングのみ)/10%(ライティング+デザイン)、オプトインLPは1件550円/880円(税込)', '着手金が必ず発生し、累計成果報酬が50万円に達するまで差し引かれない(成果が出ない場合は返金等の記載なし)。値引き価格は成果に含まれない。この成果報酬型は突然取り止める可能性があると公式に注記。契約期間・最低保証・月額費用は公式サイトに記載なし。', '記事LP・販売用LPは売上、オプトインLPはリスト(登録)獲得件数。定価ベースで計算', 'lead', 'success_only', false, false, 'LP制作を成果連動で依頼したい事業者', array['売上連動(7%/10%)またはリスト1件単価(550円/880円)の料金表を公開', 'ライティングのみ/デザイン込みの2プラン', '着手金は累計成果報酬50万円到達後に差し引き', '月額固定費の記載なし(契約条件は要問い合わせ)']::text[], 'unpartnered', false, true, true, 'verified', 'https://the-saleswriting.com/lp/lp-performance-reward/', '2026-10-05')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'shoubaisekkei-seika-lp' and c.slug = 'lp-production' on conflict do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, false from services s, categories c where s.slug = 'shoubaisekkei-seika-lp' and c.slug = 'marketing-consulting' on conflict do nothing;
+
 insert into articles (slug, title, excerpt, body, category_id, published, published_at) values ('what-is-performance-based-pricing', '成果報酬型サービスとは？固定費型との違いと選び方', '成果報酬型と固定費型の違い、メリット・注意点、比較時に確認したいポイントをまとめました。', '## 成果報酬型とは
 
 成果報酬型とは、あらかじめ決めた「成果」が発生した場合にだけ費用を支払う料金体系です。営業代行ならアポイント獲得や商談実施、採用なら採用決定、広告なら購入や申込といったものが成果にあたります。
