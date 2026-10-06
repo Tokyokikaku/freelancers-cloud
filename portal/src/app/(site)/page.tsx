@@ -1,3 +1,5 @@
+import { existsSync } from "node:fs";
+import path from "node:path";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CostCompare } from "@/components/CostCompare";
@@ -47,6 +49,7 @@ export default async function HomePage() {
   const topCategories = categories.filter((c) => !c.parent_id);
   const childrenOf = (id: string) => categories.filter((c) => c.parent_id === id).sort((a, b) => a.sort_order - b.sort_order);
   const catName = (id: string | null) => categories.find((c) => c.id === id)?.name;
+  const heroPhoto = existsSync(path.join(process.cwd(), "public/hero/person.jpg"));
   const categoryCount = categories.filter((c) => servicesInCategory(services, categories, c.id).length > 0).length;
 
   return (
@@ -77,39 +80,63 @@ export default async function HomePage() {
             </ul>
           </div>
 
-          <aside aria-label="注目のサービス" className="self-center">
-            <div className="rounded-md bg-white text-ink shadow-[0_18px_40px_-18px_rgb(0_0_0/0.55)]">
-              <div className="flex items-center justify-between border-b border-line px-4 py-3">
-                <p className="font-black">注目のサービス</p>
-                <Link href="#ranking" className="text-xs font-bold text-brand-700 hover:underline">ランキングを見る</Link>
-              </div>
-              <ol className="divide-y divide-line">
-                {popular.slice(0, 3).map((s, i) => (
-                  <li key={s.id}>
-                    <Link href={`/services/${s.slug}`} className="block px-4 py-3 hover:bg-brand-50">
-                      <div className="flex items-start gap-3">
-                        <span className={`mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-sm text-sm font-black text-white ${["bg-gold", "bg-silver", "bg-bronze"][i]}`}>{i + 1}</span>
-                        <div className="min-w-0 flex-1">
-                          <p className="truncate text-base font-bold">{s.name}</p>
-                          <p className="truncate text-xs text-muted">{s.company_name}</p>
-                          <ul className="mt-2 grid grid-cols-3 gap-1 text-center text-[11px] leading-tight">
-                            <li className="rounded-sm bg-surface px-1 py-1.5"><span className="block text-muted">初期費用</span><b className={s.initial_fee_type === "free" ? "text-good-700" : "text-ink"}>{s.initial_fee_type === "free" ? "0円" : s.initial_fee_type === "paid" ? "あり" : "要確認"}</b></li>
-                            <li className="rounded-sm bg-surface px-1 py-1.5"><span className="block text-muted">月額</span><b className={s.monthly_fee_type === "free" ? "text-good-700" : "text-ink"}>{s.monthly_fee_type === "free" ? "0円" : s.monthly_fee_type === "paid" ? "あり" : "要確認"}</b></li>
-                            <li className="rounded-sm bg-surface px-1 py-1.5"><span className="block text-muted">成果課金</span><b className="text-ink">{s.pricing_model === "optional_plan" ? "プラン有" : s.success_fee ? "あり" : "要確認"}</b></li>
-                          </ul>
-                          <p className="mt-2 line-clamp-1 text-xs text-body">成果地点：{s.success_condition ?? "要問い合わせ"}</p>
-                        </div>
-                      </div>
-                    </Link>
-                  </li>
-                ))}
-              </ol>
-              <div className="grid grid-cols-2 gap-px border-t border-line bg-line text-center text-sm font-bold">
-                <Link href="/services?full=1" className="bg-white px-3 py-3 text-brand-700 hover:bg-brand-50">完全成果報酬のサービス</Link>
-                <Link href="/services" className="bg-white px-3 py-3 text-brand-700 hover:bg-brand-50">すべて見る</Link>
-              </div>
+          {heroPhoto ? (
+            <div className="relative mx-auto w-full max-w-md self-end lg:max-w-none">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/hero/person.jpg" alt="スーツ姿の男性のイメージ写真" width={720} height={820} className="aspect-[4/4.2] w-full rounded-md object-cover object-top" />
+              <p className="absolute bottom-3 right-3 rounded-sm bg-brand-900/80 px-2 py-1 text-[10px] text-white">イメージ写真</p>
             </div>
-          </aside>
+          ) : (
+          <aside aria-label="注目のサービス" className="self-center">
+              <div className="rounded-md bg-white text-ink shadow-[0_18px_40px_-18px_rgb(0_0_0/0.55)]">
+                <div className="flex items-center justify-between border-b border-line px-4 py-3">
+                  <p className="font-black">注目のサービス</p>
+                  <Link href="#ranking" className="text-xs font-bold text-brand-700 hover:underline">ランキングを見る</Link>
+                </div>
+                <ol className="divide-y divide-line">
+                  {popular.slice(0, 3).map((s, i) => (
+                    <li key={s.id}>
+                      <Link href={`/services/${s.slug}`} className="block px-4 py-3 hover:bg-brand-50">
+                        <div className="flex items-start gap-3">
+                          <span className={`mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-sm text-sm font-black text-white ${["bg-gold", "bg-silver", "bg-bronze"][i]}`}>{i + 1}</span>
+                          <div className="min-w-0 flex-1">
+                            <p className="truncate text-base font-bold">{s.name}</p>
+                            <p className="truncate text-xs text-muted">{s.company_name}</p>
+                            <ul className="mt-2 grid grid-cols-3 gap-1 text-center text-[11px] leading-tight">
+                              <li className="rounded-sm bg-surface px-1 py-1.5"><span className="block text-muted">初期費用</span><b className={s.initial_fee_type === "free" ? "text-good-700" : "text-ink"}>{s.initial_fee_type === "free" ? "0円" : s.initial_fee_type === "paid" ? "あり" : "要確認"}</b></li>
+                              <li className="rounded-sm bg-surface px-1 py-1.5"><span className="block text-muted">月額</span><b className={s.monthly_fee_type === "free" ? "text-good-700" : "text-ink"}>{s.monthly_fee_type === "free" ? "0円" : s.monthly_fee_type === "paid" ? "あり" : "要確認"}</b></li>
+                              <li className="rounded-sm bg-surface px-1 py-1.5"><span className="block text-muted">成果課金</span><b className="text-ink">{s.pricing_model === "optional_plan" ? "プラン有" : s.success_fee ? "あり" : "要確認"}</b></li>
+                            </ul>
+                            <p className="mt-2 line-clamp-1 text-xs text-body">成果地点：{s.success_condition ?? "要問い合わせ"}</p>
+                          </div>
+                        </div>
+                      </Link>
+                    </li>
+                  ))}
+                </ol>
+                <div className="grid grid-cols-2 gap-px border-t border-line bg-line text-center text-sm font-bold">
+                  <Link href="/services?full=1" className="bg-white px-3 py-3 text-brand-700 hover:bg-brand-50">完全成果報酬のサービス</Link>
+                  <Link href="/services" className="bg-white px-3 py-3 text-brand-700 hover:bg-brand-50">すべて見る</Link>
+                </div>
+              </div>
+            </aside>
+          )}
+        </div>
+        <div className="relative border-t border-white/15 bg-black/15">
+          <div className="container-page py-5 sm:py-6">
+            <p className="mb-3 text-sm font-bold text-white">カテゴリから探す</p>
+            <ul className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6">
+              {topCategories.filter((c) => countOf(c.id) > 0).map((c) => (
+                <li key={c.id}>
+                  <Link href={`/category/${c.slug}`} className="flex h-full flex-col rounded-sm border border-white/20 bg-white/5 p-3 text-white hover:bg-white hover:text-brand-700">
+                    <span className="flex items-center gap-2 text-sm font-bold"><Icon name={c.icon ?? "other"} className="size-5 shrink-0" /><span className="min-w-0 flex-1 leading-tight">{c.name}</span></span>
+                    <span className="mt-1 text-[11px] opacity-80">{countOf(c.id)}件</span>
+                    <span className="mt-1 line-clamp-2 text-[11px] leading-snug opacity-80">{childrenOf(c.id).slice(0, 3).map((x) => x.name).join("・")}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
 
