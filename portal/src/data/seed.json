@@ -6987,6 +6987,76 @@
       "categories": [
         "meo"
       ]
+    },
+    {
+      "slug": "three-with-performance-influencer",
+      "name": "THREE With(成果報酬型インフルエンサーマーケティング)",
+      "company_name": "株式会社3well",
+      "summary": "初期費用0円・月額0円で、成果が出た分だけ支払う成果報酬型インフルエンサー施策。",
+      "description": "Instagram・YouTubeなど複数SNSのインフルエンサー(審査制)を活用し、企画・分析・ディレクションまで行う成果報酬型サービス。初期費用・月額費用は0円で、請求は投稿月の月末、支払いは翌月末。",
+      "logo_url": null,
+      "website_url": "https://www.threewith.com/",
+      "initial_fee_type": "free",
+      "initial_fee": "0円",
+      "monthly_fee_type": "free",
+      "monthly_fee": "0円",
+      "success_fee": null,
+      "pricing_note": "成果単価・成果の定義は公式ページに記載なし(要問い合わせ)。",
+      "success_condition": "成果が出た分のみ支払い(成果指標の詳細は公式ページに記載なし)",
+      "outcome_type": "other",
+      "pricing_model": "success_only",
+      "is_full_success_fee": true,
+      "has_free_consultation": null,
+      "target_companies": "20〜30代女性向け商材のBtoC企業",
+      "features": [
+        "初期費用0円・月額0円",
+        "インフルエンサーネットワーク",
+        "企画・分析・ディレクションまで対応"
+      ],
+      "partner_status": "unpartnered",
+      "featured": false,
+      "show_in_popular": true,
+      "published": true,
+      "source_url": "https://www.threewith.com/client",
+      "last_verified_at": "2026-10-06",
+      "categories": [
+        "sns"
+      ]
+    },
+    {
+      "slug": "yaaha-tiktok-seika",
+      "name": "TikTok広告運用代行(完全成果報酬型)",
+      "company_name": "株式会社Yaaha",
+      "summary": "TikTokのショート動画広告を、初期費用・運用手数料・動画制作費0円の成果報酬で運用。",
+      "description": "TikTokを中心とした縦型ショート動画広告の企画・撮影・編集・配信・運用を一貫して請け負い、成果単価×成果件数のみで課金されます。",
+      "logo_url": null,
+      "website_url": "https://yaaha.co.jp/",
+      "initial_fee_type": "free",
+      "initial_fee": "0円",
+      "monthly_fee_type": "free",
+      "monthly_fee": "0円",
+      "success_fee": "成果単価×成果件数(単価は要問い合わせ)",
+      "pricing_note": "公式サイト本文を取得できず、料金は同社のプレスリリースと公式サービス概要の記載で確認しています。最新の条件は公式サイトでご確認ください。",
+      "success_condition": "広告経由のコンバージョン(定義は個別に合意)",
+      "outcome_type": "other",
+      "pricing_model": "success_only",
+      "is_full_success_fee": true,
+      "has_free_consultation": null,
+      "target_companies": "TikTok広告で新規獲得を狙うBtoC企業・アプリ事業者",
+      "features": [
+        "初期費用・運用手数料・動画制作費0円",
+        "動画の量産",
+        "企画から運用・PDCAまで一貫対応"
+      ],
+      "partner_status": "unpartnered",
+      "featured": false,
+      "show_in_popular": true,
+      "published": true,
+      "source_url": "https://prtimes.jp/main/html/rd/p/000000007.000157690.html",
+      "last_verified_at": "2026-10-06",
+      "categories": [
+        "sns-ads"
+      ]
     }
   ],
   "articles": [

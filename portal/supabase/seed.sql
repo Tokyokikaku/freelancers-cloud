@@ -1376,6 +1376,16 @@ values ('tyco-on-meo-seika', 'MEO成果報酬サービス(TYCO-ON)', '株式会�
   on conflict (slug) do nothing;
 insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'tyco-on-meo-seika' and c.slug = 'meo' on conflict do nothing;
 
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, pricing_model, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('three-with-performance-influencer', 'THREE With(成果報酬型インフルエンサーマーケティング)', '株式会社3well', '初期費用0円・月額0円で、成果が出た分だけ支払う成果報酬型インフルエンサー施策。', 'Instagram・YouTubeなど複数SNSのインフルエンサー(審査制)を活用し、企画・分析・ディレクションまで行う成果報酬型サービス。初期費用・月額費用は0円で、請求は投稿月の月末、支払いは翌月末。', null, 'https://www.threewith.com/', 'free', '0円', 'free', '0円', null, '成果単価・成果の定義は公式ページに記載なし(要問い合わせ)。', '成果が出た分のみ支払い(成果指標の詳細は公式ページに記載なし)', 'other', 'success_only', true, false, '20〜30代女性向け商材のBtoC企業', array['初期費用0円・月額0円', 'インフルエンサーネットワーク', '企画・分析・ディレクションまで対応']::text[], 'unpartnered', false, true, true, 'verified', 'https://www.threewith.com/client', '2026-10-06')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'three-with-performance-influencer' and c.slug = 'sns' on conflict do nothing;
+
+insert into services (slug, name, company_name, summary, description, logo_url, website_url, initial_fee_type, initial_fee, monthly_fee_type, monthly_fee, success_fee, pricing_note, success_condition, outcome_type, pricing_model, is_full_success_fee, has_free_consultation, target_companies, features, partner_status, featured, show_in_popular, published, review_status, source_url, last_verified_at)
+values ('yaaha-tiktok-seika', 'TikTok広告運用代行(完全成果報酬型)', '株式会社Yaaha', 'TikTokのショート動画広告を、初期費用・運用手数料・動画制作費0円の成果報酬で運用。', 'TikTokを中心とした縦型ショート動画広告の企画・撮影・編集・配信・運用を一貫して請け負い、成果単価×成果件数のみで課金されます。', null, 'https://yaaha.co.jp/', 'free', '0円', 'free', '0円', '成果単価×成果件数(単価は要問い合わせ)', '公式サイト本文を取得できず、料金は同社のプレスリリースと公式サービス概要の記載で確認しています。最新の条件は公式サイトでご確認ください。', '広告経由のコンバージョン(定義は個別に合意)', 'other', 'success_only', true, false, 'TikTok広告で新規獲得を狙うBtoC企業・アプリ事業者', array['初期費用・運用手数料・動画制作費0円', '動画の量産', '企画から運用・PDCAまで一貫対応']::text[], 'unpartnered', false, true, true, 'verified', 'https://prtimes.jp/main/html/rd/p/000000007.000157690.html', '2026-10-06')
+  on conflict (slug) do nothing;
+insert into service_categories (service_id, category_id, is_primary) select s.id, c.id, true from services s, categories c where s.slug = 'yaaha-tiktok-seika' and c.slug = 'sns-ads' on conflict do nothing;
+
 insert into articles (slug, title, excerpt, body, category_id, published, published_at) values ('what-is-performance-based-pricing', '成果報酬型サービスとは？固定費型との違いと選び方', '成果報酬型と固定費型の違い、メリット・注意点、比較時に確認したいポイントをまとめました。', '## 成果報酬型とは
 
 成果報酬型とは、あらかじめ決めた「成果」が発生した場合にだけ費用を支払う料金体系です。営業代行ならアポイント獲得や商談実施、採用なら採用決定、広告なら購入や申込といったものが成果にあたります。
