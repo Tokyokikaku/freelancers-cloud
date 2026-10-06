@@ -48,44 +48,76 @@ export default async function HomePage() {
   const topCategories = categories.filter((c) => !c.parent_id);
   const childrenOf = (id: string) => categories.filter((c) => c.parent_id === id).sort((a, b) => a.sort_order - b.sort_order);
   const catName = (id: string | null) => categories.find((c) => c.id === id)?.name;
-  const filters = [
-    { href: "/services?zero_initial=1", label: "初期費用0円", count: services.filter((s) => s.initial_fee_type === "free").length },
-    { href: "/services?zero_monthly=1", label: "月額費用0円", count: services.filter((s) => s.monthly_fee_type === "free").length },
-    { href: "/services?full=1", label: "完全成果報酬", count: fullSuccess.length },
-    { href: "/services?consult=1", label: "無料相談あり", count: services.filter((s) => s.has_free_consultation).length },
-  ];
   const keywords = ["営業代行", "テレアポ", "広告運用", "SEO", "人材紹介", "採用代行", "補助金"];
 
   return (
     <>
-      {/* ───── 検索エリア ───── */}
-      <section className="border-b border-line bg-white">
-        <div className="container-page grid grid-cols-[minmax(0,1fr)] gap-6 py-6 sm:py-8 lg:grid-cols-[1.5fr_1fr] lg:gap-10">
+      {/* ───── FV ───── */}
+      <section className="relative overflow-hidden bg-brand-900 text-white">
+        <div aria-hidden className="pointer-events-none absolute inset-y-0 right-0 hidden w-1/2 bg-[repeating-linear-gradient(135deg,rgb(255_255_255/0.04)_0_2px,transparent_2px_14px)] lg:block" />
+        <div className="container-page relative grid grid-cols-[minmax(0,1fr)] gap-8 py-8 sm:py-12 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] lg:gap-12 lg:py-14">
           <div>
-            <h1 className="text-[1.65rem] font-black leading-snug sm:text-4xl sm:leading-tight">
-              <span className="marker">初期費用なし</span>、リスクなしで<wbr />事業を推進。
+            <p className="inline-flex items-center gap-2 rounded-sm bg-white/10 px-3 py-1 text-xs font-bold tracking-wide text-brand-100 sm:text-sm">
+              <span className="size-1.5 rounded-full bg-cta-500" />成果報酬サービス比較メディア
+            </p>
+            <h1 className="mt-4 text-[2rem] font-black leading-[1.25] text-white sm:text-5xl sm:leading-[1.2]">
+              <span className="text-cta-500">初期費用なし</span>、<br className="hidden sm:block" />リスクなしで<wbr />事業を推進。
             </h1>
-            <p className="mt-3 text-sm leading-7 sm:text-base">再生数・問い合わせ数・アポ数・採用数など、実績に応じて支払う「成果報酬サービス」を、営業・マーケティング・採用・資金調達からまとめて比較できます。月額の固定費はかかりません。</p>
-            <div className="mt-4 max-w-2xl">
+            <p className="mt-4 max-w-xl text-sm leading-7 text-brand-100 sm:text-base sm:leading-8">
+              再生数・問い合わせ数・アポ数・採用数など、<b className="text-white">実績に応じて支払う</b>サービスだけを集めました。月額の固定費なしで、営業・マーケティング・採用・資金調達までまとめて比較できます。
+            </p>
+            <div className="mt-6 max-w-2xl">
               <SearchBox size="lg" id="hero-search" placeholder="例：営業代行、広告運用、SEO、人材紹介" />
-              <p className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-sm">
-                <span className="font-bold text-ink">人気のキーワード</span>
-                {keywords.map((k) => <Link key={k} href={`/services?q=${encodeURIComponent(k)}`} className="text-brand-700 underline underline-offset-4 hover:no-underline">{k}</Link>)}
+              <p className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-2 text-sm">
+                <span className="font-bold text-brand-100">人気のキーワード</span>
+                {keywords.map((k) => <Link key={k} href={`/services?q=${encodeURIComponent(k)}`} className="rounded-full border border-white/30 px-3 py-1 text-white hover:bg-white hover:text-brand-700">{k}</Link>)}
               </p>
             </div>
+            <dl className="mt-8 grid max-w-xl grid-cols-3 divide-x divide-white/20 border-y border-white/20 py-4 text-center">
+              <div className="px-2"><dt className="text-[11px] text-brand-100 sm:text-xs">掲載サービス</dt><dd className="mt-1 font-black"><span className="text-3xl sm:text-4xl">{services.length}</span><span className="ml-0.5 text-xs sm:text-sm">件</span></dd></div>
+              <div className="px-2"><dt className="text-[11px] text-brand-100 sm:text-xs">完全成果報酬</dt><dd className="mt-1 font-black"><span className="text-3xl text-cta-500 sm:text-4xl">{fullSuccess.length}</span><span className="ml-0.5 text-xs sm:text-sm">件</span></dd></div>
+              <div className="px-2"><dt className="text-[11px] text-brand-100 sm:text-xs">カテゴリ</dt><dd className="mt-1 font-black"><span className="text-3xl sm:text-4xl">{categories.filter((c) => servicesInCategory(services, categories, c.id).length > 0).length}</span><span className="ml-0.5 text-xs sm:text-sm">種</span></dd></div>
+            </dl>
           </div>
-          <div className="panel self-start">
-            <p className="border-b border-line bg-surface/70 px-4 py-2 text-sm font-bold text-ink">料金条件から探す</p>
-            <ul className="grid grid-cols-2 gap-px bg-line">
-              {filters.map((f) => (
-                <li key={f.label} className="bg-white">
-                  <Link href={f.href} className="flex min-h-14 items-center justify-between gap-2 px-4 py-2 text-sm font-bold text-ink hover:bg-brand-50 hover:text-brand-700">
-                    {f.label}<span className="text-xs font-normal text-muted"><b className="text-base text-good-700">{f.count}</b> 件</span>
-                  </Link>
-                </li>
-              ))}
+
+          <aside aria-label="注目のサービス" className="self-center">
+            <div className="rounded-md bg-white text-ink shadow-[0_18px_40px_-18px_rgb(0_0_0/0.55)]">
+              <div className="flex items-center justify-between border-b border-line px-4 py-3">
+                <p className="font-black">注目のサービス</p>
+                <Link href="#ranking" className="text-xs font-bold text-brand-700 hover:underline">ランキングを見る</Link>
+              </div>
+              <ol className="divide-y divide-line">
+                {popular.slice(0, 3).map((s, i) => (
+                  <li key={s.id}>
+                    <Link href={`/services/${s.slug}`} className="block px-4 py-3 hover:bg-brand-50">
+                      <div className="flex items-start gap-3">
+                        <span className={`mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-sm text-sm font-black text-white ${["bg-gold", "bg-silver", "bg-bronze"][i]}`}>{i + 1}</span>
+                        <div className="min-w-0 flex-1">
+                          <p className="truncate text-base font-bold">{s.name}</p>
+                          <p className="truncate text-xs text-muted">{s.company_name}</p>
+                          <ul className="mt-2 grid grid-cols-3 gap-1 text-center text-[11px] leading-tight">
+                            <li className="rounded-sm bg-surface px-1 py-1.5"><span className="block text-muted">初期費用</span><b className={s.initial_fee_type === "free" ? "text-good-700" : "text-ink"}>{s.initial_fee_type === "free" ? "0円" : s.initial_fee_type === "paid" ? "あり" : "要確認"}</b></li>
+                            <li className="rounded-sm bg-surface px-1 py-1.5"><span className="block text-muted">月額</span><b className={s.monthly_fee_type === "free" ? "text-good-700" : "text-ink"}>{s.monthly_fee_type === "free" ? "0円" : s.monthly_fee_type === "paid" ? "あり" : "要確認"}</b></li>
+                            <li className="rounded-sm bg-surface px-1 py-1.5"><span className="block text-muted">成果課金</span><b className="text-ink">{s.pricing_model === "optional_plan" ? "プラン有" : s.success_fee ? "あり" : "要確認"}</b></li>
+                          </ul>
+                          <p className="mt-2 line-clamp-1 text-xs text-body">成果地点：{s.success_condition ?? "要問い合わせ"}</p>
+                        </div>
+                      </div>
+                    </Link>
+                  </li>
+                ))}
+              </ol>
+              <div className="grid grid-cols-2 gap-px border-t border-line bg-line text-center text-sm font-bold">
+                <Link href="/services?full=1" className="bg-white px-3 py-3 text-brand-700 hover:bg-brand-50">完全成果報酬 {fullSuccess.length}件</Link>
+                <Link href="/services" className="bg-white px-3 py-3 text-brand-700 hover:bg-brand-50">すべて見る</Link>
+              </div>
+            </div>
+            <ul className="mt-4 grid grid-cols-3 gap-2 text-center text-[11px] font-bold text-brand-100 sm:text-xs">
+              <li className="rounded-sm border border-white/20 px-2 py-2">固定費を<br />かけない</li>
+              <li className="rounded-sm border border-white/20 px-2 py-2">実績に応じて<br />支払う</li>
+              <li className="rounded-sm border border-white/20 px-2 py-2">まとめて<br />資料請求</li>
             </ul>
-          </div>
+          </aside>
         </div>
       </section>
 
