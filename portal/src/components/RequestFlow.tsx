@@ -242,22 +242,6 @@ export function RequestFlow({ services, initialSlugs, autoPick = false, companyS
                 <span>次回から入力を省略する<span className="block text-xs text-muted">入力内容をこの端末のブラウザにだけ保存します（当サイトのサーバーには送られません）。共用のパソコンではチェックを外してください。</span></span>
               </label>
 
-              <div>
-                <label className="flex cursor-pointer items-start gap-2.5 rounded-md border-2 border-cta-500 bg-warn-50 p-3 text-sm text-ink">
-                  <input type="checkbox" name="third_party_consent" required className="mt-1 size-4 shrink-0 accent-cta-500" aria-describedby={err("consent") ? "req-consent-err" : undefined} />
-                  <span>
-                    <b className="text-red-600">必須</b>{" "}
-                    資料のご案内のため、ご登録いただいた会員情報（会社名・氏名・メールアドレス・電話番号・従業員数・業種・部署・役職など）を、請求・リクエスト先のサービス提供会社に電子ファイルにて提供することに同意し、
-                    <Link href="/privacy" target="_blank" className="underline">プライバシーポリシー</Link>を確認のうえ資料請求します。
-                  </span>
-                </label>
-                {chosen.some((c) => c.partner_status === "unpartnered") && (
-                  <p className="mt-2 rounded bg-slate-50 p-3 text-xs leading-6 text-body">
-                    ※「資料リクエスト」のサービス（{chosen.filter((c) => c.partner_status === "unpartnered").length}件）は、提供会社との契約前です。いただいたリクエストは当社が保管し、契約成立後に資料のご案内と会員情報の提供を行います。契約に至らない場合、会員情報は当該会社へ提供しません。
-                  </p>
-                )}
-                {err("consent") && <p id="req-consent-err" role="alert" className="mt-1 text-sm text-red-600">{err("consent")}</p>}
-              </div>
               {state.message && <p role="alert" className="rounded bg-red-50 p-3 text-sm text-red-700">{state.message}</p>}
               {suggestions.length > 0 && !full && (
                 <div className="flex flex-wrap items-center justify-between gap-2 rounded bg-warn-50 p-3 text-sm">
@@ -265,6 +249,11 @@ export function RequestFlow({ services, initialSlugs, autoPick = false, companyS
                   <button type="button" className="btn-secondary !min-h-9 text-xs" onClick={() => setSelected((cur) => Array.from(new Set([...cur, ...suggestions.slice(0, 3).map((s) => s.slug)])).slice(0, MAX_REQUEST_SERVICES))}>おすすめ3件を追加</button>
                 </div>
               )}
+              <p className="text-xs leading-6 text-body">
+                「資料請求する」ボタンを押すと、会員情報（会社名・氏名・メールアドレス・電話番号など）を請求先のサービス提供会社に電子ファイルで提供すること、および
+                <Link href="/privacy" target="_blank" className="underline">プライバシーポリシー</Link>に同意したものとみなします。
+                {chosen.some((c) => c.partner_status === "unpartnered") && "「資料リクエスト」のサービスは、提供会社との契約成立後に提供します。"}
+              </p>
               <button type="submit" disabled={pending || state.ok || chosen.length === 0} className="btn-cta w-full py-3.5 text-base disabled:opacity-60">
                 {pending || state.ok ? "送信中…" : chosen.length > 1 ? `${chosen.length}件まとめて資料請求する（無料）` : "資料請求する（無料）"}
               </button>
