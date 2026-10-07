@@ -72,6 +72,7 @@ export async function importServices(_prev: ImportState, fd: FormData): Promise<
     existingRow ? updated++ : inserted++;
   }
   updateTag(DATA_TAG);
+  revalidatePath("/", "layout"); // TOP の掲載数・カテゴリ数なども更新
   revalidatePath("/admin/services");
   return { stage: "done", inserted, updated, skipped, errors: result.errors };
 }
