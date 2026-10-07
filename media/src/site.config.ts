@@ -14,7 +14,7 @@ export const SITE = {
   url: 'https://yupir.tyokikaku.co.jp',
   lang: 'ja',
   /** 運営会社（フッター・運営者情報に表示） */
-  company: { name: '東京企画合同会社', url: 'https://www.tyokikaku.co.jp/' },
+  company: { url: 'https://www.tyokikaku.co.jp/' },
   /** 管理画面（/admin/）の保存先。記事の Markdown をこのリポジトリに直接コミットする */
   github: {
     owner: 'Tokyokikaku',
