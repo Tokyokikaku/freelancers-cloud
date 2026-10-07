@@ -56,7 +56,6 @@ export default async function HomePage() {
     <>
       {/* ───── FV ───── */}
       <section className="relative overflow-hidden border-b border-line bg-brand-50">
-        <div aria-hidden className="pointer-events-none absolute inset-y-0 right-0 hidden w-[46%] bg-[repeating-linear-gradient(135deg,rgb(11_74_156/0.045)_0_2px,transparent_2px_16px)] lg:block" />
         <div className={`container-page relative grid grid-cols-[minmax(0,1fr)] gap-6 pt-8 sm:pt-12 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-8 lg:pt-14 ${heroPhoto ? "pb-0" : "pb-8 sm:pb-12 lg:pb-14"}`}>
           <div className={heroPhoto ? "lg:pb-14" : ""}>
             <p className="inline-block border-l-4 border-cta-500 pl-3 text-sm font-bold tracking-wide text-brand-700 sm:text-base">初期費用なし・リスクなしで事業を推進</p>
@@ -70,7 +69,7 @@ export default async function HomePage() {
               <Link href="#all-categories" className="btn btn-cta min-h-12 px-6 text-base">カテゴリから探す</Link>
               <Link href="/services" className="btn btn-secondary min-h-12 px-6 text-base">サービス一覧を見る</Link>
             </p>
-            {!heroPhoto && (
+            {(
               <ul className="mt-8 flex items-center gap-4 sm:gap-6" aria-label="掲載の規模">
                 {[[services.length, "件", "掲載サービス"], [categoryCount, "種", "カテゴリ"]].map(([n, u, l]) => (
                   <li key={l as string} className="flex size-[6.5rem] shrink-0 flex-col items-center justify-center rounded-full bg-gold text-navy-950 ring-4 ring-gold/30 ring-offset-2 ring-offset-brand-50 sm:size-28">
@@ -83,17 +82,9 @@ export default async function HomePage() {
           </div>
 
           {heroPhoto ? (
-            <div className="relative mx-auto min-h-[19rem] w-full max-w-md self-end sm:min-h-[26rem] lg:max-w-none">
+            <div className="relative mx-auto min-h-[22rem] w-full max-w-lg self-end sm:min-h-[30rem] lg:min-h-[36rem] lg:max-w-none">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/hero/person.webp" alt="スーツ姿の男性のイメージ写真" width={1022} height={680} className="absolute bottom-0 left-1/2 block h-auto w-[118%] max-w-none -translate-x-1/2 sm:w-[112%] lg:left-auto lg:right-[-4%] lg:w-[128%] lg:translate-x-0" />
-              <ul className="absolute left-0 top-2 flex flex-col gap-3 sm:top-6 lg:left-[2%]" aria-label="掲載の規模">
-                {[[services.length, "件", "掲載サービス"], [categoryCount, "種", "カテゴリ"]].map(([n, u, l], i) => (
-                  <li key={l as string} className={`flex size-[5.6rem] shrink-0 flex-col items-center justify-center rounded-full bg-gold text-navy-950 shadow-[0_10px_24px_-10px_rgb(7_42_90/0.6)] ring-4 ring-white sm:size-28 ${i === 1 ? "ml-8 sm:ml-10" : ""}`}>
-                    <span className="text-[10px] font-bold leading-none sm:text-xs">{l}</span>
-                    <span className="mt-1 leading-none"><b className="text-[1.7rem] font-black sm:text-4xl">{n}</b><span className="text-xs font-bold sm:text-sm">{u}</span></span>
-                  </li>
-                ))}
-              </ul>
+              <img src="/hero/person.webp" alt="スーツ姿の男性のイメージ写真" width={1022} height={680} className="absolute bottom-0 left-1/2 block h-auto w-[135%] max-w-none -translate-x-1/2 sm:w-[125%] lg:left-auto lg:right-[-9%] lg:w-[158%] lg:translate-x-0" />
               <p className="absolute bottom-2 right-2 rounded-sm bg-ink/40 px-2 py-0.5 text-[10px] text-white/90">イメージ写真</p>
             </div>
           ) : (
