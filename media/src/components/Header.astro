@@ -1,0 +1,33 @@
+---
+import { SITE } from '../site.config';
+import LogoMark from './LogoMark.astro';
+---
+
+<header class="sticky top-0 z-50 border-b border-line bg-white/90 backdrop-blur">
+  <div class="container-x flex h-16 items-center justify-between gap-4">
+    <a href="/" class="flex items-center gap-2.5 font-label text-xl font-bold tracking-wide no-underline text-ink" aria-label={`${SITE.name} トップへ`}>
+      <LogoMark size={30} /><span class="grad-text">{SITE.name}</span>
+    </a>
+    <nav class="hidden items-center gap-6 text-sm font-medium lg:flex" aria-label="メイン">
+      {SITE.nav.map((n) => <a href={n.href} class="text-ink no-underline hover:text-accent">{n.label}</a>)}
+    </nav>
+    <div class="hidden items-center gap-2 sm:flex">
+      <a href="/contact/#interview" class="btn btn-sm">取材依頼</a>
+      <a href="/contact/#removal" class="btn btn-sm">掲載削除の申請</a>
+    </div>
+    <details class="relative lg:hidden">
+      <summary class="flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-full border border-line" aria-label="メニュー">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h14M3 10h14M3 14h14" /></svg>
+      </summary>
+      <div class="absolute right-0 top-14 w-[min(86vw,320px)] rounded-3xl border border-line bg-white p-5 shadow-xl">
+        <nav class="flex flex-col" aria-label="モバイル">
+          {SITE.nav.map((n) => <a href={n.href} class="py-3 text-base font-medium text-ink no-underline">{n.label}</a>)}
+        </nav>
+        <div class="mt-3 flex flex-col gap-2">
+          <a href="/contact/#interview" class="btn">取材依頼</a>
+          <a href="/contact/#removal" class="btn">掲載削除の申請</a>
+        </div>
+      </div>
+    </details>
+  </div>
+</header>

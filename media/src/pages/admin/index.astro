@@ -1,0 +1,170 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE } from '../../site.config';
+
+const config = { ...SITE.github, siteUrl: SITE.url };
+---
+
+<BaseLayout title="記事管理" description="記事の入稿ページ" noindex>
+  <section class="section !pt-10">
+    <div class="container-x">
+      <h1 class="text-2xl md:text-3xl">記事管理</h1>
+      <p class="mt-2 text-sm text-sub">記事を作成・編集して、GitHub（{SITE.github.branch} ブランチ）に保存します。保存した記事は、自動デプロイで公開サイトに反映されます。</p>
+
+      <script type="application/json" id="admin-config" set:html={JSON.stringify(config)} />
+
+      <!-- 1. 接続 -->
+      <div class="adm-card mt-8" id="auth-card">
+        <h2 class="text-lg">1. GitHub に接続</h2>
+        <p class="mt-2 text-sm text-sub">
+          GitHub の「Fine-grained personal access token」を入力してください。権限は、対象リポジトリ
+          <code>{SITE.github.owner}/{SITE.github.repo}</code> の <b>Contents: Read and write</b> だけで足ります。
+          トークンはこのブラウザの中だけに保管され、サーバーには送られません。
+        </p>
+        <div class="mt-4 grid gap-3 md:grid-cols-[1fr_auto_auto] md:items-end">
+          <div>
+            <label class="adm-label" for="token">アクセストークン</label>
+            <input id="token" type="password" class="adm-in" autocomplete="off" placeholder="github_pat_..." />
+          </div>
+          <label class="flex items-center gap-2 text-sm md:pb-3"><input type="checkbox" id="remember" /> このブラウザに記憶する</label>
+          <button type="button" class="btn btn-primary" id="connect">接続する</button>
+        </div>
+        <p id="auth-status" class="mt-3 text-sm" role="status"></p>
+      </div>
+
+      <!-- 2. 記事一覧 -->
+      <div class="adm-card mt-6" id="list-card" hidden>
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <h2 class="text-lg">2. 記事一覧</h2>
+          <div class="flex gap-2">
+            <button type="button" class="btn btn-sm" id="reload">再読み込み</button>
+            <button type="button" class="btn btn-sm btn-primary" id="new-article">新規記事</button>
+          </div>
+        </div>
+        <ul id="article-list" class="mt-4 divide-y divide-line text-sm"></ul>
+      </div>
+
+      <!-- 3. エディタ -->
+      <form class="adm-card mt-6" id="editor" hidden novalidate>
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <h2 class="text-lg" id="editor-title">3. 記事を編集</h2>
+          <div class="flex gap-2">
+            <button type="button" class="btn btn-sm" id="open-import">Markdownを貼り付けて取り込む</button>
+            <button type="button" class="btn btn-sm" id="close-editor">閉じる</button>
+          </div>
+        </div>
+
+        <div id="errors" class="adm-err mt-5" hidden role="alert"></div>
+
+        <fieldset class="mt-6 grid gap-5 md:grid-cols-2">
+          <legend class="adm-legend">基本情報</legend>
+          <div class="md:col-span-2">
+            <label class="adm-label" for="f-slug">ファイル名（URLになります）<span class="adm-req">必須</span></label>
+            <div class="flex items-center gap-2"><input id="f-slug" class="adm-in" placeholder="例: 20261010-taskpet" inputmode="url" /><span class="text-sm text-sub">.md</span></div>
+            <p class="adm-hint" id="slug-hint">半角の英小文字・数字・ハイフンのみ。公開URLは /articles/ファイル名/ になります。</p>
+          </div>
+          <div class="md:col-span-2">
+            <label class="adm-label" for="f-title">タイトル<span class="adm-req">必須</span></label>
+            <input id="f-title" class="adm-in" />
+          </div>
+          <div class="md:col-span-2">
+            <label class="adm-label" for="f-description">説明文（検索結果・SNSカードに出ます）<span class="adm-req">必須</span></label>
+            <textarea id="f-description" class="adm-in" rows="3"></textarea>
+            <p class="adm-hint"><span id="desc-count">0</span> 文字（80〜120文字が目安）</p>
+          </div>
+          <div>
+            <label class="adm-label" for="f-type">種別<span class="adm-req">必須</span></label>
+            <select id="f-type" class="adm-in"><option value="introduction">紹介</option><option value="interview">インタビュー</option></select>
+          </div>
+          <div>
+            <label class="adm-label" for="f-tags">タグ（カンマ区切り）</label>
+            <input id="f-tags" class="adm-in" placeholder="Webアプリ, 生産性" />
+          </div>
+          <div>
+            <label class="adm-label" for="f-published">公開日<span class="adm-req">必須</span></label>
+            <input id="f-published" type="date" class="adm-in" />
+          </div>
+          <div>
+            <label class="adm-label" for="f-updated">更新日</label>
+            <input id="f-updated" type="date" class="adm-in" />
+          </div>
+          <div class="md:col-span-2 grid gap-3 rounded-2xl bg-alt p-4">
+            <label class="flex items-start gap-3 text-sm"><input type="checkbox" id="f-verified" class="mt-1" /><span><b>確認済み</b>（開発者本人への確認、または数字の確認が済んでいる）<br /><span class="text-sub">チェックがないと、記事に「本人未確認」バッジと注意書きが表示されます。</span></span></label>
+            <label class="flex items-start gap-3 text-sm"><input type="checkbox" id="f-draft" class="mt-1" /><span><b>下書き</b>（保存しても公開しない）</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="mt-8 grid gap-5 md:grid-cols-2">
+          <legend class="adm-legend">サービス情報</legend>
+          <div><label class="adm-label" for="f-sname">サービス名<span class="adm-req">必須</span></label><input id="f-sname" class="adm-in" /></div>
+          <div><label class="adm-label" for="f-surl">サービスURL<span class="adm-req">必須</span></label><input id="f-surl" class="adm-in" placeholder="https://" inputmode="url" /></div>
+          <div><label class="adm-label" for="f-dname">開発者名<span class="adm-req">必須</span></label><input id="f-dname" class="adm-in" /></div>
+          <div><label class="adm-label" for="f-dx">開発者のXアカウント（@なし）</label><input id="f-dx" class="adm-in" /></div>
+          <div><label class="adm-label" for="f-tech">技術スタック（カンマ区切り）</label><input id="f-tech" class="adm-in" placeholder="Astro, TypeScript" /></div>
+          <div><label class="adm-label" for="f-launched">サービス公開日</label><input id="f-launched" type="date" class="adm-in" /></div>
+        </fieldset>
+
+        <fieldset class="mt-8">
+          <legend class="adm-legend">公開されている数字（任意）</legend>
+          <p class="adm-hint">売上・ユーザー数など。<b>出典URLと確認日が揃っていない数字は保存できません。</b></p>
+          <div id="metrics" class="mt-3 grid gap-3"></div>
+          <button type="button" class="btn btn-sm mt-3" id="add-metric">＋ 数字を追加</button>
+        </fieldset>
+
+        <fieldset class="mt-8">
+          <legend class="adm-legend">サムネイル / OGP画像（任意）</legend>
+          <p class="adm-hint">未設定の場合は、タイトル入りのグラデーションが自動で使われます。サービス画面や他人の投稿のスクリーンショットは使わないでください。</p>
+          <div class="mt-3 flex flex-wrap items-center gap-4">
+            <input id="f-image" type="file" accept="image/png,image/jpeg,image/webp" class="text-sm" />
+            <button type="button" class="btn btn-sm" id="clear-image" hidden>画像を外す</button>
+            <img id="image-preview" alt="" class="h-20 rounded-xl" hidden />
+          </div>
+          <p class="adm-hint" id="image-path"></p>
+        </fieldset>
+
+        <fieldset class="mt-8">
+          <legend class="adm-legend">本文（Markdown）</legend>
+          <div class="grid gap-4 lg:grid-cols-2">
+            <div>
+              <textarea id="f-body" class="adm-in adm-mono" rows="22" placeholder="## どんなサービス？&#10;&#10;本文をここに書きます。見出しは ## から。"></textarea>
+              <p class="adm-hint">リンクと要約のみ。他人の投稿やサービス画面の転載はしないでください。</p>
+            </div>
+            <div>
+              <div class="adm-label">プレビュー</div>
+              <div id="preview" class="prose-body adm-preview"></div>
+            </div>
+          </div>
+        </fieldset>
+
+        <details class="mt-8 rounded-2xl border border-line p-4">
+          <summary class="cursor-pointer text-sm font-bold">生成される Markdown を見る</summary>
+          <pre id="md-out" class="mt-3 max-h-96 overflow-auto whitespace-pre-wrap break-all rounded-xl bg-alt p-4 text-xs"></pre>
+          <button type="button" class="btn btn-sm mt-3" id="copy-md">コピー</button>
+        </details>
+
+        <div class="mt-8 flex flex-wrap items-center gap-3 border-t border-line pt-6">
+          <button type="button" class="btn btn-primary" id="save">保存して公開する</button>
+          <button type="button" class="btn" id="check">入力を検証する</button>
+          <button type="button" class="btn !border-[#a40000] !text-[#a40000]" id="delete" hidden>この記事を削除</button>
+        </div>
+        <div id="result" class="mt-5 text-sm" role="status"></div>
+      </form>
+    </div>
+  </section>
+
+  <dialog id="import-dialog" class="adm-dialog">
+    <form method="dialog">
+      <h2 class="text-lg">Markdown を取り込む</h2>
+      <p class="mt-2 text-sm text-sub">AI が書いた記事（frontmatter つき Markdown）を貼り付けると、フォームに反映します。</p>
+      <textarea id="import-text" class="adm-in adm-mono mt-4" rows="16" placeholder="---&#10;title: ...&#10;---&#10;&#10;本文"></textarea>
+      <div class="mt-4 flex justify-end gap-2">
+        <button class="btn btn-sm" value="cancel">キャンセル</button>
+        <button type="button" class="btn btn-sm btn-primary" id="do-import">取り込む</button>
+      </div>
+    </form>
+  </dialog>
+</BaseLayout>
+
+<script>
+  import '../../scripts/admin.js';
+</script>

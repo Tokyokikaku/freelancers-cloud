@@ -1,0 +1,13 @@
+---
+// サイトのアイコン（吹き出しの中の Y）。public/favicon.svg と同じ図形
+const { size = 28 } = Astro.props as { size?: number };
+---
+<svg width={size} height={size} viewBox="0 0 64 64" aria-hidden="true">
+  <defs>
+    <linearGradient id="lm-bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="var(--grad-from)" /><stop offset="1" stop-color="var(--grad-to)" /></linearGradient>
+    <linearGradient id="lm-y" gradientUnits="userSpaceOnUse" x1="16" y1="14" x2="48" y2="50"><stop offset="0" stop-color="var(--grad-from)" /><stop offset="1" stop-color="var(--grad-to)" /></linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="url(#lm-bg)" />
+  <path d="M16 14h32a8 8 0 0 1 8 8v20a8 8 0 0 1-8 8H34l-11 9v-9h-7a8 8 0 0 1-8-8V22a8 8 0 0 1 8-8z" fill="#fff" />
+  <g fill="none" stroke="url(#lm-y)" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 23 L32 34 L43 23" /><path d="M32 34 V43" /></g>
+</svg>

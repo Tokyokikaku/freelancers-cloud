@@ -1,0 +1,5 @@
+---
+import { TYPE_LABEL, type ArticleType } from '../site.config';
+const { type } = Astro.props as { type: ArticleType };
+---
+<span class="badge">{TYPE_LABEL[type]}</span>
