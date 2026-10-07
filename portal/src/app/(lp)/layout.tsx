@@ -39,6 +39,7 @@ export default function LpLayout({ children }: { children: React.ReactNode }) {
           <ul className="flex flex-wrap gap-x-5 gap-y-2 text-xs">
             <li><Link href="/" className="hover:text-brand-700 hover:underline">{SITE_NAME}トップ</Link></li>
             <li><Link href="/about" className="hover:text-brand-700 hover:underline">掲載方針</Link></li>
+            <li><a href="https://www.tyokikaku.co.jp/" target="_blank" rel="noopener" className="hover:text-brand-700 hover:underline">運営会社</a></li>
             <li><Link href="/privacy" className="hover:text-brand-700 hover:underline">プライバシーポリシー</Link></li>
             <li><a href={`mailto:${CONTACT_EMAIL}`} className="hover:text-brand-700 hover:underline">お問い合わせ</a></li>
           </ul>

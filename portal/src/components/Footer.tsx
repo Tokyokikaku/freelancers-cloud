@@ -28,6 +28,7 @@ export async function Footer() {
             <li><Link href="/articles" className="hover:text-brand-700 hover:underline">記事</Link></li>
             <li><Link href="/about" className="hover:text-brand-700 hover:underline">掲載方針・ランキングの算出方法</Link></li>
             <li><Link href="/faq" className="hover:text-brand-700 hover:underline">よくある質問</Link></li>
+            <li><a href="https://www.tyokikaku.co.jp/" target="_blank" rel="noopener" className="hover:text-brand-700 hover:underline">運営会社</a></li>
             <li><Link href="/privacy" className="hover:text-brand-700 hover:underline">プライバシーポリシー</Link></li>
             <li><a href={`mailto:${CONTACT_EMAIL}`} className="hover:text-brand-700 hover:underline">お問い合わせ</a></li>
           </ul>

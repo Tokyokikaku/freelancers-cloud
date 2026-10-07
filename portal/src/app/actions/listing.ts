@@ -34,13 +34,12 @@ const schema = z.object({
     .max(300, "300文字以内で入力してください")
     .refine((v) => v === "" || /^https?:\/\/[^\s]+\.[^\s]+$/i.test(v), "http(s)から始まるURLを入力してください")
     .optional(),
-  billing: optional(500),
   name: text("ご担当者名", 60),
   email: z.string().trim().max(200).superRefine((v, ctx) => {
     const e = checkEmail(v);
     if (e) ctx.addIssue({ code: "custom", message: e });
   }),
-  phone: optional(30),
+  phone: z.string().trim().min(1, "電話番号を入力してください").max(30, "30文字以内で入力してください").refine((v) => /^\d{10,11}$/.test(v.replace(/[\s\-－ー−()（）]/g, "").replace(/[０-９]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0xfee0))), "電話番号を正しく入力してください"),
   message: optional(1000),
   consent: z.literal("on", { message: "プライバシーポリシーへの同意が必要です" }),
   website: z.string().max(0).optional(), // ハニーポット
@@ -64,7 +63,6 @@ export async function submitListingInquiry(_prev: ListingState, formData: FormDa
     company: d.company,
     service_name: d.service_name || null,
     service_url: d.service_url || null,
-    billing: d.billing || null,
     name: d.name,
     email: d.email,
     phone: d.phone || null,
@@ -89,7 +87,7 @@ export async function submitListingInquiry(_prev: ListingState, formData: FormDa
       subject: `[${SITE_NAME}] ${TOPIC_LABEL[d.topic]}: ${d.company}${d.service_name ? ` / ${d.service_name}` : ""}`.slice(0, 200),
       text:
         `種別: ${TOPIC_LABEL[d.topic]}\n会社名: ${d.company}\nサービス名: ${d.service_name || "-"}\nサービスURL: ${d.service_url || "-"}\n` +
-        `課金の仕組み: ${d.billing || "-"}\nご担当者名: ${d.name}\nメール: ${d.email}\n電話: ${d.phone || "-"}\n\nご相談内容:\n${d.message || "-"}\n`,
+        `ご担当者名: ${d.name}\nメール: ${d.email}\n電話: ${d.phone}\n\nご相談内容:\n${d.message || "-"}\n`,
     });
   }
 

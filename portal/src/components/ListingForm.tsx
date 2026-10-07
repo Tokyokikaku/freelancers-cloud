@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useActionState, useEffect, useRef, useState } from "react";
+import { startTransition, useActionState, useEffect, useRef, useState } from "react";
 import { submitListingInquiry, type ListingState } from "@/app/actions/listing";
 import { checkEmail } from "@/lib/contact-validation";
 
@@ -61,7 +61,15 @@ export function ListingFormDialog() {
             <button type="button" onClick={() => ref.current?.close()} className="btn btn-secondary mt-6 min-h-11 px-8">閉じる</button>
           </div>
         ) : (
-          <form action={action} className="mt-4 space-y-4" noValidate={false}>
+          <form
+            // action={...} だと送信後にフォームが自動リセットされ、入力エラー時に入力内容が消えてしまうため、自前で送信する
+            onSubmit={(e) => {
+              e.preventDefault();
+              const fd = new FormData(e.currentTarget);
+              startTransition(() => action(fd));
+            }}
+            className="mt-4 space-y-4"
+          >
             <input type="hidden" name="topic" value={topicValue} />
             <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden className="hidden" />
             {state.message && <p role="alert" className="rounded border border-red-300 bg-red-50 p-3 text-sm font-bold text-red-800">{state.message}</p>}
@@ -78,15 +86,10 @@ export function ListingFormDialog() {
                 <Err k="service_name" />
               </div>
               <div>
-                <label htmlFor="lf-url" className="label">料金が分かるページのURL</label>
+                <label htmlFor="lf-url" className="label">サービスのURL</label>
                 <input id="lf-url" name="service_url" type="url" maxLength={300} inputMode="url" placeholder="https://" className="input" {...fp("service_url")} />
                 <Err k="service_url" />
               </div>
-            </div>
-            <div>
-              <label htmlFor="lf-billing" className="label">何を成果として、いくらで課金しますか</label>
-              <textarea id="lf-billing" name="billing" rows={2} maxLength={500} placeholder="例：問い合わせ1件あたり◯円、初期費用なし" className="input" {...fp("billing")} />
-              <Err k="billing" />
             </div>
             <div className="grid gap-4 sm:grid-cols-2">
               <div>
@@ -95,8 +98,8 @@ export function ListingFormDialog() {
                 <Err k="name" />
               </div>
               <div>
-                <label htmlFor="lf-phone" className="label">電話番号</label>
-                <input id="lf-phone" name="phone" type="tel" maxLength={30} autoComplete="tel" inputMode="tel" className="input" {...fp("phone")} />
+                <label htmlFor="lf-phone" className="label">電話番号 <span className="text-red-700">*</span></label>
+                <input id="lf-phone" name="phone" type="tel" required maxLength={30} autoComplete="tel" inputMode="tel" className="input" {...fp("phone")} />
                 <Err k="phone" />
               </div>
             </div>
@@ -129,7 +132,6 @@ export function ListingFormDialog() {
               <Err k="consent" />
             </div>
             <button type="submit" disabled={pending} className="btn btn-cta min-h-12 w-full text-base disabled:opacity-60">{pending ? "送信中…" : "送信する"}</button>
-            <p className="text-xs leading-6 text-muted">ご入力いただいた内容は、掲載のご案内・ご相談への対応のために利用します。</p>
           </form>
         )}
       </div>

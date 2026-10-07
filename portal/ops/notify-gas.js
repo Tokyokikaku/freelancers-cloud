@@ -13,7 +13,7 @@
  * ※ コードを修正したら「デプロイを管理」から新しいバージョンで再デプロイすること
  */
 const HEADERS = {
-  listing: ["受信日時", "種別", "会社名", "サービス名", "サービスURL", "課金の仕組み", "担当者名", "メール", "電話", "相談内容"],
+  listing: ["受信日時", "種別", "会社名", "サービス名", "サービスURL", "担当者名", "メール", "電話", "相談内容"],
   lead: ["受信日時", "請求サービス", "会社名", "法人番号", "氏名", "メール", "携帯電話", "検討時期", "従業員数", "業種", "部署", "役職", "ご要望", "流入元", "medium", "campaign"],
 };
 const SHEET = { listing: "掲載問い合わせ", lead: "資料請求" };
@@ -32,7 +32,7 @@ function doPost(e) {
   const at = Utilities.formatDate(new Date(d.at || Date.now()), "Asia/Tokyo", "yyyy/MM/dd HH:mm:ss");
   const row = type === "lead"
     ? [at, d.services, d.company, d.corporate_number, d.name, d.email, d.phone, d.timing, d.employees, d.industry, d.department, d.job_title, d.message, d.source, d.medium, d.campaign]
-    : [at, d.topic_label, d.company, d.service_name, d.service_url, d.billing, d.name, d.email, d.phone, d.message];
+    : [at, d.topic_label, d.company, d.service_name, d.service_url, d.name, d.email, d.phone, d.message];
   // 先頭が = + - @ のセルは数式として解釈されないよう文字列化
   sheet.appendRow(row.map((v) => (typeof v === "string" && /^[=+\-@]/.test(v) ? "'" + v : v == null ? "" : v)));
 
