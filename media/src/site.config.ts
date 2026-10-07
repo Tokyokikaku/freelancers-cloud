@@ -13,6 +13,8 @@ export const SITE = {
   /** 本番URL（canonical・sitemap・RSS・OGPに使用）。Cloudflare Pagesのドメインに合わせて変更 */
   url: 'https://yupir.tyokikaku.co.jp',
   lang: 'ja',
+  /** 運営会社（フッター・運営者情報に表示） */
+  company: { url: 'https://www.tyokikaku.co.jp/' },
   /** 管理画面（/admin/）の保存先。記事の Markdown をこのリポジトリに直接コミットする */
   github: {
     owner: 'Tokyokikaku',

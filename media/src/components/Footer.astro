@@ -9,9 +9,13 @@ const year = new Date().getFullYear();
     <p class="mt-2 max-w-md text-sm text-white/70">{SITE.description}</p>
     <nav class="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm" aria-label="フッター">
       {SITE.nav.map((n) => <a href={n.href} class="py-1 text-white/90 no-underline hover:text-white hover:underline">{n.label}</a>)}
-      <a href="/contact/" class="py-1 text-white/90 no-underline hover:underline">取材依頼・掲載削除の申請</a>
+      <a href="/contact/#interview" class="py-1 text-white/90 no-underline hover:underline">掲載希望・取材依頼</a>
+      <a href={SITE.company.url} target="_blank" rel="noopener noreferrer" class="py-1 text-white/90 no-underline hover:text-white hover:underline">運営会社</a>
       <a href="/rss.xml" class="py-1 text-white/90 no-underline hover:underline">RSS</a>
     </nav>
-    <p class="mt-12 text-right text-xs text-white/60">© {year} {SITE.name}</p>
+    <div class="mt-10 flex flex-wrap items-center justify-between gap-3 text-xs text-white/60">
+      <a href="/contact/#removal" class="text-white/50 no-underline hover:text-white/80 hover:underline">掲載内容の修正・削除の申請</a>
+      <p>© {year} {SITE.name}</p>
+    </div>
   </div>
 </footer>
