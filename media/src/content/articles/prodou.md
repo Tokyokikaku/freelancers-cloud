@@ -50,6 +50,7 @@ draft: true
 
 開発者は、「環境構築で挫折する人を減らしたい」という思いから、このサイトを個人で作り続けていると、開発記で書いています。疑似ターミナルの設計や、サーバーに負荷をかけない仕組みの考え方も、技術記事として公開されています。
 
+- 開発者のX: [@GOISBLOG](https://x.com/GOISBLOG)
 - サービス: [prodou.net](https://prodou.net/)
 - 開発記（Qiita）: [個人開発でインフラ特化のプログラミング学習サイトを作った話](https://qiita.com/genhiroko/items/5bd826b27506a0cf8bf2)
 

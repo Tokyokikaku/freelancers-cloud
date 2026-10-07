@@ -40,6 +40,7 @@ draft: true
 
 開発者は、自分がイベントの幹事をしたときにLINEで空き時間を聞いて回る負担が大きかったことが、作るきっかけだったと開発記で書いています。技術の面でも、割り当てのしくみ（貪欲法で初期案を作り、山登り法で改善する）などが、開発記で詳しく解説されています。
 
+- 開発者のX: [@tabunNaoru](https://x.com/tabunNaoru)
 - サービス: [shift-to.com](https://shift-to.com)
 - 開発記（Qiita）: [文化祭のシフトを自動で割り振るWebアプリを作った。](https://qiita.com/sbn/items/fd997b8dcd2903c0584f)
 

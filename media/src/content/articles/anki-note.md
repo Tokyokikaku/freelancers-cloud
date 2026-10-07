@@ -39,6 +39,7 @@ draft: true
 
 開発者は、連載形式の開発記を8回にわたって公開しています。企画から公開まで約1週間で、途中で「声に出す機能」や「分割して少しずつ覚える機能」をやめて、「隠して思い出す」練習に絞ったことが書かれています。実際に使いながら仕様を見直していく過程が、詳しく読めます。
 
+- 開発者のX: [@kxqj5m0nGu71785](https://x.com/kxqj5m0nGu71785)
 - サービス: [anki-note.vercel.app](https://anki-note.vercel.app)
 - 開発記（Qiita）: [長文暗記アプリ「暗記ノート」開発記 #8 完成・振り返り編](https://qiita.com/satou_learning/items/0cdb8f9f8f65f9982c71)
 - ソースコード: [GitHub](https://github.com/Satou20250828/anki-note)
