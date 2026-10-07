@@ -1,12 +1,11 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import type { ComparisonMaterial } from "@/lib/comparison";
 import { documentCtaLabel } from "@/lib/partner";
 import { track } from "@/lib/tracking";
 import type { PartnerStatus } from "@/lib/types";
-import { ComparisonOfferDialog } from "./ComparisonOfferDialog";
-import { loadComparisonOffers, markDeclined, wasDeclined } from "./comparison-offers";
+import { TopPicksDialog } from "./TopPicksDialog";
+import { loadTopPicks, markDeclined, offerFor, wasDeclined, type Offer } from "./top-picks-client";
 import { requestHref, useRequestList } from "./request-store";
 
 /**
@@ -31,19 +30,17 @@ export function RequestButton({
   const router = useRouter();
   const { items } = useRequestList();
   const slugs = Array.from(new Set([slug, ...items.map((i) => i.slug)]));
-  const [offer, setOffer] = useState<ComparisonMaterial | null>(null);
+  const [offer, setOffer] = useState<Offer | null>(null);
   const [open, setOpen] = useState(false);
 
-  // 比較資料の案内は先に読み込んでおく（クリック時に待たせない）
+  // 提案データは先に読み込んでおく（クリック時に待たせない）
   useEffect(() => {
     let alive = true;
-    void loadComparisonOffers().then((o) => alive && setOffer(o?.offers[slug] ?? null));
+    void loadTopPicks().then((d) => alive && setOffer(offerFor(d, slug)));
     return () => {
       alive = false;
     };
   }, [slug]);
-
-  const go = (withComparison: boolean) => router.push(requestHref(slugs, withComparison && offer ? [offer.categorySlug] : []));
 
   return (
     <>
@@ -53,30 +50,30 @@ export function RequestButton({
         onClick={(e) => {
           e.preventDefault();
           track("document_button_click", { service_id: id, service_name: name, placement });
-          // 1社だけの請求のときは、同じカテゴリの比較資料もあわせて請求することを提案する
-          if (offer && slugs.length === 1 && !wasDeclined(offer.categorySlug)) {
+          // 1社だけの請求のときは、同じカテゴリの人気上位サービスとの比較（まとめて請求）を提案する
+          if (offer && slugs.length === 1 && !wasDeclined(offer.categoryName)) {
             setOpen(true);
             return;
           }
-          go(false);
+          router.push(requestHref(slugs));
         }}
       >
         {documentCtaLabel(partnerStatus)}
       </a>
       {open && offer && (
-        <ComparisonOfferDialog
+        <TopPicksDialog
           serviceName={name}
           offer={offer}
           onClose={() => setOpen(false)}
           onAccept={() => {
-            track("document_button_click", { service_id: id, service_name: name, placement: "comparison_offer_accept" });
+            track("document_button_click", { service_id: id, service_name: name, placement: "top_picks_accept" });
             setOpen(false);
-            go(true);
+            router.push(requestHref([slug, ...offer.picks.map((p) => p.slug)]));
           }}
           onDecline={() => {
-            markDeclined(offer.categorySlug);
+            markDeclined(offer.categoryName);
             setOpen(false);
-            go(false);
+            router.push(requestHref([slug], { solo: true }));
           }}
         />
       )}

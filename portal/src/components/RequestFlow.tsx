@@ -4,10 +4,10 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { startTransition, useActionState, useEffect, useMemo, useRef, useState } from "react";
 import { submitLeads, type LeadState } from "@/app/actions/lead";
+import { TOP_PICK_COUNT } from "@/lib/top-picks";
 import { DEPARTMENT_OPTIONS, EMPLOYEE_OPTIONS, INDUSTRY_OPTIONS, JOB_TITLE_OPTIONS, LEAD_HANDLING_NOTICE, MAX_REQUEST_SERVICES, TIMING_OPTIONS } from "@/lib/lead-options";
 import { getAttribution, getVisitorId, track } from "@/lib/tracking";
 import type { FeeType, PartnerStatus } from "@/lib/types";
-import type { ComparisonMaterial } from "@/lib/comparison";
 import { CompanyField } from "./CompanyField";
 import { SelectWithOther } from "./SelectWithOther";
 import { useRequestList } from "./request-store";
@@ -51,45 +51,20 @@ function Row({ s, checked, onToggle, disabled }: { s: ServiceLite; checked: bool
   );
 }
 
-function MaterialRow({ m, checked, onToggle }: { m: ComparisonMaterial; checked: boolean; onToggle: () => void }) {
-  return (
-    <li>
-      <label className={`flex cursor-pointer items-start gap-3 p-3 sm:p-4 ${checked ? "bg-warn-50" : "bg-white hover:bg-surface/60"}`}>
-        <input type="checkbox" checked={checked} onChange={onToggle} className="mt-1 size-5 shrink-0 accent-cta-500" aria-label={`${m.title}を請求する`} />
-        <span className="min-w-0 flex-1">
-          <span className="flex flex-wrap items-center gap-2">
-            <span className="tag bg-cta-500 text-white">比較資料</span>
-            <span className="font-bold text-ink">{m.title}</span>
-          </span>
-          <span className="mt-1 block text-xs leading-5 text-muted">{m.count}サービスの初期費用・月額・成果報酬額・成果地点を、1つの資料にまとめて比較できます。</span>
-        </span>
-      </label>
-    </li>
-  );
-}
-
-export function RequestFlow({
-  services,
-  initialSlugs,
-  initialCats = [],
-  offers,
-  materials,
-  companySuggest = false,
-}: {
-  services: ServiceLite[];
-  initialSlugs: string[];
-  initialCats?: string[];
-  offers: Record<string, ComparisonMaterial>;
-  materials: ComparisonMaterial[];
-  companySuggest?: boolean;
-}) {
+export function RequestFlow({ services, initialSlugs, autoPick = false, companySuggest = false }: { services: ServiceLite[]; initialSlugs: string[]; autoPick?: boolean; companySuggest?: boolean }) {
   const router = useRouter();
   const store = useRequestList();
   const [state, action, pending] = useActionState<LeadState, FormData>(submitLeads, { ok: false });
   const known = useMemo(() => new Set(services.map((s) => s.slug)), [services]);
-  const [selected, setSelected] = useState<string[]>(() => initialSlugs.filter((s) => known.has(s)));
-  const matBySlug = useMemo(() => new Map(materials.map((m) => [m.categorySlug, m])), [materials]);
-  const [cats, setCats] = useState<string[]>(() => initialCats.filter((c) => matBySlug.has(c)));
+  // 1社だけで来た場合は、同じカテゴリの人気上位5サービスを最初から選んでおく（services は人気順）
+  const [selected, setSelected] = useState<string[]>(() => {
+    const base = initialSlugs.filter((s) => known.has(s));
+    if (!autoPick || base.length !== 1) return base;
+    const cats = new Set(services.find((s) => s.slug === base[0])?.category_ids ?? []);
+    const picks = services.filter((s) => s.slug !== base[0] && s.category_ids.some((id) => cats.has(id))).slice(0, TOP_PICK_COUNT).map((s) => s.slug);
+    return [...base, ...picks];
+  });
+  const [didAutoPick] = useState(() => autoPick && initialSlugs.length === 1 && selected.length > 1);
   const [profile, setProfile] = useState<Profile | null>(null);
   const [attr, setAttr] = useState({ source: "", medium: "", campaign: "", visitor_id: "" });
   const formRef = useRef<HTMLFormElement>(null);
@@ -118,22 +93,6 @@ export function RequestFlow({
   const bySlug = useMemo(() => new Map(services.map((s) => [s.slug, s])), [services]);
   const chosen = selected.map((s) => bySlug.get(s)).filter((s): s is ServiceLite => Boolean(s));
   const full = selected.length >= MAX_REQUEST_SERVICES;
-  const chosenMaterials = cats.map((c) => matBySlug.get(c)).filter((m): m is ComparisonMaterial => Boolean(m));
-  // 選んだサービスに関連する、まだ選んでいない比較資料
-  const materialSuggestions = useMemo(() => {
-    const seen = new Set<string>();
-    const out: ComparisonMaterial[] = [];
-    for (const c of chosen) {
-      const m = offers[c.slug];
-      if (m && !cats.includes(m.categorySlug) && !seen.has(m.categorySlug)) {
-        seen.add(m.categorySlug);
-        out.push(m);
-      }
-    }
-    return out.slice(0, 2);
-  }, [chosen, offers, cats]);
-  const toggleCat = (slug: string) => setCats((cur) => (cur.includes(slug) ? cur.filter((s) => s !== slug) : cur.length < 3 ? [...cur, slug] : cur));
-  const totalCount = chosen.length + chosenMaterials.length;
 
   // あわせて資料請求されやすいサービス: 選択中と同じカテゴリ → 足りなければおすすめ順
   const suggestions = useMemo(() => {
@@ -141,8 +100,7 @@ export function RequestFlow({
     const rest = services.filter((s) => !selected.includes(s.slug));
     const same = rest.filter((s) => s.category_ids.some((id) => cats.has(id)));
     const others = rest.filter((s) => !same.includes(s));
-    const order = (a: ServiceLite, b: ServiceLite) => Number(b.is_full_success_fee) - Number(a.is_full_success_fee) || Number(b.featured) - Number(a.featured) || a.name.localeCompare(b.name, "ja");
-    return [...same.sort(order), ...others.sort(order)].slice(0, 6);
+    return [...same, ...others].slice(0, 6); // 人気順のまま
   }, [services, selected, chosen]);
 
   const toggle = (slug: string) => setSelected((cur) => (cur.includes(slug) ? cur.filter((s) => s !== slug) : cur.length < MAX_REQUEST_SERVICES ? [...cur, slug] : cur));
@@ -197,30 +155,23 @@ export function RequestFlow({
         {/* 1. サービスを選ぶ */}
         <section aria-labelledby="step1">
           <h2 id="step1" className="mb-3 flex items-center gap-2 text-lg"><span className="inline-flex size-7 items-center justify-center rounded-full bg-brand-600 text-sm text-white">1</span>資料請求するサービス<span className="text-sm font-normal text-muted">（{selected.length}/{MAX_REQUEST_SERVICES}件）</span></h2>
-          {totalCount ? (
+          {didAutoPick && (
+            <p className="mb-2 rounded bg-warn-50 p-3 text-sm font-bold leading-6 text-ink">同じカテゴリの人気上位{TOP_PICK_COUNT}サービスも、あわせて選んでいます。比較したくないものは、チェックを外してください。</p>
+          )}
+          {chosen.length ? (
             <ul className="panel divide-y divide-line overflow-hidden">
-              {chosenMaterials.map((m) => <MaterialRow key={m.categorySlug} m={m} checked onToggle={() => toggleCat(m.categorySlug)} />)}
               {chosen.map((s) => <Row key={s.slug} s={s} checked onToggle={() => toggle(s.slug)} />)}
             </ul>
           ) : (
             <p className="panel p-6 text-center text-sm text-muted">資料請求するサービスが選ばれていません。下のおすすめから選ぶか、<Link href="/services" className="font-bold text-brand-700 underline">サービス一覧</Link>から選んでください。</p>
           )}
-          {totalCount > 0 && (
+          {chosen.length > 0 && (
             <p className="mt-2 flex flex-wrap items-center justify-between gap-2 text-xs text-muted">
               <span>チェックを外したサービスの資料は請求されません。</span>
-              <button type="button" className="font-bold text-brand-700 underline" onClick={() => { setSelected([]); setCats([]); }}>すべて外す</button>
+              <button type="button" className="font-bold text-brand-700 underline" onClick={() => setSelected([])}>すべて外す</button>
             </p>
           )}
           {err("services") && <p role="alert" className="mt-2 text-sm text-red-600">{err("services")}</p>}
-
-          {materialSuggestions.length > 0 && (
-            <div className="mt-5">
-              <h3 className="mb-2 text-base">比較資料もご一緒にいかがですか？<span className="ml-2 text-xs font-normal text-muted">1社だけで決める前に、まとめて比較できます</span></h3>
-              <ul className="panel divide-y divide-line overflow-hidden border-cta-500">
-                {materialSuggestions.map((m) => <MaterialRow key={m.categorySlug} m={m} checked={false} onToggle={() => toggleCat(m.categorySlug)} />)}
-              </ul>
-            </div>
-          )}
 
           {suggestions.length > 0 && (
             <div className="mt-5">
@@ -241,7 +192,6 @@ export function RequestFlow({
           {profile && (
             <form id="request-form" ref={formRef} onInputCapture={onFormStart} onSubmit={onSubmit} className="panel space-y-4 p-4 sm:p-6">
               {selected.map((s) => <input key={s} type="hidden" name="service_slugs" value={s} />)}
-              {cats.map((c) => <input key={c} type="hidden" name="compare_categories" value={c} />)}
               <input type="hidden" name="source" value={attr.source} />
               <input type="hidden" name="medium" value={attr.medium} />
               <input type="hidden" name="campaign" value={attr.campaign} />
@@ -311,8 +261,8 @@ export function RequestFlow({
                   <button type="button" className="btn-secondary !min-h-9 text-xs" onClick={() => setSelected((cur) => Array.from(new Set([...cur, ...suggestions.slice(0, 3).map((s) => s.slug)])).slice(0, MAX_REQUEST_SERVICES))}>おすすめ3件を追加</button>
                 </div>
               )}
-              <button type="submit" disabled={pending || state.ok || totalCount === 0} className="btn-cta w-full py-3.5 text-base disabled:opacity-60">
-                {pending || state.ok ? "送信中…" : totalCount > 1 ? `${totalCount}件まとめて資料請求する（無料）` : "資料請求する（無料）"}
+              <button type="submit" disabled={pending || state.ok || chosen.length === 0} className="btn-cta w-full py-3.5 text-base disabled:opacity-60">
+                {pending || state.ok ? "送信中…" : chosen.length > 1 ? `${chosen.length}件まとめて資料請求する（無料）` : "資料請求する（無料）"}
               </button>
               <p className="text-[11px] leading-5 text-muted">{LEAD_HANDLING_NOTICE}</p>
             </form>
@@ -325,12 +275,11 @@ export function RequestFlow({
         <div className="panel overflow-hidden">
           <p className="bg-brand-700 px-4 py-2 text-sm font-bold text-white">無料資料請求の内容</p>
           <div className="p-4">
-            <p className="text-3xl font-black text-ink">{totalCount}<span className="ml-1 text-sm font-bold">件の資料</span></p>
+            <p className="text-3xl font-black text-ink">{chosen.length}<span className="ml-1 text-sm font-bold">件の資料</span></p>
             <ul className="mt-3 space-y-1.5 text-sm">
-              {chosenMaterials.map((m) => <li key={m.categorySlug} className="flex items-start justify-between gap-2"><span className="min-w-0"><span className="tag mr-1 bg-cta-500 text-white">比較資料</span>{m.title}</span><button type="button" className="shrink-0 text-xs text-muted underline" onClick={() => toggleCat(m.categorySlug)}>外す</button></li>)}
               {chosen.map((c) => <li key={c.slug} className="flex items-start justify-between gap-2"><span className="min-w-0 truncate">{c.name}</span><button type="button" className="shrink-0 text-xs text-muted underline" onClick={() => toggle(c.slug)}>外す</button></li>)}
             </ul>
-            <button type="submit" form="request-form" disabled={pending || state.ok || totalCount === 0} className="btn-cta mt-4 hidden w-full lg:inline-flex">無料で資料請求する</button>
+            <button type="submit" form="request-form" disabled={pending || state.ok || chosen.length === 0} className="btn-cta mt-4 hidden w-full lg:inline-flex">無料で資料請求する</button>
             <ul className="mt-4 space-y-1 border-t border-line pt-3 text-xs leading-6 text-muted">
               <li>・資料請求は無料です</li>
               <li>・1回の入力で複数サービスの資料を請求できます</li>
@@ -339,20 +288,6 @@ export function RequestFlow({
             </ul>
           </div>
         </div>
-
-        {materialSuggestions.length > 0 && (
-          <div className="panel hidden overflow-hidden border-2 border-cta-500 lg:block">
-            <p className="border-b border-line bg-warn-50 px-4 py-2 text-sm font-bold text-ink">比較資料もご一緒に（無料）</p>
-            <ul className="divide-y divide-line">
-              {materialSuggestions.map((m) => (
-                <li key={m.categorySlug} className="flex items-center gap-2 p-3">
-                  <span className="min-w-0 flex-1"><b className="block text-sm leading-snug text-ink">{m.title}</b><span className="block text-[11px] text-muted">{m.count}サービスを一括比較</span></span>
-                  <button type="button" onClick={() => toggleCat(m.categorySlug)} className="btn-cta !min-h-9 shrink-0 !px-3 text-xs">＋ 追加</button>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
 
         {suggestions.length > 0 && !full && (
           <div className="panel hidden overflow-hidden lg:block">

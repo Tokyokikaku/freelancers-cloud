@@ -96,21 +96,8 @@ export async function getServiceStats(from: Date, to: Date, opts: { cached?: boo
   }
 }
 
-/** カテゴリとその子孫のID */
-export function descendantIds(categories: Category[], id: string): Set<string> {
-  const ids = new Set([id]);
-  let grew = true;
-  while (grew) {
-    grew = false;
-    for (const c of categories) {
-      if (c.parent_id && ids.has(c.parent_id) && !ids.has(c.id)) {
-        ids.add(c.id);
-        grew = true;
-      }
-    }
-  }
-  return ids;
-}
+import { descendantIds } from "./categories";
+export { descendantIds };
 
 export function servicesInCategory(services: Service[], categories: Category[], categoryId: string): Service[] {
   const ids = descendantIds(categories, categoryId);

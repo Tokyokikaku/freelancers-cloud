@@ -33,3 +33,19 @@ export function flattenTree(categories: Category[]): { category: Category; depth
   walk(null, 0);
   return out;
 }
+
+/** カテゴリとその子孫のID */
+export function descendantIds(categories: Category[], id: string): Set<string> {
+  const ids = new Set([id]);
+  let grew = true;
+  while (grew) {
+    grew = false;
+    for (const c of categories) {
+      if (c.parent_id && ids.has(c.parent_id) && !ids.has(c.id)) {
+        ids.add(c.id);
+        grew = true;
+      }
+    }
+  }
+  return ids;
+}

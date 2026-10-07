@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { RequestFlow, type ServiceLite } from "@/components/RequestFlow";
-import { comparisonMaterials, MAX_COMPARISON_CATEGORIES, offersByService } from "@/lib/comparison";
 import { getCategories, getServices } from "@/lib/data";
+import { getPopularServices } from "@/lib/popular";
 import { houjinEnabled } from "@/lib/houjin";
 import { MAX_REQUEST_SERVICES } from "@/lib/lead-options";
 import { buildMetadata } from "@/lib/seo";
@@ -14,14 +14,11 @@ export const metadata: Metadata = buildMetadata({
   noindex: true,
 });
 
-export default async function RequestPage({ searchParams }: { searchParams: Promise<{ s?: string; c?: string }> }) {
-  const { s, c } = await searchParams;
-  const [services, categories] = await Promise.all([getServices(), getCategories()]);
+export default async function RequestPage({ searchParams }: { searchParams: Promise<{ s?: string; solo?: string }> }) {
+  const { s, solo } = await searchParams;
+  const [all, categories] = await Promise.all([getServices(), getCategories()]);
+  const services = await getPopularServices(all); // 人気順（同じカテゴリの上位5サービスの選出に使う）
   const initial = Array.from(new Set((s ?? "").split(",").map((x) => x.trim()).filter(Boolean))).slice(0, MAX_REQUEST_SERVICES);
-
-  const initialCats = Array.from(new Set((c ?? "").split(",").map((x) => x.trim()).filter(Boolean))).slice(0, MAX_COMPARISON_CATEGORIES);
-  const materials = comparisonMaterials(services, categories);
-  const offers = offersByService(services, categories);
 
   const lite: ServiceLite[] = services.map((x) => ({
     id: x.id,
@@ -53,7 +50,7 @@ export default async function RequestPage({ searchParams }: { searchParams: Prom
           </ol>
         </div>
       </div>
-      <RequestFlow services={lite} initialSlugs={initial} initialCats={initialCats} offers={offers} materials={materials} companySuggest={houjinEnabled} />
+      <RequestFlow services={lite} initialSlugs={initial} autoPick={initial.length === 1 && solo !== "1"} companySuggest={houjinEnabled} />
     </div>
   );
 }

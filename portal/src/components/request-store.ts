@@ -71,5 +71,6 @@ export function useRequestList() {
   };
 }
 
-export const requestHref = (slugs: string[], compareCategories: string[] = []) =>
-  `/request?s=${slugs.map(encodeURIComponent).join(",")}${compareCategories.length ? `&c=${compareCategories.map(encodeURIComponent).join(",")}` : ""}`;
+/** solo: 1社だけ請求する（人気上位サービスを自動で選ばない） */
+export const requestHref = (slugs: string[], opts: { solo?: boolean } = {}) =>
+  `/request?s=${slugs.map(encodeURIComponent).join(",")}${opts.solo ? "&solo=1" : ""}`;

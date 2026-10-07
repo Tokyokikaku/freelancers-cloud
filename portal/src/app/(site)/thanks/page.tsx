@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Icon } from "@/components/Icon";
 import { ThanksRecommend } from "@/components/ThanksRecommend";
-import { comparisonMaterials } from "@/lib/comparison";
-import { getCategories, getServices } from "@/lib/data";
+import { getServices } from "@/lib/data";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildMetadata({
@@ -13,13 +12,10 @@ export const metadata: Metadata = buildMetadata({
   noindex: true,
 });
 
-export default async function ThanksPage({ searchParams }: { searchParams: Promise<{ s?: string; service?: string; c?: string }> }) {
+export default async function ThanksPage({ searchParams }: { searchParams: Promise<{ s?: string; service?: string }> }) {
   const sp = await searchParams;
   const slugs = Array.from(new Set((sp.s ?? sp.service ?? "").split(",").map((x) => x.trim()).filter(Boolean))).slice(0, 10);
-  const [services, categories] = await Promise.all([getServices(), getCategories()]);
-  const compareSlugs = (sp.c ?? "").split(",").map((x) => x.trim()).filter(Boolean).slice(0, 3);
-  const materials = comparisonMaterials(services, categories);
-  const comparisons = compareSlugs.map((c) => materials.find((m) => m.categorySlug === c)).filter((m) => !!m);
+  const services = await getServices();
   const requested = slugs.map((s) => services.find((x) => x.slug === s)).filter((x) => !!x);
 
   // 続けて請求できるサービス: 請求したサービスと同じカテゴリ → なければ完全成果報酬
@@ -39,16 +35,10 @@ export default async function ThanksPage({ searchParams }: { searchParams: Promi
         <div className="panel p-6 text-center sm:p-10">
           <span className="mx-auto inline-flex size-14 items-center justify-center rounded-full bg-brand-50 text-brand-700"><Icon name="check" className="size-7" /></span>
           <h1 className="mt-4 text-2xl sm:text-3xl">資料請求を受け付けました</h1>
-          <p className="mt-2 text-sm text-muted">{requested.length + comparisons.length ? `${requested.length + comparisons.length}件の資料について、入力内容を確認しました。` : "入力内容を確認しました。"}</p>
+          <p className="mt-2 text-sm text-muted">{requested.length ? `${requested.length}件のサービスについて、入力内容を確認しました。` : "入力内容を確認しました。"}</p>
 
-          {requested.length + comparisons.length > 0 && (
+          {requested.length > 0 && (
             <ul className="mt-6 divide-y divide-line rounded-md border border-line text-left">
-              {comparisons.map((m) => (
-                <li key={m!.categorySlug} className="flex flex-wrap items-center gap-2 p-3">
-                  <span className="tag bg-cta-500 text-white">比較資料</span>
-                  <b className="min-w-0 text-ink">{m!.title}</b>
-                </li>
-              ))}
               {requested.map((s) => (
                 <li key={s!.id} className="flex flex-wrap items-center justify-between gap-2 p-3">
                   <span className="min-w-0"><b className="text-ink">{s!.name}</b><span className="block text-xs text-muted">{s!.company_name}</span></span>

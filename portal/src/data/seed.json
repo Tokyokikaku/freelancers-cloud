@@ -3484,7 +3484,7 @@
       "outcome_type": "appointment",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "人材業界関連企業",
       "features": [
         "人材業界特化のトーク・リスト設計",
@@ -3519,7 +3519,7 @@
       "outcome_type": "appointment",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "BtoB企業",
       "features": [
         "フォーム営業を成果報酬で提供",
@@ -3556,7 +3556,7 @@
       "outcome_type": "meeting",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "BtoB企業(取得難易度が極端に高くない商材)",
       "features": [
         "アポ単価×商談実施件数のみ",
@@ -3734,7 +3734,7 @@
       "outcome_type": "appointment",
       "pricing_model": "optional_plan",
       "is_full_success_fee": false,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "HR・採用領域に営業する法人",
       "features": [
         "HR業界特化",
@@ -3769,7 +3769,7 @@
       "outcome_type": "sale",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "D2C・EC・アプリ等の事業者",
       "features": [
         "初期費用0円・月額なし",
@@ -3804,7 +3804,7 @@
       "outcome_type": "sale",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "コスメ・アパレル・ガジェット・SaaS等の事業者",
       "features": [
         "初期費用・固定費ゼロ",
@@ -3839,7 +3839,7 @@
       "outcome_type": "other",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "自社サイトからLINE経由でCV獲得したい事業者",
       "features": [
         "初期費用0円・月額0円",
@@ -3874,7 +3874,7 @@
       "outcome_type": "other",
       "pricing_model": "success_only",
       "is_full_success_fee": false,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "LINEでの接客・CV獲得を行いたいEC等の事業者",
       "features": [
         "制作・運用コスト不要",
@@ -3909,7 +3909,7 @@
       "outcome_type": "other",
       "pricing_model": "success_only",
       "is_full_success_fee": false,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "人件費以外の経費が一定規模ある法人",
       "features": [
         "50費目以上に対応",
@@ -3944,7 +3944,7 @@
       "outcome_type": "other",
       "pricing_model": "success_only",
       "is_full_success_fee": false,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "ものづくり補助金を検討する中小企業",
       "features": [
         "着手金0円",
@@ -3979,7 +3979,7 @@
       "outcome_type": "other",
       "pricing_model": "success_only",
       "is_full_success_fee": false,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "小規模事業者持続化補助金を申請する小規模事業者",
       "features": [
         "着手金なし",
@@ -4014,7 +4014,7 @@
       "outcome_type": "other",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "IT導入補助金を利用したい事業者",
       "features": [
         "着手金なし",
@@ -4049,7 +4049,7 @@
       "outcome_type": "other",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "事業開始1年以上・正社員5名以下の小規模事業者",
       "features": [
         "着手金0円",
@@ -4084,7 +4084,7 @@
       "outcome_type": "other",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "賃借・不動産を保有する法人",
       "features": [
         "賃料適正化",
@@ -4119,7 +4119,7 @@
       "outcome_type": "other",
       "pricing_model": "success_only",
       "is_full_success_fee": false,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "対象費目が年間1000万円以上(電力は4000万円以上)の企業",
       "features": [
         "賃料適正化",
@@ -4154,7 +4154,7 @@
       "outcome_type": "lead",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "集客目的のHPを持ちたい中小事業者",
       "features": [
         "制作費・月額0円",
@@ -4223,7 +4223,7 @@
       "outcome_type": "other",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "既存LPを持ち広告集客している事業者",
       "features": [
         "CVR110%達成まで0円",
@@ -4292,7 +4292,7 @@
       "outcome_type": "other",
       "pricing_model": "success_only",
       "is_full_success_fee": false,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "SEOで上位表示を狙う事業者",
       "features": [
         "初期費用0円",
@@ -4327,7 +4327,7 @@
       "outcome_type": "other",
       "pricing_model": "success_only",
       "is_full_success_fee": false,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "小規模〜大規模サイト",
       "features": [
         "日割りの成果課金",
@@ -4362,7 +4362,7 @@
       "outcome_type": "other",
       "pricing_model": "optional_plan",
       "is_full_success_fee": false,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": null,
       "features": [
         "10位以内で課金",
@@ -4397,7 +4397,7 @@
       "outcome_type": "other",
       "pricing_model": "success_only",
       "is_full_success_fee": false,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": null,
       "features": [
         "日額96円〜",
@@ -4432,7 +4432,7 @@
       "outcome_type": "other",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "弁護士・法律事務所",
       "features": [
         "弁護士業界特化",
@@ -4467,7 +4467,7 @@
       "outcome_type": "other",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": null,
       "features": [
         "両エンジン10位以内",
@@ -4502,7 +4502,7 @@
       "outcome_type": "other",
       "pricing_model": "success_only",
       "is_full_success_fee": false,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": null,
       "features": [
         "20位以内まで課金対象",
@@ -4572,7 +4572,7 @@
       "outcome_type": "lead",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "飲食店・サロン・治療院などの店舗ビジネス",
       "features": [
         "CV連動課金",
@@ -4607,7 +4607,7 @@
       "outcome_type": "other",
       "pricing_model": "optional_plan",
       "is_full_success_fee": false,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "店舗ビジネス",
       "features": [
         "3位以内で日額課金",
@@ -4642,7 +4642,7 @@
       "outcome_type": "other",
       "pricing_model": "success_only",
       "is_full_success_fee": false,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": null,
       "features": [
         "3位以内の日のみ課金",
@@ -4677,7 +4677,7 @@
       "outcome_type": "sale",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "来店型ビジネス全般",
       "features": [
         "予約件数連動",
@@ -4711,7 +4711,7 @@
       "outcome_type": "lead",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": null,
       "features": [
         "広告費負担0円",
@@ -4746,7 +4746,7 @@
       "outcome_type": "lead",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "月間プロモーション費200万円以上の企業(1業種1社)",
       "features": [
         "広告費・LP費も負担",
@@ -4781,7 +4781,7 @@
       "outcome_type": "sale",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "飲食店・外食企業",
       "features": [
         "予約人数課金",
@@ -4816,7 +4816,7 @@
       "outcome_type": "sale",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "法人・個人事業主(出張サービス業など)",
       "features": [
         "売上連動20%",
@@ -4851,7 +4851,7 @@
       "outcome_type": "hire",
       "pricing_model": "optional_plan",
       "is_full_success_fee": false,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "新卒採用を少人数・低リスクで行いたい企業",
       "features": [
         "内定承諾時のみ課金",
@@ -4886,7 +4886,7 @@
       "outcome_type": "hire",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "ITエンジニアを採用したい企業",
       "features": [
         "初期費用・掲載費0円",
@@ -4921,7 +4921,7 @@
       "outcome_type": "hire",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "中途採用を行う法人",
       "features": [
         "初期費用0円",
@@ -4956,7 +4956,7 @@
       "outcome_type": "hire",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "中途採用を行う企業",
       "features": [
         "初期費用0円",
@@ -5026,7 +5026,7 @@
       "outcome_type": "hire",
       "pricing_model": "success_only",
       "is_full_success_fee": false,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "IT・クリエイター人材を採用したい企業",
       "features": [
         "成功報酬型",
@@ -5060,7 +5060,7 @@
       "outcome_type": "lead",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "アルバイト・派遣・正社員を募集する企業",
       "features": [
         "掲載無料",
@@ -5095,7 +5095,7 @@
       "outcome_type": "hire",
       "pricing_model": "optional_plan",
       "is_full_success_fee": false,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "アルバイト採用を行う企業",
       "features": [
         "掲載費無料",
@@ -5130,7 +5130,7 @@
       "outcome_type": "hire",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "医療・介護・福祉・保育施設",
       "features": [
         "初期費用・月額0円",
@@ -5165,7 +5165,7 @@
       "outcome_type": "click",
       "pricing_model": "optional_plan",
       "is_full_success_fee": false,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "あらゆる規模の求人企業",
       "features": [
         "無料掲載",
@@ -5235,7 +5235,7 @@
       "outcome_type": "hire",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "IT系新卒を採用したい企業",
       "features": [
         "初期費用0円",
@@ -5270,7 +5270,7 @@
       "outcome_type": "hire",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "介護・医療・障害福祉・保育事業者",
       "features": [
         "初期・月額0円",
@@ -5306,7 +5306,7 @@
       "outcome_type": "hire",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "病院・クリニック・介護施設・薬局等",
       "features": [
         "36職種対応",
@@ -5342,7 +5342,7 @@
       "outcome_type": "hire",
       "pricing_model": "success_only",
       "is_full_success_fee": false,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "介護事業所",
       "features": [
         "人材紹介と採用課金の2形態",
@@ -5377,7 +5377,7 @@
       "outcome_type": "hire",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "運送・ドライバー採用企業",
       "features": [
         "求人票作成代行無料",
@@ -5412,7 +5412,7 @@
       "outcome_type": "hire",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "建設会社・工務店・職人事業者",
       "features": [
         "建設業特化",
@@ -5447,7 +5447,7 @@
       "outcome_type": "hire",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "建設・建築企業",
       "features": [
         "掲載数無制限",
@@ -5482,7 +5482,7 @@
       "outcome_type": "hire",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "薬局・ドラッグストア・病院",
       "features": [
         "成功報酬",
@@ -5517,7 +5517,7 @@
       "outcome_type": "hire",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "病院・クリニック・施設",
       "features": [
         "成功報酬",
@@ -5552,7 +5552,7 @@
       "outcome_type": "hire",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "病院・施設・クリニック",
       "features": [
         "成功報酬",
@@ -5587,7 +5587,7 @@
       "outcome_type": "lead",
       "pricing_model": "optional_plan",
       "is_full_success_fee": false,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "アルバイト採用企業・店舗",
       "features": [
         "応募課金プラン",
@@ -5622,7 +5622,7 @@
       "outcome_type": "hire",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "新卒採用企業",
       "features": [
         "成功報酬",
@@ -5657,7 +5657,7 @@
       "outcome_type": "hire",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "中途・新卒採用企業",
       "features": [
         "約1,700社に一括依頼",
@@ -5692,7 +5692,7 @@
       "outcome_type": "hire",
       "pricing_model": "success_only",
       "is_full_success_fee": false,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "障害者雇用を行う企業",
       "features": [
         "障害者専門",
@@ -5727,7 +5727,7 @@
       "outcome_type": "lead",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "工場・製造業",
       "features": [
         "応募課金",
@@ -5762,7 +5762,7 @@
       "outcome_type": "hire",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "50歳以上を採用する企業",
       "features": [
         "50歳以上特化",
@@ -5797,7 +5797,7 @@
       "outcome_type": "hire",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "ホテル・宿泊施設",
       "features": [
         "ホテル業界専門",
@@ -5832,7 +5832,7 @@
       "outcome_type": "hire",
       "pricing_model": "success_only",
       "is_full_success_fee": false,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "ホテル・旅館",
       "features": [
         "掲載無料",
@@ -5867,7 +5867,7 @@
       "outcome_type": "hire",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "建設会社・設備工事会社",
       "features": [
         "成功報酬",
@@ -5902,7 +5902,7 @@
       "outcome_type": "hire",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "建設・設備関連企業",
       "features": [
         "建設業特化",
@@ -5937,7 +5937,7 @@
       "outcome_type": "hire",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "第二新卒・既卒を採用する企業",
       "features": [
         "合同面接会に無料参加",
@@ -6007,7 +6007,7 @@
       "outcome_type": "other",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "自社サイトの検索順位を上げたい事業者",
       "features": [
         "順位帯別の日額課金",
@@ -6042,7 +6042,7 @@
       "outcome_type": "other",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "大阪を中心とした中小企業",
       "features": [
         "着手料0円",
@@ -6077,7 +6077,7 @@
       "outcome_type": "other",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "大阪を中心とした中小企業",
       "features": [
         "10位以内到達まで0円",
@@ -6112,7 +6112,7 @@
       "outcome_type": "other",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "自社サイトの順位向上を図る事業者",
       "features": [
         "順位帯別の日額課金",
@@ -6147,7 +6147,7 @@
       "outcome_type": "other",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "飲食店・美容室・クリニック等の店舗型ビジネス",
       "features": [
         "上位3位の日のみ日額課金",
@@ -6182,7 +6182,7 @@
       "outcome_type": "other",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "名古屋エリアの店舗型事業者",
       "features": [
         "800円/日の日額課金",
@@ -6217,7 +6217,7 @@
       "outcome_type": "other",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "店舗型ビジネス",
       "features": [
         "3位以内の日のみ課金",
@@ -6252,7 +6252,7 @@
       "outcome_type": "lead",
       "pricing_model": "optional_plan",
       "is_full_success_fee": false,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "IT・BtoBソリューション提供企業",
       "features": [
         "25万人の独自データベース",
@@ -6287,7 +6287,7 @@
       "outcome_type": "lead",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "BtoB商材を扱う企業",
       "features": [
         "成果報酬のみ",
@@ -6322,7 +6322,7 @@
       "outcome_type": "lead",
       "pricing_model": "success_only",
       "is_full_success_fee": false,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "中小企業向けにセミナーを開催するBtoB事業者",
       "features": [
         "成果報酬型(申込1件)",
@@ -6391,7 +6391,7 @@
       "outcome_type": "matching",
       "pricing_model": "success_only",
       "is_full_success_fee": false,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "士業・リフォーム・撮影・引越し等の事業者",
       "features": [
         "登録費・月額0円",
@@ -6426,7 +6426,7 @@
       "outcome_type": "other",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "美容師・ネイリスト・エステティシャン等",
       "features": [
         "予約成立時のみ課金",
@@ -6461,7 +6461,7 @@
       "outcome_type": "lead",
       "pricing_model": "success_only",
       "is_full_success_fee": false,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "自費診療に注力する歯科医院",
       "features": [
         "治療別の専用サイト制作",
@@ -6565,7 +6565,7 @@
       "outcome_type": "other",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "クリニック",
       "features": [
         "決済手数料を引き下げ",
@@ -6633,7 +6633,7 @@
       "outcome_type": "other",
       "pricing_model": "success_only",
       "is_full_success_fee": false,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "多店舗の小売・飲食、複数物件を持つ企業",
       "features": [
         "初期費用・調査料ゼロ",
@@ -6701,7 +6701,7 @@
       "outcome_type": "other",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "業務効率化したい企業",
       "features": [
         "削減時間を金額換算して課金",
@@ -6871,7 +6871,7 @@
       "outcome_type": "other",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "雇用保険加入事業所",
       "features": [
         "40種類以上に対応",
@@ -6972,7 +6972,7 @@
       "outcome_type": "other",
       "pricing_model": "success_only",
       "is_full_success_fee": false,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "店舗・地域ビジネス",
       "features": [
         "上位3位以内のみ課金",
@@ -7006,7 +7006,7 @@
       "outcome_type": "other",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "20〜30代女性向け商材のBtoC企業",
       "features": [
         "初期費用0円・月額0円",
@@ -7041,7 +7041,7 @@
       "outcome_type": "other",
       "pricing_model": "success_only",
       "is_full_success_fee": true,
-      "has_free_consultation": null,
+      "has_free_consultation": false,
       "target_companies": "TikTok広告で新規獲得を狙うBtoC企業・アプリ事業者",
       "features": [
         "初期費用・運用手数料・動画制作費0円",
