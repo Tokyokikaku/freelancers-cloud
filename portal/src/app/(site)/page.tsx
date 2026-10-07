@@ -6,6 +6,7 @@ import Link from "next/link";
 import { CostCompare } from "@/components/CostCompare";
 import { BulkRequestBar } from "@/components/BulkRequestBar";
 import { FaqList } from "@/components/FaqList";
+import { GoldMedal } from "@/components/GoldMedal";
 import { Icon } from "@/components/Icon";
 import { JsonLd } from "@/components/JsonLd";
 import { SectionHead } from "@/components/SectionHead";
@@ -74,16 +75,10 @@ export default async function HomePage() {
               <Link href="#all-categories" className="btn btn-cta min-h-12 px-6 text-base">カテゴリから探す</Link>
               <Link href="/services" className="btn btn-secondary min-h-12 px-6 text-base">サービス一覧を見る</Link>
             </p>
-            {(
-              <ul className="mt-6 flex items-center gap-4 sm:gap-5" aria-label="掲載の規模">
-                {[[services.length, "件", "掲載サービス"], [categoryCount, "種", "カテゴリ"]].map(([n, u, l]) => (
-                  <li key={l as string} className="flex size-[5.6rem] shrink-0 flex-col items-center justify-center rounded-full bg-gold text-navy-950 ring-4 ring-gold/30 ring-offset-2 ring-offset-brand-50 sm:size-24">
-                    <span className="text-[11px] font-bold leading-none sm:text-xs">{l}</span>
-                    <span className="mt-1 leading-none"><b className="text-[1.7rem] font-black sm:text-[2rem]">{n}</b><span className="text-xs font-bold sm:text-sm">{u}</span></span>
-                  </li>
-                ))}
-              </ul>
-            )}
+            <ul className="mt-7 grid max-w-md grid-cols-2 gap-4" aria-label="掲載の規模">
+              <li><GoldMedal label="掲載サービス" value={services.length} unit="件" /></li>
+              <li><GoldMedal label="カテゴリ" value={categoryCount} unit="種" /></li>
+            </ul>
           </div>
 
           {heroPhoto ? (

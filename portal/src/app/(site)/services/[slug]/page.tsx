@@ -139,11 +139,6 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
               <Fact label="無料相談">{service.has_free_consultation ? "あり" : "公式サイトをご確認ください"}</Fact>
               <Fact label="対象企業">{service.target_companies || "公式サイトをご確認ください"}</Fact>
               <Fact label="情報更新日"><time>{infoUpdatedAt(service)}</time></Fact>
-              {service.source_url && (
-                <Fact label="情報ソース">
-                  <a href={service.source_url} target="_blank" rel="noopener noreferrer nofollow" className="break-all text-brand-700 underline">{service.source_url}</a>
-                </Fact>
-              )}
             </dl>
             <p className="mt-3 flex gap-2 rounded-md bg-warn-50 p-4 text-sm leading-7 text-warn-700">
               <Icon name="info" className="mt-1 size-4 shrink-0" />
