@@ -12,13 +12,14 @@
   --grad-from: #7b4dff;
   --grad-to: #3b82f6;
   --c-footer: #262626;
-  --font-sans: 'Zen Kaku Gothic New', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', Meiryo, sans-serif; /* 見出し・ボタン・バッジ・ナビ */
+  --font-sans: 'Noto Sans JP', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', Meiryo, sans-serif;
+  --font-serif: 'Noto Serif JP', 'Hiragino Mincho ProN', 'Yu Mincho', serif; /* 見出し・ボタン・バッジ・ナビ */
   --font-body: 'Noto Sans JP', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', Meiryo, sans-serif; /* 本文 */
   --radius-card: 22px;
 }
 
 @theme static {
-  --font-label: 'Poppins', 'Zen Kaku Gothic New', sans-serif;
+  --font-label: 'Poppins', 'Noto Sans JP', sans-serif;
 }
 
 @theme inline {
@@ -62,9 +63,9 @@ a { text-underline-offset: 3px; }
 @layer components {
 /* ===== ヒーロー ===== */
 .hero { position: relative; overflow: hidden; background: var(--c-bg); }
-/* キーワードは極太、それ以外は細め。同じ丸ゴシックの太さ違いで強弱をつける */
+/* キーワードは極太ゴシック、それ以外は細い明朝。同じ大きさで混在させる */
 .hero-title {
-  font-weight: 400;
+  font-family: var(--font-serif); font-weight: 300;
   font-size: clamp(40px, 11.5vw, 68px); line-height: 1.28; white-space: nowrap;
   letter-spacing: 0; font-feature-settings: 'palt'; line-break: strict;
 }
