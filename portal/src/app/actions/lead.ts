@@ -4,6 +4,7 @@ import { randomUUID } from "node:crypto";
 import { z } from "zod";
 import { checkEmail, checkMobilePhone, formatMobile, normalizePhone } from "@/lib/contact-validation";
 import { getServices } from "@/lib/data";
+import { lookupCorporation } from "@/lib/houjin";
 import { CONSENT_VERSION, EMPLOYEE_OPTIONS, MAX_REQUEST_SERVICES, TIMING_OPTIONS } from "@/lib/lead-options";
 import { postWebhook, sendMail } from "@/lib/notify";
 import { hasServiceRole, serviceClient } from "@/lib/supabase";
@@ -28,6 +29,7 @@ const schema = z.object({
     const e = checkEmail(v);
     if (e) ctx.addIssue({ code: "custom", message: e });
   }),
+  corporate_number: z.string().trim().regex(/^\d{13}$/).optional().or(z.literal("")),
   phone: z.string().trim().max(30, "電話番号が長すぎます").superRefine((v, ctx) => {
     const e = checkMobilePhone(v);
     if (e) ctx.addIssue({ code: "custom", message: e });
@@ -42,7 +44,7 @@ const schema = z.object({
   website: z.string().max(0).optional(), // ハニーポット
 });
 
-const FIELDS = ["company", "name", "email", "phone", "timing", "employees", "message", "source", "medium", "campaign", "visitor_id", "website"] as const;
+const FIELDS = ["company", "corporate_number", "name", "email", "phone", "timing", "employees", "message", "source", "medium", "campaign", "visitor_id", "website"] as const;
 const str = (fd: FormData, k: string) => {
   const v = fd.get(k);
   return typeof v === "string" ? v : undefined;
@@ -72,6 +74,13 @@ export async function submitLeads(_prev: LeadState, formData: FormData): Promise
     return { ok: false, errors: { consent: "掲載契約のある提供会社への情報提供に同意いただく必要があります" } };
   }
 
+  // 候補から選ばれた法人番号は、クライアントの値を信用せず、サーバー側で国税庁APIに再照会して確認する
+  let corporateNumber: string | null = null;
+  if (d.corporate_number) {
+    const corp = await lookupCorporation(d.corporate_number);
+    if (corp) corporateNumber = corp.number;
+  }
+
   const redirectTo = `/thanks?s=${targets.map((s) => encodeURIComponent(s!.slug)).join(",")}`;
   const sent = targets.map((s) => ({ id: s!.id, name: s!.name }));
 
@@ -87,6 +96,8 @@ export async function submitLeads(_prev: LeadState, formData: FormData): Promise
     service_id: s!.id,
     service_name: s!.name,
     company: d.company,
+    corporate_number: corporateNumber,
+    company_verified: Boolean(corporateNumber),
     name: d.name,
     email: d.email,
     phone: formatMobile(normalizePhone(d.phone)),
@@ -122,7 +133,7 @@ export async function submitLeads(_prev: LeadState, formData: FormData): Promise
   if (evError) console.error("[lead] event insert failed:", evError.message);
 
   const detail =
-    `会社名: ${d.company}\n氏名: ${d.name}\nメール: ${d.email}\n電話(携帯): ${formatMobile(normalizePhone(d.phone))}\n検討時期: ${d.timing || "-"}\n従業員規模: ${d.employees || "-"}\n` +
+    `会社名: ${d.company}${corporateNumber ? `（法人番号 ${corporateNumber}・国税庁データで実在確認済み）` : "（法人番号未確認）"}\n氏名: ${d.name}\nメール: ${d.email}\n電話(携帯): ${formatMobile(normalizePhone(d.phone))}\n検討時期: ${d.timing || "-"}\n従業員規模: ${d.employees || "-"}\n` +
     `ご要望: ${d.message || "-"}\n流入元: ${d.source || "-"} / ${d.medium || "-"} / ${d.campaign || "-"}\n`;
 
   const operator = process.env.LEAD_NOTIFY_EMAIL;
@@ -155,7 +166,7 @@ export async function submitLeads(_prev: LeadState, formData: FormData): Promise
           request_id: requestId,
           created_at: lead?.created_at,
           service: { id: s!.id, slug: s!.slug, name: s!.name },
-          lead: { company: d.company, name: d.name, email: d.email, phone: formatMobile(normalizePhone(d.phone)), timing: d.timing || null, employees: d.employees || null, message: d.message || null },
+          lead: { company: d.company, corporate_number: corporateNumber, company_verified: Boolean(corporateNumber), name: d.name, email: d.email, phone: formatMobile(normalizePhone(d.phone)), timing: d.timing || null, employees: d.employees || null, message: d.message || null },
         })) || notified;
     }
     if (notified && lead) await db.from("leads").update({ notified_at: new Date().toISOString() }).eq("lead_id", lead.lead_id);

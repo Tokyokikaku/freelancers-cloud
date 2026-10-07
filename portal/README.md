@@ -193,3 +193,14 @@ npm run dev                  # http://localhost:3000
 10. **同意管理（Cookieバナー）**、ボット判定の高度化、Search Console API 連携
 11. 自動テスト（E2E）と CI
 12. **SEO記事の執筆**（後日）: 「初期費用なし｜完全成果報酬の営業代行サービス10選」のような比較・ランキング記事を、各カテゴリで作成する。掲載サービスのデータ（`seed.json`）をもとに、公式料金ページで再確認した内容だけを書くこと。
+
+## 会社名の実在確認（法人番号API・任意）
+
+資料請求フォームの会社名入力で、国税庁「法人番号公表サイト Web-API」から候補を出します。
+
+1. https://www.houjin-bangou.nta.go.jp/webapi/ でアプリケーションIDを申請（無料・発行まで数日）
+2. Vercel の環境変数に `HOUJIN_BANGOU_APP_ID` を設定して再デプロイ
+3. 動作: 会社名を2文字以上入力すると候補（会社名・所在地・法人番号）が出ます。候補から選ぶと、サーバー側で法人番号を国税庁APIに再照会し、確認できた場合のみ `leads.company_verified = true` で保存します（通知メール・Webhook・管理画面・CSVにも反映）。
+4. 未設定のときは候補機能が無効で、会社名は自由入力のままです。個人事業主・候補にない会社は、そのまま入力して送信できます。
+
+※ スキーマ（`corporate_number` / `company_verified`）は `supabase/migrations/0001_init.sql` に含まれています。すでに旧版を適用済みの場合は `alter table leads add column corporate_number text, add column company_verified boolean not null default false;` を実行してください。

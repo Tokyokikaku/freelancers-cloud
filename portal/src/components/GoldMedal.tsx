@@ -1,63 +1,34 @@
-import { useId } from "react";
-
-/** 金賞メダル風の数値バッジ。月桂樹・金のグラデーション・リボン付き */
-export function GoldMedal({ label, value, unit }: { label: string; value: number | string; unit: string }) {
-  const uid = useId().replace(/:/g, "");
-  const cx = 110;
-  const cy = 104;
-  const R = 86;
-  // 月桂樹の葉（左右対称）
-  const leaves: { x: number; y: number; rot: number; k: string }[] = [];
-  for (let i = 0; i < 9; i++) {
-    const a = (205 - i * 13) * (Math.PI / 180); // 左側: 下から上へ
-    const x = cx + R * Math.cos(a);
-    const y = cy - R * Math.sin(a);
-    const rot = 90 - (205 - i * 13) + 18;
-    leaves.push({ x, y, rot, k: `l${i}` });
-    leaves.push({ x: 2 * cx - x, y, rot: -rot, k: `r${i}` });
-  }
+/** 掲載規模の実績バッジ。左右の月桂樹と大きな数字だけのシンプルな受賞表記 */
+function Laurel({ flip }: { flip?: boolean }) {
+  const leaves = [
+    [14, 84, -62], [10, 70, -52], [8, 56, -42], [8, 42, -30], [11, 29, -18], [17, 17, -6],
+  ];
   return (
-    <div className="relative mx-auto aspect-[220/250] w-[8rem] sm:w-[9rem]" role="img" aria-label={`${label} ${value}${unit}`}>
-      <svg viewBox="0 0 220 250" className="absolute inset-0 size-full" aria-hidden="true">
-        <defs>
-          <radialGradient id={`${uid}g`} cx="35%" cy="28%" r="85%">
-            <stop offset="0" stopColor="#fff6c2" />
-            <stop offset="0.35" stopColor="#f6d155" />
-            <stop offset="0.75" stopColor="#d9a21c" />
-            <stop offset="1" stopColor="#b57a0a" />
-          </radialGradient>
-          <linearGradient id={`${uid}l`} x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stopColor="#f7d96a" />
-            <stop offset="1" stopColor="#bf8710" />
-          </linearGradient>
-          <linearGradient id={`${uid}r`} x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stopColor="#1f6fd0" />
-            <stop offset="1" stopColor="#0b4a9c" />
-          </linearGradient>
-        </defs>
-        {/* リボン */}
-        <path d="M70 168 L52 244 L82 230 L100 246 L112 176 Z" fill={`url(#${uid}r)`} />
-        <path d="M150 168 L168 244 L138 230 L120 246 L108 176 Z" fill={`url(#${uid}r)`} opacity="0.92" />
-        {/* 月桂樹 */}
-        {leaves.map((l) => (
-          <ellipse key={l.k} cx={l.x} cy={l.y} rx="5.6" ry="13" transform={`rotate(${l.rot} ${l.x} ${l.y})`} fill={`url(#${uid}l)`} />
-        ))}
-        {/* メダル本体 */}
-        <circle cx={cx} cy={cy} r="70" fill={`url(#${uid}g)`} stroke="#a8730a" strokeWidth="3" />
-        <circle cx={cx} cy={cy} r="61" fill="none" stroke="#fff3b8" strokeWidth="2" opacity="0.9" />
-        <circle cx={cx} cy={cy} r="57" fill="none" stroke="#b9820f" strokeWidth="1" opacity="0.5" />
-        {/* 光沢 */}
-        <path d="M58 78 A56 56 0 0 1 126 46" fill="none" stroke="#fffbe0" strokeWidth="5" strokeLinecap="round" opacity="0.55" />
-        {/* 上部の星 */}
-        <path d="M110 6 l5.2 10.6 11.7 1.7 -8.5 8.2 2 11.6 -10.4 -5.5 -10.4 5.5 2 -11.6 -8.5 -8.2 11.7 -1.7z" fill="#f6d155" stroke="#a8730a" strokeWidth="1.5" strokeLinejoin="round" />
-      </svg>
-      <div className="absolute inset-x-0 top-[31%] flex flex-col items-center text-[#4a2f00]">
-        <span className="text-[10px] font-black leading-none tracking-wide sm:text-[12px]">{label}</span>
-        <span className="mt-1.5 flex items-baseline leading-none">
-          <b className="text-[1.85rem] font-black tracking-tight sm:text-[2.15rem]">{value}</b>
-          <span className="ml-0.5 text-xs font-black sm:text-sm">{unit}</span>
-        </span>
+    <svg viewBox="0 0 34 100" className={`h-full w-auto ${flip ? "-scale-x-100" : ""}`} aria-hidden="true">
+      <path d="M26 96 C10 78 6 40 24 6" fill="none" stroke="#b8892a" strokeWidth="1.6" strokeLinecap="round" />
+      {leaves.map(([x, y, r], i) => (
+        <g key={i}>
+          <ellipse cx={x} cy={y} rx="3.6" ry="9" transform={`rotate(${r} ${x} ${y})`} fill="#c9a043" />
+          <ellipse cx={x + 11} cy={y + 4} rx="3" ry="7.5" transform={`rotate(${r + 70} ${x + 11} ${y + 4})`} fill="#dcbb68" opacity="0.9" />
+        </g>
+      ))}
+    </svg>
+  );
+}
+
+export function GoldMedal({ label, value, unit }: { label: string; value: number | string; unit: string }) {
+  return (
+    <div className="flex items-center justify-center gap-1.5 sm:gap-2" role="img" aria-label={`${label} ${value}${unit}`}>
+      <div className="h-[4.6rem] sm:h-[5.4rem]"><Laurel /></div>
+      <div className="text-center">
+        <p className="text-[11px] font-bold tracking-wide text-[#8a6310] sm:text-xs">{label}</p>
+        <p className="mt-0.5 flex items-baseline justify-center leading-none text-navy-950">
+          <b className="text-[2.6rem] font-black tracking-tight sm:text-[3.2rem]">{value}</b>
+          <span className="ml-0.5 text-sm font-black sm:text-lg">{unit}</span>
+        </p>
+        <p className="mt-1 text-[10px] tracking-[0.35em] text-[#c9a043]">★★★</p>
       </div>
+      <div className="h-[4.6rem] sm:h-[5.4rem]"><Laurel flip /></div>
     </div>
   );
 }

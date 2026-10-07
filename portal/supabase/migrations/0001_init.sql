@@ -97,6 +97,8 @@ create table if not exists leads (
   service_id    uuid references services(id) on delete set null,
   service_name  text not null,                 -- 送信時点のサービス名を保持
   company       text not null,
+  corporate_number text,                       -- 法人番号（候補から選択し、国税庁APIで確認できた場合のみ）
+  company_verified boolean not null default false, -- 国税庁の法人番号公表サイトで実在確認済みか
   name          text not null,
   email         text not null,
   phone         text,

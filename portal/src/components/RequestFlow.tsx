@@ -8,6 +8,7 @@ import { EMPLOYEE_OPTIONS, MAX_REQUEST_SERVICES, TIMING_OPTIONS } from "@/lib/le
 import { leadDisclaimer } from "@/lib/partner";
 import { getAttribution, getVisitorId, track } from "@/lib/tracking";
 import type { FeeType, PartnerStatus } from "@/lib/types";
+import { CompanyField } from "./CompanyField";
 import { useRequestList } from "./request-store";
 
 export interface ServiceLite {
@@ -26,7 +27,7 @@ export interface ServiceLite {
 }
 
 const PROFILE_KEY = "snv_profile";
-interface Profile { company?: string; name?: string; email?: string; phone?: string; employees?: string; timing?: string }
+interface Profile { company?: string; corporate_number?: string; name?: string; email?: string; phone?: string; employees?: string; timing?: string }
 
 function Row({ s, checked, onToggle, disabled }: { s: ServiceLite; checked: boolean; onToggle: () => void; disabled?: boolean }) {
   return (
@@ -49,7 +50,7 @@ function Row({ s, checked, onToggle, disabled }: { s: ServiceLite; checked: bool
   );
 }
 
-export function RequestFlow({ services, initialSlugs }: { services: ServiceLite[]; initialSlugs: string[] }) {
+export function RequestFlow({ services, initialSlugs, companySuggest = false }: { services: ServiceLite[]; initialSlugs: string[]; companySuggest?: boolean }) {
   const router = useRouter();
   const store = useRequestList();
   const [state, action, pending] = useActionState<LeadState, FormData>(submitLeads, { ok: false });
@@ -118,7 +119,7 @@ export function RequestFlow({ services, initialSlugs }: { services: ServiceLite[
     try {
       if (fd.get("remember") === "on") {
         const p: Profile = {};
-        for (const k of ["company", "name", "email", "phone", "employees", "timing"] as const) p[k] = String(fd.get(k) ?? "");
+        for (const k of ["company", "corporate_number", "name", "email", "phone", "employees", "timing"] as const) p[k] = String(fd.get(k) ?? "");
         window.localStorage.setItem(PROFILE_KEY, JSON.stringify(p));
       } else {
         window.localStorage.removeItem(PROFILE_KEY);
@@ -191,7 +192,7 @@ export function RequestFlow({ services, initialSlugs }: { services: ServiceLite[
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
                   <label className="label" htmlFor="req-company">会社名 <span className="text-xs text-red-600">必須</span></label>
-                  <input id="req-company" name="company" required maxLength={100} autoComplete="organization" defaultValue={profile.company} className="input" {...fp("company")} />
+                  <CompanyField enabled={companySuggest} defaultValue={profile.company} defaultNumber={profile.corporate_number} invalid={Boolean(err("company"))} describedBy={err("company") ? "req-company-err" : undefined} />
                   {err("company") && <p id="req-company-err" className="mt-1 text-sm text-red-600">{err("company")}</p>}
                 </div>
                 <div>

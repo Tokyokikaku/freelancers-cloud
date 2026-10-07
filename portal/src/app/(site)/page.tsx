@@ -75,7 +75,7 @@ export default async function HomePage() {
               <Link href="#all-categories" className="btn btn-cta min-h-12 px-6 text-base">カテゴリから探す</Link>
               <Link href="/services" className="btn btn-secondary min-h-12 px-6 text-base">サービス一覧を見る</Link>
             </p>
-            <ul className="mt-7 grid max-w-md grid-cols-2 gap-4" aria-label="掲載の規模">
+            <ul className="mt-6 grid max-w-lg grid-cols-2 gap-2" aria-label="掲載の規模">
               <li><GoldMedal label="掲載サービス" value={services.length} unit="件" /></li>
               <li><GoldMedal label="カテゴリ" value={categoryCount} unit="種" /></li>
             </ul>

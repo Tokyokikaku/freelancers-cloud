@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { RequestFlow, type ServiceLite } from "@/components/RequestFlow";
 import { getCategories, getServices } from "@/lib/data";
+import { houjinEnabled } from "@/lib/houjin";
 import { MAX_REQUEST_SERVICES } from "@/lib/lead-options";
 import { buildMetadata } from "@/lib/seo";
 
@@ -47,7 +48,7 @@ export default async function RequestPage({ searchParams }: { searchParams: Prom
           </ol>
         </div>
       </div>
-      <RequestFlow services={lite} initialSlugs={initial} />
+      <RequestFlow services={lite} initialSlugs={initial} companySuggest={houjinEnabled} />
     </div>
   );
 }
