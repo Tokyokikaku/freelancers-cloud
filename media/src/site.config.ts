@@ -3,13 +3,13 @@
  */
 export const SITE = {
   /** サイト名（仮） */
-  name: 'pimo',
+  name: 'Yupir',
   /** キャッチコピー（ヒーロー見出しの <b> で囲んだ部分が太字になる） */
   tagline: '個人開発の「**つくった理由**」を、**ひとつずつ**。',
   description:
     '個人開発者のサービスを紹介する日本語メディア。サービス紹介記事と開発者インタビューを掲載します。',
   /** 本番URL（canonical・sitemap・RSS・OGPに使用）。Cloudflare Pagesのドメインに合わせて変更 */
-  url: 'https://pimo-two.vercel.app',
+  url: 'https://yupir.vercel.app',
   lang: 'ja',
   /** 1ページあたりの記事数 */
   pageSize: 9,
