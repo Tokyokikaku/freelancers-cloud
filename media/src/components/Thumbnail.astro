@@ -19,7 +19,7 @@ const startY = 90 - (lines.length - 1) * 21;
 <div class="thumb">
   {
     ogImage ? (
-      <Image src={ogImage} alt="" width={640} height={360} loading={eager ? 'eager' : 'lazy'} decoding="async" />
+      <Image src={ogImage} alt="" width={eager ? 1000 : 640} height={eager ? 562 : 360} loading={eager ? 'eager' : 'lazy'} decoding="async" />
     ) : (
       <svg viewBox="0 0 320 180" role="img" aria-label={title} preserveAspectRatio="xMidYMid slice">
         <defs>

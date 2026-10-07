@@ -4,7 +4,6 @@ import { render } from 'astro:content';
 import { getImage } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import TypeBadge from '../../components/TypeBadge.astro';
-import VerifiedBadge from '../../components/VerifiedBadge.astro';
 import ServiceCard from '../../components/ServiceCard.astro';
 import ArticleGrid from '../../components/ArticleGrid.astro';
 import ShareButton from '../../components/ShareButton.astro';
@@ -12,7 +11,7 @@ import CorrectionLink from '../../components/CorrectionLink.astro';
 import Thumbnail from '../../components/Thumbnail.astro';
 import { getArticles, slugOf, tagUrl, relatedArticles, formatDate, isoDate, absoluteUrl } from '../../lib/articles';
 import { articleJsonLd } from '../../lib/seo';
-import { SITE } from '../../site.config';
+import { SITE, categoryLabel } from '../../site.config';
 
 export const getStaticPaths = (async () => {
   const all = await getArticles();
@@ -45,7 +44,7 @@ const ogUrl = absoluteUrl(ogPath);
         </nav>
         <div class="mt-5 flex flex-wrap items-center gap-2">
           <TypeBadge type={d.type} />
-          <VerifiedBadge verified={d.verified} />
+          <a href={`/category/${d.category}/`} class="badge !bg-alt !text-ink no-underline">{categoryLabel(d.category)}</a>
         </div>
         <h1 class="mt-4 text-[26px] font-bold leading-snug md:text-[34px]">{d.title}</h1>
         <p class="mt-4 text-sm text-sub">
@@ -56,11 +55,6 @@ const ogUrl = absoluteUrl(ogPath);
           <ul class="mt-4 flex flex-wrap gap-2">
             {d.tags.map((t) => <li><a href={tagUrl(t)} class="text-sm text-accent no-underline">#{t}</a></li>)}
           </ul>
-        )}
-        {!d.verified && (
-          <p class="mt-6 rounded-2xl bg-[#fff4e0] p-4 text-sm text-[#7a4600]">
-            この記事は開発者ご本人の確認を得ていません。公開情報をもとにリンクと要約でまとめています。内容に誤りがある場合は修正・削除をお申し付けください。
-          </p>
         )}
       </div>
 

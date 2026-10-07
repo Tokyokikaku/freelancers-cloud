@@ -44,3 +44,17 @@ export const TYPE_LABEL = {
 } as const;
 
 export type ArticleType = keyof typeof TYPE_LABEL;
+
+/** サービスのカテゴリ（読者が興味のあるカテゴリだけを絞り込めるようにする） */
+export const CATEGORIES = [
+  { slug: 'learning', label: '学習・教育' },
+  { slug: 'tools', label: 'ツール・仕事効率化' },
+  { slug: 'creator', label: 'クリエイター・制作' },
+  { slug: 'entertainment', label: 'ゲーム・ファン' },
+  { slug: 'lifestyle', label: '暮らし' },
+  { slug: 'developer', label: '開発者向け' },
+] as const;
+
+export type CategorySlug = (typeof CATEGORIES)[number]['slug'];
+export const CATEGORY_SLUGS = CATEGORIES.map((c) => c.slug) as [CategorySlug, ...CategorySlug[]];
+export const categoryLabel = (slug: string) => CATEGORIES.find((c) => c.slug === slug)?.label ?? slug;

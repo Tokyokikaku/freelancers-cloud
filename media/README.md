@@ -42,7 +42,7 @@ publishedAt: 2026-10-10
 updatedAt: 2026-10-12          # 任意
 type: introduction              # introduction（紹介）| interview（インタビュー）
 tags: [Webアプリ, 生産性]
-verified: false                 # 本人確認・数字確認が済んだら true
+category: tools                 # learning | tools | creator | entertainment | lifestyle | developer
 service:
   name: サービス名
   url: https://example.com/
@@ -65,7 +65,6 @@ draft: false                    # true にすると公開されない
 ### 守るルール（仕組みでも担保しています）
 
 - **metrics は出典URLと確認日が必須。** 欠けているとビルドエラーになり、出典のない数字は表示されません。
-- **`verified: false` の記事には「本人未確認」バッジと注意書き**が自動で出ます。
 - **記事末尾に「掲載内容の修正・削除はこちら」**が全記事に自動表示されます。
 - **他人の投稿・サービス画面のスクリーンショットや本文は転載しない。** リンクと要約だけにします。
 - `ogImage` を省略すると、タイトル入りのグラデーションが記事のサムネイルとして自動生成されます。

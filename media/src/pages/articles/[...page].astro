@@ -3,6 +3,7 @@ import type { GetStaticPaths } from 'astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SectionLabel from '../../components/SectionLabel.astro';
 import TypeFilter from '../../components/TypeFilter.astro';
+import CategoryFilter from '../../components/CategoryFilter.astro';
 import ArticleGrid from '../../components/ArticleGrid.astro';
 import Pagination from '../../components/Pagination.astro';
 import { getArticles } from '../../lib/articles';
@@ -13,6 +14,7 @@ export const getStaticPaths = (async ({ paginate }) => {
 }) satisfies GetStaticPaths;
 
 const { page } = Astro.props;
+const allArticles = await getArticles();
 ---
 
 <BaseLayout
@@ -23,7 +25,7 @@ const { page } = Astro.props;
     <div class="container-x">
       <SectionLabel en="ARTICLES" title="記事一覧" tag="h1" lead={`全${page.total}本`} />
       <div class="section-body">
-        <div class="mb-10"><TypeFilter current="all" /></div>
+        <div class="mb-10 grid gap-4"><CategoryFilter articles={allArticles} current="all" /><TypeFilter current="all" /></div>
         <ArticleGrid articles={page.data} />
         <Pagination currentPage={page.currentPage} lastPage={page.lastPage} base="/articles/" />
       </div>
