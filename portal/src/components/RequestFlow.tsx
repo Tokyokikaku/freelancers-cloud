@@ -250,7 +250,7 @@ export function RequestFlow({ services, initialSlugs, autoPick = false, companyS
                 </div>
               )}
               <p className="text-xs leading-6 text-body">
-                「資料請求する」ボタンを押すと、会員情報（会社名・氏名・メールアドレス・電話番号など）を請求先のサービス提供会社に電子ファイルで提供すること、および
+                「資料請求する」ボタンを押すと、会員情報を請求先のサービス提供会社に電子ファイルで提供すること、および
                 <Link href="/privacy" target="_blank" className="underline">プライバシーポリシー</Link>に同意したものとみなします。
                 {chosen.some((c) => c.partner_status === "unpartnered") && "「資料リクエスト」のサービスは、提供会社との契約成立後に提供します。"}
               </p>
