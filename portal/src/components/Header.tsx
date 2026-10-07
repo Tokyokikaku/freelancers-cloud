@@ -54,11 +54,11 @@ export async function Header() {
       <div className="container-page pb-3 md:hidden"><SearchBox id="header-search-sm" /></div>
 
       <nav aria-label="カテゴリ" className="hidden bg-brand-700 md:block">
-        <ul className="container-page flex overflow-x-auto text-sm font-bold text-white">
-          <li className="shrink-0"><Link href="/" className="flex min-h-11 items-center px-4 hover:bg-brand-600">TOP</Link></li>
+        <ul className="container-page flex justify-center gap-2 overflow-x-auto text-sm font-bold text-white lg:gap-8">
+          <li className="shrink-0"><Link href="/" className="relative flex min-h-12 items-center px-4 after:absolute after:bottom-1 after:left-1/2 after:h-1 after:w-0 after:-translate-x-1/2 after:bg-cta-500 after:transition-all hover:after:w-10 lg:text-base">TOP</Link></li>
           {categories.map((c) => (
             <li key={c.id} className="shrink-0">
-              <Link href={`/category/${c.slug}`} className="flex min-h-11 items-center px-4 hover:bg-brand-600">{c.name}</Link>
+              <Link href={`/category/${c.slug}`} className="relative flex min-h-12 items-center px-4 after:absolute after:bottom-1 after:left-1/2 after:h-1 after:w-0 after:-translate-x-1/2 after:bg-cta-500 after:transition-all hover:after:w-10 lg:text-base">{c.name}</Link>
             </li>
           ))}
         </ul>
