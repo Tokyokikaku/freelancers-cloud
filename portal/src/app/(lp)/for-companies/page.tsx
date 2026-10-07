@@ -226,14 +226,12 @@ export default async function ForCompaniesPage() {
           <ul className="mt-8 space-y-3 rounded-2xl bg-white p-5 text-sm leading-7 ring-1 ring-line sm:p-7">
             {[
               "必須の月額固定費がないこと（初期費用の有無は問いません。有料の場合はその旨を明記します）",
-              "何を成果として、いくら課金するかが、公式サイト等で確認できること",
               "現在も提供しているサービスであること",
               "作業量（送信件数など）への課金、アフィリエイトASP、固定費と成果報酬の併用が必須のサービスは、対象外です",
             ].map((t) => (
               <li key={t} className="flex gap-3"><span className="mt-1 inline-flex size-5 shrink-0 items-center justify-center rounded-full bg-brand-700 text-white"><Icon name="check" className="size-3.5" /></span>{t}</li>
             ))}
           </ul>
-          <p className="mt-4 text-center text-xs leading-6 text-muted">提携前のサービスを、提携しているように見せることはしません。</p>
         </div>
       </section>
 
