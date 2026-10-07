@@ -8,7 +8,7 @@ export async function Footer() {
     <footer className="mt-12 border-t border-line bg-white pb-24 pt-10">
       <div className="container-page grid gap-8 md:grid-cols-[1.4fr_1fr_1fr]">
         <div>
-          <p className="flex items-center gap-2 text-xl font-black text-brand-700">
+          <p className="flex items-center gap-2 text-xl font-[family-name:var(--font-logo)] font-medium tracking-[0.03em] text-brand-700">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/logo.svg" alt="" width={28} height={28} className="size-7" />{SITE_NAME}
           </p>

@@ -13,7 +13,7 @@ export async function Header() {
         <Link href="/" className="flex shrink-0 items-center gap-1.5 sm:gap-2" aria-label={`${SITE_NAME} トップへ`}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/logo.svg" alt="" width={34} height={34} className="size-7 shrink-0 self-center sm:size-9" />
-          <span className="text-[1.2rem] font-black sm:text-[1.45rem] tracking-tight text-brand-700">{SITE_NAME}</span>
+          <span className="text-[1.2rem] sm:text-[1.45rem] font-[family-name:var(--font-logo)] font-medium tracking-[0.03em] text-brand-700">{SITE_NAME}</span>
           <span className="hidden text-[10px] font-bold text-muted xl:inline">成果報酬サービス比較</span>
         </Link>
 
