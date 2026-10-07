@@ -16,7 +16,7 @@ const d = article.data;
       {!d.verified && <VerifiedBadge verified={false} />}
     </div>
     <h3 class="mt-3 text-[17px] font-bold leading-snug">{d.title}</h3>
-    <p class="mt-2 text-sm font-light text-sub">
+    <p class="mt-2 text-sm text-sub">
       {d.service.developerName}<span class="mx-2">・</span><time datetime={isoDate(d.publishedAt)}>{formatDate(d.publishedAt)}</time>
     </p>
   </a>

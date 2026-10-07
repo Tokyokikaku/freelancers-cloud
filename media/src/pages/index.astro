@@ -25,11 +25,11 @@ const heroLines = SITE.tagline.split('\n').map((line) => line.split('**'));
         <h1 class="hero-title mt-5">
           {heroLines.map((parts) => (
             <span class="block">
-              {parts.map((p, i) => (i % 2 === 1 ? <strong class="kw">{p}</strong> : p))}
+              {parts.map((p, i) => (i % 2 === 1 ? <strong class="kw">{p}</strong> : p.split(/([「」])/).map((t) => (t === '「' ? <span class="bk-o">{t}</span> : t === '」' ? <span class="bk-c">{t}</span> : t))))}
             </span>
           ))}
         </h1>
-        <p class="mt-6 max-w-md leading-loose text-sub">{SITE.description}</p>
+        <p class="mt-6 max-w-md text-[15px] font-medium leading-loose text-sub md:text-base">{SITE.description}</p>
         <div class="mt-9 flex flex-wrap gap-3">
           <a href="/articles/" class="btn btn-primary">記事を読む</a>
           <a href="/type/interview/" class="btn">インタビュー</a>
@@ -48,7 +48,7 @@ const heroLines = SITE.tagline.split('\n').map((line) => line.split('**'));
           {news.map((a) => (
             <li class="border-b border-line last:border-b-0 md:border-b-0 md:border-r md:last:border-r-0">
               <a href={articleUrl(a)} class="block h-full px-6 py-4 text-ink no-underline hover:bg-alt md:px-6">
-                <time class="block text-xs font-light text-sub" datetime={isoDate(a.data.publishedAt)}>{formatDate(a.data.publishedAt)}</time>
+                <time class="block text-xs text-sub" datetime={isoDate(a.data.publishedAt)}>{formatDate(a.data.publishedAt)}</time>
                 <span class="mt-0.5 line-clamp-2 block text-sm font-bold leading-snug">{a.data.title}</span>
               </a>
             </li>
@@ -87,7 +87,7 @@ const heroLines = SITE.tagline.split('\n').map((line) => line.split('**'));
     <div class="container-x">
       <SectionLabel en="ABOUT" title="このサイトについて" />
       <div class="section-body max-w-2xl">
-        <p class="font-light leading-loose">
+        <p class="leading-loose">
           {SITE.name}は、個人開発者がつくったサービスを紹介する小さなメディアです。
           公開されている情報へのリンクと要約を中心に、数字は必ず出典と確認日を添えて掲載します。
           掲載内容の修正・削除はいつでもご連絡ください。

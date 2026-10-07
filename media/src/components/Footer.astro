@@ -6,12 +6,12 @@ const year = new Date().getFullYear();
 <footer class="bg-footer text-white">
   <div class="container-x py-14">
     <p class="text-lg font-bold">{SITE.name}</p>
-    <p class="mt-2 max-w-md text-sm font-light text-white/70">{SITE.description}</p>
+    <p class="mt-2 max-w-md text-sm text-white/70">{SITE.description}</p>
     <nav class="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm" aria-label="フッター">
       {SITE.nav.map((n) => <a href={n.href} class="py-1 text-white/90 no-underline hover:text-white hover:underline">{n.label}</a>)}
       <a href="/contact/" class="py-1 text-white/90 no-underline hover:underline">取材依頼・掲載削除の申請</a>
       <a href="/rss.xml" class="py-1 text-white/90 no-underline hover:underline">RSS</a>
     </nav>
-    <p class="mt-12 text-right text-xs font-light text-white/60">© {year} {SITE.name}</p>
+    <p class="mt-12 text-right text-xs text-white/60">© {year} {SITE.name}</p>
   </div>
 </footer>

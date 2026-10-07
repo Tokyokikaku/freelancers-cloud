@@ -10,7 +10,7 @@ const tags = collectTags(await getArticles());
       <SectionLabel en="TAGS" title="タグ一覧" tag="h1" />
       <ul class="section-body flex flex-wrap gap-3">
         {tags.map(([t, n]) => (
-          <li><a href={tagUrl(t)} class="btn btn-sm">#{t} <span class="font-light opacity-70">{n}</span></a></li>
+          <li><a href={tagUrl(t)} class="btn btn-sm">#{t} <span class="opacity-70">{n}</span></a></li>
         ))}
       </ul>
     </div>

@@ -40,7 +40,7 @@ const ogUrl = absoluteUrl(ogPath);
   <article class="section !pt-10 md:!pt-16">
     <div class="container-x">
       <div class="mx-auto max-w-[680px]">
-        <nav class="text-xs font-light text-sub" aria-label="パンくず">
+        <nav class="text-xs text-sub" aria-label="パンくず">
           <a href="/" class="text-sub">ホーム</a> › <a href="/articles/" class="text-sub">記事一覧</a>
         </nav>
         <div class="mt-5 flex flex-wrap items-center gap-2">
@@ -48,7 +48,7 @@ const ogUrl = absoluteUrl(ogPath);
           <VerifiedBadge verified={d.verified} />
         </div>
         <h1 class="mt-4 text-[26px] font-bold leading-snug md:text-[34px]">{d.title}</h1>
-        <p class="mt-4 text-sm font-light text-sub">
+        <p class="mt-4 text-sm text-sub">
           <time datetime={isoDate(d.publishedAt)}>公開 {formatDate(d.publishedAt)}</time>
           {d.updatedAt && <> ／ <time datetime={isoDate(d.updatedAt)}>更新 {formatDate(d.updatedAt)}</time></>}
         </p>

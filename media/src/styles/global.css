@@ -5,7 +5,7 @@
   --c-bg: #ffffff;
   --c-alt: #f5f5fa;
   --c-text: #222222;
-  --c-sub: #6b6b7b;
+  --c-sub: #55556a;
   --c-line: #e3e3ee;
   --c-accent: #7b4dff;
   --c-accent-soft: #ece6ff;
@@ -60,10 +60,13 @@ a { text-underline-offset: 3px; }
 /* ===== ヒーロー ===== */
 .hero { position: relative; overflow: hidden; background: var(--c-bg); }
 .hero-title {
-  font-size: clamp(30px, 8.4vw, 50px); font-weight: 400; line-height: 1.5; white-space: nowrap;
+  font-size: clamp(30px, 8.4vw, 50px); font-weight: 500; line-height: 1.5; white-space: nowrap;
   letter-spacing: 0; font-feature-settings: 'palt'; line-break: strict;
 }
 .hero-title strong { font-weight: 900; }
+/* 全角カギ括弧の余白を詰める（Google Fonts版は palt が効かないため手動） */
+.hero-title .bk-o { margin-left: -.5em; }
+.hero-title .bk-c { margin-right: -.5em; }
 /* キーワードに蛍光ペン風の下線（グラデ文字は使わない） */
 .hero-title .kw { background-image: linear-gradient(transparent 64%, var(--c-accent-soft) 64%, var(--c-accent-soft) 92%, transparent 92%); padding: 0 .06em; }
 .news-strip { background: #fff; border-radius: var(--radius-card); box-shadow: 0 14px 44px rgba(60,40,140,.10); border: 1px solid var(--c-line); }
