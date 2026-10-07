@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { CompareToggle } from "@/components/CompareToggle";
 import { FeeTags } from "@/components/FeeTags";
 import { FeeTile } from "@/components/FeeTile";
 import { Icon } from "@/components/Icon";
@@ -189,9 +188,9 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
 
         <aside className="space-y-4 lg:sticky lg:top-40 lg:self-start">
           <div className="card p-5">
-            <h2 className="text-base">他のサービスもまとめて請求・比較</h2>
-            <p className="mt-2 text-xs leading-6 text-muted">資料請求リストに追加すると、複数サービスを1回の入力でまとめて請求できます。比較は最大3サービスまで。</p>
-            <div className="mt-3 space-y-2"><RequestToggle item={{ id: service.id, slug: service.slug, name: service.name }} /><CompareToggle slug={service.slug} name={service.name} /></div>
+            <h2 className="text-base">他のサービスもまとめて請求</h2>
+            <p className="mt-2 text-xs leading-6 text-muted">資料請求リストに追加すると、複数サービスを1回の入力でまとめて請求できます。</p>
+            <div className="mt-3 space-y-2"><RequestToggle item={{ id: service.id, slug: service.slug, name: service.name }} /></div>
           </div>
         </aside>
       </div>

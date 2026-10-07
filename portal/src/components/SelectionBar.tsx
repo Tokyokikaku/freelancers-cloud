@@ -1,20 +1,16 @@
 "use client";
-import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { MAX_COMPARE, useCompare } from "./compare-store";
 import { requestHref, useRequestList } from "./request-store";
 import { track } from "@/lib/tracking";
 
 /**
- * 画面下部の固定バー。資料請求リスト（まとめて資料請求）と比較リストの両方を扱う。
- * どちらも1件以上選ぶと表示される。
+ * 画面下部の固定バー。資料請求リスト（まとめて資料請求）を扱う。1件以上選ぶと表示される。
  */
 export function SelectionBar() {
   const req = useRequestList();
-  const cmp = useCompare();
   const router = useRouter();
   const pathname = usePathname();
-  if ((req.items.length === 0 && cmp.items.length === 0) || pathname.startsWith("/admin") || pathname === "/request" || pathname === "/thanks") return null;
+  if (req.items.length === 0 || pathname.startsWith("/admin") || pathname === "/request" || pathname === "/thanks") return null;
 
   const goRequest = () => {
     req.items.forEach((i) => track("document_button_click", { service_id: i.id, service_name: i.name, placement: "selection_bar" }));
@@ -40,11 +36,6 @@ export function SelectionBar() {
           </div>
         )}
         <div className="ml-auto flex flex-wrap items-center gap-2">
-          {cmp.items.length >= 2 && (
-            <Link href={`/compare?s=${cmp.items.map((i) => encodeURIComponent(i.slug)).join(",")}`} className="btn-secondary">
-              {cmp.items.length}サービスを比較（最大{MAX_COMPARE}）
-            </Link>
-          )}
           {req.items.length > 0 && <button type="button" onClick={goRequest} className="btn-cta px-6">まとめて資料請求（無料）</button>}
         </div>
       </div>

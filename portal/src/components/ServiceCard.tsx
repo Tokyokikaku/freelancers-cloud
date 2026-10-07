@@ -2,7 +2,6 @@ import Link from "next/link";
 import { successConditionLabel, successFeeLabel, UNKNOWN_TEXT } from "@/lib/format";
 import { partnerBadge } from "@/lib/partner";
 import type { Category, Service } from "@/lib/types";
-import { CompareToggle } from "./CompareToggle";
 import { FactCell, FeeTile } from "./FeeTile";
 import { FeeTags } from "./FeeTags";
 import { ServiceLogo } from "./Logo";
@@ -62,7 +61,6 @@ export function ServiceCard({ service, categories, rank, compact = false }: { se
         <div className="flex flex-col gap-2 md:justify-center">
           <RequestButton id={service.id} slug={service.slug} name={service.name} partnerStatus={service.partner_status} placement="card" className="btn-cta min-h-11 text-base" />
           <RequestToggle item={{ id: service.id, slug: service.slug, name: service.name }} />
-          <CompareToggle slug={service.slug} name={service.name} />
         </div>
       </div>
     </article>
