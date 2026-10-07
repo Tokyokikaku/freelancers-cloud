@@ -18,13 +18,13 @@ export const metadata: Metadata = buildMetadata({
 
 const PROBLEMS = [
   ["search", "成果報酬で頼めるサービスを探している企業に、見つけてもらえていない…"],
-  ["chat", "資料請求は来ても、連絡がつかない・質がばらつく…"],
+  ["sales", "集客や営業に手が回らず、新規開拓が止まっている…"],
   ["shield", "掲載や広告に、先にお金をかけるのが不安…"],
 ] as const;
 
 const FEATURES = [
   { icon: "compare", title: "成果報酬を探している企業だけに届く", lead: "固定費をかけずに頼みたい企業が、比較を目的に訪れる", points: ["必須の月額固定費がないサービスだけを集めたメディア", "「成果報酬で頼めるサービスを探したい」企業にアプローチ", "複数社を比べる企業の検討対象になる"] },
-  { icon: "check", title: "先払いなし。成果が出た分だけ", lead: "資料請求が届かなければ、費用は0円", points: ["掲載料・初期費用・月額費用は 0円", "費用は資料請求1件につき 10,000円（税別）", "申し込みは1分。掲載内容の準備も、ほぼおまかせ"] },
+  { icon: "check", title: "先払いなし。成果が出た分だけ", lead: "資料請求が届かなければ、費用は0円", points: ["掲載料・初期費用・月額費用は 0円", "費用は資料請求1件につき 10,000円（税別）", "掲載の準備もラクラク"] },
   { icon: "shield", title: "連絡のつく担当者の情報が届く", lead: "つながらない・質の低い資料請求を、入口で防ぐ", points: ["会社のメールアドレスと担当者の携帯電話番号つき", "フリーメール・固定電話・適当な入力は受け付けない", "請求者の同意を得た情報を、電子ファイルで受け取れる"] },
 ] as const;
 
@@ -87,7 +87,7 @@ export default async function ForCompaniesPage() {
             <p className="mt-6">
               <ListingButton className="btn btn-cta min-h-14 w-full px-10 text-lg shadow-[0_10px_24px_-10px_rgb(224_120_0/0.8)] sm:w-auto">無料で掲載を申し込む</ListingButton>
             </p>
-            <p className="mt-2 text-xs text-muted">入力は1分ほど。内容を確認のうえ、編集部からご連絡します。（金額は税別）</p>
+            <p className="mt-2 text-xs text-muted">内容を確認のうえ、編集部からご連絡します。（金額は税別）</p>
             <div className="mt-6 grid max-w-sm grid-cols-2 gap-3">
               <GoldMedal label="掲載サービス" value={serviceCount} unit="件" />
               <GoldMedal label="カテゴリ" value={catCount} unit="種" />
