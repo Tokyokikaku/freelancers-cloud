@@ -1,5 +1,18 @@
 export const TIMING_OPTIONS = ["すぐにでも", "1か月以内", "3か月以内", "半年以内", "情報収集中"] as const;
-export const EMPLOYEE_OPTIONS = ["1〜9名", "10〜49名", "50〜99名", "100〜299名", "300名以上"] as const;
+export const OTHER_OPTION = "その他";
+export const EMPLOYEE_OPTIONS = ["1〜9名", "10〜49名", "50〜99名", "100〜299名", "300〜999名", "1,000名以上"] as const;
+export const INDUSTRY_OPTIONS = [
+  "IT・ソフトウェア・通信", "製造・メーカー", "建設・不動産", "卸売・小売・EC", "飲食・宿泊・観光", "医療・介護・福祉",
+  "教育・人材サービス", "金融・保険", "コンサルティング・士業", "広告・マーケティング・メディア", "物流・運輸", "エネルギー・インフラ", "官公庁・団体",
+] as const;
+export const DEPARTMENT_OPTIONS = [
+  "経営・役員", "営業", "マーケティング・広報", "経理・財務", "人事・総務", "情報システム", "事業開発・企画", "カスタマーサポート", "製造・開発・技術",
+] as const;
+export const JOB_TITLE_OPTIONS = ["経営者・役員", "部長クラス", "課長クラス", "係長・主任クラス", "一般社員（担当者）", "個人事業主"] as const;
 export const MAX_REQUEST_SERVICES = 10;
 /** 同意文言を変更したら更新する（リードに記録され、どの文言に同意したか追跡できる） */
-export const CONSENT_VERSION = "2026-10-05-v1";
+export const CONSENT_VERSION = "2026-10-07-v2";
+
+/** 資料請求後の資料送付・情報提供についての案内（FAQ・フォーム送信ボタン下に表示） */
+export const LEAD_HANDLING_NOTICE =
+  "そのサービスの運営会社もしくは成果報酬ナビから、ご登録のメールアドレス宛に資料をお送りします。また、ご入力いただいた連絡先にサービス運営会社からご案内を差し上げる場合があります。上記ご案内のためにご登録いただいた会員情報を、当社からサービス提供会社に対して電子ファイルにて提供いたします。";

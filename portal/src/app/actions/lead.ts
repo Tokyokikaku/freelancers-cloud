@@ -5,7 +5,7 @@ import { z } from "zod";
 import { checkEmail, checkMobilePhone, formatMobile, normalizePhone } from "@/lib/contact-validation";
 import { getServices } from "@/lib/data";
 import { lookupCorporation } from "@/lib/houjin";
-import { CONSENT_VERSION, EMPLOYEE_OPTIONS, MAX_REQUEST_SERVICES, TIMING_OPTIONS } from "@/lib/lead-options";
+import { CONSENT_VERSION, DEPARTMENT_OPTIONS, EMPLOYEE_OPTIONS, INDUSTRY_OPTIONS, JOB_TITLE_OPTIONS, MAX_REQUEST_SERVICES, OTHER_OPTION, TIMING_OPTIONS } from "@/lib/lead-options";
 import { postWebhook, sendMail } from "@/lib/notify";
 import { hasServiceRole, serviceClient } from "@/lib/supabase";
 import { OPERATOR_NAME, SITE_NAME } from "@/lib/site";
@@ -35,7 +35,14 @@ const schema = z.object({
     if (e) ctx.addIssue({ code: "custom", message: e });
   }),
   timing: z.enum(TIMING_OPTIONS).optional().or(z.literal("")),
-  employees: z.enum(EMPLOYEE_OPTIONS).optional().or(z.literal("")),
+  employees: z.enum([...EMPLOYEE_OPTIONS, OTHER_OPTION]).optional().or(z.literal("")),
+  employees_other: z.string().trim().max(50).optional(),
+  industry: z.enum([...INDUSTRY_OPTIONS, OTHER_OPTION]).optional().or(z.literal("")),
+  industry_other: z.string().trim().max(50).optional(),
+  department: z.enum([...DEPARTMENT_OPTIONS, OTHER_OPTION]).optional().or(z.literal("")),
+  department_other: z.string().trim().max(50).optional(),
+  job_title: z.enum([...JOB_TITLE_OPTIONS, OTHER_OPTION]).optional().or(z.literal("")),
+  job_title_other: z.string().trim().max(50).optional(),
   message: z.string().trim().max(1000, "ご要望は1000文字以内で入力してください").optional(),
   source: z.string().max(200).optional(),
   medium: z.string().max(100).optional(),
@@ -44,7 +51,7 @@ const schema = z.object({
   website: z.string().max(0).optional(), // ハニーポット
 });
 
-const FIELDS = ["company", "corporate_number", "name", "email", "phone", "timing", "employees", "message", "source", "medium", "campaign", "visitor_id", "website"] as const;
+const FIELDS = ["company", "corporate_number", "name", "email", "phone", "timing", "employees", "employees_other", "industry", "industry_other", "department", "department_other", "job_title", "job_title_other", "message", "source", "medium", "campaign", "visitor_id", "website"] as const;
 const str = (fd: FormData, k: string) => {
   const v = fd.get(k);
   return typeof v === "string" ? v : undefined;
@@ -62,6 +69,17 @@ export async function submitLeads(_prev: LeadState, formData: FormData): Promise
     return { ok: false, errors };
   }
   const d = parsed.data;
+  // 「その他」は自由記述を「その他：内容」の形で保存する
+  const pick = (v: string | undefined, other: string | undefined) => (v === OTHER_OPTION ? `${OTHER_OPTION}：${other ?? ""}` : v || "");
+  const otherErrors: Record<string, string> = {};
+  for (const k of ["employees", "industry", "department", "job_title"] as const) {
+    if (d[k] === OTHER_OPTION && !d[`${k}_other`]) otherErrors[k] = "「その他」の内容を入力してください";
+  }
+  if (Object.keys(otherErrors).length) return { ok: false, errors: otherErrors };
+  const employees = pick(d.employees, d.employees_other);
+  const industry = pick(d.industry, d.industry_other);
+  const department = pick(d.department, d.department_other);
+  const jobTitle = pick(d.job_title, d.job_title_other);
 
   const all = await getServices();
   const targets = slugs.map((slug) => all.find((s) => s.slug === slug)).filter((s) => !!s);
@@ -102,7 +120,10 @@ export async function submitLeads(_prev: LeadState, formData: FormData): Promise
     email: d.email,
     phone: formatMobile(normalizePhone(d.phone)),
     timing: d.timing || null,
-    employees: d.employees || null,
+    employees: employees || null,
+    industry: industry || null,
+    department: department || null,
+    job_title: jobTitle || null,
     message: d.message || null,
     source: d.source || null,
     medium: d.medium || null,
@@ -133,7 +154,7 @@ export async function submitLeads(_prev: LeadState, formData: FormData): Promise
   if (evError) console.error("[lead] event insert failed:", evError.message);
 
   const detail =
-    `会社名: ${d.company}${corporateNumber ? `（法人番号 ${corporateNumber}・国税庁データで実在確認済み）` : "（法人番号未確認）"}\n氏名: ${d.name}\nメール: ${d.email}\n電話(携帯): ${formatMobile(normalizePhone(d.phone))}\n検討時期: ${d.timing || "-"}\n従業員規模: ${d.employees || "-"}\n` +
+    `会社名: ${d.company}${corporateNumber ? `（法人番号 ${corporateNumber}・国税庁データで実在確認済み）` : "（法人番号未確認）"}\n氏名: ${d.name}\nメール: ${d.email}\n電話(携帯): ${formatMobile(normalizePhone(d.phone))}\n検討時期: ${d.timing || "-"}\n従業員数: ${employees || "-"}\n業種: ${industry || "-"}\n部署: ${department || "-"}\n役職: ${jobTitle || "-"}\n` +
     `ご要望: ${d.message || "-"}\n流入元: ${d.source || "-"} / ${d.medium || "-"} / ${d.campaign || "-"}\n`;
 
   const operator = process.env.LEAD_NOTIFY_EMAIL;
@@ -166,7 +187,7 @@ export async function submitLeads(_prev: LeadState, formData: FormData): Promise
           request_id: requestId,
           created_at: lead?.created_at,
           service: { id: s!.id, slug: s!.slug, name: s!.name },
-          lead: { company: d.company, corporate_number: corporateNumber, company_verified: Boolean(corporateNumber), name: d.name, email: d.email, phone: formatMobile(normalizePhone(d.phone)), timing: d.timing || null, employees: d.employees || null, message: d.message || null },
+          lead: { company: d.company, corporate_number: corporateNumber, company_verified: Boolean(corporateNumber), name: d.name, email: d.email, phone: formatMobile(normalizePhone(d.phone)), timing: d.timing || null, employees: employees || null, industry: industry || null, department: department || null, job_title: jobTitle || null, message: d.message || null },
         })) || notified;
     }
     if (notified && lead) await db.from("leads").update({ notified_at: new Date().toISOString() }).eq("lead_id", lead.lead_id);

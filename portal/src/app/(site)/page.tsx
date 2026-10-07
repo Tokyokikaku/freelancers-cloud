@@ -36,12 +36,6 @@ const CONFIDENCE = [
   ["発注側と、同じ方向を向ける", "成果が出ることが双方の利益になり、成果を出すことへの動機が仕組みの上で働きます。"],
 ] as const;
 
-const CHECKS = [
-  ["何が「成果」か", "再生数や問い合わせ数か、アポ獲得か、成約か。何を数えて課金するかで、支払う時期も金額も変わります。売上に連動しない成果もあります。"],
-  ["「0円」に条件がないか", "予算が一定額以上なら初期費用無料など、条件付きの場合があります。"],
-  ["単価・手数料・上限", "成果報酬の単価のほか、管理費、最低金額、返金条件も比べましょう。"],
-] as const;
-
 export default async function HomePage() {
   const [categories, services, articles] = await Promise.all([getCategories(), getServices(), getArticles()]);
   const popular = (await getPopularServices(services)).slice(0, 5);
@@ -209,14 +203,6 @@ export default async function HomePage() {
             </div>
           </section>
 
-          {/* 完全成果報酬 */}
-          <section aria-labelledby="full">
-            <SectionHead title={<span id="full">完全成果報酬サービス</span>} lead="固定費・月額費用がなく、実績の発生に応じてのみ費用が発生するサービス。初期費用・月額費用の両方が0円と確認できたものだけを掲載しています。" href="/services?full=1" hrefLabel="完全成果報酬をすべて見る" />
-            {fullSuccess.length ? (
-              <ul className="space-y-3">{fullSuccess.slice(0, 3).map((s) => <li key={s.id}><ServiceCard service={s} categories={categories} /></li>)}</ul>
-            ) : <p className="panel p-8 text-center text-sm text-muted">現在、掲載準備中です。</p>}
-          </section>
-
           {/* 新着 */}
           <section aria-labelledby="new">
             <SectionHead title={<span id="new">新着サービス</span>} href="/services?sort=new" />
@@ -234,16 +220,6 @@ export default async function HomePage() {
                 </li>
               ))}
             </ul>
-          </section>
-
-          {/* 選ぶ前の確認 */}
-          <section aria-labelledby="check">
-            <SectionHead title={<span id="check">選ぶ前に確認したい3つのこと</span>} href="/articles/full-performance-based-pricing-checklist" hrefLabel="チェックポイントを読む" />
-            <ol className="panel divide-y divide-line">
-              {CHECKS.map(([t, b], i) => (
-                <li key={t} className="flex gap-3 p-4"><span className="inline-flex size-7 shrink-0 items-center justify-center rounded-full bg-brand-600 text-sm font-bold text-white">{i + 1}</span><div><p className="font-bold text-ink">{t}</p><p className="mt-1 text-sm leading-7">{b}</p></div></li>
-              ))}
-            </ol>
           </section>
 
           <section aria-labelledby="faq">

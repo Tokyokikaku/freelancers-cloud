@@ -103,7 +103,10 @@ create table if not exists leads (
   email         text not null,
   phone         text,
   timing        text,                          -- 検討時期
-  employees     text,                          -- 従業員規模（任意）
+  employees     text,                          -- 従業員数（任意。「その他：内容」の形式あり）
+  industry      text,                          -- 業種（任意）
+  department    text,                          -- 部署（任意）
+  job_title     text,                          -- 役職（任意）
   message       text,                          -- 検討の背景・ご要望（任意）
   consent_version text,                        -- 同意時に表示した文言のバージョン（lib/lead-options.ts の CONSENT_VERSION）
   third_party_consent boolean not null default false, -- 提携済みサービスの提供会社への情報提供に同意したか

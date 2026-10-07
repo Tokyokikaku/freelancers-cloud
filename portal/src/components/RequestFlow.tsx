@@ -4,11 +4,12 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { startTransition, useActionState, useEffect, useMemo, useRef, useState } from "react";
 import { submitLeads, type LeadState } from "@/app/actions/lead";
-import { EMPLOYEE_OPTIONS, MAX_REQUEST_SERVICES, TIMING_OPTIONS } from "@/lib/lead-options";
+import { DEPARTMENT_OPTIONS, EMPLOYEE_OPTIONS, INDUSTRY_OPTIONS, JOB_TITLE_OPTIONS, LEAD_HANDLING_NOTICE, MAX_REQUEST_SERVICES, TIMING_OPTIONS } from "@/lib/lead-options";
 import { leadDisclaimer } from "@/lib/partner";
 import { getAttribution, getVisitorId, track } from "@/lib/tracking";
 import type { FeeType, PartnerStatus } from "@/lib/types";
 import { CompanyField } from "./CompanyField";
+import { SelectWithOther } from "./SelectWithOther";
 import { useRequestList } from "./request-store";
 
 export interface ServiceLite {
@@ -27,7 +28,7 @@ export interface ServiceLite {
 }
 
 const PROFILE_KEY = "snv_profile";
-interface Profile { company?: string; corporate_number?: string; name?: string; email?: string; phone?: string; employees?: string; timing?: string }
+type Profile = Record<string, string | undefined>;
 
 function Row({ s, checked, onToggle, disabled }: { s: ServiceLite; checked: boolean; onToggle: () => void; disabled?: boolean }) {
   return (
@@ -119,7 +120,7 @@ export function RequestFlow({ services, initialSlugs, companySuggest = false }: 
     try {
       if (fd.get("remember") === "on") {
         const p: Profile = {};
-        for (const k of ["company", "corporate_number", "name", "email", "phone", "employees", "timing"] as const) p[k] = String(fd.get(k) ?? "");
+        for (const k of ["company", "corporate_number", "name", "email", "phone", "employees", "employees_other", "industry", "industry_other", "department", "department_other", "job_title", "job_title_other", "timing"]) p[k] = String(fd.get(k) ?? "");
         window.localStorage.setItem(PROFILE_KEY, JSON.stringify(p));
       } else {
         window.localStorage.removeItem(PROFILE_KEY);
@@ -212,13 +213,10 @@ export function RequestFlow({ services, initialSlugs, companySuggest = false }: 
                   {!err("phone") && <p className="mt-1 text-xs text-muted">携帯電話（070/080/090）のみ。固定電話は使用できません。</p>}
                   {err("phone") && <p id="req-phone-err" className="mt-1 text-sm text-red-600">{err("phone")}</p>}
                 </div>
-                <div>
-                  <label className="label" htmlFor="req-employees">従業員規模 <span className="text-xs font-normal text-muted">任意</span></label>
-                  <select id="req-employees" name="employees" defaultValue={profile.employees ?? ""} className="input">
-                    <option value="">選択してください</option>
-                    {EMPLOYEE_OPTIONS.map((t) => <option key={t} value={t}>{t}</option>)}
-                  </select>
-                </div>
+                <SelectWithOther id="req-employees" name="employees" label="従業員数" options={EMPLOYEE_OPTIONS} defaultValue={profile.employees} defaultOther={profile.employees_other} error={err("employees")} />
+                <SelectWithOther id="req-industry" name="industry" label="業種" options={INDUSTRY_OPTIONS} defaultValue={profile.industry} defaultOther={profile.industry_other} error={err("industry")} />
+                <SelectWithOther id="req-department" name="department" label="部署" options={DEPARTMENT_OPTIONS} defaultValue={profile.department} defaultOther={profile.department_other} error={err("department")} />
+                <SelectWithOther id="req-job_title" name="job_title" label="役職" options={JOB_TITLE_OPTIONS} defaultValue={profile.job_title} defaultOther={profile.job_title_other} error={err("job_title")} />
                 <div>
                   <label className="label" htmlFor="req-timing">検討時期 <span className="text-xs font-normal text-muted">任意</span></label>
                   <select id="req-timing" name="timing" defaultValue={profile.timing ?? ""} className="input">
@@ -261,6 +259,7 @@ export function RequestFlow({ services, initialSlugs, companySuggest = false }: 
               <button type="submit" disabled={pending || state.ok || chosen.length === 0} className="btn-cta w-full py-3.5 text-base disabled:opacity-60">
                 {pending || state.ok ? "送信中…" : chosen.length > 1 ? `${chosen.length}件まとめて資料請求する（無料）` : "資料請求する（無料）"}
               </button>
+              <p className="text-[11px] leading-5 text-muted">{LEAD_HANDLING_NOTICE}</p>
             </form>
           )}
         </section>
@@ -280,7 +279,7 @@ export function RequestFlow({ services, initialSlugs, companySuggest = false }: 
               <li>・資料請求は無料です</li>
               <li>・1回の入力で複数サービスの資料を請求できます</li>
               <li>・コンシェルジュが資料を用意してご連絡します</li>
-              <li>・未提携のサービスには、入力内容を送信しません</li>
+              <li>・資料は、サービス運営会社もしくは成果報酬ナビからお送りします</li>
             </ul>
           </div>
         </div>

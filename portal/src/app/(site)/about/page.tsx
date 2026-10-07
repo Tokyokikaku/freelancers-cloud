@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { RANKING_NOTE, RANKING_WINDOW_DAYS } from "@/lib/ranking";
 import { buildMetadata } from "@/lib/seo";
+import { LEAD_HANDLING_NOTICE } from "@/lib/lead-options";
 import { CONTACT_EMAIL, OPERATOR_NAME, SITE_NAME } from "@/lib/site";
 
 export const metadata: Metadata = buildMetadata({
@@ -57,7 +58,7 @@ export default function AboutPage() {
 
         <h2>資料請求について</h2>
         <p>
-          提携前のサービスについては、フォームの入力内容をサービス提供会社へ送信しません。当サイトのコンシェルジュが資料をご用意し、ご入力のメールアドレス宛にご連絡します。複数のサービスを1回の入力でまとめて請求できます。
+          {LEAD_HANDLING_NOTICE}複数のサービスを1回の入力でまとめて請求できます。
         </p>
 
         <h2>掲載内容の訂正・削除のご依頼</h2>
