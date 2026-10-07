@@ -39,7 +39,6 @@ function Row({ s, checked, onToggle, disabled }: { s: ServiceLite; checked: bool
           <span className="block font-bold text-ink">{s.name}</span>
           <span className="block text-xs text-muted">{s.company_name}{s.category_names[0] ? ` ／ ${s.category_names[0]}` : ""}</span>
           <span className="mt-1.5 flex flex-wrap gap-1.5 text-[11px] font-bold">
-            {s.is_full_success_fee && <span className="tag bg-brand-700 text-white">完全成果報酬</span>}
             {s.initial_fee_type === "free" && <span className="tag bg-good-50 text-good-700 ring-1 ring-good-100">初期費用0円</span>}
             {s.monthly_fee_type === "free" && <span className="tag bg-good-50 text-good-700 ring-1 ring-good-100">月額0円</span>}
             {s.success_condition && <span className="font-normal text-muted">成果地点：{s.success_condition}</span>}

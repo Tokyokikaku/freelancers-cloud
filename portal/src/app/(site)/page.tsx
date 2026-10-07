@@ -210,7 +210,6 @@ export default async function HomePage() {
                   <Link href={`/services/${s.slug}`} className="grid gap-1 px-4 py-3 hover:bg-brand-50 sm:grid-cols-[1fr_auto] sm:items-center">
                     <span><b className="text-brand-700">{s.name}</b><span className="ml-2 text-xs text-muted">{s.company_name}</span></span>
                     <span className="flex flex-wrap gap-1.5 text-xs">
-                      {s.is_full_success_fee && <span className="tag bg-brand-700 text-white">完全成果報酬</span>}
                       {s.initial_fee_type === "free" && <span className="tag bg-good-50 text-good-700 ring-1 ring-good-100">初期費用0円</span>}
                       <span className="text-muted">{s.success_condition}</span>
                     </span>

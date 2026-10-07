@@ -24,7 +24,7 @@ export async function generateMetadata({ searchParams }: { searchParams: Promise
   return buildMetadata({
     title: q ? `「${q.slice(0, 40)}」の成果報酬サービス検索結果` : "成果報酬サービス一覧｜条件で絞り込み・比較",
     description:
-      "成果報酬で依頼できるサービスの一覧。成果地点・初期費用0円・月額0円・完全成果報酬などの条件で絞り込み、料金や特徴を比較できます。",
+      "成果報酬で依頼できるサービスの一覧。成果地点・初期費用0円・月額0円などの条件で絞り込み、料金や特徴を比較できます。",
     path: "/services",
     noindex: hasParams, // 検索・絞り込み結果ページは重複を避けるため noindex（一覧本体のみ index）
   });
@@ -95,10 +95,10 @@ export default async function ServicesPage({ searchParams }: { searchParams: Pro
         lead={<>成果報酬で利用できるサービスを、成果地点・料金条件で絞り込んで比較できます。{sort === "popular" && <>人気順は{RANKING_NOTE}しています。</>}</>}
       >
         <div className="mt-6 max-w-2xl"><SearchBox defaultValue={q} id="list-search" /></div>
-        {intent && (intent.outcome.length > 0 || intent.fullSuccess || intent.zeroInitial || intent.zeroMonthly) && (
+        {intent && (intent.outcome.length > 0 || intent.zeroInitial || intent.zeroMonthly) && (
           <p className="mt-3 text-sm text-muted">
             検索語から読み取った条件:{" "}
-            {[...intent.outcome.map((o) => `成果地点＝${OUTCOME_LABELS[o]}`), intent.fullSuccess && "完全成果報酬", intent.zeroInitial && "初期費用0円", intent.zeroMonthly && "月額0円"].filter(Boolean).join(" / ")}
+            {[...intent.outcome.map((o) => `成果地点＝${OUTCOME_LABELS[o]}`), intent.zeroInitial && "初期費用0円", intent.zeroMonthly && "月額0円"].filter(Boolean).join(" / ")}
             （該当するサービスを優先表示しています）
           </p>
         )}

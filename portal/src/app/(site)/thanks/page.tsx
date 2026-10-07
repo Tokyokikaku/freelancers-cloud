@@ -18,15 +18,15 @@ export default async function ThanksPage({ searchParams }: { searchParams: Promi
   const services = await getServices();
   const requested = slugs.map((s) => services.find((x) => x.slug === s)).filter((x) => !!x);
 
-  // 続けて請求できるサービス: 請求したサービスと同じカテゴリ → なければ完全成果報酬
+  // 続けて請求できるサービス: 請求したサービスと同じカテゴリ → なければ初期費用0円のサービス
   const catIds = new Set(requested.flatMap((s) => s!.category_ids));
   const sameCategory = services.filter((s) => !slugs.includes(s.slug) && s.category_ids.some((id) => catIds.has(id)));
-  const rest = services.filter((s) => !slugs.includes(s.slug) && !sameCategory.includes(s) && s.is_full_success_fee);
+  const rest = services.filter((s) => !slugs.includes(s.slug) && !sameCategory.includes(s) && s.initial_fee_type === "free");
   const recommend = [...sameCategory, ...rest].slice(0, 5).map((s) => ({
     slug: s.slug,
     name: s.name,
     company_name: s.company_name,
-    tags: [s.is_full_success_fee ? "完全成果報酬" : "", s.initial_fee_type === "free" ? "初期費用0円" : ""].filter(Boolean),
+    tags: [s.initial_fee_type === "free" ? "初期費用0円" : ""].filter(Boolean),
   }));
 
   return (

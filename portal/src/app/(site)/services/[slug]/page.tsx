@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const s = await getServiceBySlug(slug);
   if (!s) return {};
   const fee =
-    s.is_full_success_fee ? "完全成果報酬" : s.initial_fee_type === "free" && s.monthly_fee_type === "free" ? "初期費用・月額0円" : "成果報酬";
+    s.initial_fee_type === "free" && s.monthly_fee_type === "free" ? "初期費用・月額0円" : "成果報酬";
   return buildMetadata({
     title: `${s.name}の料金・${fee}・特徴を解説`,
     description: truncate(
@@ -133,7 +133,6 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
               <Fact label="初期費用"><span className="font-bold text-ink">{initialFeeLabel(service)}</span></Fact>
               <Fact label="月額費用"><span className="font-bold text-ink">{monthlyFeeLabel(service)}</span></Fact>
               {service.pricing_note && <Fact label="料金の補足">{service.pricing_note}</Fact>}
-              <Fact label="完全成果報酬">{service.is_full_success_fee ? "該当（初期費用・月額費用とも0円）" : "該当なし／未確認"}</Fact>
               <Fact label="無料相談">{service.has_free_consultation ? "あり" : "公式サイトをご確認ください"}</Fact>
               <Fact label="対象企業">{service.target_companies || "公式サイトをご確認ください"}</Fact>
               <Fact label="情報更新日"><time>{infoUpdatedAt(service)}</time></Fact>

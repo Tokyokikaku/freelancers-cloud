@@ -5,9 +5,6 @@ export function FeeTags({ service, size = "sm", omitFees = false }: { service: S
   const cls = size === "md" ? "text-sm px-2.5 py-1" : "";
   return (
     <ul className="flex flex-wrap gap-1.5" aria-label="料金条件">
-      {service.is_full_success_fee && (
-        <li className={`tag bg-brand-700 text-white ${cls}`}>完全成果報酬</li>
-      )}
       {service.pricing_model === "hybrid" && <li className={`tag bg-warn-50 text-warn-700 ${cls}`}>固定費＋成果報酬</li>}
       {service.pricing_model === "optional_plan" && <li className={`tag bg-warn-50 text-warn-700 ${cls}`}>成果報酬プランあり</li>}
       {!omitFees && service.initial_fee_type === "free" && (
