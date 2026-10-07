@@ -17,27 +17,28 @@ export const metadata: Metadata = buildMetadata({
 });
 
 const PROBLEMS = [
-  "成果報酬で頼めるサービスを探している企業に、見つけてもらえていない…",
-  "資料請求は来ても、連絡がつかない・質がばらつく…",
-  "掲載や広告に、先にお金をかけるのが不安…",
+  ["search", "成果報酬で頼めるサービスを探している企業に、見つけてもらえていない…"],
+  ["chat", "資料請求は来ても、連絡がつかない・質がばらつく…"],
+  ["shield", "掲載や広告に、先にお金をかけるのが不安…"],
 ] as const;
 
 const FEATURES = [
-  { icon: "compare", title: "成果報酬サービスを探す企業が集まる", body: "月額の固定費がなく、実績に応じて課金されるサービスだけを掲載。「成果報酬で頼めるサービスを比べて選びたい」という企業が、比較を目的に訪れます。複数社まとめての資料請求にも対応しています。" },
-  { icon: "shield", title: "連絡の取れる資料請求だけが届く", body: "会社のメールアドレス（フリーメール不可）と担当者の携帯電話番号を必須に。固定電話や連番などの適当な入力は受け付けません。第三者提供への同意も、フォーム上で明示的に取得します。" },
-  { icon: "check", title: "掲載無料、費用は資料請求が届いたときだけ", body: "掲載料・初期費用・月額費用は0円。費用は、資料請求が届いた1件ごとに10,000円（税別）です。掲載内容の整理は、公式の料金ページをもとに編集部が行います。" },
+  { icon: "compare", title: "成果報酬サービスを探す企業が集まる", lead: "比較して選びたい企業が、比較を目的に訪れる", points: ["必須の月額固定費がないサービスだけを掲載", "料金・成果の条件を横並びで比較できる", "複数社まとめての資料請求にも対応"] },
+  { icon: "shield", title: "連絡の取れる資料請求だけが届く", lead: "つながらない・質の低いリードを、入口で防ぐ", points: ["会社のメールアドレスが必須（フリーメール不可）", "担当者の携帯電話番号が必須（固定電話・適当な番号は不可）", "第三者提供への同意を、フォーム上で明示的に取得"] },
+  { icon: "check", title: "掲載無料、費用は資料請求が届いたときだけ", lead: "先払いなし。成果（資料請求）が出た分だけ", points: ["掲載料・初期費用・月額費用は 0円", "資料請求1件につき 10,000円（税別）", "掲載内容の整理は、編集部が公式の料金ページをもとに実施"] },
 ] as const;
 
 const STEPS = [
-  ["申し込み", "フォームからサービスURLと料金体系をお知らせください。"],
-  ["編集部が確認", "掲載の基準に沿って、公式の料金ページをもとに内容を確認します。"],
-  ["掲載スタート", "比較ページに掲載され、資料請求の受付が始まります。"],
-  ["リードを受け取る", "資料請求があるたびに、請求者の会員情報を電子ファイルで提供します。"],
+  ["問い合わせ", "フォームから、サービスURLと料金体系をお知らせください。"],
+  ["打ち合わせ", "サービスの内容や課金の条件を、お打ち合わせでうかがいます。"],
+  ["資料をもらう", "掲載に必要な資料（サービス資料・料金表など）をご提供ください。"],
+  ["掲載開始", "比較ページに掲載され、資料請求の受付がスタートします。"],
 ] as const;
 
 const FAQS = [
   { q: "掲載に費用はかかりますか？", a: "掲載は無料です。掲載料・初期費用・月額費用はかかりません。費用が発生するのは、資料請求が届いたときだけで、1件につき10,000円（税別）です。資料請求が届かなければ、費用は発生しません。" },
   { q: "資料請求「1件」は、どう数えますか？", a: "1件の数え方や、お支払いの方法・時期などの詳しい条件は、お申し込み後に個別にご案内します。" },
+  { q: "申し込みから掲載まで、どのくらいかかりますか？", a: "最短で3日です。問い合わせ、打ち合わせ、資料のご提供を経て、掲載を開始します。資料のご準備状況により、日数は前後します。" },
   { q: "どんなサービスが掲載できますか？", a: "必須の月額固定費がなく、何を成果として、いくらで課金するかが、公式サイト等で確認できるサービスです。作業量（送信件数など）への課金、アフィリエイトASP、固定費と成果報酬の併用が必須のサービスは、対象外です。" },
   { q: "掲載内容は、誰が作りますか？", a: "編集部が、公式の料金ページなどの公開情報をもとに作成します。確認できない項目は「要問い合わせ」と表示します。" },
   { q: "リードはどのように受け取れますか？", a: "資料請求が入ると、請求者の会員情報（会社名・氏名・メールアドレス・電話番号など）を電子ファイルで提供します。請求者には、フォーム上で提供への同意をいただいています。" },
@@ -129,10 +130,12 @@ export default async function ForCompaniesPage() {
       <section id="problems" className="scroll-mt-20 bg-surface/70 py-14 sm:py-20" aria-labelledby="problems-h">
         <div className="container-page">
           <h2 id="problems-h" className="text-center text-2xl sm:text-3xl">こんなお悩みは、ありませんか？</h2>
-          <ul className="mx-auto mt-8 grid max-w-4xl gap-4 sm:grid-cols-3">
-            {PROBLEMS.map((t) => (
-              <li key={t} className="relative rounded-2xl bg-white p-5 text-sm font-bold leading-7 text-ink shadow-[0_14px_30px_-22px_rgb(7_42_90/0.55)] ring-1 ring-line after:absolute after:-bottom-2 after:left-8 after:size-4 after:rotate-45 after:bg-white after:ring-1 after:ring-line after:[clip-path:polygon(100%_0,100%_100%,0_100%)]">
-                {t}
+          <ul className="mx-auto mt-10 grid max-w-5xl gap-6 md:grid-cols-3">
+            {PROBLEMS.map(([icon, t]) => (
+              <li key={t} className="relative flex flex-col items-center rounded-3xl bg-white px-6 pb-8 pt-8 text-center shadow-[0_20px_44px_-26px_rgb(7_42_90/0.6)] ring-1 ring-line md:min-h-[15rem]">
+                <span className="inline-flex size-16 items-center justify-center rounded-full bg-slate-100 text-slate-500"><Icon name={icon} className="size-8" /></span>
+                <p className="mt-5 text-lg font-black leading-8 text-ink sm:text-xl sm:leading-9">{t}</p>
+                <span className="absolute -bottom-3 left-1/2 size-6 -translate-x-1/2 rotate-45 bg-white ring-1 ring-line [clip-path:polygon(100%_0,100%_100%,0_100%)]" aria-hidden />
               </li>
             ))}
           </ul>
@@ -147,14 +150,26 @@ export default async function ForCompaniesPage() {
       <section id="features" className="scroll-mt-20 py-14 sm:py-20" aria-labelledby="features-h">
         <div className="container-page">
           <SectionHead en="FEATURES" title={`${SITE_NAME}の3つの特徴`} />
-          <ul className="mx-auto mt-10 grid max-w-5xl gap-6 md:grid-cols-3">
+          <ul className="mx-auto mt-10 max-w-4xl space-y-6">
             {FEATURES.map((f, i) => (
-              <li key={f.title} className="relative overflow-hidden rounded-2xl bg-white p-6 shadow-[0_18px_40px_-24px_rgb(7_42_90/0.55)] ring-1 ring-line">
-                <span className="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-brand-700 to-brand-400" aria-hidden />
-                <span className="pointer-events-none absolute -right-1 -top-3 select-none text-[6rem] font-black leading-none text-brand-50" aria-hidden>{i + 1}</span>
-                <span className="relative inline-flex size-14 items-center justify-center rounded-2xl bg-brand-700 text-white shadow-md"><Icon name={f.icon} className="size-7" /></span>
-                <h3 className="relative mt-4 text-lg leading-snug">{f.title}</h3>
-                <p className="relative mt-3 text-sm leading-7 text-body">{f.body}</p>
+              <li key={f.title} className="relative overflow-hidden rounded-3xl bg-white shadow-[0_22px_48px_-28px_rgb(7_42_90/0.6)] ring-1 ring-line md:grid md:grid-cols-[13rem_1fr]">
+                <div className="relative flex items-center gap-4 bg-brand-700 px-6 py-5 text-white md:flex-col md:justify-center md:gap-3 md:py-8">
+                  <span className="select-none text-5xl font-black leading-none text-white/90 md:text-7xl" aria-hidden>0{i + 1}</span>
+                  <span className="inline-flex size-14 items-center justify-center rounded-2xl bg-white/15 md:size-16"><Icon name={f.icon} className="size-8 md:size-9" /></span>
+                  <span className="text-xs font-black tracking-[0.25em] text-cta-500 md:text-sm">POINT {i + 1}</span>
+                </div>
+                <div className="p-6 sm:p-8">
+                  <h3 className="text-xl leading-snug text-ink sm:text-2xl">{f.title}</h3>
+                  <p className="mt-2 text-base font-bold text-brand-700">{f.lead}</p>
+                  <ul className="mt-4 space-y-2.5">
+                    {f.points.map((pt) => (
+                      <li key={pt} className="flex items-start gap-3 text-base leading-7 text-ink">
+                        <span className="mt-1 inline-flex size-6 shrink-0 items-center justify-center rounded-full bg-cta-500 text-white"><Icon name="check" className="size-4" /></span>
+                        {pt}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </li>
             ))}
           </ul>
@@ -190,6 +205,7 @@ export default async function ForCompaniesPage() {
       <section id="flow" className="scroll-mt-20 py-14 sm:py-20" aria-labelledby="flow-h">
         <div className="container-page">
           <SectionHead en="FLOW" title="掲載までの流れ" />
+          <p className="mt-5 text-center"><span className="inline-block rounded-full bg-cta-500 px-6 py-2 text-lg font-black text-white shadow-md sm:text-xl">最短 <b className="text-3xl">3</b> 日で掲載開始</span></p>
           <ol className="relative mx-auto mt-10 grid max-w-5xl gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-4">
             <span className="absolute left-[12.5%] right-[12.5%] top-7 hidden h-0.5 bg-brand-700/25 lg:block" aria-hidden />
             {STEPS.map(([t, b], i) => (
