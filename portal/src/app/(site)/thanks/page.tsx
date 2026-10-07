@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Icon } from "@/components/Icon";
 import { ThanksRecommend } from "@/components/ThanksRecommend";
-import { OfficialSiteLink } from "@/components/Trackers";
 import { getServices } from "@/lib/data";
 import { buildMetadata } from "@/lib/seo";
 
@@ -45,7 +44,6 @@ export default async function ThanksPage({ searchParams }: { searchParams: Promi
               {requested.map((s) => (
                 <li key={s!.id} className="flex flex-wrap items-center justify-between gap-2 p-3">
                   <span className="min-w-0"><b className="text-ink">{s!.name}</b><span className="block text-xs text-muted">{s!.company_name}</span></span>
-                  <OfficialSiteLink href={s!.website_url} serviceId={s!.id} serviceName={s!.name} placement="thanks" className="btn-secondary !min-h-9 !px-3 text-xs">公式サイトへ</OfficialSiteLink>
                 </li>
               ))}
             </ul>
@@ -61,7 +59,7 @@ export default async function ThanksPage({ searchParams }: { searchParams: Promi
               </>
             )}
             {partnered.length > 0 && <p>次のサービスには、資料のご案内のため入力内容を提供しました：{partnered.map((s) => s!.name).join("、")}。担当者からの連絡をお待ちください。</p>}
-            <p>ご案内までにお時間をいただく場合があります。お急ぎの場合は、各公式サイトから直接お問い合わせください。</p>
+            <p>ご案内までにお時間をいただく場合があります。</p>
           </div>
         </div>
 

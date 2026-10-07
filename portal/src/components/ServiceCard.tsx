@@ -8,7 +8,6 @@ import { FeeTags } from "./FeeTags";
 import { ServiceLogo } from "./Logo";
 import { RequestButton } from "./RequestButton";
 import { RequestToggle } from "./RequestToggle";
-import { OfficialSiteLink } from "./Trackers";
 
 const RANK_COLOR = ["bg-gold", "bg-silver", "bg-bronze"];
 
@@ -62,7 +61,6 @@ export function ServiceCard({ service, categories, rank, compact = false }: { se
 
         <div className="flex flex-col gap-2 md:justify-center">
           <RequestButton id={service.id} slug={service.slug} name={service.name} partnerStatus={service.partner_status} placement="card" className="btn-cta min-h-11 text-base" />
-          <OfficialSiteLink href={service.website_url} serviceId={service.id} serviceName={service.name} placement="card" className="btn-secondary">公式サイトへ</OfficialSiteLink>
           <RequestToggle item={{ id: service.id, slug: service.slug, name: service.name }} />
           <CompareToggle slug={service.slug} name={service.name} />
         </div>

@@ -4,7 +4,6 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FeeTags } from "@/components/FeeTags";
 import { ServiceLogo } from "@/components/Logo";
 import { RequestButton } from "@/components/RequestButton";
-import { OfficialSiteLink } from "@/components/Trackers";
 import { getServices } from "@/lib/data";
 import { infoUpdatedAt, initialFeeLabel, monthlyFeeLabel, successConditionLabel, successFeeLabel } from "@/lib/format";
 import { buildMetadata } from "@/lib/seo";
@@ -76,11 +75,10 @@ export default async function ComparePage({ searchParams }: { searchParams: Prom
                 </tr>
               ))}
               <tr>
-                <th scope="row" className="bg-surface p-4 text-left align-top font-bold text-ink">リンク</th>
+                <th scope="row" className="bg-surface p-4 text-left align-top font-bold text-ink">資料請求</th>
                 {items.map((x) => (
                   <td key={x!.id} className="space-y-2 p-4 align-top">
                     <RequestButton id={x!.id} slug={x!.slug} name={x!.name} partnerStatus={x!.partner_status} placement="compare" className="btn-cta w-full" />
-                    <OfficialSiteLink href={x!.website_url} serviceId={x!.id} serviceName={x!.name} placement="compare" className="btn-secondary w-full">公式サイトへ</OfficialSiteLink>
                   </td>
                 ))}
               </tr>

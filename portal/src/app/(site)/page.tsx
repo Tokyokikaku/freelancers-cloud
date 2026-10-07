@@ -1,9 +1,11 @@
+import { existsSync } from "node:fs";
+import path from "node:path";
+import "@/app/hero.css";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CostCompare } from "@/components/CostCompare";
 import { BulkRequestBar } from "@/components/BulkRequestBar";
 import { FaqList } from "@/components/FaqList";
-import { HomeHero } from "@/components/HomeHero";
 import { Icon } from "@/components/Icon";
 import { JsonLd } from "@/components/JsonLd";
 import { SectionHead } from "@/components/SectionHead";
@@ -48,11 +50,84 @@ export default async function HomePage() {
   const topCategories = categories.filter((c) => !c.parent_id);
   const childrenOf = (id: string) => categories.filter((c) => c.parent_id === id).sort((a, b) => a.sort_order - b.sort_order);
   const catName = (id: string | null) => categories.find((c) => c.id === id)?.name;
+  const heroPhoto = existsSync(path.join(process.cwd(), "public/hero/person.webp"));
   const categoryCount = categories.filter((c) => servicesInCategory(services, categories, c.id).length > 0).length;
 
   return (
     <>
-      <HomeHero serviceCount={services.length} categoryCount={categoryCount} />
+      {/* ───── FV ───── */}
+      <section className="fv-bg relative overflow-hidden border-b border-line">
+        <div className="fv-bg__shape fv-bg__shape--a" aria-hidden />
+        <div className="fv-bg__shape fv-bg__shape--b" aria-hidden />
+        <div className="fv-bg__dots fv-bg__dots--left" aria-hidden />
+        <div className="fv-bg__dots fv-bg__dots--right" aria-hidden />
+        <div className={`container-page relative grid grid-cols-[minmax(0,1fr)] gap-4 pt-6 sm:pt-9 lg:grid-cols-[minmax(0,31rem)_minmax(0,24rem)] lg:justify-center lg:gap-6 lg:pt-9 ${heroPhoto ? "pb-0" : "pb-6 sm:pb-9 lg:pb-9"}`}>
+          <div className={heroPhoto ? "lg:pb-9" : ""}>
+            <p className="inline-block border-l-4 border-cta-500 pl-3 text-sm font-bold tracking-wide text-brand-700 sm:text-base">初期費用なし・リスクなしで事業を推進</p>
+            <h1 className="mt-3 text-[2rem] font-black leading-[1.2] text-ink sm:text-[3rem] sm:leading-[1.15]">
+              払うのは、<br /><span className="text-brand-700">実績が出た</span><wbr />分だけ。
+            </h1>
+            <p className="mt-4 max-w-xl text-sm leading-7 text-body sm:text-[15px] sm:leading-7">
+              再生数・問い合わせ数・アポ数・採用数に応じて課金される<b className="text-ink">{services.length}サービス</b>を、月額の固定費なしで比較。成果が出るかわからない段階で、毎月の固定費を払い続ける必要はありません。
+            </p>
+            <p className="mt-5 flex flex-wrap gap-3">
+              <Link href="#all-categories" className="btn btn-cta min-h-12 px-6 text-base">カテゴリから探す</Link>
+              <Link href="/services" className="btn btn-secondary min-h-12 px-6 text-base">サービス一覧を見る</Link>
+            </p>
+            {(
+              <ul className="mt-6 flex items-center gap-4 sm:gap-5" aria-label="掲載の規模">
+                {[[services.length, "件", "掲載サービス"], [categoryCount, "種", "カテゴリ"]].map(([n, u, l]) => (
+                  <li key={l as string} className="flex size-[5.6rem] shrink-0 flex-col items-center justify-center rounded-full bg-gold text-navy-950 ring-4 ring-gold/30 ring-offset-2 ring-offset-brand-50 sm:size-24">
+                    <span className="text-[11px] font-bold leading-none sm:text-xs">{l}</span>
+                    <span className="mt-1 leading-none"><b className="text-[1.7rem] font-black sm:text-[2rem]">{n}</b><span className="text-xs font-bold sm:text-sm">{u}</span></span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+
+          {heroPhoto ? (
+            <div className="relative mx-auto h-[18rem] w-full max-w-lg self-end sm:h-[26rem] lg:h-auto lg:max-w-none lg:self-stretch">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/hero/person.webp" alt="スーツ姿の男性のイメージ写真" width={1200} height={1850} className="absolute bottom-0 left-1/2 block h-full w-auto max-w-none -translate-x-1/2 lg:left-1/2 lg:-translate-x-1/2" />
+            </div>
+          ) : (
+          <aside aria-label="注目のサービス" className="self-center">
+                <div className="rounded-md bg-white text-ink shadow-[0_18px_40px_-22px_rgb(7_42_90/0.45)] ring-1 ring-line">
+                  <div className="flex items-center justify-between border-b border-line px-4 py-3">
+                    <p className="font-black">注目のサービス</p>
+                    <Link href="#ranking" className="text-xs font-bold text-brand-700 hover:underline">ランキングを見る</Link>
+                  </div>
+                  <ol className="divide-y divide-line">
+                    {popular.slice(0, 3).map((s, i) => (
+                      <li key={s.id}>
+                        <Link href={`/services/${s.slug}`} className="block px-4 py-3 hover:bg-brand-50">
+                          <div className="flex items-start gap-3">
+                            <span className={`mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-sm text-sm font-black text-white ${["bg-gold", "bg-silver", "bg-bronze"][i]}`}>{i + 1}</span>
+                            <div className="min-w-0 flex-1">
+                              <p className="truncate text-base font-bold">{s.name}</p>
+                              <p className="truncate text-xs text-muted">{s.company_name}</p>
+                              <ul className="mt-2 grid grid-cols-3 gap-1 text-center text-[11px] leading-tight">
+                                <li className="rounded-sm bg-surface px-1 py-1.5"><span className="block text-muted">初期費用</span><b className={s.initial_fee_type === "free" ? "text-good-700" : "text-ink"}>{s.initial_fee_type === "free" ? "0円" : s.initial_fee_type === "paid" ? "あり" : "要確認"}</b></li>
+                                <li className="rounded-sm bg-surface px-1 py-1.5"><span className="block text-muted">月額</span><b className={s.monthly_fee_type === "free" ? "text-good-700" : "text-ink"}>{s.monthly_fee_type === "free" ? "0円" : s.monthly_fee_type === "paid" ? "あり" : "要確認"}</b></li>
+                                <li className="rounded-sm bg-surface px-1 py-1.5"><span className="block text-muted">成果課金</span><b className="text-ink">{s.pricing_model === "optional_plan" ? "プラン有" : s.success_fee ? "あり" : "要確認"}</b></li>
+                              </ul>
+                              <p className="mt-2 line-clamp-1 text-xs text-body">成果地点：{s.success_condition ?? "要問い合わせ"}</p>
+                            </div>
+                          </div>
+                        </Link>
+                      </li>
+                    ))}
+                  </ol>
+                  <div className="grid grid-cols-2 gap-px border-t border-line bg-line text-center text-sm font-bold">
+                    <Link href="/services?full=1" className="bg-white px-3 py-3 text-brand-700 hover:bg-brand-50">完全成果報酬のサービス</Link>
+                    <Link href="/services" className="bg-white px-3 py-3 text-brand-700 hover:bg-brand-50">すべて見る</Link>
+                  </div>
+                </div>
+              </aside>
+          )}
+        </div>
+      </section>
 
       {/* ───── 全カテゴリ ───── */}
       <section className="border-b border-line bg-white py-8 sm:py-10" aria-labelledby="all-categories">

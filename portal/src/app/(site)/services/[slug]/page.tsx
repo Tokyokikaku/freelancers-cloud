@@ -11,7 +11,7 @@ import { RequestButton } from "@/components/RequestButton";
 import { RequestToggle } from "@/components/RequestToggle";
 import { ServiceLogo } from "@/components/Logo";
 import { ServiceCard } from "@/components/ServiceCard";
-import { OfficialSiteLink, PageEvent } from "@/components/Trackers";
+import { PageEvent } from "@/components/Trackers";
 import { getArticles, getCategories, getServiceBySlug, getServices } from "@/lib/data";
 import { infoUpdatedAt, initialFeeLabel, monthlyFeeLabel, successConditionLabel, successFeeLabel } from "@/lib/format";
 import { partnerBadge } from "@/lib/partner";
@@ -71,9 +71,6 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
 
   const ctas = (placement: string) => (
     <div className="flex flex-col gap-3 sm:flex-row">
-      <OfficialSiteLink href={service.website_url} serviceId={service.id} serviceName={service.name} placement={placement} className="btn-secondary flex-1 py-3.5 text-base sm:flex-none sm:px-8">
-        公式サイトを見る <Icon name="external" className="size-4" />
-      </OfficialSiteLink>
       <RequestButton id={service.id} slug={service.slug} name={service.name} partnerStatus={service.partner_status} placement={placement} className="btn-cta flex-1 py-3.5 text-base sm:flex-none sm:px-8" />
     </div>
   );
@@ -113,8 +110,8 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
         <div className="mt-6">{ctas("detail_top")}</div>
         <p className="mt-3 text-xs leading-6 text-muted">
           {service.partner_status === "unpartnered"
-            ? "公式サイトは外部サイトです。資料請求は、現在は当サイトから各社へ直接送信せず、コンシェルジュが資料をご用意してご連絡する形です。"
-            : "公式サイトは外部サイトです。"}
+            ? "資料請求は、現在は当サイトから各社へ直接送信せず、コンシェルジュが資料をご用意してご連絡する形です。"
+            : ""}
         </p>
       </header>
 
@@ -142,11 +139,6 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
               <Fact label="完全成果報酬">{service.is_full_success_fee ? "該当（初期費用・月額費用とも0円）" : "該当なし／未確認"}</Fact>
               <Fact label="無料相談">{service.has_free_consultation ? "あり" : "公式サイトをご確認ください"}</Fact>
               <Fact label="対象企業">{service.target_companies || "公式サイトをご確認ください"}</Fact>
-              <Fact label="公式サイト">
-                <OfficialSiteLink href={service.website_url} serviceId={service.id} serviceName={service.name} placement="detail_facts" className="break-all text-brand-700 underline">
-                  {service.website_url}
-                </OfficialSiteLink>
-              </Fact>
               <Fact label="情報更新日"><time>{infoUpdatedAt(service)}</time></Fact>
               {service.source_url && (
                 <Fact label="情報ソース">
