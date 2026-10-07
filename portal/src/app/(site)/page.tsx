@@ -56,25 +56,25 @@ export default async function HomePage() {
     <>
       {/* ───── FV ───── */}
       <section className="relative overflow-hidden border-b border-line bg-brand-50">
-        <div className={`container-page relative grid grid-cols-[minmax(0,1fr)] gap-6 pt-8 sm:pt-12 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-8 lg:pt-14 ${heroPhoto ? "pb-0" : "pb-8 sm:pb-12 lg:pb-14"}`}>
-          <div className={heroPhoto ? "lg:pb-14" : ""}>
+        <div className={`container-page relative grid grid-cols-[minmax(0,1fr)] gap-4 pt-6 sm:pt-9 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-8 lg:pt-9 ${heroPhoto ? "pb-0" : "pb-6 sm:pb-9 lg:pb-9"}`}>
+          <div className={heroPhoto ? "lg:pb-9" : ""}>
             <p className="inline-block border-l-4 border-cta-500 pl-3 text-sm font-bold tracking-wide text-brand-700 sm:text-base">初期費用なし・リスクなしで事業を推進</p>
-            <h1 className="mt-4 text-[2.1rem] font-black leading-[1.2] text-ink sm:text-[3.5rem] sm:leading-[1.15]">
+            <h1 className="mt-3 text-[2rem] font-black leading-[1.2] text-ink sm:text-[3rem] sm:leading-[1.15]">
               払うのは、<br /><span className="text-brand-700">実績が出た</span><wbr />分だけ。
             </h1>
-            <p className="mt-5 max-w-xl text-sm leading-7 text-body sm:text-base sm:leading-8">
+            <p className="mt-4 max-w-xl text-sm leading-7 text-body sm:text-[15px] sm:leading-7">
               再生数・問い合わせ数・アポ数・採用数に応じて課金される<b className="text-ink">{services.length}サービス</b>を、月額の固定費なしで比較。成果が出るかわからない段階で、毎月の固定費を払い続ける必要はありません。
             </p>
-            <p className="mt-7 flex flex-wrap gap-3">
+            <p className="mt-5 flex flex-wrap gap-3">
               <Link href="#all-categories" className="btn btn-cta min-h-12 px-6 text-base">カテゴリから探す</Link>
               <Link href="/services" className="btn btn-secondary min-h-12 px-6 text-base">サービス一覧を見る</Link>
             </p>
             {(
-              <ul className="mt-8 flex items-center gap-4 sm:gap-6" aria-label="掲載の規模">
+              <ul className="mt-6 flex items-center gap-4 sm:gap-5" aria-label="掲載の規模">
                 {[[services.length, "件", "掲載サービス"], [categoryCount, "種", "カテゴリ"]].map(([n, u, l]) => (
-                  <li key={l as string} className="flex size-[6.5rem] shrink-0 flex-col items-center justify-center rounded-full bg-gold text-navy-950 ring-4 ring-gold/30 ring-offset-2 ring-offset-brand-50 sm:size-28">
+                  <li key={l as string} className="flex size-[5.6rem] shrink-0 flex-col items-center justify-center rounded-full bg-gold text-navy-950 ring-4 ring-gold/30 ring-offset-2 ring-offset-brand-50 sm:size-24">
                     <span className="text-[11px] font-bold leading-none sm:text-xs">{l}</span>
-                    <span className="mt-1 leading-none"><b className="text-[2rem] font-black sm:text-4xl">{n}</b><span className="text-xs font-bold sm:text-sm">{u}</span></span>
+                    <span className="mt-1 leading-none"><b className="text-[1.7rem] font-black sm:text-[2rem]">{n}</b><span className="text-xs font-bold sm:text-sm">{u}</span></span>
                   </li>
                 ))}
               </ul>
@@ -82,7 +82,7 @@ export default async function HomePage() {
           </div>
 
           {heroPhoto ? (
-            <div className="relative mx-auto h-[23rem] w-full max-w-lg self-end sm:h-[32rem] lg:h-auto lg:max-w-none lg:self-stretch">
+            <div className="relative mx-auto h-[18rem] w-full max-w-lg self-end sm:h-[26rem] lg:h-auto lg:max-w-none lg:self-stretch">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/hero/person.webp" alt="スーツ姿の男性のイメージ写真" width={1200} height={1850} className="absolute bottom-0 left-1/2 block h-full w-auto max-w-none -translate-x-1/2 lg:left-auto lg:right-[3%] lg:translate-x-0" />
             </div>
@@ -121,23 +121,6 @@ export default async function HomePage() {
                 </div>
               </aside>
           )}
-        </div>
-      </section>
-
-      <section className="border-b border-line bg-white" aria-label="カテゴリ">
-        <div className="container-page py-5 sm:py-6">
-          <p className="mb-3 text-sm font-bold text-ink">カテゴリから探す</p>
-          <ul className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6">
-            {topCategories.filter((c) => countOf(c.id) > 0).map((c) => (
-              <li key={c.id}>
-                <Link href={`/category/${c.slug}`} className="flex h-full flex-col rounded-sm border border-line bg-white p-3 text-ink hover:border-brand-500 hover:bg-brand-50">
-                  <span className="flex items-center gap-2 text-sm font-bold"><Icon name={c.icon ?? "other"} className="size-5 shrink-0 text-brand-600" /><span className="min-w-0 flex-1 leading-tight">{c.name}</span></span>
-                  <span className="mt-1 text-[11px] text-muted">{countOf(c.id)}件</span>
-                  <span className="mt-1 line-clamp-2 text-[11px] leading-snug text-body">{childrenOf(c.id).slice(0, 3).map((x) => x.name).join("・")}</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
         </div>
       </section>
 
