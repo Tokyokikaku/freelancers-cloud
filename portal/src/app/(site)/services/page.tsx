@@ -45,7 +45,7 @@ export default async function ServicesPage({ searchParams }: { searchParams: Pro
     model: (one(sp.model) in PRICING_MODEL_LABELS ? one(sp.model) : undefined) as PricingModel | undefined,
     zeroInitial: one(sp.zero_initial) === "1",
     zeroMonthly: one(sp.zero_monthly) === "1",
-    fullSuccess: one(sp.full) === "1",
+    fullSuccess: false, // 絞り込みUIは廃止（古い ?full=1 のリンクも無効）
     freeConsultation: one(sp.consult) === "1",
   };
   const sortParam = one(sp.sort);
@@ -139,7 +139,6 @@ export default async function ServicesPage({ searchParams }: { searchParams: Pro
                 {([
                   ["zero_initial", "初期費用0円", filters.zeroInitial],
                   ["zero_monthly", "月額費用0円", filters.zeroMonthly],
-                  ["full", "完全成果報酬", filters.fullSuccess],
                   ["consult", "無料相談あり", filters.freeConsultation],
                 ] as const).map(([name, label, checked]) => (
                   <label key={name} className="flex min-h-9 cursor-pointer items-center gap-2.5 text-sm text-ink">
@@ -147,7 +146,6 @@ export default async function ServicesPage({ searchParams }: { searchParams: Pro
                     {label}
                   </label>
                 ))}
-                <p className="text-xs leading-6 text-muted">「完全成果報酬」は、固定費・月額費用がなく成果発生時のみ費用が発生するサービスです。</p>
               </fieldset>
               <div className="flex gap-2">
                 <button type="submit" className="btn-primary flex-1">この条件で絞り込む</button>
