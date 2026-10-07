@@ -55,8 +55,10 @@ export async function notifyOperator(type: "listing" | "lead", data: Record<stri
       redirect: "follow",
       signal: AbortSignal.timeout(20000),
     });
-    if (!res.ok) console.error("[notify] operator webhook failed", res.status);
-    return res.ok;
+    // Apps Script は成功時に "ok" を返す（URL違い・権限エラーでも HTTP 200 の HTML が返るため、本文で判定する）
+    const body = (await res.text()).trim();
+    if (!res.ok || body !== "ok") console.error("[notify] operator webhook failed", res.status, body.slice(0, 80));
+    return res.ok && body === "ok";
   } catch (e) {
     console.error("[notify] operator webhook error", e);
     return false;
