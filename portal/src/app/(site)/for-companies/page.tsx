@@ -18,7 +18,6 @@ const FEATURES = [
   { icon: "compare", title: "成果報酬サービスだけを集めた比較メディア", body: "月額の固定費がなく、実績に応じて課金されるサービスだけを掲載。「成果報酬で頼めるサービスを比べて選びたい」という企業が、比較を目的に訪れます。" },
   { icon: "layers", title: "資料請求は、複数社まとめて", body: "1回の入力で最大10サービスにまとめて資料請求。1社だけ請求しようとした方には、同じカテゴリの人気上位5サービスとの比較をご提案し、比較検討の土俵に乗りやすくします。" },
   { icon: "shield", title: "連絡の取れるリードに絞る", body: "会社のメールアドレス（フリーメール不可）と担当者の携帯電話番号を必須に。固定電話や連番などの適当な入力は受け付けません。第三者提供への同意も、フォーム上で明示的に取得します。" },
-  { icon: "chart", title: "広告費で順位を決めない", body: "人気順は、閲覧数やクリックなどの行動データで決まります。掲載料や広告費では順位を動かしません。比較する側から信頼されるメディアであることが、掲載の価値になります。" },
   { icon: "mail", title: "リードをすぐ受け取れる", body: "資料請求があると、会員情報を電子ファイルで提供。提携企業さまには、メール・Webhookでの即時通知にも対応します。管理画面から、リードの確認・CSV出力もできます。" },
   { icon: "check", title: "掲載は無料", body: "掲載料は無料です。編集部が、公式の料金ページをもとに、成果地点・初期費用・月額・成果報酬額を整理して掲載します。確認できない項目は「要問い合わせ」とし、推測では書きません。" },
 ] as const;
@@ -167,7 +166,7 @@ export default async function ForCompaniesPage() {
             <li className="flex gap-2"><span className="text-brand-700" aria-hidden>●</span>現在も提供しているサービスであること</li>
             <li className="flex gap-2"><span className="text-brand-700" aria-hidden>●</span>作業量（送信件数など）への課金、アフィリエイトASP、固定費と成果報酬の併用が必須のサービスは、対象外です</li>
           </ul>
-          <p className="mt-4 text-center text-xs leading-6 text-muted">掲載の有無・順位は、広告費の支払額では決めません。提携前のサービスを、提携しているように見せることもしません。</p>
+          <p className="mt-4 text-center text-xs leading-6 text-muted">提携前のサービスを、提携しているように見せることはしません。</p>
         </div>
       </section>
 
