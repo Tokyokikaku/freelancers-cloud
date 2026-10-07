@@ -38,7 +38,7 @@ export default async function RequestPage({ searchParams }: { searchParams: Prom
         <div className="container-page py-5">
           <Breadcrumbs items={[{ name: "資料請求" }]} />
           <h1 className="mt-3 border-l-[6px] border-cta-500 pl-3 text-2xl sm:text-[1.9rem]">資料請求（無料）</h1>
-          <ol className="mt-4 flex flex-wrap items-center gap-2 text-sm font-bold" aria-label="請求の流れ">
+          <ol className="mt-4 flex flex-wrap items-center gap-2 text-sm font-bold" aria-label="資料請求の流れ">
             <li className="rounded-full bg-brand-600 px-4 py-1 text-white">1 サービスを選ぶ</li>
             <li className="text-muted">＞</li>
             <li className="rounded-full bg-brand-600 px-4 py-1 text-white">2 情報を入力</li>

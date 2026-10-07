@@ -44,7 +44,7 @@ const str = (fd: FormData, k: string) => {
 /** 資料請求（1〜10サービスまとめて）。サービスごとに1件のリードを保存し、同じ request_id で束ねる。 */
 export async function submitLeads(_prev: LeadState, formData: FormData): Promise<LeadState> {
   const slugs = Array.from(new Set(formData.getAll("service_slugs").filter((v): v is string => typeof v === "string"))).slice(0, MAX_REQUEST_SERVICES);
-  if (slugs.length === 0) return { ok: false, errors: { services: "請求するサービスを1つ以上選んでください" } };
+  if (slugs.length === 0) return { ok: false, errors: { services: "資料請求するサービスを1つ以上選んでください" } };
 
   const parsed = schema.safeParse(Object.fromEntries(FIELDS.map((k) => [k, str(formData, k)])));
   if (!parsed.success) {

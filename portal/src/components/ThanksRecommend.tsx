@@ -24,7 +24,7 @@ export function ThanksRecommend({ items }: { items: RecommendItem[] }) {
         {items.map((s) => (
           <li key={s.slug}>
             <label className="flex cursor-pointer items-start gap-3 p-3 hover:bg-surface/60 sm:p-4">
-              <input type="checkbox" checked={picked.includes(s.slug)} onChange={() => toggle(s.slug)} className="mt-1 size-5 accent-cta-500" aria-label={`${s.name}を請求する`} />
+              <input type="checkbox" checked={picked.includes(s.slug)} onChange={() => toggle(s.slug)} className="mt-1 size-5 accent-cta-500" aria-label={`${s.name}の資料を請求する`} />
               <span className="min-w-0 flex-1">
                 <span className="block font-bold text-ink">{s.name}</span>
                 <span className="block text-xs text-muted">{s.company_name}</span>
@@ -38,7 +38,7 @@ export function ThanksRecommend({ items }: { items: RecommendItem[] }) {
       <div className="flex flex-wrap items-center justify-between gap-3 border-t border-line bg-surface/60 p-3 sm:p-4">
         <button type="button" className="text-sm font-bold text-brand-700 underline" onClick={() => setPicked(items.map((i) => i.slug))}>すべて選択</button>
         <button type="button" disabled={picked.length === 0} onClick={() => router.push(requestHref(picked))} className="btn-cta px-6 disabled:opacity-50">
-          {picked.length ? `${picked.length}件を続けて請求する` : "サービスを選んでください"}
+          {picked.length ? `${picked.length}件の資料を続けて請求する（無料）` : "サービスを選んでください"}
         </button>
       </div>
     </section>
