@@ -71,4 +71,5 @@ export function useRequestList() {
   };
 }
 
-export const requestHref = (slugs: string[]) => `/request?s=${slugs.map(encodeURIComponent).join(",")}`;
+export const requestHref = (slugs: string[], compareCategories: string[] = []) =>
+  `/request?s=${slugs.map(encodeURIComponent).join(",")}${compareCategories.length ? `&c=${compareCategories.map(encodeURIComponent).join(",")}` : ""}`;

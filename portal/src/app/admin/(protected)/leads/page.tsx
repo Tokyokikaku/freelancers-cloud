@@ -29,7 +29,7 @@ export default async function LeadsPage() {
             {(data ?? []).map((l) => (
               <tr key={l.lead_id} className="border-t border-line align-top">
                 <td className="whitespace-nowrap p-3">{fmt(l.created_at)}</td>
-                <td className="p-3 font-bold text-ink">{l.service_name}</td>
+                <td className="p-3 font-bold text-ink">{l.lead_type === "comparison" && <span className="mr-1 rounded-sm bg-cta-500 px-1 text-[11px] text-white">比較資料</span>}{l.service_name}</td>
                 <td className="p-3">{l.company}{l.company_verified && <span className="ml-1 rounded-sm bg-good-50 px-1 text-[11px] font-bold text-good-700" title={`法人番号 ${l.corporate_number}`}>実在確認済</span>}</td>
                 <td className="p-3">{l.name}</td>
                 <td className="p-3 break-all">{l.email}</td>

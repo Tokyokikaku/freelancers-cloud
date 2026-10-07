@@ -3,7 +3,8 @@
 import { randomUUID } from "node:crypto";
 import { z } from "zod";
 import { checkEmail, checkMobilePhone, formatMobile, normalizePhone } from "@/lib/contact-validation";
-import { getServices } from "@/lib/data";
+import { comparisonMaterials, MAX_COMPARISON_CATEGORIES } from "@/lib/comparison";
+import { getCategories, getServices } from "@/lib/data";
 import { lookupCorporation } from "@/lib/houjin";
 import { CONSENT_VERSION, DEPARTMENT_OPTIONS, EMPLOYEE_OPTIONS, INDUSTRY_OPTIONS, JOB_TITLE_OPTIONS, MAX_REQUEST_SERVICES, OTHER_OPTION, TIMING_OPTIONS } from "@/lib/lead-options";
 import { postWebhook, sendMail } from "@/lib/notify";
@@ -60,7 +61,8 @@ const str = (fd: FormData, k: string) => {
 /** 資料請求（1〜10サービスまとめて）。サービスごとに1件のリードを保存し、同じ request_id で束ねる。 */
 export async function submitLeads(_prev: LeadState, formData: FormData): Promise<LeadState> {
   const slugs = Array.from(new Set(formData.getAll("service_slugs").filter((v): v is string => typeof v === "string"))).slice(0, MAX_REQUEST_SERVICES);
-  if (slugs.length === 0) return { ok: false, errors: { services: "資料請求するサービスを1つ以上選んでください" } };
+  const compareSlugs = Array.from(new Set(formData.getAll("compare_categories").filter((v): v is string => typeof v === "string"))).slice(0, MAX_COMPARISON_CATEGORIES);
+  if (slugs.length === 0 && compareSlugs.length === 0) return { ok: false, errors: { services: "資料請求するサービスを1つ以上選んでください" } };
 
   const parsed = schema.safeParse(Object.fromEntries(FIELDS.map((k) => [k, str(formData, k) ?? (k === "email" || k === "phone" ? "" : undefined)])));
   if (!parsed.success) {
@@ -83,7 +85,14 @@ export async function submitLeads(_prev: LeadState, formData: FormData): Promise
 
   const all = await getServices();
   const targets = slugs.map((slug) => all.find((s) => s.slug === slug)).filter((s) => !!s);
-  if (targets.length === 0) return { ok: false, message: "対象のサービスが見つかりませんでした。ページを再読み込みしてもう一度お試しください。" };
+  // 比較資料（カテゴリ）。公開中サービスが一定数あるカテゴリのみ有効
+  const categories = await getCategories();
+  const validMaterials = comparisonMaterials(all, categories);
+  const comparisons = compareSlugs
+    .map((c) => validMaterials.find((m) => m.categorySlug === c))
+    .filter((m): m is NonNullable<typeof m> => Boolean(m))
+    .map((m) => ({ ...m, categoryId: categories.find((c) => c.slug === m.categorySlug)!.id }));
+  if (targets.length === 0 && comparisons.length === 0) return { ok: false, message: "対象のサービスが見つかりませんでした。ページを再読み込みしてもう一度お試しください。" };
 
   // サービス提供会社への会員情報の提供について、本人の明示的な同意（未チェックのボックスを自分でオン）が必要
   const thirdPartyConsent = formData.get("third_party_consent") === "on";
@@ -98,7 +107,7 @@ export async function submitLeads(_prev: LeadState, formData: FormData): Promise
     if (corp) corporateNumber = corp.number;
   }
 
-  const redirectTo = `/thanks?s=${targets.map((s) => encodeURIComponent(s!.slug)).join(",")}`;
+  const redirectTo = `/thanks?s=${targets.map((s) => encodeURIComponent(s!.slug)).join(",")}${comparisons.length ? `&c=${comparisons.map((m) => encodeURIComponent(m.categorySlug)).join(",")}` : ""}`;
   const sent = targets.map((s) => ({ id: s!.id, name: s!.name }));
 
   if (!hasServiceRole) {
@@ -108,10 +117,7 @@ export async function submitLeads(_prev: LeadState, formData: FormData): Promise
 
   const db = serviceClient();
   const requestId = randomUUID();
-  const rows = targets.map((s) => ({
-    request_id: requestId,
-    service_id: s!.id,
-    service_name: s!.name,
+  const common = {
     company: d.company,
     corporate_number: corporateNumber,
     company_verified: Boolean(corporateNumber),
@@ -128,11 +134,20 @@ export async function submitLeads(_prev: LeadState, formData: FormData): Promise
     medium: d.medium || null,
     campaign: d.campaign || null,
     visitor_id: d.visitor_id || null,
-    partner_status: s!.partner_status,
     consent_version: CONSENT_VERSION,
     third_party_consent: true,
+  };
+  const comparisonRows = comparisons.map((m) => ({ ...common, request_id: requestId, service_id: null, service_name: m.title, lead_type: "comparison", category_id: m.categoryId, partner_status: "comparison" }));
+  const rows = targets.map((s) => ({
+    request_id: requestId,
+    service_id: s!.id,
+    service_name: s!.name,
+    ...common,
+    lead_type: "service",
+    category_id: null,
+    partner_status: s!.partner_status,
   }));
-  const { data: leads, error } = await db.from("leads").insert(rows).select("lead_id, service_id, created_at");
+  const { data: leads, error } = await db.from("leads").insert([...rows, ...comparisonRows]).select("lead_id, service_id, created_at");
   if (error || !leads) {
     console.error("[lead] insert failed:", error?.message);
     return { ok: false, message: "送信に失敗しました。時間をおいてもう一度お試しください。" };
@@ -160,8 +175,8 @@ export async function submitLeads(_prev: LeadState, formData: FormData): Promise
   if (operator) {
     await sendMail({
       to: operator,
-      subject: `[${SITE_NAME}] 資料請求 ${targets.length}件: ${targets.map((s) => s!.name).join("、")}`.slice(0, 200),
-      text: `request_id: ${requestId}\n請求サービス:\n${targets.map((s) => `- ${s!.name}`).join("\n")}\n\n${detail}`,
+      subject: `[${SITE_NAME}] 資料請求 ${targets.length + comparisons.length}件: ${[...comparisons.map((m) => m.title), ...targets.map((s) => s!.name)].join("、")}`.slice(0, 200),
+      text: `request_id: ${requestId}\n請求サービス:\n${targets.map((s) => `- ${s!.name}`).join("\n")}${comparisons.length ? `\n比較資料:\n${comparisons.map((m) => `- ${m.title}`).join("\n")}` : ""}\n\n${detail}`,
     });
   }
 

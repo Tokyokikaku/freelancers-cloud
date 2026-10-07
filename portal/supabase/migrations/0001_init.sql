@@ -110,6 +110,8 @@ create table if not exists leads (
   message       text,                          -- 検討の背景・ご要望（任意）
   consent_version text,                        -- 同意時に表示した文言のバージョン（lib/lead-options.ts の CONSENT_VERSION）
   third_party_consent boolean not null default false, -- サービス提供会社への会員情報の提供（電子ファイル）とプライバシーポリシーに同意したか
+  lead_type     text not null default 'service' check (lead_type in ('service','comparison')), -- service=サービスの資料請求 / comparison=カテゴリ比較資料
+  category_id   uuid references categories(id) on delete set null,                        -- 比較資料のカテゴリ
   request_id    uuid,                          -- 1回の入力でまとめて請求した場合に共通のID
   source        text,                          -- 流入元（utm_source または referrer ホスト）
   medium        text,                          -- utm_medium

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { RequestFlow, type ServiceLite } from "@/components/RequestFlow";
+import { comparisonMaterials, MAX_COMPARISON_CATEGORIES, offersByService } from "@/lib/comparison";
 import { getCategories, getServices } from "@/lib/data";
 import { houjinEnabled } from "@/lib/houjin";
 import { MAX_REQUEST_SERVICES } from "@/lib/lead-options";
@@ -13,10 +14,14 @@ export const metadata: Metadata = buildMetadata({
   noindex: true,
 });
 
-export default async function RequestPage({ searchParams }: { searchParams: Promise<{ s?: string }> }) {
-  const { s } = await searchParams;
+export default async function RequestPage({ searchParams }: { searchParams: Promise<{ s?: string; c?: string }> }) {
+  const { s, c } = await searchParams;
   const [services, categories] = await Promise.all([getServices(), getCategories()]);
   const initial = Array.from(new Set((s ?? "").split(",").map((x) => x.trim()).filter(Boolean))).slice(0, MAX_REQUEST_SERVICES);
+
+  const initialCats = Array.from(new Set((c ?? "").split(",").map((x) => x.trim()).filter(Boolean))).slice(0, MAX_COMPARISON_CATEGORIES);
+  const materials = comparisonMaterials(services, categories);
+  const offers = offersByService(services, categories);
 
   const lite: ServiceLite[] = services.map((x) => ({
     id: x.id,
@@ -48,7 +53,7 @@ export default async function RequestPage({ searchParams }: { searchParams: Prom
           </ol>
         </div>
       </div>
-      <RequestFlow services={lite} initialSlugs={initial} companySuggest={houjinEnabled} />
+      <RequestFlow services={lite} initialSlugs={initial} initialCats={initialCats} offers={offers} materials={materials} companySuggest={houjinEnabled} />
     </div>
   );
 }
