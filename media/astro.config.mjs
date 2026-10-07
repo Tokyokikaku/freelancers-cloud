@@ -7,6 +7,6 @@ export default defineConfig({
   site: SITE.url,
   output: 'static',
   trailingSlash: 'always',
-  integrations: [sitemap()],
+  integrations: [sitemap({ filter: (page) => !page.includes('/admin/') })],
   vite: { plugins: [tailwindcss()] },
 });

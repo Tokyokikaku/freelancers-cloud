@@ -1,0 +1,33 @@
+name: Deploy media (Yupir)
+
+# media/ 配下（記事・サイト本体）が main に入ったら、ビルドして本番へ反映する。
+# 管理画面（/admin/）から記事を保存すると、この流れで公開される。
+on:
+  push:
+    branches: [main]
+    paths: ['media/**']
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-media
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: media
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: media/package-lock.json
+      - run: npm ci
+      - run: npm run build
+      - name: Deploy to Vercel
+        run: python3 scripts/deploy-vercel.py
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}

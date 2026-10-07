@@ -71,6 +71,35 @@ draft: false                    # true にすると公開されない
 - `ogImage` を省略すると、タイトル入りのグラデーションが記事のサムネイルとして自動生成されます。
   ただしOGP（SNSカード）には共通画像 `og-default.png` が使われます。
 
+## 管理画面（記事の入稿）
+
+`/admin/`（検索には出ません）で、記事の作成・編集・削除ができます。保存すると GitHub の `main` ブランチに Markdown がコミットされ、自動デプロイで公開サイトに反映されます。
+
+- **入力:** タイトル、種別、タグ、サービス情報、数字（出典URLと確認日が必須）、確認済みフラグ、画像、本文（Markdown＋プレビュー）。
+- **AI が書いた記事:** 「Markdownを貼り付けて取り込む」で、frontmatter つきの Markdown をそのままフォームに反映できます。
+- **検証:** 出典のない数字、必須項目の抜け、URL/日付の形式エラーは、保存前に止まります。
+- **下書き:** 「下書き」にチェックすると、保存しても公開されません。
+- **注意:** 保存した記事は確認なしで公開されます。数字の出典と「確認済み」の状態を、保存前に見直してください。
+
+### 初回セットアップ
+
+1. この変更（`media/` と `.github/workflows/deploy-media.yml`）を `main` にマージする。
+2. GitHub のリポジトリ → Settings → Secrets and variables → Actions に、`VERCEL_TOKEN`（Vercel のアクセストークン）を登録する。これで `main` への保存が、自動で本番に反映されます。
+3. 管理画面で使う GitHub トークンを作る（Settings → Developer settings → Fine-grained tokens）。
+   対象リポジトリはこのリポジトリのみ、権限は **Contents: Read and write** のみ。
+4. `/admin/` を開き、トークンを入力して「接続する」。トークンはブラウザの中にだけ保管され、サーバーには送られません（共有PCでは「記憶する」にチェックしないでください）。
+
+保存先（リポジトリ・ブランチ・記事フォルダ）は `src/site.config.ts` の `github` で変更できます。
+
+### 手動デプロイ
+
+Actions を使わずに反映したい場合は、`media/` で次を実行します。
+
+```bash
+npm run build
+VERCEL_TOKEN=xxxx python3 scripts/deploy-vercel.py
+```
+
 ## サンプル記事を消す
 
 サンプル3本（架空）は `src/content/articles/samples/` にまとまっています。本番公開前にフォルダごと削除してください。
