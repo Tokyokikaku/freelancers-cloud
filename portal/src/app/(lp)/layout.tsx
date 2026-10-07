@@ -18,7 +18,9 @@ export default function LpLayout({ children }: { children: React.ReactNode }) {
     <>
       <header className="sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur">
         <div className="container-page flex h-14 items-center justify-between gap-4 sm:h-16">
-          <Link href="/" className="flex items-baseline gap-2" aria-label={`${SITE_NAME} トップへ`}>
+          <Link href="/" className="flex items-center gap-2" aria-label={`${SITE_NAME} トップへ`}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logo.svg" alt="" width={32} height={32} className="size-8 shrink-0" />
             <span className="text-xl font-black text-brand-700">{SITE_NAME}</span>
             <span className="hidden text-[0.7rem] font-bold text-muted sm:inline">掲載企業さま向け</span>
           </Link>
