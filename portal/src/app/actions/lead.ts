@@ -6,7 +6,7 @@ import { checkEmail, checkMobilePhone, formatMobile, normalizePhone } from "@/li
 import { getServices } from "@/lib/data";
 import { lookupCorporation } from "@/lib/houjin";
 import { CONSENT_VERSION, DEPARTMENT_OPTIONS, EMPLOYEE_OPTIONS, INDUSTRY_OPTIONS, JOB_TITLE_OPTIONS, MAX_REQUEST_SERVICES, OTHER_OPTION, TIMING_OPTIONS } from "@/lib/lead-options";
-import { postWebhook, sendMail } from "@/lib/notify";
+import { notifyOperator, postWebhook, sendMail } from "@/lib/notify";
 import { hasServiceRole, serviceClient } from "@/lib/supabase";
 import { OPERATOR_NAME, SITE_NAME } from "@/lib/site";
 
@@ -100,6 +100,25 @@ export async function submitLeads(_prev: LeadState, formData: FormData): Promise
 
   const redirectTo = `/thanks?s=${targets.map((s) => encodeURIComponent(s!.slug)).join(",")}`;
   const sent = targets.map((s) => ({ id: s!.id, name: s!.name }));
+
+  // 運営者への通知（スプレッドシート＋メール）。Supabase の有無にかかわらず送る
+  await notifyOperator("lead", {
+    services: targets.map((s) => s!.name).join("、"),
+    company: d.company,
+    corporate_number: corporateNumber ?? "",
+    name: d.name,
+    email: d.email,
+    phone: formatMobile(normalizePhone(d.phone)),
+    timing: d.timing || "",
+    employees,
+    industry,
+    department,
+    job_title: jobTitle,
+    message: d.message || "",
+    source: d.source || "",
+    medium: d.medium || "",
+    campaign: d.campaign || "",
+  });
 
   if (!hasServiceRole) {
     console.warn("[lead] Supabase 未設定のため保存していません（デモモード）");

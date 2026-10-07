@@ -36,3 +36,29 @@ export async function postWebhook(url: string, payload: unknown): Promise<boolea
     return false;
   }
 }
+
+/**
+ * 運営者向けの通知（Google スプレッドシート＋Apps Script の Web アプリ想定）。
+ * NOTIFY_WEBHOOK_URL 未設定ならスキップ。NOTIFY_WEBHOOK_SECRET は Apps Script 側で照合する。
+ */
+export async function notifyOperator(type: "listing" | "lead", data: Record<string, unknown>): Promise<boolean> {
+  const url = process.env.NOTIFY_WEBHOOK_URL;
+  if (!url) return false;
+  try {
+    const u = new URL(url);
+    if (u.protocol !== "https:") return false;
+    // Apps Script の Web アプリは 302 で結果を返す。実行は POST 時点で完了しているので、リダイレクト先の応答で成否を判断する
+    const res = await fetch(u, {
+      method: "POST",
+      headers: { "content-type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({ secret: process.env.NOTIFY_WEBHOOK_SECRET ?? "", type, at: new Date().toISOString(), ...data }),
+      redirect: "follow",
+      signal: AbortSignal.timeout(20000),
+    });
+    if (!res.ok) console.error("[notify] operator webhook failed", res.status);
+    return res.ok;
+  } catch (e) {
+    console.error("[notify] operator webhook error", e);
+    return false;
+  }
+}

@@ -10,16 +10,14 @@ export const revalidate = 300;
 
 export const metadata: Metadata = buildMetadata({
   title: "掲載をご希望の企業さまへ",
-  description: `${SITE_NAME}は、成果に応じて料金を支払うサービスだけを集めた比較メディアです。資料請求から商談アポまで、見込み顧客との出会いをつくります。掲載の特徴・基準・アポ化オプションをご案内します。`,
+  description: `${SITE_NAME}は、成果に応じて料金を支払うサービスだけを集めた比較メディアです。掲載料は無料。資料請求から商談アポまで、見込み顧客との出会いをつくります。`,
   path: "/for-companies",
 });
 
 const FEATURES = [
-  { icon: "compare", title: "成果報酬サービスだけを集めた比較メディア", body: "月額の固定費がなく、実績に応じて課金されるサービスだけを掲載。「成果報酬で頼めるサービスを比べて選びたい」という企業が、比較を目的に訪れます。" },
-  { icon: "layers", title: "資料請求は、複数社まとめて", body: "1回の入力で最大10サービスにまとめて資料請求。1社だけ請求しようとした方には、同じカテゴリの人気上位5サービスとの比較をご提案し、比較検討の土俵に乗りやすくします。" },
-  { icon: "shield", title: "連絡の取れるリードに絞る", body: "会社のメールアドレス（フリーメール不可）と担当者の携帯電話番号を必須に。固定電話や連番などの適当な入力は受け付けません。第三者提供への同意も、フォーム上で明示的に取得します。" },
-  { icon: "mail", title: "リードをすぐ受け取れる", body: "資料請求があると、会員情報を電子ファイルで提供。提携企業さまには、メール・Webhookでの即時通知にも対応します。管理画面から、リードの確認・CSV出力もできます。" },
-  { icon: "check", title: "掲載は無料", body: "掲載料は無料です。編集部が、公式の料金ページをもとに、成果地点・初期費用・月額・成果報酬額を整理して掲載します。確認できない項目は「要問い合わせ」とし、推測では書きません。" },
+  { icon: "compare", title: "成果報酬サービスを探す企業が集まる", body: "月額の固定費がなく、実績に応じて課金されるサービスだけを掲載。「成果報酬で頼めるサービスを比べて選びたい」という企業が、比較を目的に訪れます。複数社まとめての資料請求にも対応しています。" },
+  { icon: "shield", title: "連絡の取れる資料請求だけが届く", body: "会社のメールアドレス（フリーメール不可）と担当者の携帯電話番号を必須に。固定電話や連番などの適当な入力は受け付けません。第三者提供への同意も、フォーム上で明示的に取得します。" },
+  { icon: "check", title: "掲載は無料、整理は編集部におまかせ", body: "掲載料は無料です。編集部が、公式の料金ページをもとに、成果地点・初期費用・月額・成果報酬額を整理して掲載します。確認できない項目は「要問い合わせ」とし、推測では書きません。" },
 ] as const;
 
 const STEPS = [
@@ -45,10 +43,10 @@ export default async function ForCompaniesPage() {
           <div>
             <p className="inline-block border-l-4 border-cta-500 pl-3 text-sm font-bold text-brand-700 sm:text-base">掲載をご希望の企業さまへ</p>
             <h1 className="mt-4 text-[2rem] font-black leading-[1.25] text-ink sm:text-[3.2rem] sm:leading-[1.2]">
-              成果報酬サービスを<br /><span className="text-brand-700">比べて選びたい企業</span>と、<br />出会う。
+              <span className="text-brand-700">成果報酬サービスを探す企業</span>から、<br />資料請求が届く。
             </h1>
             <p className="mt-5 max-w-2xl text-sm leading-8 text-body sm:text-lg sm:leading-9">
-              {SITE_NAME}は、成果に応じて料金を支払うサービスだけを集めた比較メディアです。資料請求から商談アポまで、見込み顧客との出会いをつくります。
+              掲載料は無料。連絡の取れる資料請求だけをお届けし、ご希望なら商談アポの獲得まで代行します。
             </p>
             <p className="mt-7">
               <ListingButton className="btn btn-cta min-h-12 w-full px-8 text-base sm:w-auto">掲載を希望する（無料）</ListingButton>
@@ -92,7 +90,7 @@ export default async function ForCompaniesPage() {
         <div className="container-page">
           <p className="text-center text-sm font-bold text-cta-600">FEATURES</p>
           <h2 id="features" className="mt-1 text-center text-2xl sm:text-3xl">{SITE_NAME}の特徴</h2>
-          <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="mt-8 grid gap-4 md:grid-cols-3">
             {FEATURES.map((f, i) => (
               <li key={f.title} className="rounded-lg border border-line bg-white p-5 shadow-[0_8px_24px_-18px_rgb(7_42_90/0.5)]">
                 <div className="flex items-center gap-3">

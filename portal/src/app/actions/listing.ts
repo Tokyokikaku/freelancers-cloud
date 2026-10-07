@@ -3,7 +3,7 @@
 import { z } from "zod";
 import { checkEmail } from "@/lib/contact-validation";
 import { CONSENT_VERSION } from "@/lib/lead-options";
-import { sendMail } from "@/lib/notify";
+import { notifyOperator, sendMail } from "@/lib/notify";
 import { CONTACT_EMAIL, SITE_NAME } from "@/lib/site";
 import { hasServiceRole, serviceClient } from "@/lib/supabase";
 
@@ -79,6 +79,8 @@ export async function submitListingInquiry(_prev: ListingState, formData: FormDa
     else saved = true;
   }
 
+  const hooked = await notifyOperator("listing", { ...row, topic_label: TOPIC_LABEL[d.topic] });
+
   let mailed = false;
   const operator = process.env.LEAD_NOTIFY_EMAIL;
   if (operator) {
@@ -91,8 +93,8 @@ export async function submitListingInquiry(_prev: ListingState, formData: FormDa
     });
   }
 
-  if (!saved && !mailed) {
-    console.warn("[listing] 保存先（Supabase / メール）が未設定です");
+  if (!saved && !mailed && !hooked) {
+    console.warn("[listing] 保存先（Supabase / メール / NOTIFY_WEBHOOK_URL）が未設定です");
     return { ok: false, message: `現在フォームから送信できません。お手数ですが ${CONTACT_EMAIL} までメールでご連絡ください。` };
   }
   return { ok: true };
