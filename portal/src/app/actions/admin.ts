@@ -287,6 +287,16 @@ export async function deleteArticle(fd: FormData) {
 }
 
 const STATUSES = new Set(["draft", "needs_review", "verified"]);
+export async function setPartnerStatus(fd: FormData) {
+  await requireAdmin();
+  const id = get(fd, "id");
+  const status = get(fd, "status");
+  if (!id || !["unpartnered", "partner", "premium"].includes(status)) return;
+  await serviceClient().from("services").update({ partner_status: status }).eq("id", id);
+  refresh();
+  revalidatePath("/admin/services");
+}
+
 export async function setReviewStatus(fd: FormData) {
   await requireAdmin();
   const id = get(fd, "id");

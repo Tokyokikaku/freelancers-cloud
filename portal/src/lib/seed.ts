@@ -2,6 +2,7 @@ import raw from "@/data/seed.json";
 import type { Article, Category, OutcomeType, Service, FeeType, PartnerStatus, PricingModel } from "./types";
 
 /** Supabase 未設定（デモモード）で DB の代わりに使うデータ。seed.json から組み立てる。 */
+const DEMO_PARTNERS = new Set((process.env.DEMO_PARTNER_SLUGS ?? "").split(",").map((x) => x.trim()).filter(Boolean));
 const NOW = "2026-10-05T00:00:00+09:00";
 
 export function seedCategories(): Category[] {
@@ -43,7 +44,8 @@ export function seedServices(): Service[] {
     has_free_consultation: s.has_free_consultation,
     target_companies: s.target_companies,
     features: s.features,
-    partner_status: s.partner_status as PartnerStatus,
+    // デモモード（DB未接続）でも、環境変数 DEMO_PARTNER_SLUGS（カンマ区切りのslug）で契約済みにできる
+    partner_status: (DEMO_PARTNERS.has(s.slug) ? "partner" : s.partner_status) as PartnerStatus,
     featured: s.featured,
     show_in_popular: s.show_in_popular,
     published: s.published,

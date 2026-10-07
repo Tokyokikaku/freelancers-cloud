@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ConfirmButton } from "@/components/admin/ConfirmButton";
-import { deleteService, setReviewStatus, toggleServiceFlag } from "@/app/actions/admin";
+import { deleteService, setPartnerStatus, setReviewStatus, toggleServiceFlag } from "@/app/actions/admin";
 import { adminCategories, adminServices } from "@/lib/admin-data";
 import { PARTNER_STATUS_LABELS, REVIEW_LABELS, type ReviewStatus } from "@/lib/types";
 
@@ -43,7 +43,7 @@ export default async function AdminServicesPage({ searchParams }: { searchParams
       <div className="card overflow-x-auto">
         <table className="w-full min-w-[56rem] text-sm">
           <thead className="bg-surface text-left text-xs text-muted">
-            <tr><th className="p-3">サービス</th><th className="p-3">カテゴリ</th><th className="p-3">確認状態</th><th className="p-3">提携状態</th><th className="p-3">設定</th><th className="p-3 text-right">操作</th></tr>
+            <tr><th className="p-3">サービス</th><th className="p-3">カテゴリ</th><th className="p-3">確認状態</th><th className="p-3">契約状態</th><th className="p-3">設定</th><th className="p-3 text-right">操作</th></tr>
           </thead>
           <tbody>
             {services.map((s) => (
@@ -59,7 +59,15 @@ export default async function AdminServicesPage({ searchParams }: { searchParams
                     <button type="submit" className="rounded bg-surface px-2 py-1 text-xs font-bold hover:bg-slate-200">更新</button>
                   </form>
                 </td>
-                <td className="p-3 text-xs">{PARTNER_STATUS_LABELS[s.partner_status]}</td>
+                <td className="p-3">
+                  <form action={setPartnerStatus} className="flex items-center gap-1">
+                    <input type="hidden" name="id" value={s.id} />
+                    <select name="status" defaultValue={s.partner_status} className="rounded border border-line bg-white px-1.5 py-1 text-xs" aria-label="契約状態">
+                      {Object.entries(PARTNER_STATUS_LABELS).map(([v, l]) => <option key={v} value={v}>{l}</option>)}
+                    </select>
+                    <button type="submit" className="rounded bg-surface px-2 py-1 text-xs font-bold hover:bg-slate-200">更新</button>
+                  </form>
+                </td>
                 <td className="p-3">
                   <div className="flex flex-wrap gap-1.5">
                     <Toggle id={s.id} field="published" value={s.published} label="公開" />

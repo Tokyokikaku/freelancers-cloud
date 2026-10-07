@@ -7,8 +7,11 @@ import type { PartnerStatus, Service } from "./types";
  */
 export const isPartnered = (s: Pick<Service, "partner_status">) => s.partner_status !== "unpartnered";
 
+/** 資料請求を受け付けられるか。契約していない企業のサービスは、資料請求ボタンを「準備中」にする */
+export const isRequestable = isPartnered;
+
 export function documentCtaLabel(status: PartnerStatus): string {
-  return status === "unpartnered" ? "資料請求（無料）" : "無料で資料請求";
+  return status === "unpartnered" ? "準備中" : "無料で資料請求";
 }
 
 export function partnerBadge(status: PartnerStatus): { label: string; title: string } | null {

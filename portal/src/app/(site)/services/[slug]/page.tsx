@@ -107,7 +107,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
         <div className="mt-6">{ctas("detail_top")}</div>
         <p className="mt-3 text-xs leading-6 text-muted">
           {service.partner_status === "unpartnered"
-            ? "資料は、サービス運営会社もしくは成果報酬ナビから、ご登録のメールアドレス宛にお送りします。"
+            ? "このサービスの資料請求は、現在準備中です。"
             : ""}
         </p>
       </header>
@@ -182,7 +182,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
           <div className="card p-5">
             <h2 className="text-base">他のサービスもまとめて請求</h2>
             <p className="mt-2 text-xs leading-6 text-muted">資料請求リストに追加すると、複数サービスを1回の入力でまとめて請求できます。</p>
-            <div className="mt-3 space-y-2"><RequestToggle item={{ id: service.id, slug: service.slug, name: service.name }} /></div>
+            <div className="mt-3 space-y-2">{service.partner_status !== "unpartnered" && <RequestToggle item={{ id: service.id, slug: service.slug, name: service.name }} />}</div>
           </div>
         </aside>
       </div>

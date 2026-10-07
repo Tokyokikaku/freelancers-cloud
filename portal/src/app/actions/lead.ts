@@ -7,6 +7,7 @@ import { getServices } from "@/lib/data";
 import { lookupCorporation } from "@/lib/houjin";
 import { CONSENT_VERSION, DEPARTMENT_OPTIONS, EMPLOYEE_OPTIONS, INDUSTRY_OPTIONS, JOB_TITLE_OPTIONS, MAX_REQUEST_SERVICES, OTHER_OPTION, TIMING_OPTIONS } from "@/lib/lead-options";
 import { notifyOperator, postWebhook, sendMail } from "@/lib/notify";
+import { isRequestable } from "@/lib/partner";
 import { hasServiceRole, serviceClient } from "@/lib/supabase";
 import { CONTACT_EMAIL, OPERATOR_NAME, SITE_NAME } from "@/lib/site";
 
@@ -82,7 +83,8 @@ export async function submitLeads(_prev: LeadState, formData: FormData): Promise
   const jobTitle = pick(d.job_title, d.job_title_other);
 
   const all = await getServices();
-  const targets = slugs.map((slug) => all.find((s) => s.slug === slug)).filter((s) => !!s);
+  // 契約していない企業のサービス（資料請求が「準備中」のもの）は受け付けない
+  const targets = slugs.map((slug) => all.find((s) => s.slug === slug)).filter((s) => !!s && isRequestable(s));
   if (targets.length === 0) return { ok: false, message: "対象のサービスが見つかりませんでした。ページを再読み込みしてもう一度お試しください。" };
 
   // サービス提供会社への会員情報の提供について、本人の明示的な同意（未チェックのボックスを自分でオン）が必要

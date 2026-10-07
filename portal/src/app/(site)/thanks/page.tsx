@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Icon } from "@/components/Icon";
 import { ThanksRecommend } from "@/components/ThanksRecommend";
 import { getServices } from "@/lib/data";
+import { isRequestable } from "@/lib/partner";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildMetadata({
@@ -15,7 +16,8 @@ export const metadata: Metadata = buildMetadata({
 export default async function ThanksPage({ searchParams }: { searchParams: Promise<{ s?: string; service?: string }> }) {
   const sp = await searchParams;
   const slugs = Array.from(new Set((sp.s ?? sp.service ?? "").split(",").map((x) => x.trim()).filter(Boolean))).slice(0, 10);
-  const services = await getServices();
+  const allServices = await getServices();
+  const services = allServices.filter(isRequestable); // おすすめには、資料請求を受け付けているサービスだけを出す
   const requested = slugs.map((s) => services.find((x) => x.slug === s)).filter((x) => !!x);
 
   // 続けて請求できるサービス: 請求したサービスと同じカテゴリ → なければ初期費用0円のサービス
