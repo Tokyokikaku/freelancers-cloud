@@ -100,7 +100,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
         <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
           <div>
             <h2 id="list" className="text-xl sm:text-2xl">{cat.name}の成果報酬サービス（{ranked.length}件）</h2>
-            <p className="mt-1 text-sm text-muted">人気順：{RANKING_NOTE}（直近30日）。広告費の支払額は順位に影響しません。</p>
+            <p className="mt-1 text-sm text-muted">人気順：{RANKING_NOTE}（直近30日）。</p>
           </div>
           <Link href={`/services?category=${cat.slug}`} className="btn-ghost">条件で絞り込む</Link>
         </div>

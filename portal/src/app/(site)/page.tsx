@@ -163,7 +163,7 @@ export default async function HomePage() {
         <div className="min-w-0 space-y-12">
           {/* 人気ランキング */}
           <section aria-labelledby="ranking">
-            <SectionHead title={<span id="ranking">人気の成果報酬サービスランキング</span>} lead={`${RANKING_NOTE}（直近30日）。広告費の支払額では順位を決めていません。`} href="/services" hrefLabel="サービス一覧" />
+            <SectionHead title={<span id="ranking">人気の成果報酬サービスランキング</span>} lead={`${RANKING_NOTE}（直近30日）。`} href="/services" hrefLabel="サービス一覧" />
             <nav aria-label="カテゴリ別ランキング" className="mb-3 flex flex-wrap gap-1 border-b-2 border-brand-600 text-sm font-bold">
               <span className="rounded-t bg-brand-600 px-4 py-2 text-white">総合</span>
               {topCategories.map((c) => <Link key={c.id} href={`/category/${c.slug}`} className="rounded-t bg-surface px-4 py-2 text-ink hover:bg-brand-50 hover:text-brand-700">{c.name}</Link>)}
@@ -249,7 +249,6 @@ export default async function HomePage() {
             <p className="font-bold text-ink">{SITE_NAME}の掲載方針</p>
             <ul className="mt-2 list-disc space-y-1 pl-4">
               <li>公開情報をもとに編集部が作成</li>
-              <li>ランキングは広告費で決まりません</li>
               <li>確認できない項目は「要問い合わせ」</li>
               <li>提携がある場合は明示します</li>
             </ul>
