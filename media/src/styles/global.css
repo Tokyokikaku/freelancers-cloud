@@ -12,9 +12,12 @@
   --grad-from: #7b4dff;
   --grad-to: #3b82f6;
   --c-footer: #262626;
-  --font-sans: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
-  --font-label: 'Poppins', 'Noto Sans JP', sans-serif;
+  --font-sans: 'Zen Kaku Gothic New', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', Meiryo, sans-serif;
   --radius-card: 22px;
+}
+
+@theme static {
+  --font-label: 'Poppins', 'Zen Kaku Gothic New', sans-serif;
 }
 
 @theme inline {
@@ -42,7 +45,7 @@ body {
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
 }
-h1, h2, h3 { font-weight: 800; line-height: 1.4; letter-spacing: 0.01em; font-feature-settings: 'palt'; }
+h1, h2, h3 { font-weight: 700; line-height: 1.4; letter-spacing: 0.01em; font-feature-settings: 'palt'; }
 a { text-underline-offset: 3px; }
 :focus-visible { outline: 3px solid var(--c-accent); outline-offset: 3px; border-radius: 6px; }
 }
@@ -54,12 +57,26 @@ a { text-underline-offset: 3px; }
 }
 
 @layer components {
-/* ===== ヒーロー見出し：細字(400)と太字(800)の強弱。改行は site.config の tagline で制御 ===== */
+/* ===== ヒーロー ===== */
+.hero { position: relative; overflow: hidden; background:
+  radial-gradient(60% 70% at 85% 10%, color-mix(in srgb, var(--grad-from) 14%, transparent), transparent 70%),
+  radial-gradient(50% 60% at 0% 100%, color-mix(in srgb, var(--grad-to) 12%, transparent), transparent 70%),
+  var(--c-bg); }
+.hero::before { content: ''; position: absolute; inset: 0; pointer-events: none;
+  background-image: radial-gradient(color-mix(in srgb, var(--c-accent) 28%, transparent) 1px, transparent 1.4px);
+  background-size: 26px 26px;
+  -webkit-mask-image: linear-gradient(120deg, transparent 35%, #000 100%); mask-image: linear-gradient(120deg, transparent 35%, #000 100%); }
 .hero-title {
-  font-size: clamp(30px, 8.2vw, 46px); font-weight: 400; line-height: 1.55;
+  font-size: clamp(30px, 8.4vw, 50px); font-weight: 400; line-height: 1.5; white-space: nowrap;
   letter-spacing: 0; font-feature-settings: 'palt'; line-break: strict;
 }
-.hero-title strong { font-weight: 800; }
+.hero-title strong { font-weight: 900; }
+.hero-title .kw { background-image: linear-gradient(90deg, var(--grad-from), var(--grad-to)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero-card { background: #fff; border-radius: 20px; padding: 10px; box-shadow: 0 18px 50px rgba(60, 40, 140, .16), 0 2px 6px rgba(60,40,140,.06); }
+.hero-chip { background: #fff; border-radius: 9999px; padding: 8px 14px; font-size: 12px; font-weight: 700; box-shadow: 0 10px 30px rgba(60,40,140,.14); white-space: nowrap; }
+@keyframes float-y { 0%,100% { transform: translateY(0) rotate(var(--r, 0deg)); } 50% { transform: translateY(-10px) rotate(var(--r, 0deg)); } }
+.float { animation: float-y 6s ease-in-out infinite; animation-delay: var(--d, 0s); transform: rotate(var(--r, 0deg)); }
+.news-strip { background: #fff; border-radius: var(--radius-card); box-shadow: 0 14px 44px rgba(60,40,140,.10); border: 1px solid var(--c-line); }
 
 /* ===== セクション ===== */
 .section { position: relative; padding: 72px 0; overflow: hidden; }
@@ -133,6 +150,7 @@ a { text-underline-offset: 3px; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; transition: none; }
+  .float { animation: none; }
   .thumb img, .thumb svg, .btn { transition: none !important; }
   .card:hover .thumb img, .card:hover .thumb svg { transform: none; }
 }

@@ -47,7 +47,7 @@ const ogUrl = absoluteUrl(ogPath);
           <TypeBadge type={d.type} />
           <VerifiedBadge verified={d.verified} />
         </div>
-        <h1 class="mt-4 text-[26px] font-extrabold leading-snug md:text-[34px]">{d.title}</h1>
+        <h1 class="mt-4 text-[26px] font-bold leading-snug md:text-[34px]">{d.title}</h1>
         <p class="mt-4 text-sm font-light text-sub">
           <time datetime={isoDate(d.publishedAt)}>公開 {formatDate(d.publishedAt)}</time>
           {d.updatedAt && <> ／ <time datetime={isoDate(d.updatedAt)}>更新 {formatDate(d.updatedAt)}</time></>}
@@ -81,7 +81,7 @@ const ogUrl = absoluteUrl(ogPath);
   {related.length > 0 && (
     <section class="section alt">
       <div class="container-x">
-        <h2 class="mb-10 text-2xl font-extrabold">関連記事</h2>
+        <h2 class="mb-10 text-2xl font-bold">関連記事</h2>
         <ArticleGrid articles={related} />
       </div>
     </section>

@@ -14,7 +14,7 @@ const shown = metrics.filter((m) => m.sourceUrl && m.checkedAt);
         {shown.map((m) => (
           <li class="text-sm">
             <span class="font-light text-sub">{m.label}</span>
-            <span class="ml-2 text-lg font-extrabold">{m.value}</span>
+            <span class="ml-2 text-lg font-bold">{m.value}</span>
             <span class="mt-0.5 block text-xs font-light text-sub">
               出典：<a href={m.sourceUrl} rel="noopener noreferrer nofollow" target="_blank" class="text-accent">リンク <ExternalIcon /></a>
               ／ 確認日：<time datetime={isoDate(m.checkedAt!)}>{formatDate(m.checkedAt!)}</time>

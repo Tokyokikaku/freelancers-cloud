@@ -1,18 +1,41 @@
 ---
-// 右側のビジュアル：サンプル用の抽象イメージ（人物写真・サービス画像に差し替え可）
+// 右側のビジュアル：最新記事のカードを重ねたコラージュ（サービス画面や他人の投稿は使わない）
+import type { Article } from '../lib/articles';
+import { articleUrl } from '../lib/articles';
+import Thumbnail from './Thumbnail.astro';
+import TypeBadge from './TypeBadge.astro';
+const { articles } = Astro.props as { articles: Article[] };
+const [a, b, c] = articles;
+const slots = [
+  { art: b, cls: 'left-0 top-[4%] w-[56%]', r: '-6deg', d: '1s' },
+  { art: c, cls: 'right-0 bottom-0 w-[50%]', r: '6deg', d: '2s' },
+  { art: a, cls: 'left-[12%] top-[24%] w-[62%] z-10', r: '1.5deg', d: '0s' },
+];
 ---
-<div class="relative mx-auto aspect-square w-full max-w-[440px]" aria-hidden="true">
-  <div class="grad-bg absolute inset-[6%] rounded-[36%_64%_55%_45%/50%_40%_60%_50%] opacity-95"></div>
-  <svg class="absolute inset-0 h-full w-full" viewBox="0 0 440 440" fill="none">
-    <circle cx="220" cy="220" r="200" stroke="var(--c-accent)" stroke-opacity=".35" stroke-dasharray="2 9" stroke-width="1.6" />
-    <rect x="120" y="150" width="200" height="132" rx="18" fill="#fff" fill-opacity=".95" />
-    <rect x="140" y="172" width="90" height="10" rx="5" fill="var(--c-accent)" fill-opacity=".85" />
-    <rect x="140" y="194" width="150" height="7" rx="3.5" fill="#222" fill-opacity=".14" />
-    <rect x="140" y="210" width="120" height="7" rx="3.5" fill="#222" fill-opacity=".14" />
-    <rect x="140" y="236" width="56" height="26" rx="13" fill="url(#hv)" />
-    <defs><linearGradient id="hv" x1="0" y1="0" x2="1" y2="0"><stop stop-color="var(--grad-from)" /><stop offset="1" stop-color="var(--grad-to)" /></linearGradient></defs>
-    <circle cx="340" cy="120" r="30" fill="#fff" fill-opacity=".9" />
-    <path d="M326 120 L336 130 L355 110" stroke="var(--c-accent)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
-    <path d="M80 330 L130 290 L170 330Z" fill="#fff" fill-opacity=".35" />
+<div class="relative mx-auto aspect-[5/4.4] w-full max-w-[560px]">
+  <!-- 背景の円・グラデーション -->
+  <div class="grad-bg absolute right-[2%] top-[6%] h-[78%] w-[78%] rounded-[44%_56%_50%_50%/52%_44%_56%_48%] opacity-95"></div>
+  <svg class="pointer-events-none absolute inset-0 h-full w-full" viewBox="0 0 500 440" fill="none" aria-hidden="true">
+    <circle cx="250" cy="220" r="214" stroke="var(--c-accent)" stroke-opacity=".35" stroke-width="1.4" stroke-dasharray="2 9" />
+    <circle cx="430" cy="60" r="34" stroke="var(--c-accent)" stroke-opacity=".4" stroke-width="1.4" />
+    <path d="M30 380 l22 -38 l22 38z" stroke="var(--c-accent)" stroke-opacity=".5" stroke-width="1.4" stroke-linejoin="round" />
   </svg>
+
+  {slots.map((s) => s.art && (
+    <a href={articleUrl(s.art)} class={`float hero-card absolute block text-ink no-underline ${s.cls}`} style={`--r:${s.r};--d:${s.d}`}>
+      <Thumbnail article={s.art} idPrefix="hero-" />
+      <div class="px-1.5 pb-1.5 pt-2.5">
+        <TypeBadge type={s.art.data.type} />
+        <p class="mt-1.5 line-clamp-2 text-[12px] font-bold leading-snug md:text-[13px]">{s.art.data.title}</p>
+        <p class="mt-1 text-[11px] font-light text-sub">{s.art.data.service.developerName}</p>
+      </div>
+    </a>
+  ))}
+
+  <span class="hero-chip float absolute left-[2%] top-[62%] z-20" style="--r:-3deg;--d:.5s">
+    <span class="text-accent">✓</span> 数字は出典つき
+  </span>
+  <span class="hero-chip float absolute right-[4%] top-[2%] z-20" style="--r:3deg;--d:1.5s">
+    <span class="text-accent">#</span> 個人開発
+  </span>
 </div>

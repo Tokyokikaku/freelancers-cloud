@@ -2,52 +2,78 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeroDecor from '../components/HeroDecor.astro';
 import HeroVisual from '../components/HeroVisual.astro';
-import NewsBand from '../components/NewsBand.astro';
 import SectionLabel from '../components/SectionLabel.astro';
 import TypeFilter from '../components/TypeFilter.astro';
 import ArticleGrid from '../components/ArticleGrid.astro';
 import FeatureBanner from '../components/FeatureBanner.astro';
-import { getArticles } from '../lib/articles';
+import { getArticles, articleUrl, formatDate, isoDate } from '../lib/articles';
 import { SITE } from '../site.config';
 
 const all = await getArticles();
 const latest = all.slice(0, 6);
-const news = all.slice(0, 4);
+const news = all.slice(0, 3);
+const stats = [
+  { value: String(all.length), label: '掲載記事' },
+  { value: String(all.filter((a) => a.data.type === 'interview').length), label: 'インタビュー' },
+  { value: String(all.reduce((n, a) => n + a.data.metrics.length, 0)), label: '出典つきの数字' },
+];
 // 「**強調**」部分だけ太字にして強弱をつける
 const heroLines = SITE.tagline.split('\n').map((line) => line.split('**'));
 ---
 
 <BaseLayout>
-  <section class="relative overflow-hidden">
+  <section class="hero">
     <HeroDecor />
-    <div class="container-x relative grid items-center gap-10 py-16 md:grid-cols-[1.15fr_1fr] md:py-28">
+    <div class="container-x relative grid items-center gap-12 pb-12 pt-14 md:grid-cols-[1.05fr_1fr] md:pb-20 md:pt-24">
       <div>
-        <p class="font-label text-sm font-bold tracking-[0.2em] text-accent">INDIE DEVELOPER MEDIA</p>
-        <h1 class="hero-title mt-5">
+        <p class="inline-flex items-center gap-2 rounded-full border border-line bg-white/80 px-4 py-1.5 font-label text-xs font-bold tracking-[0.18em] text-accent">
+          <span class="h-1.5 w-1.5 rounded-full grad-bg"></span>INDIE DEVELOPER MEDIA
+        </p>
+        <h1 class="hero-title mt-6">
           {heroLines.map((parts) => (
             <span class="block">
-              {parts.map((p, i) => (i % 2 === 1 ? <strong>{p}</strong> : p))}
+              {parts.map((p, i) => (i % 2 === 1 ? <strong class="kw">{p}</strong> : p))}
             </span>
           ))}
         </h1>
-        <p class="mt-6 max-w-md font-light text-sub">{SITE.description}</p>
+        <p class="mt-6 max-w-md font-light leading-loose text-sub">{SITE.description}</p>
         <div class="mt-9 flex flex-wrap gap-3">
-          <a href="/articles/" class="btn btn-primary">記事を読む</a>
+          <a href="/articles/" class="btn btn-primary">記事を読む →</a>
           <a href="/type/interview/" class="btn">インタビュー</a>
         </div>
+        <dl class="mt-12 grid max-w-md grid-cols-3 gap-4 border-t border-line pt-6">
+          {stats.map((st) => (
+            <div>
+              <dd class="font-label text-3xl font-bold leading-none"><span class="grad-text">{st.value}</span></dd>
+              <dt class="mt-2 text-xs font-light text-sub">{st.label}</dt>
+            </div>
+          ))}
+        </dl>
       </div>
-      <HeroVisual />
+      <HeroVisual articles={all.slice(0, 3)} />
+    </div>
+
+    <div class="container-x relative pb-14 md:pb-24">
+      <div class="news-strip grid gap-0 md:grid-cols-[auto_1fr]">
+        <div class="flex items-center gap-3 border-b border-line px-6 py-4 md:border-b-0 md:border-r md:px-8">
+          <span class="font-label text-lg font-bold tracking-wider grad-text">NEWS</span>
+          <span class="text-sm font-bold">新着ニュース</span>
+        </div>
+        <ul class="grid md:grid-cols-3">
+          {news.map((a) => (
+            <li class="border-b border-line last:border-b-0 md:border-b-0 md:border-r md:last:border-r-0">
+              <a href={articleUrl(a)} class="block h-full px-6 py-4 text-ink no-underline hover:bg-alt md:px-6">
+                <time class="block text-xs font-light text-sub" datetime={isoDate(a.data.publishedAt)}>{formatDate(a.data.publishedAt)}</time>
+                <span class="mt-0.5 line-clamp-2 block text-sm font-bold leading-snug">{a.data.title}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   </section>
 
-  <section class="section alt !pt-8 md:!pt-10">
-    <div class="container-x">
-      <SectionLabel en="NEWS" title="新着ニュース" />
-      <div class="section-body"><NewsBand articles={news} /></div>
-    </div>
-  </section>
-
-  <section class="section">
+  <section class="section alt">
     <div class="container-x">
       <SectionLabel en="ARTICLES" title="最新記事" lead="個人開発者のサービス紹介とインタビュー。" />
       <div class="section-body">
@@ -58,7 +84,7 @@ const heroLines = SITE.tagline.split('\n').map((line) => line.split('**'));
     </div>
   </section>
 
-  <section class="section alt">
+  <section class="section">
     <div class="container-x">
       <SectionLabel en="INTERVIEW" title="開発者インタビュー" lead="サービスが生まれた背景を、本人の言葉で。" />
       <div class="section-body">
@@ -72,7 +98,7 @@ const heroLines = SITE.tagline.split('\n').map((line) => line.split('**'));
     </div>
   </section>
 
-  <section class="section">
+  <section class="section alt">
     <div class="container-x">
       <SectionLabel en="ABOUT" title="このサイトについて" />
       <div class="section-body max-w-2xl">
