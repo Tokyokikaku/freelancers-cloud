@@ -7,7 +7,6 @@ import { CONTACT_EMAIL, OPERATOR_NAME, SITE_NAME } from "@/lib/site";
 const NAV = [
   ["#problems", "お悩み"],
   ["#features", "特徴"],
-  ["#appo", "アポ化オプション"],
   ["#price", "料金"],
   ["#flow", "流れ"],
   ["#faq", "よくある質問"],

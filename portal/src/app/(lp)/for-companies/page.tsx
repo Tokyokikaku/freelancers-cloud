@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "@/app/hero.css";
+import { GoldMedal } from "@/components/GoldMedal";
 import { Icon } from "@/components/Icon";
 import { FaqList } from "@/components/FaqList";
 import { getCategories, getServices } from "@/lib/data";
@@ -11,37 +12,49 @@ export const revalidate = 300;
 
 export const metadata: Metadata = buildMetadata({
   title: "掲載をご希望の企業さまへ",
-  description: `${SITE_NAME}は、成果に応じて料金を支払うサービスだけを集めた比較メディアです。掲載料は無料。資料請求から商談アポまで、見込み顧客との出会いをつくります。`,
+  description: `${SITE_NAME}は、成果に応じて料金を支払うサービスだけを集めた比較メディアです。掲載無料の完全成果報酬で、費用は資料請求が届いたときだけ、1件10,000円（税別）。`,
   path: "/for-companies",
 });
 
 const PROBLEMS = [
-  ["search", "成果報酬のサービスを探している企業に、見つけてもらえていない", "「固定費をかけたくない」企業は、成果報酬で頼めるサービスだけを比べて選びたいと考えています。その探し方に合った場所に、掲載できていますか。"],
-  ["mail", "資料請求や問い合わせの質に、ばらつきがある", "フリーメールや固定電話の入力、適当な連絡先では、折り返しても連絡がつきません。"],
-  ["chat", "資料請求は来ても、商談にならない", "フォローの人手が足りず、請求から商談までの間で、機会を逃しています。"],
+  "成果報酬で頼めるサービスを探している企業に、見つけてもらえていない…",
+  "資料請求は来ても、連絡がつかない・質がばらつく…",
+  "掲載や広告に、先にお金をかけるのが不安…",
 ] as const;
 
 const FEATURES = [
   { icon: "compare", title: "成果報酬サービスを探す企業が集まる", body: "月額の固定費がなく、実績に応じて課金されるサービスだけを掲載。「成果報酬で頼めるサービスを比べて選びたい」という企業が、比較を目的に訪れます。複数社まとめての資料請求にも対応しています。" },
   { icon: "shield", title: "連絡の取れる資料請求だけが届く", body: "会社のメールアドレス（フリーメール不可）と担当者の携帯電話番号を必須に。固定電話や連番などの適当な入力は受け付けません。第三者提供への同意も、フォーム上で明示的に取得します。" },
-  { icon: "check", title: "掲載は無料、整理は編集部におまかせ", body: "掲載料は無料です。編集部が、公式の料金ページをもとに、成果地点・初期費用・月額・成果報酬額を整理して掲載します。確認できない項目は「要問い合わせ」とし、推測では書きません。" },
+  { icon: "check", title: "掲載無料、費用は資料請求が届いたときだけ", body: "掲載料・初期費用・月額費用は0円。費用は、資料請求が届いた1件ごとに10,000円（税別）です。掲載内容の整理は、公式の料金ページをもとに編集部が行います。" },
 ] as const;
 
 const STEPS = [
-  ["01", "フォームから申し込み", "サービスURLと料金体系をお知らせください。1分ほどで入力できます。"],
-  ["02", "編集部が内容を確認", "掲載の基準に沿って、公式の料金ページをもとに掲載内容を確認します。"],
-  ["03", "掲載・資料請求の受付", "比較ページに掲載され、資料請求のリードをお届けします。"],
-  ["04", "（任意）アポ化オプション", "資料請求後のフォローと日程調整を代行し、商談アポにつなげます。"],
+  ["申し込み", "フォームからサービスURLと料金体系をお知らせください。"],
+  ["編集部が確認", "掲載の基準に沿って、公式の料金ページをもとに内容を確認します。"],
+  ["掲載スタート", "比較ページに掲載され、資料請求の受付が始まります。"],
+  ["リードを受け取る", "資料請求があるたびに、請求者の会員情報を電子ファイルで提供します。"],
 ] as const;
 
 const FAQS = [
-  { q: "掲載に費用はかかりますか？", a: "掲載は無料です。アポ化オプションをご利用の場合のみ、商談アポが成立した件数に応じて費用が発生します。" },
+  { q: "掲載に費用はかかりますか？", a: "掲載は無料です。掲載料・初期費用・月額費用はかかりません。費用が発生するのは、資料請求が届いたときだけで、1件につき10,000円（税別）です。資料請求が届かなければ、費用は発生しません。" },
+  { q: "資料請求「1件」は、どう数えますか？", a: "1件の数え方や、お支払いの方法・時期などの詳しい条件は、お申し込み後に個別にご案内します。" },
   { q: "どんなサービスが掲載できますか？", a: "必須の月額固定費がなく、何を成果として、いくらで課金するかが、公式サイト等で確認できるサービスです。作業量（送信件数など）への課金、アフィリエイトASP、固定費と成果報酬の併用が必須のサービスは、対象外です。" },
   { q: "掲載内容は、誰が作りますか？", a: "編集部が、公式の料金ページなどの公開情報をもとに作成します。確認できない項目は「要問い合わせ」と表示します。" },
   { q: "リードはどのように受け取れますか？", a: "資料請求が入ると、請求者の会員情報（会社名・氏名・メールアドレス・電話番号など）を電子ファイルで提供します。請求者には、フォーム上で提供への同意をいただいています。" },
-  { q: "アポ化オプションの「アポ」は、どう定義されますか？", a: "先方の役職や、日程確定の条件、キャンセル時の扱いなどは、事前にご相談のうえ取り決めます。お申し込みフォームの「ご相談内容」にご希望をお書きください。" },
-  { q: "申し込みから掲載まで、どのくらいかかりますか？", a: "内容を確認のうえ、編集部からご連絡します。掲載内容や公開日は、ご連絡の中でお知らせします。" },
+  { q: "資料請求のあとの商談化も、お願いできますか？", a: "ご希望の企業さまには、資料請求後のフォローと日程調整を代行し、商談アポにつなげるオプションもご用意しています（商談アポ1件あたり50,000円・税別）。お申し込みフォームの「アポ化オプションにも関心がある」にチェックを入れてください。" },
 ] as const;
+
+function SectionHead({ en, title, light }: { en: string; title: string; light?: boolean }) {
+  return (
+    <div className="text-center">
+      <p className={`text-sm font-black tracking-[0.25em] ${light ? "text-cta-500" : "text-cta-600"}`}>{en}</p>
+      <h2 className={`mt-1 text-2xl sm:text-4xl ${light ? "text-white" : ""}`}>{title}</h2>
+      <span className="mx-auto mt-3 block h-1 w-12 rounded-full bg-cta-500" aria-hidden />
+    </div>
+  );
+}
+
+const MARK = "bg-[linear-gradient(transparent_62%,#ffd79a_62%)]";
 
 export default async function ForCompaniesPage() {
   const [services, categories] = await Promise.all([getServices(), getCategories()]);
@@ -53,190 +66,176 @@ export default async function ForCompaniesPage() {
       <ListingFormDialog />
 
       {/* ───── ヒーロー ───── */}
-      <section className="fv-bg relative overflow-hidden border-b border-line">
+      <section className="fv-bg relative overflow-hidden">
         <div className="fv-bg__shape fv-bg__shape--a" aria-hidden />
         <div className="fv-bg__shape fv-bg__shape--b" aria-hidden />
-        <div className="container-page relative grid items-center gap-10 py-12 sm:py-20 lg:grid-cols-[1.1fr_0.9fr]">
-          <div>
-            <p className="inline-block rounded-full bg-cta-500 px-4 py-1 text-xs font-black text-white sm:text-sm">掲載料 0円・初期費用なし</p>
-            <h1 className="mt-4 text-[2rem] font-black leading-[1.25] text-ink sm:text-[3.2rem] sm:leading-[1.2]">
-              <span className="text-brand-700">成果報酬サービスを探す企業</span>から、<br />資料請求が届く。
+        <div className="fv-bg__dots fv-bg__dots--left" aria-hidden />
+        <div className="fv-bg__dots fv-bg__dots--right" aria-hidden />
+        <div className="container-page relative grid grid-cols-[minmax(0,1fr)] gap-2 pt-8 sm:pt-12 lg:grid-cols-[minmax(0,34rem)_minmax(0,26rem)] lg:justify-center lg:gap-8">
+          <div className="lg:pb-14">
+            <p className="inline-flex items-center gap-2 rounded-full bg-brand-900 px-4 py-1.5 text-xs font-black text-white sm:text-sm">
+              <span className="text-cta-500" aria-hidden>★</span>掲載をご希望の企業さまへ
+            </p>
+            <h1 className="mt-4 text-[2.1rem] font-black leading-[1.2] text-ink sm:text-[3.3rem] sm:leading-[1.15]">
+              <span className={`text-brand-700 ${MARK}`}>掲載無料</span>の<br />完全成果報酬。<br />
+              <span className="text-[1.55rem] sm:text-[2.2rem]">資料請求<span className="text-cta-600">1件</span>につき<b className="mx-1 text-[2.6rem] text-cta-600 sm:text-[3.6rem]">10,000</b>円</span>
             </h1>
-            <p className="mt-5 max-w-2xl text-sm leading-8 text-body sm:text-lg sm:leading-9">
-              掲載料は無料。連絡の取れる資料請求だけをお届けし、ご希望なら商談アポの獲得まで代行します。
+            <p className="mt-5 max-w-xl text-sm leading-8 text-body sm:text-base sm:leading-9">
+              成果報酬サービスを探す企業から、資料請求が届く比較メディア。<br className="hidden sm:block" />費用がかかるのは、<b className="text-ink">資料請求が届いたときだけ。</b>
             </p>
-            <p className="mt-7">
-              <ListingButton className="btn btn-cta min-h-14 w-full px-10 text-lg shadow-lg sm:w-auto">無料で掲載を申し込む</ListingButton>
+            <p className="mt-6">
+              <ListingButton className="btn btn-cta min-h-14 w-full px-10 text-lg shadow-[0_10px_24px_-10px_rgb(224_120_0/0.8)] sm:w-auto">無料で掲載を申し込む</ListingButton>
             </p>
-            <p className="mt-2 text-xs text-muted">入力は1分ほど。内容を確認のうえ、編集部からご連絡します。</p>
-            <dl className="mt-8 flex flex-wrap gap-x-10 gap-y-3 text-ink">
-              <div><dt className="text-xs font-bold text-muted">現在の掲載サービス</dt><dd className="font-black"><span className="text-3xl">{serviceCount}</span><span className="ml-1 text-sm">件</span></dd></div>
-              <div><dt className="text-xs font-bold text-muted">カテゴリ</dt><dd className="font-black"><span className="text-3xl">{catCount}</span><span className="ml-1 text-sm">種</span></dd></div>
-              <div><dt className="text-xs font-bold text-muted">掲載料</dt><dd className="font-black"><span className="text-3xl">0</span><span className="ml-1 text-sm">円</span></dd></div>
-            </dl>
+            <p className="mt-2 text-xs text-muted">入力は1分ほど。内容を確認のうえ、編集部からご連絡します。（金額は税別）</p>
+            <div className="mt-6 grid max-w-sm grid-cols-2 gap-3">
+              <GoldMedal label="掲載サービス" value={serviceCount} unit="件" />
+              <GoldMedal label="カテゴリ" value={catCount} unit="種" />
+            </div>
           </div>
 
-          <div className="relative mx-auto w-full max-w-md lg:max-w-none" aria-label="掲載から商談までの流れ">
-            <ol className="relative space-y-4">
-              {[
-                ["compare", "比較ページに掲載", "成果報酬サービスを探す企業が、料金や成果の条件を見比べます。", "STEP 1", ""],
-                ["mail", "資料請求が届く", "まとめて請求された会員情報を、電子ファイルで受け取れます。", "STEP 2", "lg:ml-8"],
-                ["check", "商談アポへ（オプション）", "請求後のフォローと日程調整を代行。アポ成立時のみ費用が発生します。", "STEP 3", "lg:ml-16"],
-              ].map(([icon, t, b, step, shift]) => (
-                <li key={t} className={`flex items-start gap-4 rounded-xl border border-line bg-white/95 p-4 shadow-[0_18px_40px_-24px_rgb(7_42_90/0.55)] sm:p-5 ${shift}`}>
-                  <span className="inline-flex size-12 shrink-0 items-center justify-center rounded-full bg-brand-700 text-white"><Icon name={icon} className="size-6" /></span>
-                  <div>
-                    <p className="text-[0.7rem] font-black tracking-widest text-cta-600">{step}</p>
-                    <p className="text-base font-black text-ink">{t}</p>
-                    <p className="mt-1 text-xs leading-6 text-body sm:text-sm">{b}</p>
-                  </div>
-                </li>
-              ))}
-            </ol>
+          <div className="relative mx-auto h-[21rem] w-full max-w-md sm:h-[30rem] lg:h-auto lg:max-w-none lg:self-stretch">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/hero/person.webp" alt="" width={1200} height={1850} className="absolute bottom-0 left-1/2 block h-full w-auto max-w-none -translate-x-1/2" />
+            <div className="absolute bottom-6 left-0 w-48 rounded-lg bg-white p-3 shadow-[0_18px_40px_-18px_rgb(7_42_90/0.6)] ring-1 ring-line sm:bottom-14 sm:left-0 sm:w-52" aria-hidden>
+              <p className="flex items-center gap-1.5 text-[0.7rem] font-black text-cta-600"><Icon name="mail" className="size-4" />資料請求が届きました</p>
+              <p className="mt-1.5 text-xs font-bold text-ink">株式会社〇〇　ご担当者さま</p>
+              <p className="mt-0.5 text-[0.7rem] text-muted">会社メール・携帯番号つき</p>
+            </div>
+            <div className="absolute right-0 top-28 rounded-lg bg-brand-700 px-4 py-3 text-white shadow-[0_18px_40px_-18px_rgb(7_42_90/0.7)] sm:right-0 sm:top-44" aria-hidden>
+              <p className="text-[0.7rem] font-bold">成果が出たときだけ</p>
+              <p className="text-lg font-black leading-tight">1件 10,000円</p>
+            </div>
           </div>
         </div>
       </section>
 
+      {/* ───── 料金サマリー帯 ───── */}
+      <section className="bg-brand-900 text-white" aria-label="料金のポイント">
+        <ul className="container-page grid divide-y divide-white/15 py-2 sm:grid-cols-3 sm:divide-x sm:divide-y-0 sm:py-5">
+          {[
+            ["掲載料・初期費用・月額", "0円"],
+            ["費用が発生するのは", "資料請求が届いたときだけ"],
+            ["資料請求1件あたり", "10,000円（税別）"],
+          ].map(([k, v]) => (
+            <li key={k} className="px-4 py-4 text-center sm:py-2">
+              <p className="text-xs font-bold text-brand-100">{k}</p>
+              <p className="mt-1 text-xl font-black sm:text-2xl">{v}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+
       {/* ───── お悩み ───── */}
-      <section id="problems" className="scroll-mt-20 bg-surface/60 py-12 sm:py-16" aria-labelledby="problems-h">
+      <section id="problems" className="scroll-mt-20 bg-surface/70 py-14 sm:py-20" aria-labelledby="problems-h">
         <div className="container-page">
           <h2 id="problems-h" className="text-center text-2xl sm:text-3xl">こんなお悩みは、ありませんか？</h2>
-          <ul className="mx-auto mt-8 grid max-w-5xl gap-4 md:grid-cols-3">
-            {PROBLEMS.map(([icon, t, b]) => (
-              <li key={t} className="rounded-lg border border-line bg-white p-5">
-                <span className="inline-flex size-11 items-center justify-center rounded-full bg-slate-100 text-slate-600"><Icon name={icon} className="size-6" /></span>
-                <h3 className="mt-3 text-base leading-snug">{t}</h3>
-                <p className="mt-2 text-sm leading-7 text-body">{b}</p>
+          <ul className="mx-auto mt-8 grid max-w-4xl gap-4 sm:grid-cols-3">
+            {PROBLEMS.map((t) => (
+              <li key={t} className="relative rounded-2xl bg-white p-5 text-sm font-bold leading-7 text-ink shadow-[0_14px_30px_-22px_rgb(7_42_90/0.55)] ring-1 ring-line after:absolute after:-bottom-2 after:left-8 after:size-4 after:rotate-45 after:bg-white after:ring-1 after:ring-line after:[clip-path:polygon(100%_0,100%_100%,0_100%)]">
+                {t}
               </li>
             ))}
           </ul>
-          <p className="mt-8 text-center text-xl font-black text-brand-700 sm:text-2xl">{SITE_NAME}が、解決します。</p>
+          <div className="mt-10 text-center">
+            <span className="mx-auto block h-8 w-0.5 bg-brand-700/40" aria-hidden />
+            <p className="mt-2 text-xl font-black text-brand-700 sm:text-3xl"><span className={MARK}>{SITE_NAME}</span>が、解決します。</p>
+          </div>
         </div>
       </section>
 
       {/* ───── 特徴 ───── */}
-      <section id="features" className="scroll-mt-20 py-12 sm:py-16" aria-labelledby="features-h">
+      <section id="features" className="scroll-mt-20 py-14 sm:py-20" aria-labelledby="features-h">
         <div className="container-page">
-          <p className="text-center text-sm font-bold text-cta-600">FEATURES</p>
-          <h2 id="features-h" className="mt-1 text-center text-2xl sm:text-3xl">{SITE_NAME}の特徴</h2>
-          <ul className="mx-auto mt-8 grid max-w-5xl gap-5 md:grid-cols-3">
+          <SectionHead en="FEATURES" title={`${SITE_NAME}の3つの特徴`} />
+          <ul className="mx-auto mt-10 grid max-w-5xl gap-6 md:grid-cols-3">
             {FEATURES.map((f, i) => (
-              <li key={f.title} className="relative rounded-xl border border-line bg-white p-6 pt-8 shadow-[0_12px_32px_-22px_rgb(7_42_90/0.5)]">
-                <span className="absolute -top-4 left-5 rounded-full bg-brand-700 px-4 py-1 text-sm font-black tracking-widest text-white">POINT {i + 1}</span>
-                <span className="inline-flex size-12 items-center justify-center rounded-full bg-brand-50 text-brand-700"><Icon name={f.icon} className="size-6" /></span>
-                <h3 className="mt-3 text-lg leading-snug">{f.title}</h3>
-                <p className="mt-2 text-sm leading-7 text-body">{f.body}</p>
+              <li key={f.title} className="relative overflow-hidden rounded-2xl bg-white p-6 shadow-[0_18px_40px_-24px_rgb(7_42_90/0.55)] ring-1 ring-line">
+                <span className="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-brand-700 to-brand-400" aria-hidden />
+                <span className="pointer-events-none absolute -right-1 -top-3 select-none text-[6rem] font-black leading-none text-brand-50" aria-hidden>{i + 1}</span>
+                <span className="relative inline-flex size-14 items-center justify-center rounded-2xl bg-brand-700 text-white shadow-md"><Icon name={f.icon} className="size-7" /></span>
+                <h3 className="relative mt-4 text-lg leading-snug">{f.title}</h3>
+                <p className="relative mt-3 text-sm leading-7 text-body">{f.body}</p>
               </li>
             ))}
           </ul>
-          <p className="mt-8 text-center"><ListingButton className="btn btn-cta min-h-12 px-8 text-base">無料で掲載を申し込む</ListingButton></p>
-        </div>
-      </section>
-
-      {/* ───── アポ化オプション ───── */}
-      <section id="appo" className="scroll-mt-20 border-y border-line bg-brand-900 py-12 text-white sm:py-16" aria-labelledby="appo-title">
-        <div className="container-page">
-          <p className="text-center text-sm font-bold text-cta-500">OPTION</p>
-          <h2 id="appo-title" className="mt-1 text-center text-2xl text-white sm:text-3xl">資料請求を、商談アポにつなげる「アポ化オプション」</h2>
-          <p className="mx-auto mt-4 max-w-3xl text-center text-sm leading-8 text-brand-100 sm:text-base">
-            資料請求だけでは、商談にならないことがあります。「資料請求は来るが、アポにならない」を減らすため、請求後の連絡と日程調整を、成果報酬の営業チームが代行します。
-          </p>
-          <ol className="mx-auto mt-8 grid max-w-4xl gap-3 sm:grid-cols-4" aria-label="アポ化の流れ">
-            {[
-              ["資料請求", "見込み顧客が資料を請求"],
-              ["資料送付", "資料をお送りします"],
-              ["フォロー連絡", "電話・メールで状況を確認"],
-              ["商談アポ成立", "先方担当者との日程が確定"],
-            ].map(([t, b], i) => (
-              <li key={t} className="rounded-lg bg-white/10 p-4 text-center ring-1 ring-white/20">
-                <span className="mx-auto inline-flex size-8 items-center justify-center rounded-full bg-cta-500 text-sm font-black text-white">{i + 1}</span>
-                <p className="mt-2 font-bold">{t}</p>
-                <p className="mt-1 text-xs leading-6 text-brand-100">{b}</p>
-              </li>
-            ))}
-          </ol>
-          <p className="mt-8 text-center"><ListingButton topic="appo" className="btn btn-cta min-h-12 px-8 text-base">アポ化オプションについて相談する</ListingButton></p>
         </div>
       </section>
 
       {/* ───── 料金 ───── */}
-      <section id="price" className="scroll-mt-20 py-12 sm:py-16" aria-labelledby="price-h">
-        <div className="container-page">
-          <p className="text-center text-sm font-bold text-cta-600">PRICE</p>
-          <h2 id="price-h" className="mt-1 text-center text-2xl sm:text-3xl">料金</h2>
-          <div className="mx-auto mt-8 grid max-w-4xl gap-5 md:grid-cols-2">
-            <div className="rounded-xl border-2 border-brand-700 bg-white p-6 text-center">
-              <p className="text-sm font-bold text-brand-700">掲載</p>
-              <p className="mt-2"><b className="text-5xl font-black text-ink">0</b><span className="ml-1 text-lg font-bold">円</span></p>
-              <ul className="mt-4 space-y-2 text-left text-sm leading-7">
-                <li className="flex gap-2"><span className="text-good-700" aria-hidden>✓</span>掲載料・初期費用・月額費用は無料</li>
-                <li className="flex gap-2"><span className="text-good-700" aria-hidden>✓</span>掲載内容の整理は編集部が実施</li>
-                <li className="flex gap-2"><span className="text-good-700" aria-hidden>✓</span>資料請求のリードを電子ファイルで提供</li>
-              </ul>
+      <section id="price" className="scroll-mt-20 fv-bg relative overflow-hidden py-14 sm:py-20" aria-labelledby="price-h">
+        <div className="container-page relative">
+          <SectionHead en="PRICE" title="料金は、これだけ" />
+          <div className="mx-auto mt-10 grid max-w-4xl items-stretch gap-4 md:grid-cols-[1fr_auto_1fr]">
+            <div className="rounded-2xl bg-white p-7 text-center shadow-[0_18px_40px_-24px_rgb(7_42_90/0.55)] ring-2 ring-brand-700">
+              <p className="inline-block rounded-full bg-brand-700 px-4 py-1 text-sm font-black text-white">掲載</p>
+              <p className="mt-4"><b className="text-6xl font-black text-ink">0</b><span className="ml-1 text-xl font-black">円</span></p>
+              <p className="mt-2 text-sm font-bold text-body">掲載料・初期費用・月額費用</p>
             </div>
-            <div className="rounded-xl border-2 border-cta-500 bg-white p-6 text-center">
-              <p className="text-sm font-bold text-cta-600">アポ化オプション（任意）</p>
-              <p className="mt-2"><span className="text-sm font-bold">商談アポ1件あたり</span> <b className="text-5xl font-black text-ink">50,000</b><span className="ml-1 text-lg font-bold">円（税別）</span></p>
-              <ul className="mt-4 space-y-2 text-left text-sm leading-7">
-                <li className="flex gap-2"><span className="text-good-700" aria-hidden>✓</span>アポが成立したときだけ費用が発生</li>
-                <li className="flex gap-2"><span className="text-good-700" aria-hidden>✓</span>初期費用・月額費用はなし</li>
-                <li className="flex gap-2"><span className="text-good-700" aria-hidden>✓</span>フォローから日程調整まで代行</li>
-              </ul>
+            <div className="flex items-center justify-center text-4xl font-black text-brand-700" aria-hidden>＋</div>
+            <div className="rounded-2xl bg-white p-7 text-center shadow-[0_18px_40px_-24px_rgb(7_42_90/0.55)] ring-2 ring-cta-500">
+              <p className="inline-block rounded-full bg-cta-500 px-4 py-1 text-sm font-black text-white">資料請求1件につき</p>
+              <p className="mt-4"><b className="text-6xl font-black text-ink">10,000</b><span className="ml-1 text-xl font-black">円</span><span className="ml-1 text-xs font-bold text-muted">（税別）</span></p>
+              <p className="mt-2 text-sm font-bold text-body">資料請求が届いたときだけ</p>
             </div>
           </div>
-          <p className="mx-auto mt-4 max-w-4xl text-center text-xs leading-6 text-muted">※ アポの定義（先方の役職・日程確定の条件など）、キャンセル時の扱いは、事前にご相談のうえ取り決めます。</p>
+          <p className="mx-auto mt-6 max-w-2xl rounded-xl bg-white/80 p-4 text-center text-sm font-bold leading-7 text-ink ring-1 ring-line">
+            例：資料請求が10件届いた場合 → 10件 × 10,000円 ＝ <span className="text-cta-600">100,000円</span>。届かなければ、0円です。
+          </p>
+          <p className="mx-auto mt-3 max-w-2xl text-center text-xs leading-6 text-muted">※ 「1件」の数え方、お支払いの方法・時期などの条件は、お申し込み後に個別にご案内します。</p>
+          <p className="mt-8 text-center"><ListingButton className="btn btn-cta min-h-14 px-10 text-lg shadow-lg">無料で掲載を申し込む</ListingButton></p>
+        </div>
+      </section>
+
+      {/* ───── 流れ ───── */}
+      <section id="flow" className="scroll-mt-20 py-14 sm:py-20" aria-labelledby="flow-h">
+        <div className="container-page">
+          <SectionHead en="FLOW" title="掲載までの流れ" />
+          <ol className="relative mx-auto mt-10 grid max-w-5xl gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-4">
+            <span className="absolute left-[12.5%] right-[12.5%] top-7 hidden h-0.5 bg-brand-700/25 lg:block" aria-hidden />
+            {STEPS.map(([t, b], i) => (
+              <li key={t} className="relative text-center">
+                <span className="relative mx-auto flex size-14 items-center justify-center rounded-full bg-brand-700 text-xl font-black text-white shadow-md ring-4 ring-white">{i + 1}</span>
+                <h3 className="mt-3 text-base">{t}</h3>
+                <p className="mt-2 text-sm leading-7 text-body">{b}</p>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 
       {/* ───── 掲載の基準 ───── */}
-      <section className="border-t border-line bg-surface/60 py-12 sm:py-16" aria-labelledby="criteria">
+      <section className="border-t border-line bg-surface/70 py-14 sm:py-20" aria-labelledby="criteria">
         <div className="container-page max-w-3xl">
-          <h2 id="criteria" className="text-center text-2xl sm:text-3xl">掲載の基準</h2>
-          <ul className="mt-6 space-y-3 rounded-lg border border-line bg-white p-5 text-sm leading-7 sm:p-6">
-            <li className="flex gap-2"><span className="text-brand-700" aria-hidden>●</span>必須の月額固定費がないこと（初期費用の有無は問いません。有料の場合はその旨を明記します）</li>
-            <li className="flex gap-2"><span className="text-brand-700" aria-hidden>●</span>何を成果として、いくら課金するかが、公式サイト等で確認できること</li>
-            <li className="flex gap-2"><span className="text-brand-700" aria-hidden>●</span>現在も提供しているサービスであること</li>
-            <li className="flex gap-2"><span className="text-brand-700" aria-hidden>●</span>作業量（送信件数など）への課金、アフィリエイトASP、固定費と成果報酬の併用が必須のサービスは、対象外です</li>
+          <SectionHead en="CRITERIA" title="掲載の基準" />
+          <ul className="mt-8 space-y-3 rounded-2xl bg-white p-5 text-sm leading-7 ring-1 ring-line sm:p-7">
+            {[
+              "必須の月額固定費がないこと（初期費用の有無は問いません。有料の場合はその旨を明記します）",
+              "何を成果として、いくら課金するかが、公式サイト等で確認できること",
+              "現在も提供しているサービスであること",
+              "作業量（送信件数など）への課金、アフィリエイトASP、固定費と成果報酬の併用が必須のサービスは、対象外です",
+            ].map((t) => (
+              <li key={t} className="flex gap-3"><span className="mt-1 inline-flex size-5 shrink-0 items-center justify-center rounded-full bg-brand-700 text-white"><Icon name="check" className="size-3.5" /></span>{t}</li>
+            ))}
           </ul>
           <p className="mt-4 text-center text-xs leading-6 text-muted">提携前のサービスを、提携しているように見せることはしません。</p>
         </div>
       </section>
 
-      {/* ───── 流れ ───── */}
-      <section id="flow" className="scroll-mt-20 py-12 sm:py-16" aria-labelledby="flow-h">
-        <div className="container-page">
-          <p className="text-center text-sm font-bold text-cta-600">FLOW</p>
-          <h2 id="flow-h" className="mt-1 text-center text-2xl sm:text-3xl">掲載までの流れ</h2>
-          <ol className="mx-auto mt-8 grid max-w-5xl gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {STEPS.map(([n, t, b]) => (
-              <li key={n} className="rounded-lg border border-line bg-white p-5">
-                <span className="text-3xl font-black text-brand-700">{n}</span>
-                <h3 className="mt-1 text-base">{t}</h3>
-                <p className="mt-2 text-sm leading-7 text-body">{b}</p>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-
       {/* ───── FAQ ───── */}
-      <section id="faq" className="scroll-mt-20 border-t border-line bg-surface/60 py-12 sm:py-16" aria-labelledby="faq-h">
+      <section id="faq" className="scroll-mt-20 py-14 sm:py-20" aria-labelledby="faq-h">
         <div className="container-page max-w-3xl">
-          <p className="text-center text-sm font-bold text-cta-600">FAQ</p>
-          <h2 id="faq-h" className="mt-1 text-center text-2xl sm:text-3xl">よくある質問</h2>
+          <SectionHead en="FAQ" title="よくある質問" />
           <div className="mt-8"><FaqList items={FAQS} /></div>
         </div>
       </section>
 
       {/* ───── 最終CTA ───── */}
-      <section className="fv-bg relative overflow-hidden py-14 text-center sm:py-20" aria-labelledby="cta">
+      <section className="relative overflow-hidden bg-brand-900 py-14 text-center text-white sm:py-20" aria-labelledby="cta">
+        <div className="fv-bg__shape fv-bg__shape--b opacity-40" aria-hidden />
         <div className="container-page relative">
-          <h2 id="cta" className="text-2xl sm:text-4xl">まずは、無料で掲載を申し込む</h2>
-          <p className="mx-auto mt-3 max-w-xl text-sm leading-8 text-body">サービスURLと料金体系をお知らせください。内容を確認のうえ、編集部からご連絡します。</p>
-          <p className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <ListingButton className="btn btn-cta min-h-14 px-10 text-lg shadow-lg">無料で掲載を申し込む</ListingButton>
-            <ListingButton topic="appo" className="btn btn-secondary min-h-14 px-8 text-base">アポ化オプションを相談する</ListingButton>
-          </p>
+          <h2 id="cta" className="text-2xl text-white sm:text-4xl">掲載無料、費用は<span className="text-cta-500">資料請求1件 10,000円</span>だけ。</h2>
+          <p className="mx-auto mt-3 max-w-xl text-sm leading-8 text-brand-100">サービスURLと料金体系をお知らせください。内容を確認のうえ、編集部からご連絡します。</p>
+          <p className="mt-7"><ListingButton className="btn btn-cta min-h-14 px-10 text-lg shadow-lg">無料で掲載を申し込む</ListingButton></p>
         </div>
       </section>
     </div>
