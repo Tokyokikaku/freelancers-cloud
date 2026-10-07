@@ -58,7 +58,7 @@ export function ServiceCard({ service, categories, rank, compact = false }: { se
 
         <div className="flex flex-col gap-2 md:justify-center">
           <RequestButton id={service.id} slug={service.slug} name={service.name} partnerStatus={service.partner_status} placement="card" className="btn-cta min-h-11 text-base" />
-          {service.partner_status !== "unpartnered" && <RequestToggle item={{ id: service.id, slug: service.slug, name: service.name }} />}
+          <RequestToggle item={{ id: service.id, slug: service.slug, name: service.name }} />
         </div>
       </div>
     </article>

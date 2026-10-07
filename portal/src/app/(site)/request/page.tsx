@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { RequestFlow, type ServiceLite } from "@/components/RequestFlow";
 import { getCategories, getServices } from "@/lib/data";
-import { isRequestable } from "@/lib/partner";
 import { getPopularServices } from "@/lib/popular";
 import { houjinEnabled } from "@/lib/houjin";
 import { MAX_REQUEST_SERVICES } from "@/lib/lead-options";
@@ -18,10 +17,8 @@ export const metadata: Metadata = buildMetadata({
 export default async function RequestPage({ searchParams }: { searchParams: Promise<{ s?: string; solo?: string }> }) {
   const { s, solo } = await searchParams;
   const [all, categories] = await Promise.all([getServices(), getCategories()]);
-  // 人気順（同じカテゴリの上位5サービスの選出に使う）。契約していない企業のサービスは「準備中」のため、請求の対象にしない
-  const services = (await getPopularServices(all)).filter(isRequestable);
-  const requestableSlugs = new Set(services.map((x) => x.slug));
-  const initial = Array.from(new Set((s ?? "").split(",").map((x) => x.trim()).filter((x) => x && requestableSlugs.has(x)))).slice(0, MAX_REQUEST_SERVICES);
+  const services = await getPopularServices(all); // 人気順（同じカテゴリの上位5サービスの選出に使う）
+  const initial = Array.from(new Set((s ?? "").split(",").map((x) => x.trim()).filter(Boolean))).slice(0, MAX_REQUEST_SERVICES);
 
   const lite: ServiceLite[] = services.map((x) => ({
     id: x.id,
@@ -53,11 +50,7 @@ export default async function RequestPage({ searchParams }: { searchParams: Prom
           </ol>
         </div>
       </div>
-      {lite.length === 0 ? (
-        <div className="container-page py-12"><p className="panel mx-auto max-w-xl p-6 text-center text-sm leading-7">現在、資料請求の受付は準備中です。受付開始まで、しばらくお待ちください。</p></div>
-      ) : (
       <RequestFlow services={lite} initialSlugs={initial} autoPick={initial.length === 1 && solo !== "1"} companySuggest={houjinEnabled} />
-      )}
     </div>
   );
 }

@@ -3,7 +3,6 @@ import Link from "next/link";
 import { Icon } from "@/components/Icon";
 import { ThanksRecommend } from "@/components/ThanksRecommend";
 import { getServices } from "@/lib/data";
-import { isRequestable } from "@/lib/partner";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildMetadata({
@@ -16,8 +15,7 @@ export const metadata: Metadata = buildMetadata({
 export default async function ThanksPage({ searchParams }: { searchParams: Promise<{ s?: string; service?: string }> }) {
   const sp = await searchParams;
   const slugs = Array.from(new Set((sp.s ?? sp.service ?? "").split(",").map((x) => x.trim()).filter(Boolean))).slice(0, 10);
-  const allServices = await getServices();
-  const services = allServices.filter(isRequestable); // おすすめには、資料請求を受け付けているサービスだけを出す
+  const services = await getServices();
   const requested = slugs.map((s) => services.find((x) => x.slug === s)).filter((x) => !!x);
 
   // 続けて請求できるサービス: 請求したサービスと同じカテゴリ → なければ初期費用0円のサービス
@@ -44,6 +42,7 @@ export default async function ThanksPage({ searchParams }: { searchParams: Promi
               {requested.map((s) => (
                 <li key={s!.id} className="flex flex-wrap items-center justify-between gap-2 p-3">
                   <span className="min-w-0"><b className="text-ink">{s!.name}</b><span className="block text-xs text-muted">{s!.company_name}</span></span>
+                  {s!.partner_status === "unpartnered" && <span className="tag bg-slate-100 text-slate-600">資料リクエスト</span>}
                 </li>
               ))}
             </ul>
@@ -52,6 +51,9 @@ export default async function ThanksPage({ searchParams }: { searchParams: Promi
           <div className="mt-6 space-y-3 text-left text-sm leading-7 sm:text-base sm:leading-8">
             <p>資料は、サービス運営会社もしくは成果報酬ナビから、ご登録のメールアドレス宛にお送りします。ご入力いただいた連絡先に、サービス運営会社からご案内を差し上げる場合があります。</p>
             <p>ご案内までにお時間をいただく場合があります。</p>
+            {requested.some((s) => s!.partner_status === "unpartnered") && (
+              <p>「資料リクエスト」のサービスは、提供会社との契約前のため、リクエストを当社が保管し、契約成立後に資料のご案内をします。</p>
+            )}
           </div>
         </div>
 

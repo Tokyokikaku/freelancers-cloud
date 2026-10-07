@@ -55,7 +55,6 @@
 @utility eyebrow { @apply mb-2 inline-block text-xs font-bold text-muted; }
 @utility btn { @apply inline-flex min-h-10 cursor-pointer items-center justify-center gap-2 rounded px-4 py-2 text-sm font-bold transition-colors; }
 @utility btn-primary { @apply btn bg-brand-600 text-white hover:bg-brand-700; }
-@utility btn-soon { @apply btn cursor-not-allowed border border-slate-300 bg-slate-200 text-slate-500 shadow-none hover:bg-slate-200; }
 @utility btn-cta { @apply btn bg-cta-500 text-white shadow-[0_2px_0_var(--color-cta-600)] hover:bg-cta-600; }
 @utility btn-secondary { @apply btn border border-brand-600 bg-white text-brand-700 hover:bg-brand-50; }
 @utility btn-ghost { @apply btn border border-line bg-white text-ink hover:border-brand-500 hover:text-brand-700; }

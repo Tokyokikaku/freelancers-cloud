@@ -35,21 +35,12 @@ export function RequestButton({
 
   // 提案データは先に読み込んでおく（クリック時に待たせない）
   useEffect(() => {
-    if (partnerStatus === "unpartnered") return;
     let alive = true;
     void loadTopPicks().then((d) => alive && setOffer(offerFor(d, slug)));
     return () => {
       alive = false;
     };
-  }, [slug, partnerStatus]);
-
-  if (partnerStatus === "unpartnered") {
-    return (
-      <button type="button" disabled aria-disabled="true" className={`${className.replace(/\bbtn-cta\b/, "btn-soon")}`} title="現在、このサービスの資料請求は準備中です">
-        準備中
-      </button>
-    );
-  }
+  }, [slug]);
 
   return (
     <>

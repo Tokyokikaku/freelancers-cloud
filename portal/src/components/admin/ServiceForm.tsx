@@ -82,7 +82,7 @@ export function ServiceForm({ service, categories, contact }: { service?: Servic
       </Section>
 
       <Section title="提携・通知設定">
-        <Field label="契約状態" name="partner_status" hint="「未契約」のサービスは、資料請求ボタンが「準備中」になり、請求できません（提携を示す表示も出ません）。契約済み・優先掲載にすると「無料で資料請求」に切り替わり、リードを通知します。">
+        <Field label="契約状態" name="partner_status" hint="「未契約」のサービスは、資料請求ボタンが「資料リクエスト」になります（リクエストは保管され、提携を示す表示も出ません）。契約済み・優先掲載にすると「無料で資料請求」に切り替わり、リードを通知します。">
           <select id="partner_status" name="partner_status" defaultValue={s?.partner_status ?? "unpartnered"} className="input">{Object.entries(PARTNER_STATUS_LABELS).map(([v, l]) => <option key={v} value={v}>{l}</option>)}</select>
         </Field>
         <div className="grid gap-4 sm:grid-cols-2">

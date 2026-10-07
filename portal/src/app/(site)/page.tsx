@@ -14,7 +14,6 @@ import { ServiceCard } from "@/components/ServiceCard";
 import { FAQ } from "@/lib/content";
 import { getArticles, getCategories, getServices, servicesInCategory } from "@/lib/data";
 import { formatDate } from "@/lib/format";
-import { isRequestable } from "@/lib/partner";
 import { getPopularServices } from "@/lib/popular";
 import { RANKING_NOTE } from "@/lib/ranking";
 import { buildMetadata } from "@/lib/seo";
@@ -167,7 +166,7 @@ export default async function HomePage() {
               <span className="rounded-t bg-brand-600 px-4 py-2 text-white">総合</span>
               {topCategories.map((c) => <Link key={c.id} href={`/category/${c.slug}`} className="rounded-t bg-surface px-4 py-2 text-ink hover:bg-brand-50 hover:text-brand-700">{c.name}</Link>)}
             </nav>
-            {popular.some(isRequestable) && <BulkRequestBar label="ランキング上位" items={popular.filter(isRequestable).map((r) => ({ id: r.id, slug: r.slug, name: r.name }))} />}
+            {popular.length > 0 && <BulkRequestBar label="ランキング上位" items={popular.map((r) => ({ id: r.id, slug: r.slug, name: r.name }))} />}
             {popular.length ? (
               <ul className="space-y-3">{popular.map((s, i) => <li key={s.id}><ServiceCard service={s} categories={categories} rank={i + 1} /></li>)}</ul>
             ) : <p className="panel p-8 text-center text-sm text-muted">掲載準備中です。</p>}

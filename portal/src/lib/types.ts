@@ -117,7 +117,7 @@ export const OUTCOME_LABELS: Record<OutcomeType, string> = {
 };
 
 export const PARTNER_STATUS_LABELS: Record<PartnerStatus, string> = {
-  unpartnered: "未契約（資料請求は「準備中」）",
+  unpartnered: "未契約（「資料リクエスト」として受付）",
   partner: "契約済み（資料請求を受付）",
   premium: "契約済み・優先掲載",
 };

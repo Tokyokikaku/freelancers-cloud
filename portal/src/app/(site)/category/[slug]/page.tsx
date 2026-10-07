@@ -7,7 +7,6 @@ import { ServiceCard } from "@/components/ServiceCard";
 import { BulkRequestBar } from "@/components/BulkRequestBar";
 import { PageEvent } from "@/components/Trackers";
 import { getArticles, getCategories, getServices, servicesInCategory } from "@/lib/data";
-import { isRequestable } from "@/lib/partner";
 import { getPopularServices } from "@/lib/popular";
 import { RANKING_NOTE } from "@/lib/ranking";
 import { ancestors } from "@/lib/categories";
@@ -105,7 +104,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
           </div>
           <Link href={`/services?category=${cat.slug}`} className="btn-ghost">条件で絞り込む</Link>
         </div>
-        {ranked.some(isRequestable) && <BulkRequestBar label={`成果報酬型の${cat.name}`} items={ranked.filter(isRequestable).map((r) => ({ id: r.id, slug: r.slug, name: r.name }))} />}
+        {ranked.length > 0 && <BulkRequestBar label={`成果報酬型の${cat.name}`} items={ranked.map((r) => ({ id: r.id, slug: r.slug, name: r.name }))} />}
         {ranked.length ? (
           <ul className="space-y-3">
             {ranked.map((s, i) => <li key={s.id}><ServiceCard service={s} categories={categories} rank={i + 1} /></li>)}

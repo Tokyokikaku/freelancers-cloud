@@ -247,10 +247,15 @@ export function RequestFlow({ services, initialSlugs, autoPick = false, companyS
                   <input type="checkbox" name="third_party_consent" required className="mt-1 size-4 shrink-0 accent-cta-500" aria-describedby={err("consent") ? "req-consent-err" : undefined} />
                   <span>
                     <b className="text-red-600">必須</b>{" "}
-                    資料のご案内のため、ご登録いただいた会員情報（会社名・氏名・メールアドレス・電話番号・従業員数・業種・部署・役職など）を、請求先のサービス提供会社に電子ファイルにて提供することに同意し、
+                    資料のご案内のため、ご登録いただいた会員情報（会社名・氏名・メールアドレス・電話番号・従業員数・業種・部署・役職など）を、請求・リクエスト先のサービス提供会社に電子ファイルにて提供することに同意し、
                     <Link href="/privacy" target="_blank" className="underline">プライバシーポリシー</Link>を確認のうえ資料請求します。
                   </span>
                 </label>
+                {chosen.some((c) => c.partner_status === "unpartnered") && (
+                  <p className="mt-2 rounded bg-slate-50 p-3 text-xs leading-6 text-body">
+                    ※「資料リクエスト」のサービス（{chosen.filter((c) => c.partner_status === "unpartnered").length}件）は、提供会社との契約前です。いただいたリクエストは当社が保管し、契約成立後に資料のご案内と会員情報の提供を行います。契約に至らない場合、会員情報は当該会社へ提供しません。
+                  </p>
+                )}
                 {err("consent") && <p id="req-consent-err" role="alert" className="mt-1 text-sm text-red-600">{err("consent")}</p>}
               </div>
               {state.message && <p role="alert" className="rounded bg-red-50 p-3 text-sm text-red-700">{state.message}</p>}
