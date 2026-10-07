@@ -40,6 +40,10 @@ const ogImage = new URL(image, SITE.url).toString();
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex" />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#7B4DFF" />
     <link rel="alternate" type="application/rss+xml" title={SITE.name} href="/rss.xml" />
     <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content={SITE.name} />

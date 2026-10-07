@@ -1,11 +1,12 @@
 ---
 import { SITE } from '../site.config';
+import LogoMark from './LogoMark.astro';
 ---
 
 <header class="sticky top-0 z-50 border-b border-line bg-white/90 backdrop-blur">
   <div class="container-x flex h-16 items-center justify-between gap-4">
-    <a href="/" class="font-label text-xl font-bold tracking-wide no-underline text-ink">
-      <span class="grad-text">{SITE.name}</span>
+    <a href="/" class="flex items-center gap-2.5 font-label text-xl font-bold tracking-wide no-underline text-ink" aria-label={`${SITE.name} トップへ`}>
+      <LogoMark size={30} /><span>{SITE.name}</span>
     </a>
     <nav class="hidden items-center gap-6 text-sm font-medium lg:flex" aria-label="メイン">
       {SITE.nav.map((n) => <a href={n.href} class="text-ink no-underline hover:text-accent">{n.label}</a>)}
