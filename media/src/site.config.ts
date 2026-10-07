@@ -9,7 +9,7 @@ export const SITE = {
   description:
     '個人開発者のサービスを紹介する日本語メディア。サービス紹介記事と開発者インタビューを掲載します。',
   /** 本番URL（canonical・sitemap・RSS・OGPに使用）。Cloudflare Pagesのドメインに合わせて変更 */
-  url: 'https://yupir.vercel.app',
+  url: 'https://yupir.tyokikaku.co.jp',
   lang: 'ja',
   /** 1ページあたりの記事数 */
   pageSize: 9,

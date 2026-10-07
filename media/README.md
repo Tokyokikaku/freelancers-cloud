@@ -24,7 +24,7 @@ npm run preview   # ビルド結果の確認
 | robots.txt 内の sitemap URL | `public/robots.txt`（本番URLに書き換え） |
 | 共通OGP画像（1200×630 PNG） | `public/og-default.png` |
 
-サイト名は「Yupir」です。本番URLは `site.config.ts` の `url`（現在 `https://yupir.vercel.app`）。独自ドメインにしたら必ず更新してください。`site.config.ts` の `name` を変えると全ページに反映されます。
+サイト名は「Yupir」です。本番URLは `site.config.ts` の `url`（現在 `https://yupir.tyokikaku.co.jp`）。独自ドメインにしたら必ず更新してください。`site.config.ts` の `name` を変えると全ページに反映されます。
 `url` を本番ドメインにしないと、canonical / sitemap / RSS / OGP のURLが正しくなりません。
 
 ## 新しい記事を追加する手順

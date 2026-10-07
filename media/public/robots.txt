@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://yupir.vercel.app/sitemap-index.xml
+Sitemap: https://yupir.tyokikaku.co.jp/sitemap-index.xml
