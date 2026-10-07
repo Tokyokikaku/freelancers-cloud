@@ -39,7 +39,6 @@ const CONFIDENCE = [
 export default async function HomePage() {
   const [categories, services, articles] = await Promise.all([getCategories(), getServices(), getArticles()]);
   const popular = (await getPopularServices(services)).slice(0, 5);
-  const fullSuccess = services.filter((s) => s.is_full_success_fee);
   const newest = [...services].sort((a, b) => b.created_at.localeCompare(a.created_at)).slice(0, 5);
   const countOf = (id: string) => servicesInCategory(services, categories, id).length;
   const topCategories = categories.filter((c) => !c.parent_id);
@@ -110,9 +109,8 @@ export default async function HomePage() {
                       </li>
                     ))}
                   </ol>
-                  <div className="grid grid-cols-2 gap-px border-t border-line bg-line text-center text-sm font-bold">
-                    <Link href="/services?full=1" className="bg-white px-3 py-3 text-brand-700 hover:bg-brand-50">完全成果報酬のサービス</Link>
-                    <Link href="/services" className="bg-white px-3 py-3 text-brand-700 hover:bg-brand-50">すべて見る</Link>
+                  <div className="border-t border-line bg-white text-center text-sm font-bold">
+                    <Link href="/services" className="block px-3 py-3 text-brand-700 hover:bg-brand-50">すべて見る</Link>
                   </div>
                 </div>
               </aside>
@@ -225,6 +223,7 @@ export default async function HomePage() {
           <section aria-labelledby="faq">
             <SectionHead title={<span id="faq">よくある質問</span>} />
             <FaqList items={FAQ} />
+            <p className="mt-3 text-right text-sm font-bold"><Link href="/faq" className="text-brand-700 hover:underline">よくある質問をすべて見る ＞</Link></p>
           </section>
         </div>
 

@@ -21,7 +21,6 @@ export async function Header() {
 
         <nav aria-label="メインメニュー" className="ml-auto hidden items-center gap-1 text-sm font-bold text-ink lg:flex">
           <Link href="/services" className="rounded px-3 py-2 hover:bg-brand-50 hover:text-brand-700">サービス一覧</Link>
-          <Link href="/services?full=1" className="rounded px-3 py-2 hover:bg-brand-50 hover:text-brand-700">完全成果報酬</Link>
           <Link href="/articles" className="rounded px-3 py-2 hover:bg-brand-50 hover:text-brand-700">記事</Link>
           <HeaderRequestLink />
           <Link href="/for-companies" className="btn btn-secondary ml-1 whitespace-nowrap">掲載希望企業はこちら</Link>
@@ -36,7 +35,6 @@ export async function Header() {
           <div className="absolute right-0 top-14 w-[min(88vw,20rem)] rounded-md border border-line bg-white p-4 shadow-xl">
             <ul className="space-y-1 text-sm font-bold text-ink">
               <li><Link className="block rounded px-3 py-2.5 hover:bg-surface" href="/services">サービス一覧</Link></li>
-              <li><Link className="block rounded px-3 py-2.5 hover:bg-surface" href="/services?full=1">完全成果報酬</Link></li>
               <li><Link className="block rounded px-3 py-2.5 hover:bg-surface" href="/articles">記事</Link></li>
               <li><Link className="block rounded px-3 py-2.5 hover:bg-surface" href="/about">掲載方針</Link></li>
               <li><Link className="block rounded bg-cta-500 px-3 py-2.5 text-white" href="/for-companies">掲載希望企業はこちら</Link></li>
