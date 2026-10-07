@@ -2,7 +2,6 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionLabel from '../components/SectionLabel.astro';
 import { SITE } from '../site.config';
-const op = SITE.operator;
 ---
 <BaseLayout title="運営者情報" description={`${SITE.name}の運営者情報と、記事の方針について。`}>
   <section class="section">
@@ -11,13 +10,9 @@ const op = SITE.operator;
       <div class="section-body max-w-2xl space-y-12">
         <dl class="grid grid-cols-[7rem_1fr] gap-x-4 gap-y-4 border-y border-line py-6 text-sm">
           <dt class="text-sub">サイト名</dt><dd>{SITE.name}</dd>
-          <dt class="text-sub">運営者</dt><dd>{op.name}</dd>
-          <dt class="text-sub">X</dt>
-          <dd><a href={`https://x.com/${op.xHandle}`} target="_blank" rel="noopener noreferrer" class="text-accent">@{op.xHandle}</a></dd>
           <dt class="text-sub">連絡先</dt>
-          <dd><a href={op.dmUrl} target="_blank" rel="noopener noreferrer" class="text-accent">XのDM</a></dd>
+          <dd><a href="/contact/" class="text-accent">お問い合わせ（メール）</a></dd>
         </dl>
-        <div><h2 class="text-xl">自己紹介</h2><p class="mt-3">{op.profile}</p></div>
         <div>
           <h2 class="text-xl">掲載の方針</h2>
           <ul class="mt-3 list-disc space-y-2 pl-5">
@@ -25,7 +20,7 @@ const op = SITE.operator;
             <li>売上・ユーザー数などの数字は、出典リンクと確認日を併記できるものだけを掲載します。</li>
             <li>開発者本人に確認できていない記事には「本人未確認」のバッジを付けます。</li>
             <li>掲載内容の修正・削除のご依頼には速やかに対応します。</li>
-            <li>記事は運営者およびAIが作成し、運営者が確認のうえ公開しています。</li>
+            <li>記事は、公開情報をもとに、運営者およびAIが作成しています。</li>
           </ul>
         </div>
         <div class="flex flex-wrap gap-3">

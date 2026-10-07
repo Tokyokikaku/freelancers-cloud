@@ -11,7 +11,7 @@ service:
   developerName: サトウ
   developerXHandle: kxqj5m0nGu71785
   techStack: [Next.js, React, TypeScript, Tailwind CSS, Vercel]
-draft: true
+draft: false
 ---
 
 ## どんなサービス？

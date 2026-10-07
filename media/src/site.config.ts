@@ -24,15 +24,8 @@ export const SITE = {
   },
   /** 1ページあたりの記事数 */
   pageSize: 9,
-  /** 運営者のXアカウント（@なし）。ここがDM窓口にもなる */
-  operator: {
-    name: '（運営者名）',
-    xHandle: 'your_x_handle',
-    /** 取材依頼・掲載削除の申請に使うXのDMリンク。recipient_id を設定すると直接DMが開く */
-    dmUrl: 'https://x.com/messages/compose?recipient_id=（後で設定）',
-    profile:
-      '（運営者の自己紹介をここに書きます。どんな経緯でこのメディアを始めたか、どんな方針で記事を書いているかなど。）',
-  },
+  /** 問い合わせ先（掲載希望・取材依頼・掲載内容の修正/削除の申請） */
+  contact: { email: 'info@tyokikaku.co.jp' },
   /** ヘッダー・フッターのナビ */
   nav: [
     { label: '記事一覧', href: '/articles/' },

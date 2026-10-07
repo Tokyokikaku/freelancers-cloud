@@ -11,7 +11,7 @@ service:
   developerName: naoruTabun
   developerXHandle: tabunNaoru
   techStack: [Next.js, TypeScript, Cloudflare Workers, Cloudflare D1, Tailwind CSS]
-draft: true
+draft: false
 ---
 
 ## どんなサービス？

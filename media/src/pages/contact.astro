@@ -2,33 +2,73 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionLabel from '../components/SectionLabel.astro';
 import { SITE } from '../site.config';
-const dm = SITE.operator.dmUrl;
+
+const email = SITE.contact.email;
+const mailto = (subject: string, body: string) =>
+  `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+const requestBody = [
+  '以下の内容を、ご記入のうえ送信してください。',
+  '',
+  '■ サービス名：',
+  '■ サービスのURL：',
+  '■ 開発者のお名前（または活動名）：',
+  '■ 開発者のXアカウント（あれば）：',
+  '■ ご希望（紹介記事／インタビュー）：',
+  '■ ご連絡先（このメールへの返信で構いません）：',
+  '■ ひとこと（任意）：',
+].join('\n');
+
+const removalBody = [
+  '以下の内容を、ご記入のうえ送信してください。',
+  '※ ご本人確認のため、★の項目は必ずご記入ください。',
+  '',
+  '★ 対象の記事のURL：',
+  '★ サービス名：',
+  '★ ご希望（修正／削除）：',
+  '★ 修正・削除してほしい箇所と、その理由：',
+  '★ お名前（または活動名）：',
+  '★ サービスとの関係（開発者本人／運営者／その他）：',
+  '★ ご本人確認のための情報（次のいずれか）：',
+  '   ・サービスの公式サイトに載っている連絡先（メールアドレス）',
+  '   ・サービスの公式Xアカウント名',
+  '   ・サービスのサイトに、確認用の文字列を一時的に掲載できる',
+  '',
+  '■ ひとこと（任意）：',
+].join('\n');
 ---
-<BaseLayout title="取材依頼・掲載削除の申請" description="取材のご依頼、および掲載内容の修正・削除のご申請はXのDMで受け付けています。">
+<BaseLayout title="掲載希望・取材依頼・掲載内容の修正と削除" description="掲載のご希望・取材のご依頼、および掲載内容の修正・削除のご申請は、メールで受け付けています。">
   <section class="section">
     <div class="container-x">
-      <SectionLabel en="CONTACT" title="取材依頼・掲載削除の申請" tag="h1" lead="ご連絡はXのDMで受け付けています。" />
+      <SectionLabel en="CONTACT" title="お問い合わせ" tag="h1" lead="ご連絡は、メールで受け付けています。" />
       <div class="section-body max-w-2xl space-y-14">
         <div id="interview" class="scroll-mt-24">
           <h2 class="text-xl">掲載を希望する・取材を依頼する</h2>
-          <p class="mt-3">ご自身のサービスの掲載（紹介記事・インタビュー）をご希望の方は、以下の内容を添えてDMをお送りください。</p>
+          <p class="mt-3">ご自身のサービスの掲載（紹介記事・インタビュー）をご希望の方は、次の内容を添えて、メールをお送りください。</p>
           <ul class="mt-3 list-disc space-y-1 pl-5">
             <li>サービス名とURL</li>
-            <li>開発者のお名前（または活動名）</li>
+            <li>開発者のお名前（または活動名）、Xアカウント</li>
             <li>紹介・インタビューのどちらを希望か</li>
           </ul>
-          <a href={dm} target="_blank" rel="noopener noreferrer" class="btn btn-primary mt-6">XのDMで掲載を希望する</a>
+          <a href={mailto('【Yupir】掲載希望・取材依頼', requestBody)} class="btn btn-primary mt-6">メールで掲載を希望する</a>
         </div>
+
         <div id="removal" class="scroll-mt-24">
           <h2 class="text-xl">掲載内容の修正・削除を申請する</h2>
-          <p class="mt-3">記事の修正や削除をご希望の方は、該当記事のURLと希望内容をDMでお知らせください。開発者ご本人からのご依頼を優先し、速やかに対応します。</p>
+          <p class="mt-3">記事の内容の修正や、記事の削除をご希望の方は、次の内容を添えて、メールをお送りください。誤った掲載を防ぐため、<b>ご本人確認のための情報</b>を、あわせてお知らせください。確認がとれ次第、対応します。</p>
           <ul class="mt-3 list-disc space-y-1 pl-5">
-            <li>該当記事のURL</li>
-            <li>修正・削除の希望と理由</li>
-            <li>ご本人であることが分かるXアカウントからのご連絡だと確認がスムーズです</li>
+            <li>対象の記事のURL、サービス名</li>
+            <li>修正・削除の希望と、その箇所・理由</li>
+            <li>お名前（または活動名）、サービスとの関係（開発者本人・運営者など）</li>
+            <li>ご本人確認のための情報（サービスの公式サイトに載っている連絡先、サービスの公式Xアカウント名など）</li>
           </ul>
-          <a href={dm} target="_blank" rel="noopener noreferrer" class="btn mt-6">XのDMで申請する</a>
+          <a href={mailto('【Yupir】掲載内容の修正・削除の申請', removalBody)} class="btn mt-6">メールで修正・削除を申請する</a>
         </div>
+
+        <p class="rounded-2xl bg-alt p-5 text-sm">
+          メールのボタンが開かない場合は、次のアドレスに、直接お送りください。<br />
+          <a href={`mailto:${email}`} class="font-bold text-accent">{email}</a>
+        </p>
       </div>
     </div>
   </section>

@@ -24,7 +24,7 @@ metrics:
     value: 13,785問
     sourceUrl: https://prodou.net/
     checkedAt: 2026-10-07
-draft: true
+draft: false
 ---
 
 ## どんなサービス？
