@@ -3,7 +3,8 @@ import "@/app/hero.css";
 import { Icon } from "@/components/Icon";
 import { getCategories, getServices } from "@/lib/data";
 import { buildMetadata } from "@/lib/seo";
-import { CONTACT_EMAIL, SITE_NAME } from "@/lib/site";
+import { ListingButton, ListingFormDialog } from "@/components/ListingForm";
+import { SITE_NAME } from "@/lib/site";
 
 export const revalidate = 300;
 
@@ -12,20 +13,6 @@ export const metadata: Metadata = buildMetadata({
   description: `${SITE_NAME}は、成果に応じて料金を支払うサービスだけを集めた比較メディアです。資料請求から商談アポまで、見込み顧客との出会いをつくります。掲載の特徴・基準・アポ化オプションをご案内します。`,
   path: "/for-companies",
 });
-
-const mail = (subject: string, lines: string[]) =>
-  `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join("\n"))}`;
-
-const LISTING_MAILTO = mail("【掲載希望】サービス名をご記入ください", [
-  "■ 会社名：",
-  "■ サービス名：",
-  "■ サービスURL（料金が分かるページ）：",
-  "■ 何を成果として課金しますか（例：再生数、問い合わせ数、アポ数、採用、売上、順位）：",
-  "■ 成果の単価・手数料：",
-  "■ 初期費用／月額費用の有無：",
-  "■ ご担当者名・ご連絡先：",
-]);
-const APPO_MAILTO = mail("【アポ化オプション】ご相談", ["■ 会社名：", "■ サービス名：", "■ ご担当者名・ご連絡先：", "■ ご相談内容："]);
 
 const FEATURES = [
   { icon: "compare", title: "成果報酬サービスだけを集めた比較メディア", body: "月額の固定費がなく、実績に応じて課金されるサービスだけを掲載。「成果報酬で頼めるサービスを比べて選びたい」という企業が、比較を目的に訪れます。" },
@@ -37,7 +24,7 @@ const FEATURES = [
 ] as const;
 
 const STEPS = [
-  ["01", "お問い合わせ", "下のボタンから、サービスURLと料金体系をお知らせください。"],
+  ["01", "お問い合わせ", "フォームから、サービスURLと料金体系をお知らせください。"],
   ["02", "編集部が確認", "掲載の基準に沿って、公式の料金ページをもとに掲載内容を確認します。"],
   ["03", "掲載・資料請求の受付", "比較ページに掲載され、資料請求のリードをお届けします。"],
   ["04", "（任意）アポ化オプション", "資料請求のあとの連絡・日程調整を代行し、商談アポにつなげます。"],
@@ -50,27 +37,54 @@ export default async function ForCompaniesPage() {
 
   return (
     <div className="bg-white">
+      <ListingFormDialog />
       {/* ───── ヒーロー ───── */}
       <section className="fv-bg relative overflow-hidden border-b border-line">
         <div className="fv-bg__shape fv-bg__shape--a" aria-hidden />
         <div className="fv-bg__shape fv-bg__shape--b" aria-hidden />
-        <div className="container-page relative py-12 sm:py-20">
-          <p className="inline-block border-l-4 border-cta-500 pl-3 text-sm font-bold text-brand-700 sm:text-base">掲載をご希望の企業さまへ</p>
-          <h1 className="mt-4 max-w-3xl text-[2rem] font-black leading-[1.25] text-ink sm:text-[3.2rem] sm:leading-[1.2]">
-            成果報酬サービスを<br /><span className="text-brand-700">比べて選びたい企業</span>と、<br />出会う。
-          </h1>
-          <p className="mt-5 max-w-2xl text-sm leading-8 text-body sm:text-lg sm:leading-9">
-            {SITE_NAME}は、成果に応じて料金を支払うサービスだけを集めた比較メディアです。資料請求から商談アポまで、見込み顧客との出会いをつくります。
-          </p>
-          <p className="mt-7 flex flex-col gap-3 sm:flex-row">
-            <a href={LISTING_MAILTO} className="btn btn-cta min-h-12 px-8 text-base">掲載を希望する（無料）</a>
-            <a href="#appo" className="btn btn-secondary min-h-12 px-8 text-base">アポ化オプションを見る</a>
-          </p>
-          <dl className="mt-8 flex flex-wrap gap-x-10 gap-y-3 text-ink">
-            <div><dt className="text-xs font-bold text-muted">現在の掲載サービス</dt><dd className="font-black"><span className="text-3xl">{serviceCount}</span><span className="ml-1 text-sm">件</span></dd></div>
-            <div><dt className="text-xs font-bold text-muted">カテゴリ</dt><dd className="font-black"><span className="text-3xl">{catCount}</span><span className="ml-1 text-sm">種</span></dd></div>
-            <div><dt className="text-xs font-bold text-muted">掲載料</dt><dd className="font-black"><span className="text-3xl">0</span><span className="ml-1 text-sm">円</span></dd></div>
-          </dl>
+        <div className="container-page relative grid items-center gap-10 py-12 sm:py-20 lg:grid-cols-[1.1fr_0.9fr]">
+          <div>
+            <p className="inline-block border-l-4 border-cta-500 pl-3 text-sm font-bold text-brand-700 sm:text-base">掲載をご希望の企業さまへ</p>
+            <h1 className="mt-4 text-[2rem] font-black leading-[1.25] text-ink sm:text-[3.2rem] sm:leading-[1.2]">
+              成果報酬サービスを<br /><span className="text-brand-700">比べて選びたい企業</span>と、<br />出会う。
+            </h1>
+            <p className="mt-5 max-w-2xl text-sm leading-8 text-body sm:text-lg sm:leading-9">
+              {SITE_NAME}は、成果に応じて料金を支払うサービスだけを集めた比較メディアです。資料請求から商談アポまで、見込み顧客との出会いをつくります。
+            </p>
+            <p className="mt-7">
+              <ListingButton className="btn btn-cta min-h-12 w-full px-8 text-base sm:w-auto">掲載を希望する（無料）</ListingButton>
+            </p>
+            <dl className="mt-8 flex flex-wrap gap-x-10 gap-y-3 text-ink">
+              <div><dt className="text-xs font-bold text-muted">現在の掲載サービス</dt><dd className="font-black"><span className="text-3xl">{serviceCount}</span><span className="ml-1 text-sm">件</span></dd></div>
+              <div><dt className="text-xs font-bold text-muted">カテゴリ</dt><dd className="font-black"><span className="text-3xl">{catCount}</span><span className="ml-1 text-sm">種</span></dd></div>
+              <div><dt className="text-xs font-bold text-muted">掲載料</dt><dd className="font-black"><span className="text-3xl">0</span><span className="ml-1 text-sm">円</span></dd></div>
+            </dl>
+          </div>
+
+          {/* 右：掲載から商談までの流れ（図） */}
+          <div className="relative mx-auto w-full max-w-md lg:max-w-none" aria-label="掲載から商談までの流れ">
+            <ol className="relative space-y-4">
+              {[
+                ["compare", "比較ページに掲載", "成果報酬サービスを探す企業が、料金や成果の条件を見比べます。", "STEP 1", ""],
+                ["mail", "資料請求が届く", "まとめて請求された会員情報を、電子ファイルで受け取れます。", "STEP 2", "lg:ml-8"],
+                ["check", "商談アポへ（オプション）", "請求後のフォローと日程調整を代行。アポ成立時のみ費用が発生します。", "STEP 3", "lg:ml-16"],
+              ].map(([icon, t, b, step, shift]) => (
+                <li key={t} className={`flex items-start gap-4 rounded-xl border border-line bg-white/95 p-4 shadow-[0_18px_40px_-24px_rgb(7_42_90/0.55)] sm:p-5 ${shift}`}>
+                  <span className="inline-flex size-12 shrink-0 items-center justify-center rounded-full bg-brand-700 text-white"><Icon name={icon} className="size-6" /></span>
+                  <div>
+                    <p className="text-[0.7rem] font-black tracking-widest text-cta-600">{step}</p>
+                    <p className="text-base font-black text-ink">{t}</p>
+                    <p className="mt-1 text-xs leading-6 text-body sm:text-sm">{b}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+            <ul className="mt-5 flex flex-wrap justify-center gap-2 lg:justify-end">
+              {["掲載料 0円", "初期費用なし", "成果報酬のみ"].map((c) => (
+                <li key={c} className="rounded-full border border-cta-500/40 bg-white px-4 py-1.5 text-sm font-black text-cta-600 shadow-sm">{c}</li>
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
 
@@ -136,7 +150,7 @@ export default async function ForCompaniesPage() {
                 <li className="flex gap-2"><span aria-hidden>・</span>フォロー連絡をする人手が足りない</li>
                 <li className="flex gap-2"><span aria-hidden>・</span>「成果が出ない」と、掲載の継続を迷っている</li>
               </ul>
-              <a href={APPO_MAILTO} className="btn btn-cta mt-5 w-full min-h-12 text-base">アポ化オプションについて相談する</a>
+              <ListingButton topic="appo" className="btn btn-cta mt-5 w-full min-h-12 text-base">アポ化オプションについて相談する</ListingButton>
             </div>
           </div>
         </div>
@@ -180,10 +194,9 @@ export default async function ForCompaniesPage() {
           <h2 id="cta" className="text-2xl sm:text-3xl">まずは、サービスのURLをお送りください</h2>
           <p className="mx-auto mt-3 max-w-xl text-sm leading-8 text-body">掲載料は無料です。内容を確認のうえ、編集部からご連絡します。</p>
           <p className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <a href={LISTING_MAILTO} className="btn btn-cta min-h-12 px-8 text-base">掲載を希望する（メールで連絡）</a>
-            <a href={APPO_MAILTO} className="btn btn-secondary min-h-12 px-8 text-base">アポ化オプションを相談する</a>
+            <ListingButton className="btn btn-cta min-h-12 px-8 text-base">掲載を希望する（無料）</ListingButton>
+            <ListingButton topic="appo" className="btn btn-secondary min-h-12 px-8 text-base">アポ化オプションを相談する</ListingButton>
           </p>
-          <p className="mt-4 text-xs text-muted">メールソフトが開きます。開かない場合は <a href={`mailto:${CONTACT_EMAIL}`} className="underline">{CONTACT_EMAIL}</a> までご連絡ください。</p>
         </div>
       </section>
     </div>
