@@ -1,0 +1,34 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import SectionLabel from '../../../components/SectionLabel.astro';
+import ArticleGrid from '../../../components/ArticleGrid.astro';
+import Pagination from '../../../components/Pagination.astro';
+import { getArticles, collectTags } from '../../../lib/articles';
+import { SITE } from '../../../site.config';
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const all = await getArticles();
+  return collectTags(all).flatMap(([tag]) =>
+    paginate(all.filter((a) => a.data.tags.includes(tag)), { params: { tag }, props: { tag }, pageSize: SITE.pageSize }),
+  );
+}) satisfies GetStaticPaths;
+
+const { page, tag } = Astro.props;
+---
+
+<BaseLayout
+  title={`#${tag}の記事${page.currentPage > 1 ? `（${page.currentPage}ページ目）` : ''}`}
+  description={`タグ「${tag}」が付いた記事の一覧です。`}
+>
+  <section class="section">
+    <div class="container-x">
+      <SectionLabel en="TAG" title={`#${tag}`} tag="h1" lead={`${page.total}本`} />
+      <div class="section-body">
+        <ArticleGrid articles={page.data} />
+        <Pagination currentPage={page.currentPage} lastPage={page.lastPage} base={`/tags/${encodeURIComponent(tag)}/`} />
+        <p class="mt-12"><a href="/tags/" class="btn btn-sm">タグ一覧へ</a></p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

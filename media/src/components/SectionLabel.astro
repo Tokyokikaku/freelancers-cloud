@@ -1,0 +1,10 @@
+---
+// 背景に溶ける大きな英字ラベル + 手前の日本語見出し
+interface Props { en: string; title: string; lead?: string; tag?: 'h1' | 'h2' }
+const { en, title, lead, tag: Tag = 'h2' } = Astro.props;
+---
+<div class="section-head reveal">
+  <span class="section-label" aria-hidden="true">{en}</span>
+  <Tag>{title}</Tag>
+  {lead && <p>{lead}</p>}
+</div>

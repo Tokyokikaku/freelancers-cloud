@@ -1,0 +1,37 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import SectionLabel from '../../../components/SectionLabel.astro';
+import TypeFilter from '../../../components/TypeFilter.astro';
+import ArticleGrid from '../../../components/ArticleGrid.astro';
+import Pagination from '../../../components/Pagination.astro';
+import { getArticles } from '../../../lib/articles';
+import { SITE, TYPE_LABEL, type ArticleType } from '../../../site.config';
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const all = await getArticles();
+  return (Object.keys(TYPE_LABEL) as ArticleType[]).flatMap((type) =>
+    paginate(all.filter((a) => a.data.type === type), { params: { type }, props: { type }, pageSize: SITE.pageSize }),
+  );
+}) satisfies GetStaticPaths;
+
+const { page, type } = Astro.props;
+const label = TYPE_LABEL[type as ArticleType];
+const en = type === 'interview' ? 'INTERVIEW' : 'INTRODUCTION';
+---
+
+<BaseLayout
+  title={`${label}の記事${page.currentPage > 1 ? `（${page.currentPage}ページ目）` : ''}`}
+  description={`個人開発者のサービス「${label}」記事の一覧です。`}
+>
+  <section class="section">
+    <div class="container-x">
+      <SectionLabel en={en} title={`${label}の記事`} tag="h1" lead={`${page.total}本`} />
+      <div class="section-body">
+        <div class="mb-10"><TypeFilter current={type as ArticleType} /></div>
+        <ArticleGrid articles={page.data} />
+        <Pagination currentPage={page.currentPage} lastPage={page.lastPage} base={`/type/${type}/`} />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

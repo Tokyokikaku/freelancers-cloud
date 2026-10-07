@@ -1,0 +1,25 @@
+---
+import type { Article } from '../lib/articles';
+import { formatDate } from '../lib/articles';
+import ExternalIcon from './ExternalIcon.astro';
+import MetricsList from './MetricsList.astro';
+const { article } = Astro.props as { article: Article };
+const s = article.data.service;
+const x = s.developerXHandle?.replace(/^@/, '');
+---
+<aside class="rounded-[20px] border border-line bg-white p-6 shadow-[0_6px_24px_rgba(34,34,60,.05)] md:p-8" aria-label="サービス情報">
+  <p class="font-label text-xs font-bold tracking-widest text-accent">SERVICE</p>
+  <h2 class="mt-1 text-xl font-extrabold">{s.name}</h2>
+  <dl class="mt-5 grid grid-cols-[6.5rem_1fr] gap-x-4 gap-y-3 text-sm">
+    <dt class="font-light text-sub">サービスURL</dt>
+    <dd class="break-all"><a href={s.url} rel="noopener noreferrer nofollow" target="_blank" class="text-accent">{s.url} <ExternalIcon /></a></dd>
+    <dt class="font-light text-sub">開発者</dt>
+    <dd>
+      {s.developerName}
+      {x && <> （<a href={`https://x.com/${x}`} rel="noopener noreferrer nofollow" target="_blank" class="text-accent">@{x} <ExternalIcon /></a>）</>}
+    </dd>
+    {s.techStack.length > 0 && (<><dt class="font-light text-sub">技術スタック</dt><dd>{s.techStack.join(' / ')}</dd></>)}
+    {s.launchedAt && (<><dt class="font-light text-sub">公開日</dt><dd>{formatDate(s.launchedAt)}</dd></>)}
+  </dl>
+  <MetricsList metrics={article.data.metrics} />
+</aside>

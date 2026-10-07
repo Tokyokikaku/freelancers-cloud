@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroDecor from '../components/HeroDecor.astro';
+import HeroVisual from '../components/HeroVisual.astro';
+import NewsBand from '../components/NewsBand.astro';
+import SectionLabel from '../components/SectionLabel.astro';
+import TypeFilter from '../components/TypeFilter.astro';
+import ArticleGrid from '../components/ArticleGrid.astro';
+import FeatureBanner from '../components/FeatureBanner.astro';
+import { getArticles } from '../lib/articles';
+import { SITE } from '../site.config';
+
+const all = await getArticles();
+const latest = all.slice(0, 6);
+const news = all.slice(0, 4);
+// 「**強調**」部分だけ太字にして強弱をつける
+const heroParts = SITE.tagline.split('**');
+---
+
+<BaseLayout>
+  <section class="relative overflow-hidden">
+    <HeroDecor />
+    <div class="container-x relative grid items-center gap-10 py-16 md:grid-cols-[1.15fr_1fr] md:py-28">
+      <div>
+        <p class="font-label text-sm font-bold tracking-[0.2em] text-accent">INDIE DEVELOPER MEDIA</p>
+        <h1 class="mt-5 text-[30px] font-light leading-[1.5] md:text-[46px]">
+          {heroParts.map((p, i) => (i % 2 === 1 ? <strong class="font-extrabold">{p}</strong> : p))}
+        </h1>
+        <p class="mt-6 max-w-md font-light text-sub">{SITE.description}</p>
+        <div class="mt-9 flex flex-wrap gap-3">
+          <a href="/articles/" class="btn btn-primary">記事を読む</a>
+          <a href="/type/interview/" class="btn">インタビュー</a>
+        </div>
+      </div>
+      <HeroVisual />
+    </div>
+  </section>
+
+  <section class="section alt !pt-8 md:!pt-10">
+    <div class="container-x">
+      <SectionLabel en="NEWS" title="新着ニュース" />
+      <div class="section-body"><NewsBand articles={news} /></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container-x">
+      <SectionLabel en="ARTICLES" title="最新記事" lead="個人開発者のサービス紹介とインタビュー。" />
+      <div class="section-body">
+        <div class="mb-10"><TypeFilter current="all" /></div>
+        <ArticleGrid articles={latest} />
+        <div class="mt-14 text-center"><a href="/articles/" class="btn">記事一覧をすべて見る</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="container-x">
+      <SectionLabel en="INTERVIEW" title="開発者インタビュー" lead="サービスが生まれた背景を、本人の言葉で。" />
+      <div class="section-body">
+        <FeatureBanner
+          title="つくった人に、聞いてみた。"
+          text="なぜつくったのか、どう続けているのか。個人開発者へのインタビューをまとめています。"
+          href="/type/interview/"
+          cta="インタビューを読む"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container-x">
+      <SectionLabel en="ABOUT" title="このサイトについて" />
+      <div class="section-body max-w-2xl">
+        <p class="font-light leading-loose">
+          {SITE.name}は、個人開発者がつくったサービスを紹介する小さなメディアです。
+          公開されている情報へのリンクと要約を中心に、数字は必ず出典と確認日を添えて掲載します。
+          掲載内容の修正・削除はいつでもご連絡ください。
+        </p>
+        <a href="/about/" class="btn mt-8">運営者情報</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

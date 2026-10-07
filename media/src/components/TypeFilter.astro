@@ -1,0 +1,17 @@
+---
+const { current = 'all' } = Astro.props as { current?: 'all' | 'introduction' | 'interview' };
+const items = [
+  { key: 'all', label: 'すべて', href: '/articles/' },
+  { key: 'introduction', label: '紹介', href: '/type/introduction/' },
+  { key: 'interview', label: 'インタビュー', href: '/type/interview/' },
+];
+---
+<nav class="flex flex-wrap gap-2" aria-label="記事種別で絞り込み">
+  {items.map((i) => (
+    <a
+      href={i.href}
+      aria-current={i.key === current ? 'page' : undefined}
+      class:list={['btn btn-sm', i.key === current && 'btn-primary']}
+    >{i.label}</a>
+  ))}
+</nav>

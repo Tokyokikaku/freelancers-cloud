@@ -1,0 +1,28 @@
+---
+import { formatDate, isoDate } from '../lib/articles';
+import ExternalIcon from './ExternalIcon.astro';
+interface Metric { label: string; value: string; sourceUrl?: string; checkedAt?: Date }
+const { metrics } = Astro.props as { metrics: Metric[] };
+// 出典URLと確認日が揃っていない数字は表示しない
+const shown = metrics.filter((m) => m.sourceUrl && m.checkedAt);
+---
+{
+  shown.length > 0 && (
+    <div class="mt-6 border-t border-line pt-5">
+      <p class="text-sm font-bold">公開されている数字</p>
+      <ul class="mt-3 space-y-3">
+        {shown.map((m) => (
+          <li class="text-sm">
+            <span class="font-light text-sub">{m.label}</span>
+            <span class="ml-2 text-lg font-extrabold">{m.value}</span>
+            <span class="mt-0.5 block text-xs font-light text-sub">
+              出典：<a href={m.sourceUrl} rel="noopener noreferrer nofollow" target="_blank" class="text-accent">リンク <ExternalIcon /></a>
+              ／ 確認日：<time datetime={isoDate(m.checkedAt!)}>{formatDate(m.checkedAt!)}</time>
+            </span>
+          </li>
+        ))}
+      </ul>
+      <p class="mt-3 text-xs font-light text-sub">数字は確認日時点のものです。最新の値は出典をご確認ください。</p>
+    </div>
+  )
+}

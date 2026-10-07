@@ -1,0 +1,89 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { render } from 'astro:content';
+import { getImage } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TypeBadge from '../../components/TypeBadge.astro';
+import VerifiedBadge from '../../components/VerifiedBadge.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import ArticleGrid from '../../components/ArticleGrid.astro';
+import ShareButton from '../../components/ShareButton.astro';
+import CorrectionLink from '../../components/CorrectionLink.astro';
+import Thumbnail from '../../components/Thumbnail.astro';
+import { getArticles, slugOf, tagUrl, relatedArticles, formatDate, isoDate, absoluteUrl } from '../../lib/articles';
+import { articleJsonLd } from '../../lib/seo';
+import { SITE } from '../../site.config';
+
+export const getStaticPaths = (async () => {
+  const all = await getArticles();
+  return all.map((article) => ({ params: { slug: slugOf(article) }, props: { article, all } }));
+}) satisfies GetStaticPaths;
+
+const { article, all } = Astro.props;
+const d = article.data;
+const { Content } = await render(article);
+const related = relatedArticles(article, all);
+const canonicalUrl = absoluteUrl(`/articles/${slugOf(article)}/`);
+
+let ogPath: string = SITE.defaultOgImage;
+if (d.ogImage) ogPath = (await getImage({ src: d.ogImage, width: 1200, height: 630, format: 'jpg' })).src;
+const ogUrl = absoluteUrl(ogPath);
+---
+
+<BaseLayout
+  title={d.title}
+  description={d.description}
+  image={ogPath}
+  ogType="article"
+  jsonLd={articleJsonLd(article, ogUrl)}
+>
+  <article class="section !pt-10 md:!pt-16">
+    <div class="container-x">
+      <div class="mx-auto max-w-[680px]">
+        <nav class="text-xs font-light text-sub" aria-label="パンくず">
+          <a href="/" class="text-sub">ホーム</a> › <a href="/articles/" class="text-sub">記事一覧</a>
+        </nav>
+        <div class="mt-5 flex flex-wrap items-center gap-2">
+          <TypeBadge type={d.type} />
+          <VerifiedBadge verified={d.verified} />
+        </div>
+        <h1 class="mt-4 text-[26px] font-extrabold leading-snug md:text-[34px]">{d.title}</h1>
+        <p class="mt-4 text-sm font-light text-sub">
+          <time datetime={isoDate(d.publishedAt)}>公開 {formatDate(d.publishedAt)}</time>
+          {d.updatedAt && <> ／ <time datetime={isoDate(d.updatedAt)}>更新 {formatDate(d.updatedAt)}</time></>}
+        </p>
+        {d.tags.length > 0 && (
+          <ul class="mt-4 flex flex-wrap gap-2">
+            {d.tags.map((t) => <li><a href={tagUrl(t)} class="text-sm text-accent no-underline">#{t}</a></li>)}
+          </ul>
+        )}
+        {!d.verified && (
+          <p class="mt-6 rounded-2xl bg-[#fff4e0] p-4 text-sm text-[#7a4600]">
+            この記事は開発者ご本人の確認を得ていません。公開情報をもとにリンクと要約でまとめています。内容に誤りがある場合は修正・削除をお申し付けください。
+          </p>
+        )}
+      </div>
+
+      <div class="mx-auto mt-10 max-w-[820px]"><Thumbnail article={article} eager /></div>
+
+      <div class="prose-body mt-12"><Content /></div>
+
+      <div class="mx-auto mt-14 max-w-[680px] space-y-8">
+        <ServiceCard article={article} />
+        <div class="flex flex-wrap items-center gap-3">
+          <ShareButton url={canonicalUrl} text={d.title} />
+        </div>
+        <CorrectionLink />
+      </div>
+    </div>
+  </article>
+
+  {related.length > 0 && (
+    <section class="section alt">
+      <div class="container-x">
+        <h2 class="mb-10 text-2xl font-extrabold">関連記事</h2>
+        <ArticleGrid articles={related} />
+      </div>
+    </section>
+  )}
+</BaseLayout>

@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionLabel from '../components/SectionLabel.astro';
+import { SITE } from '../site.config';
+const dm = SITE.operator.dmUrl;
+---
+<BaseLayout title="取材依頼・掲載削除の申請" description="取材のご依頼、および掲載内容の修正・削除のご申請はXのDMで受け付けています。">
+  <section class="section">
+    <div class="container-x">
+      <SectionLabel en="CONTACT" title="取材依頼・掲載削除の申請" tag="h1" lead="ご連絡はXのDMで受け付けています。" />
+      <div class="section-body max-w-2xl space-y-14">
+        <div id="interview" class="scroll-mt-24">
+          <h2 class="text-xl">取材を依頼する</h2>
+          <p class="mt-3 font-light">ご自身のサービスの紹介やインタビューをご希望の方は、以下の内容を添えてDMをお送りください。</p>
+          <ul class="mt-3 list-disc space-y-1 pl-5 font-light">
+            <li>サービス名とURL</li>
+            <li>開発者のお名前（または活動名）</li>
+            <li>紹介・インタビューのどちらを希望か</li>
+          </ul>
+          <a href={dm} target="_blank" rel="noopener noreferrer" class="btn btn-primary mt-6">XのDMで取材を依頼する</a>
+        </div>
+        <div id="removal" class="scroll-mt-24">
+          <h2 class="text-xl">掲載内容の修正・削除を申請する</h2>
+          <p class="mt-3 font-light">記事の修正や削除をご希望の方は、該当記事のURLと希望内容をDMでお知らせください。開発者ご本人からのご依頼を優先し、速やかに対応します。</p>
+          <ul class="mt-3 list-disc space-y-1 pl-5 font-light">
+            <li>該当記事のURL</li>
+            <li>修正・削除の希望と理由</li>
+            <li>ご本人であることが分かるXアカウントからのご連絡だと確認がスムーズです</li>
+          </ul>
+          <a href={dm} target="_blank" rel="noopener noreferrer" class="btn mt-6">XのDMで申請する</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

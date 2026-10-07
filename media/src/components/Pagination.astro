@@ -1,0 +1,21 @@
+---
+interface Props { currentPage: number; lastPage: number; base: string }
+const { currentPage, lastPage, base } = Astro.props;
+const href = (n: number) => (n === 1 ? base : `${base}${n}/`);
+const pages = Array.from({ length: lastPage }, (_, i) => i + 1);
+---
+{
+  lastPage > 1 && (
+    <nav class="mt-16 flex flex-wrap items-center justify-center gap-2" aria-label="ページ送り">
+      {currentPage > 1 && <a class="btn btn-sm" href={href(currentPage - 1)} rel="prev">← 前へ</a>}
+      {pages.map((n) => (
+        <a
+          href={href(n)}
+          aria-current={n === currentPage ? 'page' : undefined}
+          class:list={['btn btn-sm !px-0 w-10', n === currentPage && 'btn-primary']}
+        >{n}</a>
+      ))}
+      {currentPage < lastPage && <a class="btn btn-sm" href={href(currentPage + 1)} rel="next">次へ →</a>}
+    </nav>
+  )
+}

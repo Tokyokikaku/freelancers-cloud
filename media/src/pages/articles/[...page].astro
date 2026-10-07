@@ -1,0 +1,32 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionLabel from '../../components/SectionLabel.astro';
+import TypeFilter from '../../components/TypeFilter.astro';
+import ArticleGrid from '../../components/ArticleGrid.astro';
+import Pagination from '../../components/Pagination.astro';
+import { getArticles } from '../../lib/articles';
+import { SITE } from '../../site.config';
+
+export const getStaticPaths = (async ({ paginate }) => {
+  return paginate(await getArticles(), { pageSize: SITE.pageSize });
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+---
+
+<BaseLayout
+  title={page.currentPage > 1 ? `記事一覧（${page.currentPage}ページ目）` : '記事一覧'}
+  description="個人開発者のサービス紹介記事とインタビューの一覧です。"
+>
+  <section class="section">
+    <div class="container-x">
+      <SectionLabel en="ARTICLES" title="記事一覧" tag="h1" lead={`全${page.total}本`} />
+      <div class="section-body">
+        <div class="mb-10"><TypeFilter current="all" /></div>
+        <ArticleGrid articles={page.data} />
+        <Pagination currentPage={page.currentPage} lastPage={page.lastPage} base="/articles/" />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

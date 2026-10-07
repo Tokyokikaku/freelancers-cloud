@@ -1,0 +1,14 @@
+---
+import type { Article } from '../lib/articles';
+import ArticleCard from './ArticleCard.astro';
+const { articles } = Astro.props as { articles: Article[] };
+---
+{
+  articles.length === 0 ? (
+    <p class="text-sub">該当する記事はまだありません。</p>
+  ) : (
+    <div class="grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
+      {articles.map((a) => <ArticleCard article={a} />)}
+    </div>
+  )
+}

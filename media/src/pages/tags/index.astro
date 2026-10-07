@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionLabel from '../../components/SectionLabel.astro';
+import { getArticles, collectTags, tagUrl } from '../../lib/articles';
+const tags = collectTags(await getArticles());
+---
+<BaseLayout title="タグ一覧" description="記事に付いているタグの一覧です。">
+  <section class="section">
+    <div class="container-x">
+      <SectionLabel en="TAGS" title="タグ一覧" tag="h1" />
+      <ul class="section-body flex flex-wrap gap-3">
+        {tags.map(([t, n]) => (
+          <li><a href={tagUrl(t)} class="btn btn-sm">#{t} <span class="font-light opacity-70">{n}</span></a></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
