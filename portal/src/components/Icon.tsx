@@ -21,6 +21,8 @@ const PATHS: Record<string, string> = {
   shield: "M12 3l8 3v6c0 4.500-3.400 8-8 9-4.600-1-8-4.500-8-9V6l8-3zM9 12l2 2 4-4",
   layers: "M12 3l9 5-9 5-9-5 9-5zM3 13l9 5 9-5M3 17.500l9 5 9-5",
   compare: "M8 4H4v16h4M16 4h4v16h-4M12 3v18",
+  chart: "M4 20V10m6 10V4m6 16v-7m6 7H2",
+  mail: "M3 6h18v12H3zM3 7l9 7 9-7",
   info: "M12 16v-4m0-4h.01M12 21a9 9 0 100-18 9 9 0 000 18z",
 };
 
