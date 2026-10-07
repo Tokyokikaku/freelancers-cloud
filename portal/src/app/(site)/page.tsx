@@ -71,14 +71,16 @@ export default async function HomePage() {
             <p className="mt-4 max-w-xl text-sm leading-7 text-body sm:text-base sm:leading-8">
               成果に応じて料金を支払うサービスだけを集めました。<br className="hidden sm:block" />サービスを比較し、まとめて資料請求もできます。
             </p>
-            <p className="mt-5 flex flex-wrap gap-3">
-              <Link href="#all-categories" className="btn btn-cta min-h-12 px-6 text-base">カテゴリから探す</Link>
-              <Link href="/services" className="btn btn-secondary min-h-12 px-6 text-base">サービス一覧を見る</Link>
-            </p>
-            <ul className="mt-6 grid max-w-lg grid-cols-2 gap-2" aria-label="掲載の規模">
-              <li><GoldMedal label="掲載サービス" value={services.length} unit="件" /></li>
-              <li><GoldMedal label="カテゴリ" value={categoryCount} unit="種" /></li>
-            </ul>
+            <div className="mt-5 w-full sm:w-fit">
+              <p className="flex flex-col gap-3 sm:flex-row">
+                <Link href="#all-categories" className="btn btn-cta min-h-12 px-6 text-base">カテゴリから探す</Link>
+                <Link href="/services" className="btn btn-secondary min-h-12 px-6 text-base">サービス一覧を見る</Link>
+              </p>
+              <ul className="mt-6 flex items-center justify-between gap-2" aria-label="掲載の規模">
+                <li className="min-w-0"><GoldMedal label="掲載サービス" value={services.length} unit="件" /></li>
+                <li className="min-w-0"><GoldMedal label="カテゴリ" value={categoryCount} unit="種" /></li>
+              </ul>
+            </div>
           </div>
 
           {heroPhoto ? (
