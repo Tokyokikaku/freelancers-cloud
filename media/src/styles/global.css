@@ -12,13 +12,13 @@
   --grad-from: #7b4dff;
   --grad-to: #3b82f6;
   --c-footer: #262626;
-  --font-sans: 'Zen Maru Gothic', 'Hiragino Maru Gothic ProN', 'Hiragino Sans', 'Yu Gothic', Meiryo, sans-serif; /* 見出し・ボタン・バッジ・ナビ */
+  --font-sans: 'Zen Kaku Gothic New', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', Meiryo, sans-serif; /* 見出し・ボタン・バッジ・ナビ */
   --font-body: 'Noto Sans JP', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', Meiryo, sans-serif; /* 本文 */
   --radius-card: 22px;
 }
 
 @theme static {
-  --font-label: 'Poppins', 'Zen Maru Gothic', sans-serif;
+  --font-label: 'Poppins', 'Zen Kaku Gothic New', sans-serif;
 }
 
 @theme inline {
