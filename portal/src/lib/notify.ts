@@ -44,23 +44,33 @@ export async function postWebhook(url: string, payload: unknown): Promise<boolea
 export async function notifyOperator(type: "listing" | "lead", data: Record<string, unknown>): Promise<boolean> {
   const url = process.env.NOTIFY_WEBHOOK_URL;
   if (!url) return false;
+  let u: URL;
   try {
-    const u = new URL(url);
-    if (u.protocol !== "https:") return false;
-    // Apps Script の Web アプリは 302 で結果を返す。実行は POST 時点で完了しているので、リダイレクト先の応答で成否を判断する
-    const res = await fetch(u, {
-      method: "POST",
-      headers: { "content-type": "text/plain;charset=utf-8" },
-      body: JSON.stringify({ secret: process.env.NOTIFY_WEBHOOK_SECRET ?? "", type, at: new Date().toISOString(), ...data }),
-      redirect: "follow",
-      signal: AbortSignal.timeout(20000),
-    });
-    // Apps Script は成功時に "ok" を返す（URL違い・権限エラーでも HTTP 200 の HTML が返るため、本文で判定する）
-    const body = (await res.text()).trim();
-    if (!res.ok || body !== "ok") console.error("[notify] operator webhook failed", res.status, body.slice(0, 80));
-    return res.ok && body === "ok";
-  } catch (e) {
-    console.error("[notify] operator webhook error", e);
+    u = new URL(url);
+  } catch {
     return false;
   }
+  if (u.protocol !== "https:") return false;
+  const body = JSON.stringify({ secret: process.env.NOTIFY_WEBHOOK_SECRET ?? "", type, at: new Date().toISOString(), ...data });
+
+  // Apps Script の Web アプリは、まれに一時的なエラーページ（HTTP 200 の HTML）を返す。成功は本文が "ok" のときだけとみなし、失敗時は数回やり直す
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      // 実行は POST 時点で完了し、302 のリダイレクト先に結果が返る
+      const res = await fetch(u, {
+        method: "POST",
+        headers: { "content-type": "text/plain;charset=utf-8" },
+        body,
+        redirect: "follow",
+        signal: AbortSignal.timeout(15000),
+      });
+      const text = (await res.text()).trim();
+      if (res.ok && text === "ok") return true;
+      console.error(`[notify] operator webhook failed (try ${attempt})`, res.status, text.slice(0, 80));
+    } catch (e) {
+      console.error(`[notify] operator webhook error (try ${attempt})`, e);
+    }
+    if (attempt < 3) await new Promise((r) => setTimeout(r, 1000 * attempt));
+  }
+  return false;
 }

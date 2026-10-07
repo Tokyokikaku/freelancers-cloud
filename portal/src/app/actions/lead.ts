@@ -8,7 +8,7 @@ import { lookupCorporation } from "@/lib/houjin";
 import { CONSENT_VERSION, DEPARTMENT_OPTIONS, EMPLOYEE_OPTIONS, INDUSTRY_OPTIONS, JOB_TITLE_OPTIONS, MAX_REQUEST_SERVICES, OTHER_OPTION, TIMING_OPTIONS } from "@/lib/lead-options";
 import { notifyOperator, postWebhook, sendMail } from "@/lib/notify";
 import { hasServiceRole, serviceClient } from "@/lib/supabase";
-import { OPERATOR_NAME, SITE_NAME } from "@/lib/site";
+import { CONTACT_EMAIL, OPERATOR_NAME, SITE_NAME } from "@/lib/site";
 
 export interface LeadState {
   ok: boolean;
@@ -102,7 +102,7 @@ export async function submitLeads(_prev: LeadState, formData: FormData): Promise
   const sent = targets.map((s) => ({ id: s!.id, name: s!.name }));
 
   // 運営者への通知（スプレッドシート＋メール）。Supabase の有無にかかわらず送る
-  await notifyOperator("lead", {
+  const notified = await notifyOperator("lead", {
     services: targets.map((s) => s!.name).join("、"),
     company: d.company,
     corporate_number: corporateNumber ?? "",
@@ -119,6 +119,11 @@ export async function submitLeads(_prev: LeadState, formData: FormData): Promise
     medium: d.medium || "",
     campaign: d.campaign || "",
   });
+
+  if (!hasServiceRole && !notified && !process.env.LEAD_NOTIFY_EMAIL) {
+    // 保存先がどこにもない場合は、成功と見せかけて入力を失わせない
+    return { ok: false, message: `現在フォームから送信できません。お手数ですが ${CONTACT_EMAIL} までメールでご連絡ください。` };
+  }
 
   if (!hasServiceRole) {
     console.warn("[lead] Supabase 未設定のため保存していません（デモモード）");
