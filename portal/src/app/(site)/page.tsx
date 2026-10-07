@@ -82,10 +82,9 @@ export default async function HomePage() {
           </div>
 
           {heroPhoto ? (
-            <div className="relative mx-auto h-[23rem] w-full max-w-lg self-end sm:h-[32rem] lg:h-[39rem] lg:max-w-none">
+            <div className="relative mx-auto h-[23rem] w-full max-w-lg self-end sm:h-[32rem] lg:h-auto lg:max-w-none lg:self-stretch">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/hero/person.webp" alt="スーツ姿の男性のイメージ写真" width={1200} height={1850} className="absolute bottom-0 left-1/2 block h-full w-auto max-w-none -translate-x-1/2 lg:left-auto lg:right-[3%] lg:translate-x-0" />
-              <p className="absolute bottom-2 right-2 rounded-sm bg-ink/40 px-2 py-0.5 text-[10px] text-white/90">イメージ写真</p>
             </div>
           ) : (
           <aside aria-label="注目のサービス" className="self-center">
