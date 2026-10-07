@@ -2,6 +2,7 @@
 
 import { randomUUID } from "node:crypto";
 import { z } from "zod";
+import { checkEmail, checkMobilePhone, formatMobile, normalizePhone } from "@/lib/contact-validation";
 import { getServices } from "@/lib/data";
 import { CONSENT_VERSION, EMPLOYEE_OPTIONS, MAX_REQUEST_SERVICES, TIMING_OPTIONS } from "@/lib/lead-options";
 import { postWebhook, sendMail } from "@/lib/notify";
@@ -23,8 +24,14 @@ const text = (label: string, max: number) =>
 const schema = z.object({
   company: text("会社名", 100),
   name: text("氏名", 60),
-  email: z.string().trim().min(1, "メールアドレスを入力してください").max(200).email("メールアドレスの形式が正しくありません"),
-  phone: z.string().trim().max(30).regex(/^[0-9０-９+\-()\s]*$/, "電話番号の形式が正しくありません").optional(),
+  email: z.string().trim().max(200, "メールアドレスは200文字以内で入力してください").superRefine((v, ctx) => {
+    const e = checkEmail(v);
+    if (e) ctx.addIssue({ code: "custom", message: e });
+  }),
+  phone: z.string().trim().max(30, "電話番号が長すぎます").superRefine((v, ctx) => {
+    const e = checkMobilePhone(v);
+    if (e) ctx.addIssue({ code: "custom", message: e });
+  }),
   timing: z.enum(TIMING_OPTIONS).optional().or(z.literal("")),
   employees: z.enum(EMPLOYEE_OPTIONS).optional().or(z.literal("")),
   message: z.string().trim().max(1000, "ご要望は1000文字以内で入力してください").optional(),
@@ -46,7 +53,7 @@ export async function submitLeads(_prev: LeadState, formData: FormData): Promise
   const slugs = Array.from(new Set(formData.getAll("service_slugs").filter((v): v is string => typeof v === "string"))).slice(0, MAX_REQUEST_SERVICES);
   if (slugs.length === 0) return { ok: false, errors: { services: "資料請求するサービスを1つ以上選んでください" } };
 
-  const parsed = schema.safeParse(Object.fromEntries(FIELDS.map((k) => [k, str(formData, k)])));
+  const parsed = schema.safeParse(Object.fromEntries(FIELDS.map((k) => [k, str(formData, k) ?? (k === "email" || k === "phone" ? "" : undefined)])));
   if (!parsed.success) {
     const errors: Record<string, string> = {};
     for (const issue of parsed.error.issues) errors[String(issue.path[0])] ??= issue.message;
@@ -82,7 +89,7 @@ export async function submitLeads(_prev: LeadState, formData: FormData): Promise
     company: d.company,
     name: d.name,
     email: d.email,
-    phone: d.phone || null,
+    phone: formatMobile(normalizePhone(d.phone)),
     timing: d.timing || null,
     employees: d.employees || null,
     message: d.message || null,
@@ -115,7 +122,7 @@ export async function submitLeads(_prev: LeadState, formData: FormData): Promise
   if (evError) console.error("[lead] event insert failed:", evError.message);
 
   const detail =
-    `会社名: ${d.company}\n氏名: ${d.name}\nメール: ${d.email}\n電話: ${d.phone || "-"}\n検討時期: ${d.timing || "-"}\n従業員規模: ${d.employees || "-"}\n` +
+    `会社名: ${d.company}\n氏名: ${d.name}\nメール: ${d.email}\n電話(携帯): ${formatMobile(normalizePhone(d.phone))}\n検討時期: ${d.timing || "-"}\n従業員規模: ${d.employees || "-"}\n` +
     `ご要望: ${d.message || "-"}\n流入元: ${d.source || "-"} / ${d.medium || "-"} / ${d.campaign || "-"}\n`;
 
   const operator = process.env.LEAD_NOTIFY_EMAIL;
@@ -148,7 +155,7 @@ export async function submitLeads(_prev: LeadState, formData: FormData): Promise
           request_id: requestId,
           created_at: lead?.created_at,
           service: { id: s!.id, slug: s!.slug, name: s!.name },
-          lead: { company: d.company, name: d.name, email: d.email, phone: d.phone || null, timing: d.timing || null, employees: d.employees || null, message: d.message || null },
+          lead: { company: d.company, name: d.name, email: d.email, phone: formatMobile(normalizePhone(d.phone)), timing: d.timing || null, employees: d.employees || null, message: d.message || null },
         })) || notified;
     }
     if (notified && lead) await db.from("leads").update({ notified_at: new Date().toISOString() }).eq("lead_id", lead.lead_id);

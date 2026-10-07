@@ -1,4 +1,5 @@
 "use client";
+import { checkEmail, checkMobilePhone } from "@/lib/contact-validation";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { startTransition, useActionState, useEffect, useMemo, useRef, useState } from "react";
@@ -105,6 +106,13 @@ export function RequestFlow({ services, initialSlugs }: { services: ServiceLite[
     // action 属性で送ると、エラー時にも入力欄が自動リセットされてしまうため、手動で Server Action を呼ぶ
     e.preventDefault();
     const fd = new FormData(formRef.current!);
+    const emailErr = checkEmail(String(fd.get("email") ?? ""));
+    const phoneErr = checkMobilePhone(String(fd.get("phone") ?? ""));
+    setLocalErr({ email: emailErr, phone: phoneErr });
+    if (emailErr || phoneErr) {
+      document.getElementById(emailErr ? "req-email" : "req-phone")?.focus();
+      return;
+    }
     startTransition(() => action(fd));
     // 「次回から入力を省略」にチェックがあれば、この端末（localStorage）にだけ保存する
     try {
@@ -130,7 +138,8 @@ export function RequestFlow({ services, initialSlugs }: { services: ServiceLite[
 
   const partners = chosen.filter((c) => c.partner_status !== "unpartnered");
   const unpartnered = chosen.filter((c) => c.partner_status === "unpartnered");
-  const err = (k: string) => state.errors?.[k];
+  const [localErr, setLocalErr] = useState<Record<string, string | null>>({});
+  const err = (k: string) => (k in localErr ? localErr[k] ?? undefined : state.errors?.[k]);
   const fp = (k: string) => ({ "aria-invalid": err(k) ? true : undefined, "aria-describedby": err(k) ? `req-${k}-err` : undefined });
 
   return (
@@ -191,13 +200,15 @@ export function RequestFlow({ services, initialSlugs }: { services: ServiceLite[
                   {err("name") && <p id="req-name-err" className="mt-1 text-sm text-red-600">{err("name")}</p>}
                 </div>
                 <div>
-                  <label className="label" htmlFor="req-email">メールアドレス <span className="text-xs text-red-600">必須</span></label>
-                  <input id="req-email" name="email" type="email" required maxLength={200} autoComplete="email" inputMode="email" defaultValue={profile.email} className="input" {...fp("email")} />
+                  <label className="label" htmlFor="req-email">会社のメールアドレス <span className="text-xs text-red-600">必須</span></label>
+                  <input id="req-email" name="email" type="email" required maxLength={200} autoComplete="email" inputMode="email" defaultValue={profile.email} onBlur={(e) => setLocalErr((cur) => ({ ...cur, email: e.target.value ? checkEmail(e.target.value) : null }))} onChange={() => localErr.email && setLocalErr((cur) => ({ ...cur, email: null }))} className="input" placeholder="例：taro@example.co.jp" {...fp("email")} />
+                  {!err("email") && <p className="mt-1 text-xs text-muted">フリーメール・携帯キャリア・プロバイダのメールアドレスはご利用いただけません。</p>}
                   {err("email") && <p id="req-email-err" className="mt-1 text-sm text-red-600">{err("email")}</p>}
                 </div>
                 <div>
-                  <label className="label" htmlFor="req-phone">電話番号 <span className="text-xs font-normal text-muted">任意</span></label>
-                  <input id="req-phone" name="phone" type="tel" maxLength={30} autoComplete="tel" inputMode="tel" defaultValue={profile.phone} className="input" {...fp("phone")} />
+                  <label className="label" htmlFor="req-phone">ご担当者さまの携帯電話番号 <span className="text-xs text-red-600">必須</span></label>
+                  <input id="req-phone" name="phone" type="tel" required maxLength={30} autoComplete="tel" inputMode="tel" defaultValue={profile.phone} onBlur={(e) => setLocalErr((cur) => ({ ...cur, phone: e.target.value ? checkMobilePhone(e.target.value) : null }))} onChange={() => localErr.phone && setLocalErr((cur) => ({ ...cur, phone: null }))} className="input" placeholder="例：090-1234-5678" {...fp("phone")} />
+                  {!err("phone") && <p className="mt-1 text-xs text-muted">携帯電話（070/080/090）のみ。固定電話は使用できません。</p>}
                   {err("phone") && <p id="req-phone-err" className="mt-1 text-sm text-red-600">{err("phone")}</p>}
                 </div>
                 <div>
