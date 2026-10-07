@@ -42,7 +42,7 @@ body {
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
 }
-h1, h2, h3 { font-weight: 800; line-height: 1.4; letter-spacing: 0.01em; }
+h1, h2, h3 { font-weight: 800; line-height: 1.4; letter-spacing: 0.01em; font-feature-settings: 'palt'; }
 a { text-underline-offset: 3px; }
 :focus-visible { outline: 3px solid var(--c-accent); outline-offset: 3px; border-radius: 6px; }
 }
@@ -52,6 +52,14 @@ a { text-underline-offset: 3px; }
   background-image: linear-gradient(90deg, var(--grad-from), var(--grad-to));
   -webkit-background-clip: text; background-clip: text; color: transparent;
 }
+
+@layer components {
+/* ===== ヒーロー見出し：細字(400)と太字(800)の強弱。改行は site.config の tagline で制御 ===== */
+.hero-title {
+  font-size: clamp(30px, 8.2vw, 46px); font-weight: 400; line-height: 1.55;
+  letter-spacing: 0; font-feature-settings: 'palt'; line-break: strict;
+}
+.hero-title strong { font-weight: 800; }
 
 /* ===== セクション ===== */
 .section { position: relative; padding: 72px 0; overflow: hidden; }
@@ -117,6 +125,7 @@ a { text-underline-offset: 3px; }
 .prose-body strong { font-weight: 700; }
 .prose-body img { border-radius: 16px; }
 .prose-body hr { border-color: var(--c-line); }
+}
 
 /* ===== スクロール表示（控えめ） ===== */
 .reveal { opacity: 0; transform: translateY(14px); transition: opacity .7s ease, transform .7s ease; }
