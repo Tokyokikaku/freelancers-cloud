@@ -4,7 +4,6 @@ import { partnerBadge } from "@/lib/partner";
 import type { Category, Service } from "@/lib/types";
 import { FactCell, FeeTile } from "./FeeTile";
 import { FeeTags } from "./FeeTags";
-import { ServiceLogo } from "./Logo";
 import { RequestButton } from "./RequestButton";
 import { RequestToggle } from "./RequestToggle";
 
@@ -35,7 +34,6 @@ export function ServiceCard({ service, categories, rank, compact = false }: { se
       <div className="grid gap-4 p-3 sm:p-4 md:grid-cols-[1fr_11.5rem]">
         <div className="min-w-0">
           <div className="flex gap-3">
-            <ServiceLogo name={service.name} url={service.logo_url} size={48} />
             <div className="min-w-0">
               <p className="text-xs text-muted">{service.company_name}</p>
               {service.summary && !compact && <p className="mt-1 line-clamp-2 text-sm leading-6">{service.summary}</p>}

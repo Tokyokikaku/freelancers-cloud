@@ -8,7 +8,6 @@ import { Icon } from "@/components/Icon";
 import { JsonLd } from "@/components/JsonLd";
 import { RequestButton } from "@/components/RequestButton";
 import { RequestToggle } from "@/components/RequestToggle";
-import { ServiceLogo } from "@/components/Logo";
 import { ServiceCard } from "@/components/ServiceCard";
 import { PageEvent } from "@/components/Trackers";
 import { getArticles, getCategories, getServiceBySlug, getServices } from "@/lib/data";
@@ -87,7 +86,6 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
 
       <header className="card mt-5 p-5 sm:p-8">
         <div className="flex items-start gap-4 sm:gap-5">
-          <ServiceLogo name={service.name} url={service.logo_url} size={72} />
           <div className="min-w-0 flex-1">
             {badge && <p className="mb-1"><span className="tag bg-slate-100 text-slate-700" title={badge.title}>{badge.label}</span></p>}
             <h1 className="text-2xl sm:text-3xl">{service.name}</h1>

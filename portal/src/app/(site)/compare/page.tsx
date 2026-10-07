@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FeeTags } from "@/components/FeeTags";
-import { ServiceLogo } from "@/components/Logo";
 import { RequestButton } from "@/components/RequestButton";
 import { getServices } from "@/lib/data";
 import { infoUpdatedAt, initialFeeLabel, monthlyFeeLabel, successConditionLabel, successFeeLabel } from "@/lib/format";
@@ -57,7 +56,6 @@ export default async function ComparePage({ searchParams }: { searchParams: Prom
                 {items.map((x) => (
                   <th key={x!.id} scope="col" className="p-4 text-left align-top">
                     <div className="flex items-start gap-3">
-                      <ServiceLogo name={x!.name} url={x!.logo_url} size={40} />
                       <div className="min-w-0">
                         <Link href={`/services/${x!.slug}`} className="text-base font-bold text-ink hover:text-brand-700 hover:underline">{x!.name}</Link>
                         <p className="text-xs font-normal text-muted">{x!.company_name}</p>
