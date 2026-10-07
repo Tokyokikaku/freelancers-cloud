@@ -65,10 +65,10 @@ export default async function HomePage() {
           <div className={heroPhoto ? "lg:pb-9" : ""}>
             <p className="inline-block border-l-4 border-cta-500 pl-3 text-sm font-bold tracking-wide text-brand-700 sm:text-base">初期費用なし・リスクなしで事業を推進</p>
             <h1 className="mt-3 text-[2rem] font-black leading-[1.2] text-ink sm:text-[3rem] sm:leading-[1.15]">
-              払うのは、<br /><span className="text-brand-700">実績が出た</span><wbr />分だけ。
+              <span className="text-brand-700">成果報酬型サービス</span><br />比較メディア
             </h1>
-            <p className="mt-4 max-w-xl text-sm leading-7 text-body sm:text-[15px] sm:leading-7">
-              再生数・問い合わせ数・アポ数・採用数に応じて課金される<b className="text-ink">{services.length}サービス</b>を、月額の固定費なしで比較。成果が出るかわからない段階で、毎月の固定費を払い続ける必要はありません。
+            <p className="mt-4 max-w-xl text-sm leading-7 text-body sm:text-base sm:leading-8">
+              成果に応じて料金を支払うサービスだけを集めました。<br className="hidden sm:block" />サービスを比較し、まとめて資料請求もできます。
             </p>
             <p className="mt-5 flex flex-wrap gap-3">
               <Link href="#all-categories" className="btn btn-cta min-h-12 px-6 text-base">カテゴリから探す</Link>
