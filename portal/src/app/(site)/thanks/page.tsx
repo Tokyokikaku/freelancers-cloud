@@ -17,8 +17,6 @@ export default async function ThanksPage({ searchParams }: { searchParams: Promi
   const slugs = Array.from(new Set((sp.s ?? sp.service ?? "").split(",").map((x) => x.trim()).filter(Boolean))).slice(0, 10);
   const services = await getServices();
   const requested = slugs.map((s) => services.find((x) => x.slug === s)).filter((x) => !!x);
-  const partnered = requested.filter((s) => s!.partner_status !== "unpartnered");
-  const hasUnpartnered = requested.some((s) => s!.partner_status === "unpartnered");
 
   // 続けて請求できるサービス: 請求したサービスと同じカテゴリ → なければ完全成果報酬
   const catIds = new Set(requested.flatMap((s) => s!.category_ids));
@@ -36,7 +34,7 @@ export default async function ThanksPage({ searchParams }: { searchParams: Promi
       <div className="mx-auto max-w-2xl">
         <div className="panel p-6 text-center sm:p-10">
           <span className="mx-auto inline-flex size-14 items-center justify-center rounded-full bg-brand-50 text-brand-700"><Icon name="check" className="size-7" /></span>
-          <h1 className="mt-4 text-2xl sm:text-3xl">お問い合わせを受け付けました</h1>
+          <h1 className="mt-4 text-2xl sm:text-3xl">資料請求を受け付けました</h1>
           <p className="mt-2 text-sm text-muted">{requested.length ? `${requested.length}件のサービスについて、入力内容を確認しました。` : "入力内容を確認しました。"}</p>
 
           {requested.length > 0 && (
@@ -50,15 +48,7 @@ export default async function ThanksPage({ searchParams }: { searchParams: Promi
           )}
 
           <div className="mt-6 space-y-3 text-left text-sm leading-7 sm:text-base sm:leading-8">
-            {hasUnpartnered && (
-              <>
-                <p>当サイトのコンシェルジュが資料をご用意のうえ、ご入力のメールアドレス宛にご連絡します。</p>
-                <p className="rounded-md bg-surface p-4 text-sm">
-                  提携前のサービスには、ご入力いただいた内容を送信していません。このお問い合わせは、サービス提供会社への資料請求が完了したことを意味するものではありません。
-                </p>
-              </>
-            )}
-            {partnered.length > 0 && <p>次のサービスには、資料のご案内のため入力内容を提供しました：{partnered.map((s) => s!.name).join("、")}。担当者からの連絡をお待ちください。</p>}
+            <p>資料は、サービス運営会社もしくは成果報酬ナビから、ご登録のメールアドレス宛にお送りします。ご入力いただいた連絡先に、サービス運営会社からご案内を差し上げる場合があります。</p>
             <p>ご案内までにお時間をいただく場合があります。</p>
           </div>
         </div>

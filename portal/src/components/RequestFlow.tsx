@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { startTransition, useActionState, useEffect, useMemo, useRef, useState } from "react";
 import { submitLeads, type LeadState } from "@/app/actions/lead";
 import { DEPARTMENT_OPTIONS, EMPLOYEE_OPTIONS, INDUSTRY_OPTIONS, JOB_TITLE_OPTIONS, LEAD_HANDLING_NOTICE, MAX_REQUEST_SERVICES, TIMING_OPTIONS } from "@/lib/lead-options";
-import { leadDisclaimer } from "@/lib/partner";
 import { getAttribution, getVisitorId, track } from "@/lib/tracking";
 import type { FeeType, PartnerStatus } from "@/lib/types";
 import { CompanyField } from "./CompanyField";
@@ -138,8 +137,6 @@ export function RequestFlow({ services, initialSlugs, companySuggest = false }: 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state]);
 
-  const partners = chosen.filter((c) => c.partner_status !== "unpartnered");
-  const unpartnered = chosen.filter((c) => c.partner_status === "unpartnered");
   const [localErr, setLocalErr] = useState<Record<string, string | null>>({});
   const err = (k: string) => (k in localErr ? localErr[k] ?? undefined : state.errors?.[k]);
   const fp = (k: string) => ({ "aria-invalid": err(k) ? true : undefined, "aria-describedby": err(k) ? `req-${k}-err` : undefined });
@@ -235,20 +232,17 @@ export function RequestFlow({ services, initialSlugs, companySuggest = false }: 
                 <span>次回から入力を省略する<span className="block text-xs text-muted">入力内容をこの端末のブラウザにだけ保存します（当サイトのサーバーには送られません）。共用のパソコンではチェックを外してください。</span></span>
               </label>
 
-              <div className="space-y-2 rounded-md bg-surface p-3.5 text-sm leading-7">
-                {unpartnered.length > 0 && <p>{leadDisclaimer("unpartnered")}</p>}
-                {partners.length > 0 && <p>次のサービスには、資料のご案内のため入力内容が提供されます：{partners.map((p) => p.name).join("、")}</p>}
+              <div>
+                <label className="flex cursor-pointer items-start gap-2.5 rounded-md border-2 border-cta-500 bg-warn-50 p-3 text-sm text-ink">
+                  <input type="checkbox" name="third_party_consent" required className="mt-1 size-4 shrink-0 accent-cta-500" aria-describedby={err("consent") ? "req-consent-err" : undefined} />
+                  <span>
+                    <b className="text-red-600">必須</b>{" "}
+                    資料のご案内のため、ご登録いただいた会員情報（会社名・氏名・メールアドレス・電話番号・従業員数・業種・部署・役職など）を、請求先のサービス提供会社に電子ファイルにて提供することに同意し、
+                    <Link href="/privacy" target="_blank" className="underline">プライバシーポリシー</Link>を確認のうえ資料請求します。
+                  </span>
+                </label>
+                {err("consent") && <p id="req-consent-err" role="alert" className="mt-1 text-sm text-red-600">{err("consent")}</p>}
               </div>
-              {partners.length > 0 && (
-                <div>
-                  <label className="flex cursor-pointer items-start gap-2.5 rounded-md border-2 border-cta-500 bg-warn-50 p-3 text-sm text-ink">
-                    <input type="checkbox" name="third_party_consent" className="mt-1 size-4 accent-cta-500" aria-describedby={err("consent") ? "req-consent-err" : undefined} />
-                    <span><b>必須</b> 上記の提供会社（{partners.length}社）に、資料のご案内のため、入力した会社名・氏名・連絡先・ご要望などが提供されることに同意します。</span>
-                  </label>
-                  {err("consent") && <p id="req-consent-err" role="alert" className="mt-1 text-sm text-red-600">{err("consent")}</p>}
-                </div>
-              )}
-              <p className="text-xs leading-6 text-muted">送信により<Link href="/privacy" target="_blank" className="underline">プライバシーポリシー</Link>に同意したものとみなします。</p>
               {state.message && <p role="alert" className="rounded bg-red-50 p-3 text-sm text-red-700">{state.message}</p>}
               {suggestions.length > 0 && !full && (
                 <div className="flex flex-wrap items-center justify-between gap-2 rounded bg-warn-50 p-3 text-sm">

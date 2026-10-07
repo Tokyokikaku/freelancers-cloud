@@ -85,11 +85,10 @@ export async function submitLeads(_prev: LeadState, formData: FormData): Promise
   const targets = slugs.map((slug) => all.find((s) => s.slug === slug)).filter((s) => !!s);
   if (targets.length === 0) return { ok: false, message: "対象のサービスが見つかりませんでした。ページを再読み込みしてもう一度お試しください。" };
 
-  // 提携済みサービスへ入力内容を提供する場合は、本人の明示的な同意（未チェックのボックスを自分でオン）が必要
-  const hasPartner = targets.some((s) => s!.partner_status !== "unpartnered");
+  // サービス提供会社への会員情報の提供について、本人の明示的な同意（未チェックのボックスを自分でオン）が必要
   const thirdPartyConsent = formData.get("third_party_consent") === "on";
-  if (hasPartner && !thirdPartyConsent) {
-    return { ok: false, errors: { consent: "掲載契約のある提供会社への情報提供に同意いただく必要があります" } };
+  if (!thirdPartyConsent) {
+    return { ok: false, errors: { consent: "サービス提供会社への会員情報の提供とプライバシーポリシーに同意いただく必要があります" } };
   }
 
   // 候補から選ばれた法人番号は、クライアントの値を信用せず、サーバー側で国税庁APIに再照会して確認する
@@ -131,7 +130,7 @@ export async function submitLeads(_prev: LeadState, formData: FormData): Promise
     visitor_id: d.visitor_id || null,
     partner_status: s!.partner_status,
     consent_version: CONSENT_VERSION,
-    third_party_consent: s!.partner_status !== "unpartnered" && thirdPartyConsent,
+    third_party_consent: true,
   }));
   const { data: leads, error } = await db.from("leads").insert(rows).select("lead_id, service_id, created_at");
   if (error || !leads) {
