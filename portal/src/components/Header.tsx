@@ -9,17 +9,6 @@ export async function Header() {
   const categories = (await getCategories()).filter((c) => !c.parent_id);
   return (
     <header className="sticky top-0 z-30 bg-white shadow-[0_1px_0_var(--color-line)]">
-      <div className="hidden bg-navy-900 text-[11px] text-slate-300 md:block">
-        <div className="container-page flex items-center justify-between py-1">
-          <p>実績に応じて支払う「成果報酬サービス」の比較メディア</p>
-          <nav aria-label="サブメニュー" className="flex gap-4">
-            <Link href="/about" className="hover:text-white">掲載方針</Link>
-            <Link href="/articles" className="hover:text-white">記事</Link>
-            <Link href="/privacy" className="hover:text-white">プライバシー</Link>
-          </nav>
-        </div>
-      </div>
-
       <div className="container-page flex items-center gap-3 py-3 lg:gap-6">
         <Link href="/" className="flex shrink-0 items-baseline gap-2" aria-label={`${SITE_NAME} トップへ`}>
           <span className="text-[1.45rem] font-black tracking-tight text-brand-700">{SITE_NAME}</span>

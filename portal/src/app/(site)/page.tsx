@@ -56,7 +56,7 @@ export default async function HomePage() {
     <>
       {/* ───── FV ───── */}
       <section className="relative overflow-hidden border-b border-line bg-brand-50">
-        <div className={`container-page relative grid grid-cols-[minmax(0,1fr)] gap-4 pt-6 sm:pt-9 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-8 lg:pt-9 ${heroPhoto ? "pb-0" : "pb-6 sm:pb-9 lg:pb-9"}`}>
+        <div className={`container-page relative grid grid-cols-[minmax(0,1fr)] gap-4 pt-6 sm:pt-9 lg:grid-cols-[minmax(0,31rem)_minmax(0,24rem)] lg:justify-center lg:gap-6 lg:pt-9 ${heroPhoto ? "pb-0" : "pb-6 sm:pb-9 lg:pb-9"}`}>
           <div className={heroPhoto ? "lg:pb-9" : ""}>
             <p className="inline-block border-l-4 border-cta-500 pl-3 text-sm font-bold tracking-wide text-brand-700 sm:text-base">初期費用なし・リスクなしで事業を推進</p>
             <h1 className="mt-3 text-[2rem] font-black leading-[1.2] text-ink sm:text-[3rem] sm:leading-[1.15]">
@@ -84,7 +84,7 @@ export default async function HomePage() {
           {heroPhoto ? (
             <div className="relative mx-auto h-[18rem] w-full max-w-lg self-end sm:h-[26rem] lg:h-auto lg:max-w-none lg:self-stretch">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/hero/person.webp" alt="スーツ姿の男性のイメージ写真" width={1200} height={1850} className="absolute bottom-0 left-1/2 block h-full w-auto max-w-none -translate-x-1/2 lg:left-auto lg:right-[3%] lg:translate-x-0" />
+              <img src="/hero/person.webp" alt="スーツ姿の男性のイメージ写真" width={1200} height={1850} className="absolute bottom-0 left-1/2 block h-full w-auto max-w-none -translate-x-1/2 lg:left-1/2 lg:-translate-x-1/2" />
             </div>
           ) : (
           <aside aria-label="注目のサービス" className="self-center">
