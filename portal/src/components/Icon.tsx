@@ -23,6 +23,7 @@ const PATHS: Record<string, string> = {
   compare: "M8 4H4v16h4M16 4h4v16h-4M12 3v18",
   chart: "M4 20V10m6 10V4m6 16v-7m6 7H2",
   mail: "M3 6h18v12H3zM3 7l9 7 9-7",
+  chat: "M21 12a8 8 0 01-8 8H5l-2 2V12a8 8 0 018-8h2a8 8 0 018 8z",
   info: "M12 16v-4m0-4h.01M12 21a9 9 0 100-18 9 9 0 000 18z",
 };
 
