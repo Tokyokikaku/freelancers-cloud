@@ -12,7 +12,8 @@
   --grad-from: #7b4dff;
   --grad-to: #3b82f6;
   --c-footer: #262626;
-  --font-sans: 'Zen Maru Gothic', 'Hiragino Maru Gothic ProN', 'Hiragino Sans', 'Yu Gothic', Meiryo, sans-serif;
+  --font-sans: 'Zen Maru Gothic', 'Hiragino Maru Gothic ProN', 'Hiragino Sans', 'Yu Gothic', Meiryo, sans-serif; /* 見出し・ボタン・バッジ・ナビ */
+  --font-body: 'Noto Sans JP', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', Meiryo, sans-serif; /* 本文 */
   --radius-card: 22px;
 }
 
@@ -39,13 +40,14 @@ html {
 body {
   background: var(--c-bg);
   color: var(--c-text);
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   font-weight: 400;
   line-height: 1.85;
   letter-spacing: 0.03em;
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
 }
+h1, h2, h3, header { font-family: var(--font-sans); }
 h1, h2, h3 { font-weight: 700; line-height: 1.4; letter-spacing: 0.01em; font-feature-settings: 'palt'; }
 a { text-underline-offset: 3px; }
 :focus-visible { outline: 3px solid var(--c-accent); outline-offset: 3px; border-radius: 6px; }
@@ -69,6 +71,7 @@ a { text-underline-offset: 3px; }
 .hero-title strong { font-family: var(--font-sans); font-weight: 900; }
 .hero-title .bk-o { margin-left: -.5em; }
 .hero-title .bk-c { margin-right: -.5em; }
+.hero-lead { word-break: auto-phrase; line-break: strict; text-wrap: pretty; }
 .news-strip { background: #fff; border-radius: var(--radius-card); box-shadow: 0 14px 44px rgba(60,40,140,.10); border: 1px solid var(--c-line); }
 
 /* ===== セクション ===== */
@@ -93,6 +96,7 @@ a { text-underline-offset: 3px; }
 /* ===== ボタン（ピル型） ===== */
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  font-family: var(--font-sans);
   min-height: 48px; padding: 0 28px; border-radius: 9999px;
   border: 1.5px solid var(--c-text); background: #fff; color: var(--c-text);
   font-weight: 700; font-size: 15px; text-decoration: none;
@@ -108,7 +112,7 @@ a { text-underline-offset: 3px; }
 
 /* ===== バッジ ===== */
 .badge {
-  display: inline-flex; align-items: center; height: 24px; padding: 0 12px;
+  display: inline-flex; align-items: center; height: 24px; font-family: var(--font-sans); padding: 0 12px;
   border-radius: 9999px; font-size: 12px; font-weight: 700; line-height: 1;
   background: var(--c-accent-soft); color: var(--c-accent);
 }
