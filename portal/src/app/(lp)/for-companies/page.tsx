@@ -97,11 +97,6 @@ export default async function ForCompaniesPage() {
           <div className="relative mx-auto h-[21rem] w-full max-w-md sm:h-[30rem] lg:h-auto lg:max-w-none lg:self-stretch">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/hero/person.webp" alt="" width={1200} height={1850} className="absolute bottom-0 left-1/2 block h-full w-auto max-w-none -translate-x-1/2" />
-            <div className="absolute bottom-6 left-0 w-48 rounded-lg bg-white p-3 shadow-[0_18px_40px_-18px_rgb(7_42_90/0.6)] ring-1 ring-line sm:bottom-14 sm:left-0 sm:w-52" aria-hidden>
-              <p className="flex items-center gap-1.5 text-[0.7rem] font-black text-cta-600"><Icon name="mail" className="size-4" />資料請求が届きました</p>
-              <p className="mt-1.5 text-xs font-bold text-ink">株式会社〇〇　ご担当者さま</p>
-              <p className="mt-0.5 text-[0.7rem] text-muted">会社メール・携帯番号つき</p>
-            </div>
             <div className="absolute right-0 top-28 rounded-lg bg-brand-700 px-4 py-3 text-white shadow-[0_18px_40px_-18px_rgb(7_42_90/0.7)] sm:right-0 sm:top-44" aria-hidden>
               <p className="text-[0.7rem] font-bold">成果が出たときだけ</p>
               <p className="text-lg font-black leading-tight">1件 10,000円</p>
