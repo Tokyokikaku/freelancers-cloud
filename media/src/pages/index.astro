@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import HeroDecor from '../components/HeroDecor.astro';
-import HeroIllustration from '../components/HeroIllustration.astro';
+import HeroCards from '../components/HeroCards.astro';
 import SectionLabel from '../components/SectionLabel.astro';
 import CategoryFilter from '../components/CategoryFilter.astro';
 import ArticleGrid from '../components/ArticleGrid.astro';
@@ -12,16 +11,17 @@ import { SITE } from '../site.config';
 const all = await getArticles();
 const latest = all.slice(0, 6);
 const news = all.slice(0, 3);
+const heroCards = ['nyangailab', 'movemaster', 'phone-num-guessr'].map((id) => all.find((a) => a.id === id)).filter((a): a is NonNullable<typeof a> => !!a);
 // 「**強調**」部分だけ太字にして強弱をつける
 const heroLines = SITE.tagline.split('\n').map((line) => line.split('**'));
 ---
 
 <BaseLayout>
   <section class="hero">
-    <HeroDecor />
+    <div class="pointer-events-none absolute -bottom-32 -left-24 h-72 w-72 rounded-full bg-white/10" aria-hidden="true"></div>
     <div class="container-x relative grid items-center gap-10 pb-10 pt-12 md:grid-cols-[1fr_1.05fr] md:gap-6 md:pb-16 md:pt-20">
       <div>
-        <p class="text-sm font-bold tracking-[0.12em] text-accent">個人開発メディア</p>
+        <p class="inline-block rounded-full bg-white/20 px-4 py-1 text-sm font-bold tracking-[0.12em]">個人開発メディア</p>
         <h1 class="hero-title mt-5">
           {heroLines.map((parts) => (
             <span class="block">
@@ -29,13 +29,13 @@ const heroLines = SITE.tagline.split('\n').map((line) => line.split('**'));
             </span>
           ))}
         </h1>
-        <p class="hero-lead mt-6 max-w-md text-[15px] font-medium leading-loose tracking-wide text-sub md:text-base">{SITE.heroLead}</p>
+        <p class="hero-lead mt-6 max-w-md text-[15px] font-medium leading-loose tracking-wide text-white/95 md:text-base">{SITE.heroLead}</p>
         <div class="mt-9 flex flex-wrap gap-3">
-          <a href="/articles/" class="btn btn-primary">記事を読む</a>
-          <a href="/contact/#interview" class="btn">無料掲載希望</a>
+          <a href="/articles/" class="btn btn-on-grad">記事を読む</a>
+          <a href="/contact/#interview" class="btn btn-ghost-on-grad">無料掲載希望</a>
         </div>
       </div>
-      <HeroIllustration />
+      <HeroCards articles={heroCards} />
     </div>
 
     <div class="container-x relative pb-14 md:pb-24">

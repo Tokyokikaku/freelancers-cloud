@@ -1,0 +1,21 @@
+---
+// FV右側：掲載記事のサムネイルを重ねて見せる（実際の記事から取る）
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import { articleUrl } from '../lib/articles';
+const { articles } = Astro.props as { articles: CollectionEntry<'articles'>[] };
+const pos = [
+  'left-[4%] top-[2%] -rotate-6 z-10',
+  'right-[0%] top-[28%] rotate-[4deg] z-20',
+  'left-[14%] bottom-[0%] -rotate-3 z-30',
+];
+---
+<div class="relative mx-auto hidden aspect-[6/5] w-full max-w-[520px] md:block" aria-hidden="true">
+  <div class="absolute -right-6 -top-10 h-56 w-56 rounded-full border-2 border-white/20"></div>
+  <div class="absolute right-2 top-0 h-36 w-36 rounded-full border-2 border-white/15"></div>
+  {articles.slice(0, 3).map((a, i) => (
+    <a href={articleUrl(a)} tabindex="-1" class={`absolute w-[62%] overflow-hidden rounded-2xl border-[3px] border-white shadow-[0_18px_40px_rgba(20,10,90,.4)] ${pos[i]}`}>
+      {a.data.ogImage && <Image src={a.data.ogImage} alt="" widths={[420, 640]} sizes="320px" class="block h-auto w-full" />}
+    </a>
+  ))}
+</div>

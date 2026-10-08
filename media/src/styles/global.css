@@ -61,7 +61,11 @@ a { text-underline-offset: 3px; }
 
 @layer components {
 /* ===== ヒーロー ===== */
-.hero { position: relative; overflow: hidden; background: var(--c-bg); }
+.hero { position: relative; overflow: hidden; color: #fff; background: linear-gradient(120deg, #7b4dff 0%, #5a6cf5 55%, #3b82f6 100%); }
+.btn.btn-on-grad { background: #fff; color: #5b3be0; border: 1px solid #fff; box-shadow: 0 8px 20px rgba(20,10,80,.25); }
+.btn.btn-on-grad:hover { background: #f3efff; }
+.btn.btn-ghost-on-grad { background: rgba(255,255,255,.12); color: #fff; border: 1px solid rgba(255,255,255,.7); }
+.btn.btn-ghost-on-grad:hover { background: rgba(255,255,255,.22); }
 /* キーワードは極太、それ以外は通常の太さ。同じ書体の太さ違いで強弱をつける */
 .hero-title {
   font-weight: 400;
