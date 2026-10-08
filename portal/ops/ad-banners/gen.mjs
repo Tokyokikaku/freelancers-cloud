@@ -8,10 +8,10 @@ const S = [
  { n:"300x600", w:300,h:600, lay:"tall", logo:24, h1:34, sub:0, cta:17, ph:420, pr:-58, pb:-30, tw:260 },
  { n:"728x90", w:728,h:90, lay:"wide", logo:20, h1:20, sub:0, cta:13, ph:118, pr:10, pb:-36, tw:0 },
  { n:"320x100", w:320,h:100, lay:"mini", logo:16, h1:15, sub:0, cta:11, ph:124, pr:-6, pb:-34, tw:210 },
- { n:"1200x628", w:1200,h:628, lay:"std", logo:44, h1:68, sub:26, cta:32, ph:720, pr:20, pb:-40, tw:560 },
+ { n:"1200x628", w:1200,h:628, lay:"std", logo:44, h1:68, sub:26, cta:32, ph:660, pr:100, pb:-44, tw:560 },
  { n:"1200x1200", w:1200,h:1200, lay:"sq", logo:52, h1:100, sub:34, cta:44, ph:1000, pr:-90, pb:-10, tw:900 },
 ];
-const COPY = { h1a:"成果報酬型サービス", h1b:"比較メディア", sub:"成果に応じて料金を支払うサービスだけを集めました。", cta:"サービスを比較する", chip:"まとめて資料請求（無料）" };
+const COPY = { h1a:"成果報酬型サービス", h1b:"比較メディア", sub:"成果に応じて料金を支払う<br>サービスだけを集めました。", cta:"サービスを比較する", chip:"まとめて資料請求（無料）" };
 const logo = (s)=>`<div class="logo" style="gap:${s*.3}px"><img src="file://${LOGO}" style="width:${s}px;height:${s}px"><b style="font-size:${s*.78}px">成果報酬ナビ</b></div>`;
 function banner(c){
   const {w,h,lay}=c;
