@@ -17,32 +17,31 @@ export const metadata: Metadata = buildMetadata({
 });
 
 const PROBLEMS = [
-  ["search", "成果報酬で頼めるサービスを探している企業に、見つけてもらえていない…"],
+  ["search", "成果報酬型のサービスを探している企業に、見つけてもらえていない…"],
   ["sales", "集客や営業に手が回らず、新規開拓が止まっている…"],
-  ["shield", "掲載や広告に、先にお金をかけるのが不安…"],
+  ["shield", "広告に先行投資をするのが不安…"],
 ] as const;
 
 const FEATURES = [
-  { icon: "compare", title: "成果報酬を探している企業だけに届く", lead: "固定費をかけずに頼みたい企業が、比較を目的に訪れる", points: ["必須の月額固定費がないサービスだけを集めたメディア", "「成果報酬で頼めるサービスを探したい」企業にアプローチ", "複数社を比べる企業の検討対象になる"] },
+  { icon: "compare", title: "成果報酬を探している企業だけに届く", lead: "", points: ["必須の月額固定費がないサービスだけを集めたメディア", "「成果報酬で頼めるサービスを探したい」企業にアプローチ", "複数社を比較する企業の検討対象に入れるため、受注見込み企業が増える"] },
   { icon: "check", title: "先払いなし。成果が出た分だけ", lead: "資料請求が届かなければ、費用は0円", points: ["掲載料・初期費用・月額費用は 0円", "費用は資料請求1件につき 10,000円（税別）", "掲載の準備もラクラク"] },
-  { icon: "shield", title: "連絡のつく担当者の情報が届く", lead: "つながらない・質の低い資料請求を、入口で防ぐ", points: ["会社のメールアドレスと担当者の携帯電話番号つき", "フリーメール・固定電話・適当な入力は受け付けない", "請求者の同意を得た情報を、電子ファイルで受け取れる"] },
+  { icon: "shield", title: "担当者の情報が届く", lead: "担当者の連絡先つきで、すぐにアプローチできる", points: ["会社のメールアドレスと担当者の携帯電話番号つき", "担当者に直接連絡をすることが可能なので、商談アポが取りやすい", "請求者の同意を得た情報を、電子ファイルで受け取れる"] },
 ] as const;
 
 const STEPS = [
-  ["問い合わせ", "フォームから、サービスURLと料金体系をお知らせください。"],
+  ["問い合わせ", "まずはフォームからお問い合わせください。"],
   ["打ち合わせ", "サービスの内容や課金の条件を、お打ち合わせでうかがいます。"],
-  ["資料をもらう", "掲載に必要な資料（サービス資料・料金表など）をご提供ください。"],
+  ["資料をご提供", "掲載に必要な資料（サービス資料・料金表など）をご提供ください。"],
   ["掲載開始", "比較ページに掲載され、資料請求の受付がスタートします。"],
 ] as const;
 
 const FAQS = [
-  { q: "掲載に費用はかかりますか？", a: "掲載は無料です。掲載料・初期費用・月額費用はかかりません。費用が発生するのは、資料請求が届いたときだけで、1件につき10,000円（税別）です。資料請求が届かなければ、費用は発生しません。" },
-  { q: "資料請求「1件」は、どう数えますか？", a: "1件の数え方や、お支払いの方法・時期などの詳しい条件は、お申し込み後に個別にご案内します。" },
+  { q: "掲載に費用はかかりますか？", a: "掲載は無料です。掲載料・初期費用・月額費用はかかりません。費用が発生するのは、資料請求が届いたときだけで、1件につき10,000円（税別）です。" },
   { q: "申し込みから掲載まで、どのくらいかかりますか？", a: "最短で3日です。問い合わせ、打ち合わせ、資料のご提供を経て、掲載を開始します。資料のご準備状況により、日数は前後します。" },
-  { q: "どんなサービスが掲載できますか？", a: "必須の月額固定費がなく、成果に応じて課金されるサービスです。作業量（送信件数など）への課金、アフィリエイトASP、固定費と成果報酬の併用が必須のサービスは、対象外です。" },
-  { q: "掲載内容は、誰が作りますか？", a: "編集部が、公式の料金ページなどの公開情報をもとに作成します。確認できない項目は「要問い合わせ」と表示します。" },
+  { q: "どんなサービスが掲載できますか？", a: "成果に応じて課金されるサービスが対象です。固定費と成果報酬の併用が必須のサービスは、掲載対象外です。" },
+  { q: "掲載内容は、誰が作りますか？", a: "編集部が、ヒアリング内容や資料情報をもとに作成します。" },
   { q: "リードはどのように受け取れますか？", a: "資料請求が入ると、請求者の会員情報（会社名・氏名・メールアドレス・電話番号など）を電子ファイルで提供します。請求者には、フォーム上で提供への同意をいただいています。" },
-  { q: "資料請求のあとの商談化も、お願いできますか？", a: "ご希望の企業さまには、資料請求後のフォローと日程調整を代行し、商談アポにつなげるオプションもご用意しています（商談アポ1件あたり50,000円・税別）。お申し込みフォームの「アポ化オプションにも関心がある」にチェックを入れてください。" },
+  { q: "資料請求のあとの商談化も、お願いできますか？", a: "ご希望の企業さまには、資料請求後のフォローと日程調整を代行し、商談アポにつなげるオプションもご用意しています（商談アポ1件あたり50,000円・税別）。詳しくは担当者にお問い合わせください。" },
 ] as const;
 
 function SectionHead({ en, title, light }: { en: string; title: string; light?: boolean }) {
@@ -155,7 +154,7 @@ export default async function ForCompaniesPage() {
                 </div>
                 <div className="p-6 sm:p-8">
                   <h3 className="text-xl leading-snug text-ink sm:text-2xl">{f.title}</h3>
-                  <p className="mt-2 text-base font-bold text-brand-700">{f.lead}</p>
+                  {f.lead && <p className="mt-2 text-base font-bold text-brand-700">{f.lead}</p>}
                   <ul className="mt-4 space-y-2.5">
                     {f.points.map((pt) => (
                       <li key={pt} className="flex items-start gap-3 text-base leading-7 text-ink">
@@ -191,7 +190,7 @@ export default async function ForCompaniesPage() {
           <p className="mx-auto mt-6 max-w-2xl rounded-xl bg-white/80 p-4 text-center text-sm font-bold leading-7 text-ink ring-1 ring-line">
             例：資料請求が10件届いた場合 → 10件 × 10,000円 ＝ <span className="text-cta-600">100,000円</span>。届かなければ、0円です。
           </p>
-          <p className="mx-auto mt-3 max-w-2xl text-center text-xs leading-6 text-muted">※ 「1件」の数え方、お支払いの方法・時期などの条件は、お申し込み後に個別にご案内します。</p>
+          <p className="mx-auto mt-3 max-w-2xl text-center text-xs leading-6 text-muted">※ 「1件」の数え方、お支払いの方法・時期などの条件は、担当者が個別にご案内します。</p>
           <p className="mt-8 text-center"><ListingButton className="btn btn-cta min-h-14 px-10 text-lg shadow-lg">無料で掲載を申し込む</ListingButton></p>
         </div>
       </section>
@@ -222,7 +221,7 @@ export default async function ForCompaniesPage() {
             {[
               "必須の月額固定費がないこと（初期費用の有無は問いません。有料の場合はその旨を明記します）",
               "現在も提供しているサービスであること",
-              "作業量（送信件数など）への課金、アフィリエイトASP、固定費と成果報酬の併用が必須のサービスは、対象外です",
+              "固定費と成果報酬の併用が必須のサービスは、掲載対象外です",
             ].map((t) => (
               <li key={t} className="flex gap-3"><span className="mt-1 inline-flex size-5 shrink-0 items-center justify-center rounded-full bg-brand-700 text-white"><Icon name="check" className="size-3.5" /></span>{t}</li>
             ))}
@@ -243,7 +242,7 @@ export default async function ForCompaniesPage() {
         <div className="fv-bg__shape fv-bg__shape--b opacity-40" aria-hidden />
         <div className="container-page relative">
           <h2 id="cta" className="text-2xl text-white sm:text-4xl">掲載無料、費用は<span className="text-cta-500">資料請求1件 10,000円</span>だけ。</h2>
-          <p className="mx-auto mt-3 max-w-xl text-sm leading-8 text-brand-100">サービスURLと料金体系をお知らせください。内容を確認のうえ、編集部からご連絡します。</p>
+          <p className="mx-auto mt-3 max-w-xl text-sm leading-8 text-brand-100">まずはフォームからお問い合わせください。内容を確認のうえ、編集部からご連絡します。</p>
           <p className="mt-7"><ListingButton className="btn btn-cta min-h-14 px-10 text-lg shadow-lg">無料で掲載を申し込む</ListingButton></p>
         </div>
       </section>
