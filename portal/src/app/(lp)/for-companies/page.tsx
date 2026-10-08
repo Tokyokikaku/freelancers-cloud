@@ -110,7 +110,7 @@ export default async function ForCompaniesPage() {
           {[
             ["掲載料・初期費用・月額", "0円"],
             ["費用が発生するのは", "資料請求が届いたときだけ"],
-            ["資料請求1件あたり", "10,000円（税別）"],
+            ["成果報酬：資料請求1件あたり", "10,000円（税別）"],
           ].map(([k, v]) => (
             <li key={k} className="px-4 py-4 text-center sm:py-2">
               <p className="text-xs font-bold text-brand-100">{k}</p>
@@ -176,14 +176,15 @@ export default async function ForCompaniesPage() {
           <SectionHead en="PRICE" title="料金は、これだけ" />
           <div className="mx-auto mt-10 grid max-w-4xl items-stretch gap-4 md:grid-cols-[1fr_auto_1fr]">
             <div className="rounded-2xl bg-white p-7 text-center shadow-[0_18px_40px_-24px_rgb(7_42_90/0.55)] ring-2 ring-brand-700">
-              <p className="inline-block rounded-full bg-brand-700 px-4 py-1 text-sm font-black text-white">掲載</p>
+              <p className="inline-block rounded-full bg-brand-700 px-5 py-1.5 text-base font-black text-white">固定費</p>
               <p className="mt-4"><b className="text-6xl font-black text-ink">0</b><span className="ml-1 text-xl font-black">円</span></p>
               <p className="mt-2 text-sm font-bold text-body">掲載料・初期費用・月額費用</p>
             </div>
             <div className="flex items-center justify-center text-4xl font-black text-brand-700" aria-hidden>＋</div>
             <div className="rounded-2xl bg-white p-7 text-center shadow-[0_18px_40px_-24px_rgb(7_42_90/0.55)] ring-2 ring-cta-500">
-              <p className="inline-block rounded-full bg-cta-500 px-4 py-1 text-sm font-black text-white">資料請求1件につき</p>
-              <p className="mt-4"><b className="text-6xl font-black text-ink">10,000</b><span className="ml-1 text-xl font-black">円</span><span className="ml-1 text-xs font-bold text-muted">（税別）</span></p>
+              <p className="inline-block rounded-full bg-cta-500 px-5 py-1.5 text-base font-black text-white">成果報酬</p>
+              <p className="mt-3 text-sm font-bold text-ink">資料請求1件につき</p>
+              <p className="mt-1"><b className="text-6xl font-black text-ink">10,000</b><span className="ml-1 text-xl font-black">円</span><span className="ml-1 text-xs font-bold text-muted">（税別）</span></p>
               <p className="mt-2 text-sm font-bold text-body">資料請求が届いたときだけ</p>
             </div>
           </div>
