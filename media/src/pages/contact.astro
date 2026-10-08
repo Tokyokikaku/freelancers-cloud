@@ -14,7 +14,7 @@ const requestBody = [
   '■ サービスのURL：',
   '■ 開発者のお名前（または活動名）：',
   '■ 開発者のXアカウント（あれば）：',
-  '■ ご希望（紹介記事／インタビュー）：',
+  '■ ご希望（編集部による紹介記事の執筆／インタビュー）：',
   '■ ご連絡先（このメールへの返信で構いません）：',
   '■ ひとこと（任意）：',
 ].join('\n');
@@ -37,20 +37,23 @@ const removalBody = [
   '■ ひとこと（任意）：',
 ].join('\n');
 ---
-<BaseLayout title="掲載希望・取材依頼・掲載内容の修正と削除" description="掲載のご希望・取材のご依頼、および掲載内容の修正・削除のご申請は、メールで受け付けています。">
+<BaseLayout title="掲載希望・取材依頼・掲載内容の修正と削除" description="無料の掲載希望・取材のご依頼、および掲載内容の修正・削除のご申請は、メールで受け付けています。">
   <section class="section">
     <div class="container-x">
       <SectionLabel en="CONTACT" title="お問い合わせ" tag="h1" lead="ご連絡は、メールで受け付けています。" />
       <div class="section-body max-w-2xl space-y-14">
         <div id="interview" class="scroll-mt-24">
-          <h2 class="text-xl">掲載を希望する・取材を依頼する</h2>
-          <p class="mt-3">ご自身のサービスの掲載（紹介記事・インタビュー）をご希望の方は、次の内容を添えて、メールをお送りください。</p>
+          <h2 class="text-xl">無料で掲載を希望する・取材を依頼する</h2>
+          <p class="mt-4 rounded-2xl border-2 border-accent bg-accent-soft p-4 font-bold">
+            掲載は無料です。掲載にあたって、料金をいただくことは一切ありません。
+          </p>
+          <p class="mt-4">ご自身のサービスの掲載（編集部による紹介記事の執筆、またはインタビュー）をご希望の方は、次の内容を添えて、メールをお送りください。</p>
           <ul class="mt-3 list-disc space-y-1 pl-5">
             <li>サービス名とURL</li>
             <li>開発者のお名前（または活動名）、Xアカウント</li>
-            <li>紹介・インタビューのどちらを希望か</li>
+            <li>編集部による紹介記事の執筆と、インタビューのどちらを希望か</li>
           </ul>
-          <a href={mailto('【Yupir】掲載希望・取材依頼', requestBody)} class="btn btn-primary mt-6">メールで掲載を希望する</a>
+          <a href={mailto('【Yupir】掲載希望・取材依頼', requestBody)} class="btn btn-primary mt-6">メールで無料掲載を希望する</a>
         </div>
 
         <div id="removal" class="scroll-mt-24">
