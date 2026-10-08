@@ -3,7 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import HeroDecor from '../components/HeroDecor.astro';
 import HeroIllustration from '../components/HeroIllustration.astro';
 import SectionLabel from '../components/SectionLabel.astro';
-import TypeFilter from '../components/TypeFilter.astro';
+import CategoryFilter from '../components/CategoryFilter.astro';
 import ArticleGrid from '../components/ArticleGrid.astro';
 import FeatureBanner from '../components/FeatureBanner.astro';
 import { getArticles, articleUrl, formatDate, isoDate } from '../lib/articles';
@@ -32,7 +32,7 @@ const heroLines = SITE.tagline.split('\n').map((line) => line.split('**'));
         <p class="hero-lead mt-6 max-w-md text-[15px] font-medium leading-loose tracking-wide text-sub md:text-base">{SITE.heroLead}</p>
         <div class="mt-9 flex flex-wrap gap-3">
           <a href="/articles/" class="btn btn-primary">記事を読む</a>
-          <a href="/contact/#interview" class="btn">掲載希望</a>
+          <a href="/contact/#interview" class="btn">無料掲載希望</a>
         </div>
       </div>
       <HeroIllustration />
@@ -62,7 +62,7 @@ const heroLines = SITE.tagline.split('\n').map((line) => line.split('**'));
     <div class="container-x">
       <SectionLabel en="ARTICLES" title="最新記事" lead="個人開発者のサービス紹介とインタビュー。" />
       <div class="section-body">
-        <div class="mb-10"><TypeFilter current="all" /></div>
+        <div class="mb-10"><CategoryFilter articles={all} current="all" /></div>
         <ArticleGrid articles={latest} />
         <div class="mt-14 text-center"><a href="/articles/" class="btn">記事一覧をすべて見る</a></div>
       </div>

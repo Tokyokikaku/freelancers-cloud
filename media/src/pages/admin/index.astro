@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { SITE } from '../../site.config';
+import { SITE, CATEGORIES } from '../../site.config';
 
 const config = { ...SITE.github, siteUrl: SITE.url };
 ---
@@ -77,6 +77,12 @@ const config = { ...SITE.github, siteUrl: SITE.url };
             <select id="f-type" class="adm-in"><option value="introduction">紹介</option><option value="interview">インタビュー</option></select>
           </div>
           <div>
+            <label class="adm-label" for="f-category">カテゴリ<span class="adm-req">必須</span></label>
+            <select id="f-category" class="adm-in">
+              {CATEGORIES.map((c) => <option value={c.slug}>{c.label}</option>)}
+            </select>
+          </div>
+          <div>
             <label class="adm-label" for="f-tags">タグ（カンマ区切り）</label>
             <input id="f-tags" class="adm-in" placeholder="Webアプリ, 生産性" />
           </div>
@@ -89,7 +95,6 @@ const config = { ...SITE.github, siteUrl: SITE.url };
             <input id="f-updated" type="date" class="adm-in" />
           </div>
           <div class="md:col-span-2 grid gap-3 rounded-2xl bg-alt p-4">
-            <label class="flex items-start gap-3 text-sm"><input type="checkbox" id="f-verified" class="mt-1" /><span><b>確認済み</b>（開発者本人への確認、または数字の確認が済んでいる）<br /><span class="text-sub">チェックがないと、記事に「本人未確認」バッジと注意書きが表示されます。</span></span></label>
             <label class="flex items-start gap-3 text-sm"><input type="checkbox" id="f-draft" class="mt-1" /><span><b>下書き</b>（保存しても公開しない）</span></label>
           </div>
         </fieldset>
@@ -127,7 +132,7 @@ const config = { ...SITE.github, siteUrl: SITE.url };
           <div class="grid gap-4 lg:grid-cols-2">
             <div>
               <textarea id="f-body" class="adm-in adm-mono" rows="22" placeholder="## どんなサービス？&#10;&#10;本文をここに書きます。見出しは ## から。"></textarea>
-              <p class="adm-hint">リンクと要約のみ。他人の投稿やサービス画面の転載はしないでください。</p>
+              <p class="adm-hint">要約とリンクが中心です。画像は、![説明](./images/ファイル名.jpg) で入れられます。他人の投稿やユーザーの投稿画像は使わないでください。</p>
             </div>
             <div>
               <div class="adm-label">プレビュー</div>

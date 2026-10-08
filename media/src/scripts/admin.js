@@ -158,8 +158,8 @@ function readForm() {
     publishedAt: $('f-published').value,
     updatedAt: $('f-updated').value,
     type: $('f-type').value,
+    category: $('f-category').value,
     tags: csv($('f-tags').value),
-    verified: $('f-verified').checked,
     draft: $('f-draft').checked,
     service: {
       name: $('f-sname').value.trim(),
@@ -182,6 +182,7 @@ function validate(d) {
     need(d.slug, 'ファイル名を入力してください。');
     if (d.slug && !/^[a-z0-9][a-z0-9-]*$/.test(d.slug)) e.push('ファイル名は、半角の英小文字・数字・ハイフンだけにしてください。');
   }
+  need(d.category, 'カテゴリを選んでください。');
   need(d.title, 'タイトルを入力してください。');
   need(d.description, '説明文を入力してください。');
   if (!isDate(d.publishedAt)) e.push('公開日を入力してください。');
@@ -203,7 +204,7 @@ function validate(d) {
 function toMarkdown(d) {
   const L = ['---', `title: ${q(d.title)}`, `description: ${q(d.description)}`, `publishedAt: ${d.publishedAt}`];
   if (d.updatedAt) L.push(`updatedAt: ${d.updatedAt}`);
-  L.push(`tags: ${arr(d.tags)}`, `type: ${d.type}`, `verified: ${d.verified}`, 'service:');
+  L.push(`tags: ${arr(d.tags)}`, `type: ${d.type}`, `category: ${d.category}`, 'service:');
   L.push(`  name: ${q(d.service.name)}`, `  url: ${q(d.service.url)}`, `  developerName: ${q(d.service.developerName)}`);
   if (d.service.developerXHandle) L.push(`  developerXHandle: ${q(d.service.developerXHandle)}`);
   L.push(`  techStack: ${arr(d.service.techStack)}`);
@@ -261,7 +262,7 @@ function fillForm(d, { path = null, sha = null } = {}) {
   $('f-updated').value = d.updatedAt || '';
   $('f-type').value = d.type === 'interview' ? 'interview' : 'introduction';
   $('f-tags').value = (d.tags || []).join(', ');
-  $('f-verified').checked = !!d.verified;
+  if (d.category) $('f-category').value = d.category;
   $('f-draft').checked = !!d.draft;
   const s = d.service || {};
   $('f-sname').value = s.name || '';
@@ -296,7 +297,7 @@ function fromMarkdown(text) {
     updatedAt: dateStr(y.updatedAt),
     type: y.type,
     tags: Array.isArray(y.tags) ? y.tags.map(String) : [],
-    verified: y.verified === true,
+    category: y.category || '',
     draft: y.draft === true,
     ogImage: y.ogImage || '',
     service: {
