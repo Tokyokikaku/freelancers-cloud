@@ -89,10 +89,15 @@ const heroLines = SITE.tagline.split('\n').map((line) => line.split('**'));
       <div class="section-body max-w-2xl">
         <p class="leading-loose">
           {SITE.name}は、個人開発者がつくったサービスを紹介する小さなメディアです。
-          公開されている情報へのリンクと要約を中心に、数字は必ず出典と確認日を添えて掲載します。
-          掲載内容の修正・削除はいつでもご連絡ください。
+          編集部がサービスを実際に調べて紹介記事を執筆するほか、開発者へのインタビュー記事も制作しています。
         </p>
-        <a href="/about/" class="btn mt-8">運営者情報</a>
+        <p class="mt-4 leading-loose">
+          個人開発をしている方にとって、無料でサービスをアピールできるチャンスです。掲載をご希望の方は、お気軽にお問い合わせください。
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/contact/#interview" class="btn btn-primary">無料掲載希望</a>
+          <a href="/about/" class="btn">運営者情報</a>
+        </div>
       </div>
     </div>
   </section>
