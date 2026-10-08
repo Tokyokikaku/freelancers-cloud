@@ -6,7 +6,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import TypeBadge from '../../components/TypeBadge.astro';
 import ServiceCard from '../../components/ServiceCard.astro';
 import ArticleGrid from '../../components/ArticleGrid.astro';
-import ShareButton from '../../components/ShareButton.astro';
+import ShareCard from '../../components/ShareCard.astro';
 import CorrectionLink from '../../components/CorrectionLink.astro';
 import Thumbnail from '../../components/Thumbnail.astro';
 import { getArticles, slugOf, tagUrl, relatedArticles, formatDate, isoDate, absoluteUrl } from '../../lib/articles';
@@ -64,9 +64,7 @@ const ogUrl = absoluteUrl(ogPath);
 
       <div class="mx-auto mt-14 max-w-[680px] space-y-8">
         <ServiceCard article={article} />
-        <div class="flex flex-wrap items-center gap-3">
-          <ShareButton url={canonicalUrl} text={d.title} />
-        </div>
+        <ShareCard url={canonicalUrl} text={`${d.service.name}｜${d.title}`} />
         <CorrectionLink />
       </div>
     </div>
