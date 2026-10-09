@@ -215,6 +215,20 @@ a{text-decoration:none;color:inherit}
 .cta-inner h2{margin:0;color:var(--navy);font-size:31px}
 .cta-inner>div:last-child{display:flex;flex-direction:column;align-items:stretch;gap:7px}
 .cta-inner small{text-align:center;color:#6b7890}
+.contact-form{display:flex;flex-direction:column;gap:10px;text-align:left}
+.contact-form label{display:flex;flex-direction:column;gap:4px;font-size:13px;font-weight:700;color:var(--navy)}
+.contact-form .req{color:var(--orange);font-size:11px;margin-left:4px}
+.contact-form input,.contact-form textarea{
+  font:inherit;font-weight:400;font-size:16px;color:var(--text);background:#fff;
+  border:1px solid #cfdde8;border-radius:10px;padding:10px 12px;width:100%;
+}
+.contact-form textarea{resize:vertical}
+.contact-form input:focus,.contact-form textarea:focus{outline:2px solid var(--teal);outline-offset:1px}
+.contact-form .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.contact-form button{border:0;cursor:pointer;font-family:inherit}
+.contact-form button:disabled{opacity:.6;cursor:default}
+.form-status{margin:0;min-height:0;text-align:center;font-weight:700;color:#0a8f6a}
+.form-status.is-error{color:#d3341c}
 
 .site-footer{padding:28px 0;color:#71809a;font-size:13px;border-top:1px solid #edf2f5}
 

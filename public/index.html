@@ -315,10 +315,24 @@
           <p>＼&nbsp;プロの力で、<wbr>ビジネスを<wbr>もっと前へ&nbsp;／</p>
           <h2>まずはお気軽に<wbr>ご相談ください</h2>
         </div>
-        <div>
-          <a class="btn btn-primary btn-large" href="mailto:info@tyokikaku.co.jp">まずは相談する <span>→</span></a>
+        <form class="contact-form" id="contact-form" action="/api/contact" method="post" novalidate>
+          <label><span>お名前 <span class="req">必須</span></span>
+            <input type="text" name="name" autocomplete="name" maxlength="100" required />
+          </label>
+          <label><span>会社名</span>
+            <input type="text" name="company" autocomplete="organization" maxlength="100" />
+          </label>
+          <label><span>メールアドレス <span class="req">必須</span></span>
+            <input type="email" name="email" autocomplete="email" maxlength="200" required />
+          </label>
+          <label><span>ご相談内容 <span class="req">必須</span></span>
+            <textarea name="message" rows="4" maxlength="3000" required placeholder="依頼したい内容が固まっていなくても大丈夫です"></textarea>
+          </label>
+          <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
+          <button class="btn btn-primary btn-large" type="submit">まずは相談する <span>→</span></button>
+          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
           <small>ご相談は無料です。<wbr>まずはお気軽に<wbr>お問い合わせください。</small>
-        </div>
+        </form>
       </div>
     </section>
   </main>
