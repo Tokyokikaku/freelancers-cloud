@@ -1,0 +1,138 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "buildCommand": "node build.mjs",
+  "outputDirectory": "dist",
+  "cleanUrls": true,
+  "trailingSlash": true,
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        }
+      ]
+    },
+    {
+      "source": "/(favicon.svg|og.png)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/articles/ai-pet-robot-comparison",
+      "destination": "/category/pets/",
+      "permanent": true
+    },
+    {
+      "source": "/articles/ai-pet-robot-comparison/",
+      "destination": "/category/pets/",
+      "permanent": true
+    },
+    {
+      "source": "/articles/qoobo-guide",
+      "destination": "/category/pets/",
+      "permanent": true
+    },
+    {
+      "source": "/articles/qoobo-guide/",
+      "destination": "/category/pets/",
+      "permanent": true
+    },
+    {
+      "source": "/articles/toio-guide",
+      "destination": "/category/sports/",
+      "permanent": true
+    },
+    {
+      "source": "/articles/toio-guide/",
+      "destination": "/category/sports/",
+      "permanent": true
+    },
+    {
+      "source": "/articles/nekojita-fufu-guide",
+      "destination": "/category/communication/",
+      "permanent": true
+    },
+    {
+      "source": "/articles/nekojita-fufu-guide/",
+      "destination": "/category/communication/",
+      "permanent": true
+    },
+    {
+      "source": "/articles/hamham-guide",
+      "destination": "/category/communication/",
+      "permanent": true
+    },
+    {
+      "source": "/articles/hamham-guide/",
+      "destination": "/category/communication/",
+      "permanent": true
+    },
+    {
+      "source": "/articles/fufuly-guide",
+      "destination": "/category/communication/",
+      "permanent": true
+    },
+    {
+      "source": "/articles/fufuly-guide/",
+      "destination": "/category/communication/",
+      "permanent": true
+    },
+    {
+      "source": "/category/communication-healing",
+      "destination": "/category/communication/",
+      "permanent": true
+    },
+    {
+      "source": "/category/communication-healing/",
+      "destination": "/category/communication/",
+      "permanent": true
+    },
+    {
+      "source": "/category/communication-talk",
+      "destination": "/category/communication/",
+      "permanent": true
+    },
+    {
+      "source": "/category/communication-talk/",
+      "destination": "/category/communication/",
+      "permanent": true
+    },
+    {
+      "source": "/category/education",
+      "destination": "/category/sports/",
+      "permanent": true
+    },
+    {
+      "source": "/category/education/",
+      "destination": "/category/sports/",
+      "permanent": true
+    },
+    {
+      "source": "/articles/ai-pet-robot-3year-cost",
+      "destination": "/category/pets/",
+      "permanent": true
+    },
+    {
+      "source": "/articles/ai-pet-robot-3year-cost/",
+      "destination": "/category/pets/",
+      "permanent": true
+    }
+  ]
+}
