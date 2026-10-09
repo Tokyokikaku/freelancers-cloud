@@ -1,0 +1,23 @@
+/* TOP FV の背景（デザイン案の背景を採用） */
+.fv-bg {
+  background:
+    radial-gradient(circle at 10% 18%, rgba(255,255,255,.95), rgba(255,255,255,.4) 42%, transparent 58%),
+    linear-gradient(110deg, #f7fbff 0%, #edf7ff 49%, #dff1ff 71%, #b9ddf6 100%);
+}
+.fv-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(125deg, rgba(255,255,255,.28) 0 58%, rgba(19,105,204,.07) 58% 66%, transparent 66%);
+  pointer-events: none;
+}
+.fv-bg__shape { position: absolute; border-radius: 50%; pointer-events: none; }
+.fv-bg__shape--a { width: 980px; height: 360px; left: -180px; bottom: -250px; border: 38px solid rgba(93,173,237,.14); }
+.fv-bg__shape--b { width: 1020px; height: 410px; right: -390px; bottom: -240px; border: 46px solid rgba(29,111,213,.20); }
+.fv-bg__dots {
+  position: absolute; width: 90px; height: 90px; opacity: .55; pointer-events: none;
+  background-image: radial-gradient(#4aa9ef 2px, transparent 2px);
+  background-size: 12px 12px;
+}
+.fv-bg__dots--left { left: 0; bottom: 70px; }
+.fv-bg__dots--right { right: 8px; top: 40px; }
