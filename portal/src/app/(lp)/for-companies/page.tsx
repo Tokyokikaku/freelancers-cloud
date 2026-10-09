@@ -96,10 +96,6 @@ export default async function ForCompaniesPage() {
           <div className="relative mx-auto h-[21rem] w-full max-w-md sm:h-[30rem] lg:h-auto lg:max-w-none lg:self-stretch">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/hero/person.webp" alt="" width={1200} height={1850} className="absolute bottom-0 left-1/2 block h-full w-auto max-w-none -translate-x-1/2" />
-            <div className="absolute right-0 top-28 rounded-lg bg-brand-700 px-4 py-3 text-white shadow-[0_18px_40px_-18px_rgb(7_42_90/0.7)] sm:right-0 sm:top-44" aria-hidden>
-              <p className="text-[0.7rem] font-bold">成果が出たときだけ</p>
-              <p className="text-lg font-black leading-tight">1件 10,000円</p>
-            </div>
           </div>
         </div>
       </section>
