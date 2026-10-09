@@ -12,8 +12,8 @@ export async function Header() {
       <div className="container-page flex items-center gap-3 py-3 lg:gap-6">
         <Link href="/" className="flex shrink-0 items-center gap-1.5 sm:gap-2" aria-label={`${SITE_NAME} トップへ`}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/logo.svg" alt="" width={34} height={34} className="size-6 shrink-0 self-center sm:size-8" />
-          <span className="text-[1.05rem] sm:text-[1.2rem] font-[family-name:var(--font-logo)] font-bold tracking-[0.06em] text-brand-700">{SITE_NAME}</span>
+          <img src="/logo-lockup.svg" alt={SITE_NAME} width={205} height={34} className="hidden h-6 w-auto min-[360px]:block sm:h-[34px]" />
+          <img src="/logo.svg" alt={SITE_NAME} width={32} height={32} className="size-8 min-[360px]:hidden" />
           <span className="hidden text-[10px] font-bold text-muted xl:inline">成果報酬サービス比較</span>
         </Link>
 

@@ -20,8 +20,7 @@ export default function LpLayout({ children }: { children: React.ReactNode }) {
         <div className="container-page flex h-14 items-center justify-between gap-4 sm:h-16">
           <Link href="/" className="flex items-center gap-2" aria-label={`${SITE_NAME} トップへ`}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logo.svg" alt="" width={32} height={32} className="size-7 shrink-0" />
-            <span className="text-lg font-[family-name:var(--font-logo)] font-bold tracking-[0.06em] text-brand-700">{SITE_NAME}</span>
+            <img src="/logo-lockup.svg" alt={SITE_NAME} width={190} height={32} className="h-7 w-auto sm:h-8" />
             <span className="hidden text-[0.7rem] font-bold text-muted sm:inline">掲載企業さま向け</span>
           </Link>
           <nav aria-label="ページ内メニュー" className="hidden items-center gap-5 text-sm font-bold text-ink lg:flex">

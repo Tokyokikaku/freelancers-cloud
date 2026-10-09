@@ -12,7 +12,7 @@ const S = [
  { n:"1200x1200", w:1200,h:1200, lay:"sq", logo:52, h1:100, sub:34, cta:44, ph:1000, pr:-90, pb:-10, tw:900 },
 ];
 const COPY = { h1a:"成果報酬型サービス", h1b:"比較メディア", sub:"成果に応じて料金を支払う<br>サービスだけを集めました。", cta:"サービスを比較する", chip:"まとめて資料請求（無料）" };
-const logo = (s)=>`<div class="logo" style="gap:${s*.3}px"><img src="file://${LOGO}" style="width:${s}px;height:${s}px"><b style="font-size:${s*.78}px">成果報酬ナビ</b></div>`;
+const logo = (s)=>`<img class="lk" src="file:///home/user/freelancers-cloud/portal/public/logo-lockup.svg" style="height:${s*1.15}px;display:block">`;
 function banner(c){
   const {w,h,lay}=c;
   const person=`<img class="person" src="file://${P}" style="height:${c.ph}px;right:${c.pr}px;bottom:${c.pb}px">`;

@@ -8,10 +8,8 @@ export async function Footer() {
     <footer className="mt-12 border-t border-line bg-white pb-24 pt-10">
       <div className="container-page grid gap-8 md:grid-cols-[1.4fr_1fr_1fr]">
         <div>
-          <p className="flex items-center gap-2 text-lg font-[family-name:var(--font-logo)] font-bold tracking-[0.06em] text-brand-700">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logo.svg" alt="" width={28} height={28} className="size-7" />{SITE_NAME}
-          </p>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/logo-lockup.svg" alt={SITE_NAME} width={180} height={30} className="h-[30px] w-auto" />
           <p className="mt-3 text-xs leading-6">初期費用なし・リスクなしで事業を推進。再生数・問い合わせ数・アポ数などの実績に応じて支払う「成果報酬サービス」をまとめて比較できる、比較メディアです。</p>
           <p className="mt-3 text-xs leading-6 text-muted">掲載情報は公開情報をもとに編集部が作成しています。掲載企業との広告契約がある場合は、該当サービスに明示します。</p>
         </div>
