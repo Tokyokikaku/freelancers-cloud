@@ -1,3 +1,4 @@
+import { AnalyticsTags } from "@/components/AnalyticsTags";
 import Link from "next/link";
 import { ListingButton } from "@/components/ListingForm";
 import { CONTACT_EMAIL, OPERATOR_NAME, SITE_NAME } from "@/lib/site";
@@ -46,6 +47,7 @@ export default function LpLayout({ children }: { children: React.ReactNode }) {
       <div className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-white/95 p-2.5 backdrop-blur sm:hidden">
         <ListingButton className="btn btn-cta min-h-12 w-full text-base">無料で掲載を申し込む</ListingButton>
       </div>
+      <AnalyticsTags />
     </>
   );
 }

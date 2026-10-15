@@ -1,3 +1,4 @@
+import { AnalyticsTags } from "@/components/AnalyticsTags";
 import { SelectionBar } from "@/components/SelectionBar";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
@@ -14,6 +15,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
       <main id="main">{children}</main>
       <Footer />
       <SelectionBar />
+      <AnalyticsTags />
       <JsonLd
         data={{
           "@context": "https://schema.org",
