@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://gaichu.tyokikaku.co.jp/sitemap.xml
