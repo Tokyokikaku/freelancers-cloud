@@ -223,6 +223,10 @@ html{scroll-snap-type:y mandatory}
     y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
   })(window, document, "clarity", "script", "yxzh4mhuz8");
 </script>
+<!-- スマホ用 縦スワイプLP（767px以下だけ表示。PCは従来のまま） -->
+<script>(function(d){if(window.matchMedia&&matchMedia('(max-width: 767px)').matches){d.classList.add('slp-on');setTimeout(function(){if(!document.getElementById('slp'))d.classList.remove('slp-on')},4000)}})(document.documentElement)</script>
+<link rel="stylesheet" href="/swipe/swipe.css">
+<script src="/swipe/swipe.js" defer></script>
 </head>
 <body>
 <div class="r2" style="font-family: 'Noto Sans JP', sans-serif; color: #1E1E1E; background: #FFFFFF; font-size: 15px; line-height: 1.9; letter-spacing: 0.02em; overflow: hidden">
