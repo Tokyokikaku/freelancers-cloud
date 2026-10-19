@@ -1,0 +1,204 @@
+/* =========================================================
+   外注ドットコム スマホ用 縦スワイプLP
+   - 767px以下 かつ html.slp-on のときだけ表示（PCは従来LPのまま）
+   - 参考：Squad beyond「全画面タテ型スワイプ（下部ボタン常時表示）」
+           ＋「ストーリー風（上部の進捗バー）」
+   ========================================================= */
+#slp{display:none}
+
+@media (max-width:767px){
+  html.slp-on,html.slp-on body{height:100%;overflow:hidden!important;overscroll-behavior:none;scroll-snap-type:none!important}
+  html.slp-on body>*:not(#slp){display:none!important}
+  html.slp-on #slp{display:block}
+}
+
+.slp{
+  --r:#E3141B; --ink:#1E1E1E; --tx:#4A4A4A; --mute:#8A8F96;
+  --bg2:#F6F6F6; --pink:#FDEDEC;
+  --hh:58px;            /* ヘッダー高さ */
+  --ch:88px;            /* 下部CTAエリア高さ */
+  --jp:"Zen Kaku Gothic New","Noto Sans JP","Hiragino Kaku Gothic ProN",sans-serif;
+  --en:Lato,"Noto Sans JP",sans-serif;
+  position:fixed;inset:0;z-index:50;background:#fff;color:var(--ink);
+  font-family:"Noto Sans JP","Hiragino Kaku Gothic ProN",sans-serif;
+  -webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%;
+  -webkit-tap-highlight-color:transparent;
+}
+.slp *,.slp *::before,.slp *::after{box-sizing:border-box}
+.slp img{display:block;max-width:100%}
+.slp p,.slp h1,.slp h2,.slp h3,.slp li,.slp small{word-break:auto-phrase}
+.slp a{text-decoration:none}
+
+/* ---------- ヘッダー（進捗バー＋ロゴ＋枚数） ---------- */
+.slp-head{position:absolute;top:0;left:0;right:0;z-index:4;height:var(--hh);
+  background:rgba(255,255,255,.94);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.slp-prog{display:flex;gap:4px;padding:8px 16px 0}
+.slp-prog i{position:relative;flex:1;height:3px;border-radius:3px;background:#E8E8E8;overflow:hidden}
+.slp-prog i::after{content:"";position:absolute;inset:0;background:var(--r);transform:scaleX(0);transform-origin:left;transition:transform .4s ease}
+.slp-prog i.on::after{transform:scaleX(1)}
+.slp-bar{display:flex;align-items:center;justify-content:space-between;height:calc(var(--hh) - 11px);padding:0 16px}
+.slp-logo{display:flex;align-items:center;gap:6px;color:var(--ink)}
+.slp-logo svg{display:block}
+.slp-logo svg:first-child{width:30px;height:30px}
+.slp-logo svg+svg{height:17px;width:auto}
+.slp-count{font:700 11px/1 var(--en);letter-spacing:.12em;color:var(--mute)}
+.slp-count b{font-size:15px;color:var(--ink);letter-spacing:.06em}
+
+/* ---------- スライド本体 ---------- */
+.slp-track{position:absolute;inset:0;overflow-x:hidden;overflow-y:auto;
+  scroll-snap-type:y mandatory;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;scrollbar-width:none;outline:0}
+.slp-track::-webkit-scrollbar{display:none}
+.slp-s{position:relative;height:100%;overflow:hidden;scroll-snap-align:start;scroll-snap-stop:always;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:calc(var(--hh) + 18px) 20px calc(var(--ch) + 10px)}
+.slp-s.alt{background:var(--bg2)}
+.slp-inner{width:100%;max-width:420px;margin:0 auto;transform-origin:top center}
+
+.slp-eb{margin:0 0 8px;text-align:center;font:700 11px/1 var(--en);letter-spacing:.2em;color:var(--r)}
+.slp-h2{margin:0 0 20px;text-align:center;font-family:var(--jp);font-weight:700;font-size:24px;line-height:1.45;letter-spacing:.04em}
+.slp-h2 em,.slp-h1 em,.slp-turn em,.slp-txt em{font-style:normal;color:var(--r)}
+.slp-sub{margin:-10px 0 18px;text-align:center;font-size:12.5px;line-height:1.7;color:var(--tx)}
+.slp-txt{margin:18px 0 0;font-size:14px;line-height:1.9;color:var(--tx)}
+.slp-txt strong{color:var(--ink);white-space:nowrap}
+
+/* 登場アニメーション */
+.slp .a{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .55s cubic-bezier(.2,.7,.2,1);transition-delay:calc(var(--d,0)*70ms)}
+.slp-s.on .a{opacity:1;transform:none}
+
+/* ---------- 01 ファーストビュー ---------- */
+.slp-fv{justify-content:flex-start;padding-top:calc(var(--hh) + 16px);padding-bottom:0}
+.slp-fv .slp-inner{margin:auto}
+.slp-h1{margin:0 0 14px;font-family:var(--jp);font-weight:700;font-size:31px;line-height:1.42;letter-spacing:.04em}
+.slp-lead{margin:0 0 18px;font-size:13px;line-height:1.9;color:var(--tx)}
+.slp-stats{display:flex;align-items:center;gap:14px}
+.slp-stat1{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--pink);border-radius:18px}
+.slp-avs{display:flex}
+.slp-avs img{width:30px;height:30px;border-radius:50%;border:2px solid #fff;background:#fff;object-fit:cover}
+.slp-avs img+img{margin-left:-9px}
+.slp-stat small{display:block;font-size:11px;font-weight:700;line-height:1.3}
+.slp-stat .num{font:900 34px/1 var(--en);color:var(--r);letter-spacing:.01em}
+.slp-stat .unit{font-size:13px;font-weight:700;color:var(--ink);margin-left:2px}
+.slp-stat2{padding-left:14px;border-left:1px solid #E6E6E6}
+.slp-stat2 small{color:var(--mute)}
+.slp-band{position:relative;flex:none;margin:0 -20px;padding:44px 0 calc(var(--ch) + 30px);background:var(--r);
+  clip-path:polygon(0 30px,100% 0,100% 100%,0 100%)}
+.slp-mq{display:flex;flex-direction:column;gap:10px;overflow:hidden}
+.slp-mq-row{display:flex;gap:10px;width:max-content;animation:slpmq 32s linear infinite}
+.slp-mq-row.rev{animation-direction:reverse;margin-left:-60px}
+@keyframes slpmq{to{transform:translateX(-50%)}}
+.slp-chip{display:flex;align-items:center;gap:8px;height:44px;padding:0 14px 0 8px;background:#fff;border-radius:14px;
+  font-size:12px;font-weight:700;color:var(--ink);white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,.12)}
+.slp-chip img{width:28px;height:28px;border-radius:50%;object-fit:cover}
+.slp-chip img.ic{border-radius:8px}
+.slp-hint{position:absolute;left:0;right:0;bottom:calc(var(--ch) + 2px);display:flex;flex-direction:column;align-items:center;gap:4px;
+  color:#fff;font-size:11px;font-weight:700;letter-spacing:.12em}
+.slp-hint i{width:10px;height:10px;border-left:2px solid #fff;border-top:2px solid #fff;transform:rotate(45deg);animation:slphint 1.4s ease-in-out infinite}
+@keyframes slphint{0%,100%{transform:translateY(3px) rotate(45deg);opacity:.5}50%{transform:translateY(-3px) rotate(45deg);opacity:1}}
+
+/* ---------- 02 お悩み ---------- */
+.slp-worry{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.slp-worry li{display:flex;align-items:center;gap:12px;padding:15px 16px;background:#fff;border-radius:16px;font-size:14px;font-weight:700;line-height:1.5}
+.slp-worry li::before{content:"?";flex:none;width:26px;height:26px;border-radius:50%;background:var(--ink);color:#fff;font:900 14px/26px var(--en);text-align:center}
+.slp-turn{margin:20px 0 0;text-align:center;font-family:var(--jp);font-weight:700;font-size:19px;line-height:1.6}
+.slp-turn::before{content:"";display:block;width:0;height:0;margin:0 auto 14px;border-left:13px solid transparent;border-right:13px solid transparent;border-top:13px solid var(--r)}
+
+/* ---------- 03 専属PMがあいだに立つ ---------- */
+.slp-tri{display:flex;align-items:flex-start;justify-content:space-between;margin:4px 0 0}
+.slp-node{flex:none;width:84px;text-align:center;font-size:12px;font-weight:700;line-height:1.4}
+.slp-node .ph{display:grid;place-items:center;width:68px;height:68px;margin:6px auto 8px;border-radius:20px;background:var(--bg2);overflow:hidden}
+.slp-node .ph svg{width:34px;height:34px}
+.slp-node.pm{width:108px;color:var(--r)}
+.slp-node.pm .ph{width:100px;height:100px;margin-top:0;border-radius:28px;background:var(--pink)}
+.slp-node.pm .ph img{width:88px;height:88px;object-fit:contain}
+.slp-node .duo{display:flex}
+.slp-node .duo img{width:38px;height:38px;border-radius:50%;border:2px solid #fff;object-fit:cover}
+.slp-node .duo img+img{margin-left:-12px}
+.slp-link{flex:1;position:relative;height:2px;margin-top:50px;background:repeating-linear-gradient(90deg,var(--r) 0 5px,transparent 5px 9px)}
+.slp-link::before,.slp-link::after{content:"";position:absolute;top:-3px;width:8px;height:8px;border-radius:50%;background:var(--r)}
+.slp-link::before{left:-2px}.slp-link::after{right:-2px}
+
+/* ---------- 04 PMが担当すること ---------- */
+.slp-check{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.slp-check li{display:flex;align-items:center;gap:12px;height:52px;padding:0 18px;background:#fff;border-radius:999px;font-size:14.5px;font-weight:700}
+.slp-check li::before{content:"";flex:none;width:26px;height:26px;border-radius:50%;
+  background:var(--r) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12.5l4.2 4.2L19 7' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/14px no-repeat}
+.slp-pmrow{display:flex;align-items:center;justify-content:center;gap:10px;margin:0 0 16px}
+.slp-pmrow img{width:52px;height:52px;border-radius:16px;background:var(--pink);object-fit:contain}
+
+/* ---------- 05 選ばれる理由 ---------- */
+.slp-rs{display:grid;gap:10px}
+.slp-r{display:flex;align-items:center;gap:14px;padding:16px;background:var(--bg2);border-radius:18px}
+.slp-r .n{flex:none;width:42px;font:900 28px/1 var(--en);color:var(--r)}
+.slp-r h3{margin:0 0 4px;font-family:var(--jp);font-size:15.5px;font-weight:700;line-height:1.45}
+.slp-r p{margin:0;font-size:12px;line-height:1.7;color:var(--tx)}
+.slp-more{display:flex;align-items:center;justify-content:center;gap:6px;margin:16px auto 0;width:max-content;
+  font-size:13px;font-weight:700;color:var(--ink)!important;border-bottom:1.5px solid var(--ink);padding-bottom:2px}
+
+/* ---------- 06 対応範囲 ---------- */
+.slp-sv{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.slp-sv a{display:block;padding:14px 14px 13px;background:#fff;border-radius:18px;color:var(--ink)}
+.slp-sv img{width:44px;height:44px;padding:5px;border-radius:12px;background:var(--pink);object-fit:contain;margin:0 0 10px}
+.slp-sv b{display:block;font-family:var(--jp);font-size:14.5px;font-weight:700;line-height:1.35}
+.slp-sv small{display:block;margin-top:3px;font-size:11px;line-height:1.5;color:var(--mute)}
+
+/* ---------- 07 ご利用の流れ ---------- */
+.slp-flow{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.slp-flow li{display:flex;align-items:center;gap:14px;padding:14px 16px;background:var(--bg2);border-radius:18px}
+.slp-flow .n{flex:none;width:36px;height:36px;border-radius:50%;background:var(--r);color:#fff;font:900 15px/36px var(--en);text-align:center}
+.slp-flow h3{margin:0 0 2px;font-family:var(--jp);font-size:15.5px;font-weight:700}
+.slp-flow p{margin:0;font-size:12px;line-height:1.65;color:var(--tx)}
+.slp-flow li:last-child{background:var(--ink);color:#fff}
+.slp-flow li:last-child .n{background:#fff;color:var(--r)}
+.slp-flow li:last-child p{color:#D5D5D5}
+
+/* ---------- 08 よくある質問 ---------- */
+.slp-faq{display:grid;gap:10px}
+.slp-qa{padding:16px;background:#fff;border-radius:18px}
+.slp-q,.slp-a{display:flex;gap:10px}
+.slp-q{margin:0;font-size:14px;font-weight:700;line-height:1.55}
+.slp-a{margin:10px 0 0;font-size:12.5px;line-height:1.75;color:var(--tx)}
+.slp-q::before,.slp-a::before{flex:none;width:24px;height:24px;border-radius:50%;color:#fff;font:900 12px/24px var(--en);text-align:center}
+.slp-q::before{content:"Q";background:var(--r)}
+.slp-a::before{content:"A";background:var(--ink)}
+
+/* ---------- 09 お問い合わせ ---------- */
+.slp-ct{background:var(--r);color:#fff;text-align:center;padding-bottom:calc(66px + env(safe-area-inset-bottom))}
+.slp-ct::before{content:"";position:absolute;left:0;right:0;top:0;height:calc(var(--hh) + 34px);background:#fff;clip-path:polygon(0 0,100% 0,100% calc(100% - 34px),0 100%)}
+.slp-ct .slp-eb{color:#fff;opacity:.85}
+.slp-ct .slp-h2{font-size:26px;color:#fff}
+.slp-ct .t{margin:0 0 26px;font-size:13px;line-height:1.9}
+.slp-btn{display:flex;align-items:center;justify-content:center;gap:14px;height:62px;border-radius:999px;font-size:17px;font-weight:700;letter-spacing:.06em}
+.slp-btn.w{background:#fff;color:var(--r)!important;box-shadow:0 12px 26px rgba(0,0,0,.18)}
+.slp-btn.w .slp-arr{background:var(--r)}
+.slp-btn.w .slp-arr svg{stroke:#fff}
+.slp-btn.o{height:50px;margin-top:12px;font-size:14px;color:#fff!important;border:1.5px solid rgba(255,255,255,.75)}
+.slp-foot{position:absolute;left:0;right:0;bottom:calc(16px + env(safe-area-inset-bottom));font-size:11px;line-height:1.9;color:rgba(255,255,255,.88)}
+.slp-foot a{color:#fff!important;margin:0 8px;font-weight:700}
+
+/* ---------- 下部CTA（常時表示） ---------- */
+.slp-cta{position:absolute;left:0;right:0;bottom:0;z-index:4;padding:16px 16px calc(12px + env(safe-area-inset-bottom));
+  background:linear-gradient(to top,#fff 58%,rgba(255,255,255,0));transition:transform .35s ease,opacity .35s ease}
+.slp-cta.hide{transform:translateY(110%);opacity:0;pointer-events:none}
+.slp-cta .slp-btn{height:60px;font-size:16px;background:var(--r);color:#fff!important;box-shadow:0 10px 24px rgba(227,20,27,.32)}
+.slp-arr{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:#fff}
+.slp-arr svg{width:16px;height:16px;stroke:var(--r);fill:none;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+
+/* ---------- 低い画面（iPhone SEなど）の詰め ---------- */
+@media (max-height:700px){
+  .slp{--hh:54px;--ch:80px}
+  .slp-s{padding-top:calc(var(--hh) + 12px)}
+  .slp-h2{font-size:22px;margin-bottom:16px}
+  .slp-h1{font-size:28px}
+  .slp-cta .slp-btn{height:54px}
+  .slp-band{padding-top:38px}
+}
+@media (max-height:620px){
+  .slp-lead br{display:none}
+  .slp-mq-row.rev{display:none}
+  .slp-eb{margin-bottom:6px}
+}
+@media (prefers-reduced-motion:reduce){
+  .slp .a{opacity:1;transform:none;transition:none}
+  .slp-mq-row,.slp-hint i{animation:none}
+  .slp-track{scroll-behavior:auto}
+}
