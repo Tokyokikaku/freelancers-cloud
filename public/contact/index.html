@@ -163,6 +163,7 @@ input:user-invalid,select:user-invalid,textarea:user-invalid{border-color:#E3141
       if (!res.ok) throw new Error(String(res.status));
       form.hidden = true;
       done.hidden = false;
+      if (typeof gtag === 'function') gtag('event', 'generate_lead', { lead_type: 'consultation', form_name: 'gaichu-contact' });
       done.focus();
       done.scrollIntoView({ block: 'center', behavior: 'smooth' });
     } catch (err) {
