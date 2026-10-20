@@ -10,6 +10,7 @@ service:
   url: https://apps.apple.com/jp/app/id6818675181
   developerName: Rad
   developerXHandle: kiqdk
+ogImage: ./images/tsuririum-og.jpg
 ---
 
 ## どんなサービス？
@@ -17,6 +18,9 @@ service:
 「TSURIRIUM（つりりうむ）」は、釣った魚を記録すると、その魚が3Dの水槽の中で泳ぎ出す釣果記録アプリです。iPhoneとiPadで使えます。
 
 釣果の記録というと、写真と数字が並んだ一覧になりがちです。TSURIRIUMは記録した魚を水槽に放していくので、釣行を重ねるほど「自分だけの水族館」ができあがっていきます。開発者のRadさんは、2026年10月にXでリリースを告知し、その投稿で「必須項目は、写真・魚名・サイズのみ」と紹介しています。
+
+![TSURIRIUMのApp Storeのページ。「釣った魚が3D水槽で泳ぎ出す」の説明と、アプリの画面](./images/tsuririum-top.jpg)
+*画像：App Store「TSURIRIUM - 釣果記録で作る水槽」（2026年10月20日に取得）*
 
 > **あなたの個人開発サービスも、Yupirで紹介しませんか？**
 > 掲載・PRのご相談は、[お問い合わせページ](https://yupir.tyokikaku.co.jp/contact/#interview)から受け付けています。
@@ -50,7 +54,6 @@ App Storeの説明によると、次のような機能があります。
 - サービス（App Store）: [TSURIRIUM - 釣果記録で作る水槽](https://apps.apple.com/jp/app/id6818675181)
 - 開発者のX: [@kiqdk](https://x.com/kiqdk)
 
-*このサービスはApp Storeで配信されているため、画面の画像は掲載していません。*
 
 > **個人開発のサービスを作った方へ**
 > Yupirで、あなたのサービスも紹介しませんか。掲載・PRのご相談は[お問い合わせページ](https://yupir.tyokikaku.co.jp/contact/#interview)から受け付けています。
