@@ -64,6 +64,45 @@ const ogImage = new URL(image, SITE.url).toString();
     />
     {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
     <script is:inline>document.documentElement.classList.remove('no-js');</script>
+    <!-- Google Analytics 4（本番と同じタグ。2026-10-15 のブランチ claude/dreamy-cerf-rye6yu から main に取り込み） -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-58167SQGHH"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-58167SQGHH');
+    </script>
+    <!-- 記事内のサービスへの外部リンクのクリックを GA4 の service_click で計測する -->
+    <script is:inline>
+      document.addEventListener('click', function (e) {
+        var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+        if (!a) return;
+        var scope = a.closest('[data-article-slug]');
+        if (!scope) return;
+        var areaEl = a.hasAttribute('data-track-area') ? a : a.closest('[data-track-area]');
+        if (!areaEl) return;
+        var u;
+        try { u = new URL(a.href, location.href); } catch (err) { return; }
+        if (!/^https?:$/.test(u.protocol) || u.hostname === location.hostname) return;
+        if (typeof gtag !== 'function') return;
+        gtag('event', 'service_click', {
+          article_slug: scope.getAttribute('data-article-slug'),
+          service_name: scope.getAttribute('data-service-name') || '',
+          link_area: areaEl.getAttribute('data-track-area'),
+          link_domain: u.hostname,
+          link_url: u.href.slice(0, 100),
+          transport_type: 'beacon'
+        });
+      });
+    </script>
+    <!-- Microsoft Clarity -->
+    <script type="text/javascript" is:inline>
+      (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "yxzhlxnqsz");
+    </script>
   </head>
   <body>
     <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-[100] focus:rounded-full focus:bg-white focus:px-4 focus:py-2">本文へスキップ</a>
