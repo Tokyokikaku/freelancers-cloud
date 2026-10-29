@@ -4,7 +4,7 @@
    ========================================================= */
 (function () {
   'use strict';
-  var MQ = '(max-width: 767px)';
+  var MQ = '(max-width: 767px) and (pointer: coarse)';
   var mq = window.matchMedia ? window.matchMedia(MQ) : null;
   var root = document.documentElement;
   var built = false, el, track, slides = [], segs = [], countEl, cta, cur = -1, seen = {};
