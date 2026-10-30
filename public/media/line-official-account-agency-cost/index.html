@@ -296,7 +296,7 @@ h1,h2,h3{word-break:auto-phrase;font-family:"Zen Kaku Gothic New","Noto Sans JP"
   const links = [...document.querySelectorAll('.side .toc a')];
   if (links.length && 'IntersectionObserver' in window) {
     const hs = links.map(a => document.getElementById(a.hash.slice(1))).filter(Boolean);
-    const set = () => { let cur = hs[0; for (const h of hs) if (h.getBoundingClientRect().top < 140) cur = h; links.forEach(a => a.parentElement.classList.toggle('on', a.hash === '#' + cur.id)); };
+    const set = () => { let cur = hs[0]; for (const h of hs) if (h.getBoundingClientRect().top < 140) cur = h; links.forEach(a => a.parentElement.classList.toggle('on', a.hash === '#' + cur.id)); };
     addEventListener('scroll', set, {passive: true}); set();
   }
 })();
