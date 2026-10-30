@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>法人向けClaude研修｜人材開発支援助成金対象｜東京企画</title>
+<meta name="description" content="Claudeの基本操作から、Claude in Chromeによるブラウザ業務の自動化、Claude Codeによる社内システムの開発まで。全15回・30時間のオンライン研修です。人材開発支援助成金（事業展開等リスキリング支援コース）の対象です。">
+<meta property="og:title" content="法人向けClaude研修｜東京企画">
+<meta property="og:description" content="Claude・Claude in Chrome・Claude Codeを実務で使える30時間のオンライン研修。人材開発支援助成金の対象です。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kenshu.tyokikaku.co.jp/">
+<link rel="canonical" href="https://kenshu.tyokikaku.co.jp/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Barlow:wght@600;700;800&display=swap">
+<style>
+/* 参考：SmartHR（smarthr.jp）。ティールの面、極太の見出し、黄色の吹き出しラベル、白いカード＋細い枠、
+   丸いアイコンつきのチェックリスト、事例カードの太字ティール強調、ティールの帯の上に白カードを並べた問い合わせ。
+   淡い色の透けたブロックは使わない（白・ティール・黄色・濃いティールのはっきりした面だけ） */
+:root{color-scheme:light;
+  --sans:"Noto Sans JP","Hiragino Sans","Yu Gothic",sans-serif; --num:"Barlow","Helvetica Neue",Arial,sans-serif;
+  --ink:#23221F; --sub:#5C5A55; --line:#D6DADA; --white:#FFFFFF;
+  --teal:#00A5AB; --teal-deep:#0F7F85; --teal-dark:#005A64; --yellow:#FFEE11;
+}
+*{box-sizing:border-box}
+body{background:var(--white);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.85;margin:0;-webkit-font-smoothing:antialiased}
+h1,h2,h3,p{margin:0}
+h1,h2,h3{text-wrap:balance;line-height:1.4}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--yellow);outline-offset:3px}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--white)}
+.k{display:inline-block}
+header.site{background:var(--white);border-bottom:1px solid var(--line)}
+header.site .wrap{display:flex;align-items:center;gap:20px;padding-block:12px}
+.logo{font-weight:900;text-decoration:none;display:flex;align-items:center;gap:8px;white-space:nowrap;font-size:16px;color:var(--teal-deep)}
+.logo b{display:inline-grid;place-items:center;width:28px;height:28px;background:var(--teal);color:#fff;font-size:13px;border-radius:8px}
+.logo small{font-weight:500;color:var(--sub);font-size:11px;display:block;line-height:1.2}
+.hnav{display:flex;gap:22px;margin-left:auto;font-size:14px;font-weight:700}
+.hnav a{text-decoration:none}
+.hbtns{display:flex;gap:10px}
+.pill{display:inline-flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;font-weight:700;white-space:nowrap;border-radius:64px;padding:10px 20px;font-size:14px;border:2px solid var(--teal-dark);background:var(--teal-dark);color:#fff}
+.pill.line{background:#fff;color:var(--teal-dark)}
+.pill.white{background:#fff;color:var(--ink);border-color:#fff}
+.pill.lg{padding:16px 30px;font-size:16px}
+.arrow{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--teal-dark);color:#fff;font-size:12px;line-height:1}
+.pill:not(.line):not(.white) .arrow{background:#fff;color:var(--teal-dark)}
+@media (max-width:900px){.hnav{display:none}.hbtns{margin-left:auto}.hbtns .line{display:none}}
+.hero{background:linear-gradient(100deg,#0FB5B0 0%,#0A9AA2 55%,#0B8191 100%);color:#fff;padding-block:56px 64px;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:40px;align-items:center}
+.kicker{display:inline-block;font-weight:900;font-size:clamp(16px,2vw,21px);margin-bottom:10px}
+.kicker mark{background:#fff;color:var(--teal-deep);padding:0 8px;margin-left:4px}
+.hero h1{font-size:clamp(40px,6vw,68px);font-weight:900;line-height:1.2;transform:skewX(-6deg);transform-origin:left;text-shadow:0 2px 0 rgba(0,0,0,.08)}
+.hero p{margin-top:20px;font-weight:500;max-width:30em}
+.bub-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:40px}
+.bub{position:relative;display:inline-flex}
+.bub em{position:absolute;left:18px;top:-14px;background:var(--yellow);color:var(--teal-deep);font-style:normal;font-weight:700;font-size:12px;padding:2px 12px;border-radius:64px;white-space:nowrap;z-index:1}
+.panel{background:#fff;border-radius:16px;box-shadow:0 18px 40px rgba(0,50,60,.25);font-size:13px;color:var(--ink);overflow:hidden;min-width:0}
+.panel-top{display:flex;align-items:center;gap:6px;padding:10px 14px;border-bottom:1px solid var(--line)}
+.panel-top i{width:9px;height:9px;border-radius:50%;background:var(--line);display:block}
+.panel-top span{margin-left:8px;font-weight:700}
+.panel table{width:100%;border-collapse:collapse}
+.panel th,.panel td{padding:11px 14px;text-align:left;border-bottom:1px solid #ECEFEF;vertical-align:middle}
+.panel tr:last-child td{border-bottom:0}
+.panel th{font-size:11px;color:var(--sub);font-weight:500}
+.panel .who{font-weight:900;color:var(--teal-deep);white-space:nowrap}
+.tag{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:64px;white-space:nowrap;background:var(--teal);color:#fff}
+.tag.y{background:var(--yellow);color:var(--teal-deep)}
+@media (max-width:900px){.hero .wrap{grid-template-columns:1fr}}
+section{padding-block:88px}
+.h2{text-align:center;font-size:clamp(24px,3.4vw,34px);font-weight:900;margin-bottom:12px}
+.h2-sub{text-align:center;color:var(--sub);font-weight:500;margin-bottom:48px}
+.band{background:var(--teal);color:#fff}
+.band.deep{background:var(--teal-deep)}
+.band .h2,.band .h2-sub{color:#fff}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;color:var(--ink)}
+.calc-card{padding:44px 48px;display:grid;gap:32px}
+.calc-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:48px;align-items:center}
+.zero{display:grid;gap:6px;justify-items:start}
+.zero .label{font-weight:900;font-size:18px}
+.zero .yen{font-family:var(--num);font-weight:800;font-size:clamp(72px,11vw,120px);line-height:.95;color:var(--teal)}
+.zero .yen small{font-family:var(--sans);font-size:.28em;font-weight:900;margin-left:6px}
+.zero p{color:var(--sub);font-size:14px}
+.calc{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.calc th,.calc td{padding:14px 4px;border-bottom:1px solid var(--line);text-align:left}
+.calc td{text-align:right;white-space:nowrap;font-weight:700}
+.calc tr.m td{color:var(--teal-deep)}
+.calc tr.t th,.calc tr.t td{border-bottom:0;border-top:3px solid var(--ink);font-weight:900;font-size:19px}
+.calc tr.t td{color:var(--teal)}
+.scroll{overflow-x:auto}
+.people{width:100%;border-collapse:collapse;min-width:520px;font-variant-numeric:tabular-nums;font-size:14px}
+.people th,.people td{padding:12px 14px;text-align:right;white-space:nowrap;border-bottom:1px solid var(--line)}
+.people th:first-child,.people td:first-child{text-align:left}
+.people thead th{background:var(--teal-deep);color:#fff;font-weight:700}
+.people thead th:first-child{border-radius:10px 0 0 0}.people thead th:last-child{border-radius:0 10px 0 0}
+.people tr.z td{color:var(--teal);font-weight:900;font-size:16px}
+.notes{margin:28px auto 0;max-width:960px;font-size:12.5px;line-height:1.75;padding-left:1.2em;color:#fff}
+.notes li{margin-bottom:3px}
+@media (max-width:860px){.calc-card{padding:28px 20px}.calc-top{grid-template-columns:1fr;gap:20px}}
+.checks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 48px;max-width:960px;margin:0 auto}
+.check{display:grid;grid-template-columns:36px 1fr;gap:14px;align-items:start}
+.check i{width:36px;height:36px;border-radius:50%;background:var(--teal);display:grid;place-items:center}
+.check i::after{content:"";width:12px;height:7px;border-left:3px solid #fff;border-bottom:3px solid #fff;transform:rotate(-45deg) translate(1px,-1px)}
+.check b{display:block;font-size:19px;font-weight:900;color:var(--teal-deep);line-height:1.5}
+.check span{display:block;color:var(--sub);font-size:14px;margin-top:2px}
+@media (max-width:760px){.checks{grid-template-columns:1fr}}
+.feats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.feat{padding:28px 24px;display:grid;gap:14px;align-content:start}
+.feat .tool{justify-self:start}
+.feat h3{font-size:21px;font-weight:900;line-height:1.55}
+.feat h3 strong{color:var(--teal)}
+.feat p{color:var(--sub);font-size:14.5px}
+.feat ul{margin:0;padding:0;list-style:none;display:grid;gap:6px;font-size:14px;font-weight:700}
+.feat li{display:flex;gap:8px;align-items:baseline}
+.feat li::before{content:"";flex:0 0 8px;height:8px;border-radius:50%;background:var(--teal);transform:translateY(-1px)}
+@media (max-width:900px){.feats{grid-template-columns:1fr}}
+.phases{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;align-items:start}
+.phase{overflow:hidden}
+.phase header{background:var(--teal);color:#fff;padding:16px 20px}
+.phase header small{display:block;font-weight:700;font-size:12px}
+.phase header b{font-size:18px;font-weight:900}
+.phase ol{list-style:none;margin:0;padding:8px 20px 16px}
+.phase li{display:grid;grid-template-columns:34px 1fr;gap:12px;padding-block:10px;border-bottom:1px solid var(--line);font-weight:700;font-size:15px;line-height:1.5}
+.phase li:last-child{border-bottom:0}
+.phase li span{width:30px;height:30px;border-radius:50%;border:2px solid var(--teal);color:var(--teal-deep);display:grid;place-items:center;font-family:var(--num);font-size:13px;font-weight:800}
+.phase li small{display:block;color:var(--sub);font-weight:500;font-size:12.5px;margin-top:2px}
+@media (max-width:900px){.phases{grid-template-columns:1fr}}
+.flow{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px;position:relative}
+.flow::before{content:"";position:absolute;left:10%;right:10%;top:60px;height:3px;background:var(--teal)}
+.flow li{display:grid;justify-items:center;text-align:center;gap:10px;position:relative}
+.flow .circle{width:120px;height:120px;border-radius:50%;background:var(--teal);color:#fff;display:grid;place-items:center;align-content:center;font-weight:900;font-size:15px;line-height:1.4;padding:10px;box-shadow:0 0 0 6px #fff}
+.flow .circle small{display:block;font-family:var(--num);font-size:12px;font-weight:700;letter-spacing:.08em}
+.flow .who{font-size:12px;font-weight:700;background:var(--yellow);color:var(--teal-deep);padding:1px 10px;border-radius:64px}
+.flow p{font-size:13.5px;color:var(--sub)}
+.flow .txt{display:grid;gap:6px;justify-items:center}
+@media (max-width:960px){.flow{grid-template-columns:1fr;gap:20px}.flow::before{left:59px;right:auto;top:0;bottom:0;width:3px;height:auto}.flow li{grid-template-columns:120px 1fr;justify-items:start;text-align:left;align-items:center}.flow .txt{justify-items:start}}
+.ways{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.way{padding:28px 24px;display:grid;gap:12px;align-content:start;position:relative}
+.way h3{font-size:19px;font-weight:900;color:var(--teal-deep)}
+.way p{font-size:14.5px;color:var(--sub)}
+.way.rec{border:2px solid var(--teal)}
+.way .badge{position:absolute;top:-13px;left:20px}
+.legal{margin-top:24px;text-align:center;font-size:13px;color:var(--sub)}
+@media (max-width:900px){.ways{grid-template-columns:1fr}}
+.faq{max-width:880px;margin:0 auto;display:grid;gap:12px}
+.faq details{background:#fff;border:1px solid var(--line);border-radius:12px;color:var(--ink)}
+.faq summary{cursor:pointer;list-style:none;padding:18px 52px 18px 20px;font-weight:900;position:relative;display:flex;gap:14px;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .q{flex:0 0 30px;height:30px;border-radius:50%;background:var(--teal);color:#fff;display:grid;place-items:center;font-family:var(--num);font-size:14px}
+.faq summary::after{content:"+";position:absolute;right:20px;top:50%;transform:translateY(-50%);font-size:24px;color:var(--teal);font-weight:700}
+.faq details[open] summary::after{content:"−"}
+.faq p{padding:0 20px 20px 64px;color:var(--sub);font-size:15px}
+.teacher{display:block;max-width:900px;margin:0 auto;padding:32px 36px}
+.face{width:140px;height:140px;border-radius:50%;background:var(--teal);color:#fff;display:grid;place-items:center;font-size:52px;font-weight:900}
+.teacher h3{font-size:24px;font-weight:900}
+.teacher .role{color:var(--teal-deep);font-weight:700;font-size:14px;margin-bottom:10px}
+@media (max-width:640px){.teacher{grid-template-columns:1fr;justify-items:start}}
+.contact-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.cc{padding:24px;display:grid;gap:12px;justify-items:start;align-content:start}
+.cc h3{font-size:18px;font-weight:900;display:flex;gap:10px;align-items:center}
+.cc h3 i{width:30px;height:30px;border-radius:8px;background:var(--teal);color:#fff;display:grid;place-items:center;font-style:normal;font-size:15px}
+.cc p{font-size:14px;color:var(--sub)}
+.mail{font-weight:900;font-size:17px;user-select:all;color:var(--teal-deep)}
+@media (max-width:900px){.contact-cards{grid-template-columns:1fr}}
+.divider{border-top:1px solid var(--line)}
+footer.site{padding-block:28px;font-size:12px;color:var(--sub);border-top:1px solid var(--line)}
+</style>
+
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="logo" href="#top"><b>東</b><span>Claude実践研修<small>by 東京企画</small></span></a>
+  <nav class="hnav" aria-label="ページ内"><a href="#about">研修概要</a><a href="#program">プログラム</a><a href="#free">料金・助成金</a><a href="#flow">申請の流れ</a><a href="#faq">よくある質問</a></nav>
+  <div class="hbtns"><a class="pill line" href="#free">0円になる例</a><a class="pill" href="#contact">無料相談</a></div>
+</div></header>
+
+<section class="hero" id="top"><div class="wrap">
+  <div>
+    <span class="kicker">人材開発支援助成金<mark>対象</mark></span>
+    <h1><span class="k">法人向け</span><br><span class="k">Claude研修</span></h1>
+    <p>Claudeの基本操作から、Claude in Chromeを使ったブラウザ業務の自動化、Claude Codeによる社内システムの開発まで。実務で使えるスキルを、30時間のオンライン研修で習得できます。</p>
+    <div class="bub-row">
+      <span class="bub"><em>受給できれば実質0円！</em><a class="pill white lg" href="#free">0円になる例を見る <span class="arrow">→</span></a></span>
+      <span class="bub"><em>30分・オンライン</em><a class="pill lg" href="#contact">無料相談を申し込む <span class="arrow">→</span></a></span>
+    </div>
+  </div>
+  <div><div class="panel" role="img" aria-label="研修で使えるようになることの一覧">
+    <div class="panel-top"><i></i><i></i><i></i><span>研修で学べること</span></div>
+    <table><thead><tr><th>ツール</th><th>主な内容</th><th>回</th></tr></thead><tbody>
+      <tr><td class="who">Claude</td><td>文書作成、要約、PDF・Excelの読み取り、データ集計</td><td><span class="tag">1〜5</span></td></tr>
+      <tr><td class="who">Claude in Chrome</td><td>情報収集、管理画面への入力など、ブラウザ業務の自動化</td><td><span class="tag">6〜9</span></td></tr>
+      <tr><td class="who">Claude Code</td><td>顧客管理・在庫管理などの社内システムの開発</td><td><span class="tag">10〜13</span></td></tr>
+      <tr><td class="who">実践演習</td><td>自社の業務を題材にした自動化と成果発表</td><td><span class="tag y">14〜15</span></td></tr>
+    </tbody></table>
+  </div></div>
+</div></section>
+
+<section id="about"><div class="wrap">
+  <h2 class="h2">研修概要</h2>
+  <p class="h2-sub">1回2時間・全15回のオンライン研修です。</p>
+  <div class="checks">
+    <div class="check"><i aria-hidden="true"></i><div><b>オンライン開催</b><span>Zoomを使ったリアルタイムの双方向形式で実施します</span></div></div>
+    <div class="check"><i aria-hidden="true"></i><div><b>全15回・計30時間</b><span>受講期間は約2〜3か月。業務時間内に受講いただきます</span></div></div>
+    <div class="check"><i aria-hidden="true"></i><div><b>1社2名から受講可能</b><span>料金と助成金については下記をご覧ください</span></div></div>
+    <div class="check"><i aria-hidden="true"></i><div><b>法人・個人事業主どちらも対象</b><span>クリニック、士業事務所、店舗などでもご利用いただけます</span></div></div>
+    <div class="check"><i aria-hidden="true"></i><div><b>プログラミング経験は不要</b><span>パソコンの基本操作ができれば受講いただけます</span></div></div>
+    <div class="check"><i aria-hidden="true"></i><div><b>実務に直結する内容</b><span>最終回では、自社業務の自動化に取り組み成果を発表します</span></div></div>
+  </div>
+</div></section>
+
+<section class="band"><div class="wrap">
+  <h2 class="h2">本研修の特長</h2>
+  <p class="h2-sub">生成AIの基礎にとどまらず、日々の業務の自動化まで学べます。</p>
+  <div class="feats">
+    <div class="card feat"><span class="tag tool">Claude in Chrome</span><h3>ブラウザ業務を<br><strong>自動化</strong></h3><p>Claude in Chromeを使い、情報収集や管理画面への入力など、ブラウザ上の定型業務を自動化する方法を学びます。</p><ul><li>Webサイトからの情報収集</li><li>管理画面への入力・転記</li><li>定期的な作業の自動実行</li></ul></div>
+    <div class="card feat"><span class="tag tool">Claude Code</span><h3>社内システムを<br><strong>開発</strong></h3><p>Claude Codeを使い、プログラミングの知識がなくても、自社の業務に合った社内システムを開発できるようになります。</p><ul><li>顧客管理・在庫管理などの画面</li><li>スプレッドシートとの連携</li><li>利用者を社内に限定する設定</li></ul></div>
+    <div class="card feat"><span class="tag y tool">実践演習</span><h3>自社の業務で<br><strong>実践</strong></h3><p>受講者ご自身の業務を題材に、自動化に取り組みます。講師が個別にサポートし、最終回で成果を発表します。</p><ul><li>講師による個別サポート</li><li>削減できた作業時間の発表</li><li>社内展開に向けた計画づくり</li></ul></div>
+  </div>
+</div></section>
+
+<section id="program"><div class="wrap">
+  <h2 class="h2">プログラム（全15回・30時間）</h2>
+  <p class="h2-sub">各回2時間、Zoomで実施します。出席状況の記録は、助成金の申請書類としてお渡しします。</p>
+  <div class="phases">
+    <div class="card phase"><header><small>第1〜5回</small><b>Claudeの基本</b></header><ol>
+      <li><span>01</span><div>生成AIとClaudeの基礎<small>できること・できないこと、情報管理のルール</small></div></li>
+      <li><span>02</span><div>プロンプトの基本<small>目的・条件・出力形式の伝え方</small></div></li>
+      <li><span>03</span><div>文書作成と要約<small>議事録、メール、報告書、翻訳</small></div></li>
+      <li><span>04</span><div>ファイル・データの活用<small>PDF・Excelの読み取り、集計、グラフ作成</small></div></li>
+      <li><span>05</span><div>Projectsと外部ツール連携<small>社内資料の活用、Gmail・Googleドライブとの連携</small></div></li>
+    </ol></div>
+    <div class="card phase"><header><small>第6〜13回</small><b>Claude in Chrome／Claude Code</b></header><ol>
+      <li><span>06</span><div>Claude in Chromeの基礎<small>導入と安全に使うための設定</small></div></li>
+      <li><span>07</span><div>情報収集の自動化<small>複数のWebサイトから情報を集めて整理</small></div></li>
+      <li><span>08</span><div>定型業務の自動化<small>管理画面への入力・転記・確認</small></div></li>
+      <li><span>09</span><div>定期実行の設定<small>毎日・毎週の作業を自動で実行</small></div></li>
+      <li><span>10</span><div>Claude Codeの基礎<small>日本語の指示でシステムを開発する</small></div></li>
+      <li><span>11</span><div>社内システム開発①<small>顧客管理・在庫管理などの画面</small></div></li>
+      <li><span>12</span><div>社内システム開発②<small>スプレッドシート連携、利用者の制限</small></div></li>
+      <li><span>13</span><div>セキュリティと運用<small>個人情報の扱い、権限管理、確認体制</small></div></li>
+    </ol></div>
+    <div class="card phase"><header><small>第14〜15回</small><b>実践演習</b></header><ol>
+      <li><span>14</span><div>自社業務の自動化<small>講師による個別サポート</small></div></li>
+      <li><span>15</span><div>成果発表と社内展開<small>削減できた時間と今後の計画</small></div></li>
+    </ol></div>
+  </div>
+</div></section>
+
+<section id="free" class="band deep"><div class="wrap">
+  <h2 class="h2">料金と助成金</h2>
+  <p class="h2-sub">受講料は1名あたり120,000円（税別）です。本研修は厚生労働省の「人材開発支援助成金（事業展開等リスキリング支援コース）」の対象で、中小企業の場合、受講料の75％と、受講時間1時間あたり1,000円の賃金が助成されます。</p>
+  <div class="card calc-card">
+    <div class="calc-top">
+      <div class="zero">
+        <span class="tag y">1名あたりの試算</span>
+        <span class="label">助成金を受給できた場合の実質負担</span>
+        <div class="yen">0<small>円</small></div>
+        <p>中小企業・全30時間を受講した場合。受講人数が増えても、1名あたりの負担は同じです</p>
+      </div>
+      <div class="scroll"><table class="calc"><tbody>
+        <tr><th>受講料（1名・税別）</th><td>120,000円</td></tr>
+        <tr class="m"><th>経費助成（受講料の75％）</th><td>−90,000円</td></tr>
+        <tr class="m"><th>賃金助成（1,000円×30時間）</th><td>−30,000円</td></tr>
+        <tr class="t"><th>実質負担</th><td>0円</td></tr>
+      </tbody></table></div>
+    </div>
+  </div>
+  <ul class="notes">
+    <li>前提：中小企業、受講者全員が雇用保険の被保険者、30時間すべてを所定の勤務時間内に受講し、各人が実訓練時間の8割以上に出席した場合の試算です。</li>
+    <li>助成金の支給には、研修開始の1か月前までの計画届の提出と、労働局の審査があります。支給を保証するものではありません。</li>
+    <li>受講料はいったん全額をお支払いいただき、助成金は研修後の支給申請・支給決定を経て振り込まれます。</li>
+    <li>賃金助成は、研修中に実際に支払った賃金が上限です。受講中の時間も勤務時間として賃金が発生します。</li>
+    <li>事業主・役員ご本人など、雇用保険に入っていない方は助成の対象外です。大企業は助成率が異なります（経費60％・賃金1時間500円）。</li>
+    <li>金額は税別、2026年10月時点の制度にもとづく試算です。制度は2027年3月末までの予定です。Claudeの有料プランの利用料は含みません。</li>
+  </ul>
+</div></section>
+
+<section id="flow" class="divider"><div class="wrap">
+  <h2 class="h2">申請から支給までの流れ</h2>
+  <p class="h2-sub">計画届は、研修開始日の1か月前までに提出する必要があります。</p>
+  <ol class="flow">
+    <li><div class="circle"><small>STEP 1</small>無料相談</div><div class="txt"><span class="who">東京企画</span><p>助成金の対象となるか、研修内容をご確認いただきます</p></div></li>
+    <li><div class="circle"><small>STEP 2</small>計画届の<br>提出</div><div class="txt"><span class="who">お客様・社労士</span><p>研修開始の1か月前までに労働局へ提出。カリキュラム等は当社でご用意します</p></div></li>
+    <li><div class="circle"><small>STEP 3</small>研修<br>（30時間）</div><div class="txt"><span class="who">東京企画</span><p>全15回を実施。出席状況は当社で記録します</p></div></li>
+    <li><div class="circle"><small>STEP 4</small>支払いと<br>支給申請</div><div class="txt"><span class="who">お客様・社労士</span><p>研修終了日の翌日から2か月以内に申請。必要書類は当社でご用意します</p></div></li>
+    <li><div class="circle"><small>STEP 5</small>支給決定</div><div class="txt"><span class="who">労働局</span><p>審査後、助成金が振り込まれます</p></div></li>
+  </ol>
+</div></section>
+
+<section class="divider"><div class="wrap">
+  <h2 class="h2">申請の進め方は3通り</h2>
+  <p class="h2-sub">貴社の状況に合わせてお選びいただけます。</p>
+  <div class="ways">
+    <div class="card way"><h3>自社で申請する</h3><p>社会保険労務士への費用はかかりません。記入例と必要書類をご用意します。</p></div>
+    <div class="card way rec"><span class="tag y badge">手間を減らすなら</span><h3>社労士に依頼する</h3><p>提携の社会保険労務士をご紹介します。社会保険労務士への報酬は別途必要です。</p></div>
+    <div class="card way"><h3>助成金を使わずに受講する</h3><p>申請の手続きは不要です。受講料は1名あたり120,000円（税別）です。</p></div>
+  </div>
+  <p class="legal">※当社は研修実施機関のため、計画届や支給申請の作成・提出を代行することはできません（社会保険労務士法による）。</p>
+</div></section>
+
+<section id="faq" class="band"><div class="wrap">
+  <h2 class="h2">よくある質問</h2>
+  <p class="h2-sub">その他のご質問は、無料相談にてお気軽にお尋ねください。</p>
+  <div class="faq">
+    <details><summary><span class="q">Q</span>個人事業主のクリニックや事務所でも助成金を利用できますか。</summary><p>はい、利用できます。雇用保険の適用事業所で、雇用保険に加入している従業員が受講する場合が対象です。</p></details>
+    <details><summary><span class="q">Q</span>代表者や役員も受講できますか。</summary><p>受講いただけます。ただし、雇用保険に加入していない方は助成金の対象外となります。</p></details>
+    <details><summary><span class="q">Q</span>受講料は実質0円になりますか。</summary><p>中小企業で、受講者全員が雇用保険に加入しており、全30時間を業務時間内に受講し、支給が決定した場合の試算です。受講料はいったん全額お支払いいただき、助成金は後日振り込まれます。要件を満たさない場合は支給されません。</p></details>
+    <details><summary><span class="q">Q</span>Claudeの利用料金は別途かかりますか。</summary><p>Claude in ChromeとClaude Codeを使用するため、受講者ごとにClaudeの有料プランへの加入が必要です。利用料金は助成金の対象外です。</p></details>
+    <details><summary><span class="q">Q</span>プログラミングの経験は必要ですか。</summary><p>必要ありません。Claude Codeは日本語での指示で開発を進められます。</p></details>
+    <details><summary><span class="q">Q</span>何名から申し込めますか。</summary><p>1社2名からお申し込みいただけます。</p></details>
+    <details><summary><span class="q">Q</span>申し込みの期限はありますか。</summary><p>研修開始日の1か月前までに計画届の提出が必要です。本助成金は2027年3月末までの予定のため、お早めにご相談ください。</p></details>
+    <details><summary><span class="q">Q</span>助成金の申請を代行してもらえますか。</summary><p>当社では代行できません。ご自身で申請される場合は記入例をお渡しし、社会保険労務士への依頼をご希望の場合は提携先をご紹介します。</p></details>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <h2 class="h2">講師</h2>
+  
+  <div class="card teacher"><div>
+    <h3>林 駿之介</h3><p class="role">東京企画合同会社 代表</p>
+    <p>Webサイト制作、外注マッチング、メディア運営など複数の事業を運営。記事制作やサイト運用、社内の定型業務をClaude・Claude in Chrome・Claude Codeで自動化し、少人数で事業を運営しています。</p>
+  </div></div>
+</div></section>
+
+<section id="contact" class="band"><div class="wrap">
+  <h2 class="h2">お気軽にお問い合わせください</h2>
+  <p class="h2-sub">Claude研修に関するご相談、お見積もりのご依頼を受け付けています。</p>
+  <div class="contact-cards">
+    <div class="card cc"><h3><i aria-hidden="true">✓</i>無料相談</h3><p>助成金の対象となるか、研修の内容について、オンライン（30分）でご説明します。</p><a class="pill" href="mailto:info@tyokikaku.co.jp?subject=Claude%E7%A0%94%E4%BF%AE%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%EF%BC%88%E7%84%A1%E6%96%99%E7%9B%B8%E8%AB%87%E3%81%AE%E7%94%B3%E3%81%97%E8%BE%BC%E3%81%BF%EF%BC%89">メールで申し込む <span class="arrow">→</span></a></div>
+    <div class="card cc"><h3><i aria-hidden="true">¥</i>お見積もり</h3><p>受講人数に応じた受講料と、助成金を活用した場合の負担額をお見積もりします。</p><a class="pill line" href="#free">料金を見る <span class="arrow">→</span></a></div>
+    <div class="card cc"><h3><i aria-hidden="true">@</i>メールでのお問い合わせ</h3><p>件名に「Claude研修について」とご記入ください。</p><span class="mail">info@tyokikaku.co.jp</span></div>
+  </div>
+</div></section>
+
+<footer class="site"><div class="wrap">東京企画合同会社｜助成金の支給には所定の要件と審査があり、支給を保証するものではありません。制度の内容は2026年10月時点のものです。</div></footer>
+
+</body>
+</html>
