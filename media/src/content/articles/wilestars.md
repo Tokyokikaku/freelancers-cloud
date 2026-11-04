@@ -10,7 +10,7 @@ service:
   url: https://wilestars-jp.pages.dev/try-a-study-book/
   developerName: WILESTARS
   developerXHandle: wilestars_jp
-# TODO(画像は後で追加): サムネイル ogImage は未設定。作品（マンガ・ゲーム）の画像は使えないため、画像なしの自動サムネイルにするか、公開見本ページの画面で作るかを、しゅんが決める。
+ogImage: ./images/wilestars-og.jpg
 ---
 
 ## どんなサービス？
@@ -19,7 +19,8 @@ service:
 
 この記事で紹介するのは、そのうち無料で読める「公開見本」のページです。ページのタイトルは「マナと1問。理由まで、いっしょに。」。有料の会員向けの内容や、販売している学習ブックは、この記事では扱いません。
 
-<!-- TODO(画像は後で追加): 本文用の画像。作品の画像は使わず、必要なら公開見本ページの画面のみ使う。使う場合は直下に「画像：WILESTARS公式サイト（取得日）」と出典を書く。 -->
+![WILESTARSの無料見本の画面。「K-01 荷物の通知」の場面と、A〜Dの4つの選択肢が並ぶ](./images/wilestars-sample.jpg)
+*画像：WILESTARS公式サイト（2026年11月4日に取得）。キャラクターのイラスト部分は除いています*
 
 > **あなたの個人開発サービスも、Yupirで紹介しませんか？**
 > 掲載・PRのご相談は、[お問い合わせページ](https://yupir.tyokikaku.co.jp/contact/#interview)から受け付けています。
