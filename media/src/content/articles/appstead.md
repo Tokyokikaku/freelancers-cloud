@@ -11,7 +11,7 @@ service:
   developerName: Jay
   developerXHandle: SlowBrewedS
   techStack: [iOS]
-# TODO(画像は後で追加): サムネイル ogImage は未設定。プレスキット（https://appstead.app/presskit）のスクリーンショットを使う予定。出典は「画像：Appstead公式サイト プレスキット（取得日）」。
+ogImage: ./images/appstead-og.jpg
 ---
 
 ## どんなサービス？
@@ -20,7 +20,8 @@ service:
 
 App Store Connectを開いて、アプリごとに画面を行き来して数字を確認する手間を減らしたい。そんな個人開発者のための「コンパニオンアプリ」という位置づけです。
 
-<!-- TODO(画像は後で追加): 本文用の画像（アプリの画面）。プレスキットのスクリーンショットを配置し、直下に「画像：Appstead公式サイト プレスキット（取得日）」と出典を書く。 -->
+![Appsteadのデモ画面。左は「Overview」、右は「Trends」で、ダウンロード数や収益の推移が並ぶ](./images/appstead-screens.jpg)
+*画像：Appstead公式サイト プレスキット（2026年11月4日に取得）。© SlowBrewed Labs。プレスキットに掲載のスクリーンショットを、編集目的で使用しています*
 
 > **あなたの個人開発サービスも、Yupirで紹介しませんか？**
 > 掲載・PRのご相談は、[お問い合わせページ](https://yupir.tyokikaku.co.jp/contact/#interview)から受け付けています。
