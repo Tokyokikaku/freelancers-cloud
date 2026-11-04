@@ -83,6 +83,12 @@ section{padding-block:88px}
 .zero .yen{font-family:var(--num);font-weight:800;font-size:clamp(72px,11vw,120px);line-height:.95;color:var(--teal)}
 .zero .yen small{font-family:var(--sans);font-size:.28em;font-weight:900;margin-left:6px}
 .zero p{color:var(--sub);font-size:14px}
+.vs{display:grid;grid-template-columns:auto 1fr;align-items:baseline;column-gap:16px;row-gap:4px;width:100%}
+.vs dt{font-weight:900;font-size:16px}
+.vs dd{margin:0;font-family:var(--num);font-weight:800;font-size:clamp(48px,7vw,72px);line-height:1;color:var(--ink,#111)}
+.vs dd.g{color:var(--teal)}
+.vs dd small{font-family:var(--sans);font-size:.32em;font-weight:900;margin-left:4px}
+.vs .eq{grid-column:1/-1;border-top:3px solid currentColor;margin:6px 0 2px;opacity:.15}
 .calc{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
 .calc th,.calc td{padding:14px 4px;border-bottom:1px solid var(--line);text-align:left}
 .calc td{text-align:right;white-space:nowrap;font-weight:700}
@@ -157,6 +163,32 @@ section{padding-block:88px}
 .teacher h3{font-size:24px;font-weight:900}
 .teacher .role{color:var(--teal-deep);font-weight:700;font-size:14px;margin-bottom:10px}
 @media (max-width:640px){.teacher{grid-template-columns:1fr;justify-items:start}}
+[hidden]{display:none!important}
+.cform{max-width:760px;margin:0 auto;padding:40px;display:grid;grid-template-columns:1fr 1fr;gap:20px 24px}
+.cform .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.cform .f{display:grid;gap:6px}
+.cform .full{grid-column:1/-1}
+.cform label,.cform legend{font-weight:700;font-size:14px}
+.cform label i,.cform legend i{font-style:normal;font-size:11px;font-weight:700;background:var(--teal-dark);color:#fff;border-radius:4px;padding:1px 6px;margin-left:8px;vertical-align:1px}
+.cform label i.opt{background:var(--line);color:var(--sub)}
+.cform input,.cform select,.cform textarea{font:inherit;font-size:16px;border:1px solid var(--line);border-radius:8px;padding:12px 14px;background:#fff;color:var(--ink);width:100%;box-sizing:border-box}
+.cform textarea{resize:vertical;min-height:120px}
+.cform .err{display:none;color:#B42318;font-size:13px}
+.cform .f.bad .err{display:block}
+.cform .f.bad input,.cform .f.bad select,.cform .f.bad textarea{border-color:#B42318}
+.cform .agree{display:flex;gap:10px;align-items:flex-start;font-weight:500;font-size:14px}
+.cform .agree input{width:20px;height:20px;margin-top:4px;flex:none}
+.cform .agree a{color:var(--teal-dark)}
+.cform .foot{grid-column:1/-1;display:grid;gap:10px;justify-items:center;text-align:center}
+.cform button{font:inherit;font-weight:900;font-size:16px;border:0;border-radius:64px;padding:16px 48px;background:var(--teal-dark);color:#fff;cursor:pointer}
+.cform button[disabled]{opacity:.6;cursor:wait}
+.cform .note{font-size:13px;color:var(--sub)}
+.cform .status{font-size:14px;font-weight:700;color:#B42318}
+.cdone{max-width:760px;margin:0 auto;padding:48px 40px;text-align:center;display:grid;gap:12px}
+.cdone h3{font-size:22px;font-weight:900}
+.cdone p{color:var(--sub)}
+.cmail{text-align:center;margin-top:24px;font-size:14px;color:#fff}
+@media (max-width:860px){.cform{grid-template-columns:1fr;padding:28px 20px}}
 .contact-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
 .cc{padding:24px;display:grid;gap:12px;justify-items:start;align-content:start}
 .cc h3{font-size:18px;font-weight:900;display:flex;gap:10px;align-items:center}
@@ -173,7 +205,7 @@ footer.site{padding-block:28px;font-size:12px;color:var(--sub);border-top:1px so
 <header class="site"><div class="wrap">
   <a class="logo" href="#top"><span>Claude実践研修<small>by 東京企画</small></span></a>
   <nav class="hnav" aria-label="ページ内"><a href="#about">研修概要</a><a href="#program">プログラム</a><a href="#free">料金・助成金</a><a href="#flow">申請の流れ</a><a href="#faq">よくある質問</a></nav>
-  <div class="hbtns"><a class="pill line" href="#free">0円になる例</a><a class="pill" href="#contact">無料相談</a></div>
+  <div class="hbtns"><a class="pill line" href="#free">助成額を見る</a><a class="pill" href="#contact">無料相談</a></div>
 </div></header>
 
 <section class="hero" id="top"><div class="wrap">
@@ -182,8 +214,8 @@ footer.site{padding-block:28px;font-size:12px;color:var(--sub);border-top:1px so
     <h1><span class="k">法人向け</span><br><span class="k">Claude研修</span></h1>
     <p>Claudeの基本操作から、Claude in Chromeを使ったブラウザ業務の自動化、Claude Codeによる社内システムの開発まで。実務で使えるスキルを、30時間のオンライン研修で習得できます。</p>
     <div class="bub-row">
-      <span class="bub"><em>受給できれば実質0円！</em><a class="pill white lg" href="#free">0円になる例を見る <span class="arrow">→</span></a></span>
-      <span class="bub"><em>30分・オンライン</em><a class="pill lg" href="#contact">無料相談を申し込む <span class="arrow">→</span></a></span>
+      <span class="bub"><em>最大12万円が助成金で戻ります</em><a class="pill white lg" href="#free">助成額の内訳を見る <span class="arrow">→</span></a></span>
+      <span class="bub"><a class="pill lg" href="#contact">無料相談を申し込む <span class="arrow">→</span></a></span>
     </div>
   </div>
   <div><div class="panel" role="img" aria-label="研修で使えるようになることの一覧">
@@ -262,15 +294,15 @@ footer.site{padding-block:28px;font-size:12px;color:var(--sub);border-top:1px so
     <div class="calc-top">
       <div class="zero">
         <span class="tag y">1名あたりの試算</span>
-        <span class="label">助成金を受給できた場合の実質負担</span>
-        <div class="yen">0<small>円</small></div>
-        <p>中小企業・全30時間を受講した場合。受講人数が増えても、1名あたりの負担は同じです</p>
+        <span class="label">受講料12万円のうち、最大12万円が助成金で戻ります</span>
+        <dl class="vs"><dt>受講料</dt><dd>12<small>万円</small></dd><dt>助成金</dt><dd class="g">12<small>万円</small></dd></dl>
+        <p>中小企業・全30時間を受講し、助成金を受給できた場合の1名あたりの額です。受講人数が増えても、1名あたりの額は同じです</p>
       </div>
       <div class="scroll"><table class="calc"><tbody>
         <tr><th>受講料（1名・税別）</th><td>120,000円</td></tr>
-        <tr class="m"><th>経費助成（受講料の75％）</th><td>−90,000円</td></tr>
-        <tr class="m"><th>賃金助成（1,000円×30時間）</th><td>−30,000円</td></tr>
-        <tr class="t"><th>実質負担</th><td>0円</td></tr>
+        <tr class="m"><th>経費助成（受講料の75％）</th><td>90,000円</td></tr>
+        <tr class="m"><th>賃金助成（1,000円×30時間）</th><td>30,000円</td></tr>
+        <tr class="t"><th>助成額の合計</th><td>120,000円</td></tr>
       </tbody></table></div>
     </div>
   </div>
@@ -313,7 +345,7 @@ footer.site{padding-block:28px;font-size:12px;color:var(--sub);border-top:1px so
   <div class="faq">
     <details><summary><span class="q">Q</span>個人事業主のクリニックや事務所でも助成金を利用できますか。</summary><p>はい、利用できます。雇用保険の適用事業所で、雇用保険に加入している従業員が受講する場合が対象です。</p></details>
     <details><summary><span class="q">Q</span>代表者や役員も受講できますか。</summary><p>受講いただけます。ただし、雇用保険に加入していない方は助成金の対象外となります。</p></details>
-    <details><summary><span class="q">Q</span>受講料は実質0円になりますか。</summary><p>中小企業で、受講者全員が雇用保険に加入しており、全30時間を業務時間内に受講し、支給が決定した場合の試算です。受講料はいったん全額お支払いいただき、助成金は後日振り込まれます。要件を満たさない場合は支給されません。</p></details>
+    <details><summary><span class="q">Q</span>助成金はいくら受け取れますか。</summary><p>中小企業で、受講者全員が雇用保険に加入しており、全30時間を業務時間内に受講し、支給が決定した場合、1名あたり最大120,000円（経費助成90,000円＋賃金助成30,000円）の試算です。受講料はいったん全額お支払いいただき、助成金は後日振り込まれます。要件を満たさない場合は支給されません。</p></details>
     <details><summary><span class="q">Q</span>Claudeの利用料金は別途かかりますか。</summary><p>Claude in ChromeとClaude Codeを使用するため、受講者ごとにClaudeの有料プランへの加入が必要です。利用料金は助成金の対象外です。</p></details>
     <details><summary><span class="q">Q</span>プログラミングの経験は必要ですか。</summary><p>必要ありません。Claude Codeは日本語での指示で開発を進められます。</p></details>
     <details><summary><span class="q">Q</span>何名から申し込めますか。</summary><p>1社2名からお申し込みいただけます。</p></details>
@@ -332,16 +364,34 @@ footer.site{padding-block:28px;font-size:12px;color:var(--sub);border-top:1px so
 </div></section>
 
 <section id="contact" class="band"><div class="wrap">
-  <h2 class="h2">お気軽にお問い合わせください</h2>
-  <p class="h2-sub">Claude研修に関するご相談、お見積もりのご依頼を受け付けています。</p>
-  <div class="contact-cards">
-    <div class="card cc"><h3><i aria-hidden="true">✓</i>無料相談</h3><p>助成金の対象となるか、研修の内容について、オンライン（30分）でご説明します。</p><a class="pill" href="mailto:info@tyokikaku.co.jp?subject=Claude%E7%A0%94%E4%BF%AE%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%EF%BC%88%E7%84%A1%E6%96%99%E7%9B%B8%E8%AB%87%E3%81%AE%E7%94%B3%E3%81%97%E8%BE%BC%E3%81%BF%EF%BC%89">メールで申し込む <span class="arrow">→</span></a></div>
-    <div class="card cc"><h3><i aria-hidden="true">¥</i>お見積もり</h3><p>受講人数に応じた受講料と、助成金を活用した場合の負担額をお見積もりします。</p><a class="pill line" href="#free">料金を見る <span class="arrow">→</span></a></div>
-    <div class="card cc"><h3><i aria-hidden="true">@</i>メールでのお問い合わせ</h3><p>件名に「Claude研修について」とご記入ください。</p><span class="mail">info@tyokikaku.co.jp</span></div>
-  </div>
+  <h2 class="h2">無料相談のお申し込み</h2>
+  <p class="h2-sub">助成金の対象となるか、研修の内容について、オンラインでご説明します。下記のフォームからお申し込みください。</p>
+  <form class="card cform" id="consult-form" name="kenshu-consultation" action="https://script.google.com/macros/s/AKfycbwf6MnP7SKieTlp2G1tsapQOWX7b42KKKtotm6lKBhbAPPIG76GKGQgoh3FubeltvtQ/exec" method="POST" novalidate>
+    <input type="hidden" name="form-name" value="kenshu-consultation">
+    <p class="hp" aria-hidden="true"><label>この欄は入力しないでください<input name="company_url" tabindex="-1" autocomplete="off"></label></p>
+    <div class="f full"><label for="f-company">会社名<i>必須</i></label><input id="f-company" name="company" type="text" autocomplete="organization" placeholder="東京企画合同会社" required><p class="err">会社名を入力してください。</p></div>
+    <div class="f"><label for="f-name">お名前<i>必須</i></label><input id="f-name" name="name" type="text" autocomplete="name" placeholder="山田 太郎" required><p class="err">お名前を入力してください。</p></div>
+    <div class="f"><label for="f-email">メールアドレス<i>必須</i></label><input id="f-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="example@company.co.jp" required><p class="err">メールアドレスを正しく入力してください。</p></div>
+    <div class="f"><label for="f-tel">電話番号<i class="opt">任意</i></label><input id="f-tel" name="tel" type="tel" autocomplete="tel" inputmode="tel" placeholder="03-0000-0000"></div>
+    <div class="f"><label for="f-size">受講を検討している人数<i>必須</i></label><select id="f-size" name="headcount" required><option value="">選択してください</option><option>2〜4名</option><option>5〜9名</option><option>10名以上</option><option>未定</option></select><p class="err">人数を選んでください。</p></div>
+    <div class="f full"><label for="f-msg">ご相談内容<i class="opt">任意</i></label><textarea id="f-msg" name="message" rows="5" placeholder="AIに任せたい業務、研修の希望時期、ご質問など"></textarea></div>
+    <div class="f full"><label class="agree" for="f-agree"><input id="f-agree" type="checkbox" name="privacy_agree" value="同意する" required><span><a href="/privacy/" target="_blank" rel="noopener">プライバシーポリシー</a>に同意する</span></label><p class="err">プライバシーポリシーへの同意が必要です。</p></div>
+    <div class="foot"><button type="submit">無料相談を申し込む</button><p class="note">お申し込み内容を確認のうえ、担当者よりメールでご連絡します。</p><p class="status" role="status" aria-live="polite"></p></div>
+  </form>
+  <div class="card cdone" id="consult-done" hidden><h3>お申し込みありがとうございました</h3><p>内容を確認のうえ、担当者よりメールでご連絡します。</p></div>
+  <p class="cmail">メールでのお問い合わせ：info@tyokikaku.co.jp</p>
 </div></section>
 
 <footer class="site"><div class="wrap">東京企画合同会社｜助成金の支給には所定の要件と審査があり、支給を保証するものではありません。制度の内容は2026年10月時点のものです。</div></footer>
 
+<script>
+(function(){var f=document.getElementById('consult-form');if(!f)return;
+f.addEventListener('submit',function(e){e.preventDefault();var ok=true,first=null;
+f.querySelectorAll('[required]').forEach(function(el){var w=el.closest('.f');var v=el.type==='checkbox'?el.checked:(el.value||'').trim()!=='';if(v&&el.type==='email')v=/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(el.value.trim());if(w)w.classList.toggle('bad',!v);if(!v){ok=false;first=first||el;}});
+if(!ok){first.focus();return;}
+var b=f.querySelector('button'),s=f.querySelector('.status');b.disabled=true;s.textContent='';
+fetch(f.action,{method:'POST',mode:'no-cors',body:new URLSearchParams(new FormData(f))}).then(function(){f.hidden=true;var d=document.getElementById('consult-done');d.hidden=false;d.scrollIntoView({block:'center'});}).catch(function(){b.disabled=false;s.textContent='送信できませんでした。時間をおいて再度お試しいただくか、info@tyokikaku.co.jp までご連絡ください。';});});
+})();
+</script>
 </body>
 </html>
