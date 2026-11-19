@@ -38,3 +38,41 @@
   if (desktop.addEventListener) desktop.addEventListener('change', onChange);
   else desktop.addListener(onChange);
 })();
+
+// お問い合わせフォームの送信（/api/contact）
+(() => {
+  const form = document.getElementById('contact-form');
+  const status = document.getElementById('form-status');
+  if (!form || !status) return;
+  const button = form.querySelector('button[type="submit"]');
+
+  const show = (text, isError) => {
+    status.textContent = text;
+    status.classList.toggle('is-error', Boolean(isError));
+  };
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+    button.disabled = true;
+    show('送信中…');
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(Object.fromEntries(new FormData(form))),
+      });
+      const result = await res.json().catch(() => ({}));
+      if (!res.ok || !result.ok) throw new Error(result.error || '送信に失敗しました。');
+      form.reset();
+      show('送信しました。担当者より折り返しご連絡します。');
+    } catch (e) {
+      show(e.message || '送信に失敗しました。', true);
+    } finally {
+      button.disabled = false;
+    }
+  });
+})();
