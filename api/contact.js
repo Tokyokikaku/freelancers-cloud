@@ -83,5 +83,55 @@ module.exports = async (req, res) => {
     return res.status(502).json({ error: 'send_failed' });
   }
 
+  // 送ってきた人への自動返信（2026-11-19 追加。返信の目安は3営業日以内）。失敗しても受付は成功のまま
+  try {
+    const reply = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        from,
+        to: [values.email],
+        reply_to: process.env.CONTACT_TO || DEFAULT_TO,
+        subject: '【自動返信】外注ドットコムへのお問い合わせありがとうございます',
+        text: autoReplyText(values),
+      }),
+    });
+    if (!reply.ok) console.error('Auto-reply error', reply.status, await reply.text());
+  } catch (error) {
+    console.error('Auto-reply request failed', error);
+  }
+
   return res.status(200).json({ ok: true });
 };
+
+// 自動返信の本文。お問い合わせの本文は載せない（他人あての迷惑メールに使われるのを防ぐ）
+function autoReplyText(values) {
+  // 宛名：URLらしきものや長すぎる名前は使わない
+  let name = values.name;
+  if (!name || name.length > 30 || /https?:|www\.|\.[a-z]{2,}\/|[<>@]/i.test(name)) name = 'お客';
+  const at = new Intl.DateTimeFormat('ja-JP', {
+    timeZone: 'Asia/Tokyo', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit',
+  }).format(new Date());
+  return [
+    `${name}様`,
+    '',
+    'このたびは、外注ドットコムへのお問い合わせをいただき、ありがとうございます。',
+    '以下の内容で受け付けました。',
+    '',
+    `受付日時：${at}`,
+    '受付窓口：外注ドットコム',
+    '',
+    '内容を確認のうえ、3営業日以内に担当者よりご連絡いたします。',
+    '3営業日を過ぎても連絡がない場合は、お手数ですが、このメールにご返信ください。',
+    '',
+    '※このメールは、受付の確認のため自動でお送りしています。',
+    '※お心当たりのない場合は、恐れ入りますが本メールを破棄してください。',
+    '',
+    '────────────────',
+    '東京企画合同会社',
+    '〒106-0032 東京都港区六本木3-16-12 六本木KSビル5F',
+    'https://gaichu.tyokikaku.co.jp/',
+    'info@tyokikaku.co.jp',
+    '────────────────',
+  ].join('\n');
+}
